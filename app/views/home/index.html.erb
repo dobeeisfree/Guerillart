@@ -1,1710 +1,473 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Cyrus Studio</title>
 
-<!--[if lt IE 9]>
+<!-- Google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 
-<html lang="ko"
-      
-      xmlns:fb="http://ogp.me/ns/fb#"
-      class="ie">
+<!-- font awesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-<![endif]-->
+<!-- bootstrap -->
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 
-<!--[if IE 9]>
+<!-- animate.css -->
+<link rel="stylesheet" href="assets/animate/animate.css" />
+<link rel="stylesheet" href="assets/animate/set.css" />
 
-  <html lang="ko"
-      
-      xmlns:fb="http://ogp.me/ns/fb#"
-      class="ie ie9">
+<!-- gallery -->
+<link rel="stylesheet" href="assets/gallery/blueimp-gallery.min.css">
 
-<![endif]-->
+<!-- favicon -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="ko"
-      
-      xmlns:fb="http://ogp.me/ns/fb#">
 
-<!--<![endif]-->
+<link rel="stylesheet" href="assets/style.css">
 
-  <head>
-    <script>
+</head>
 
-      var sherlock_firstbyte = Number(new Date());
-</script>
-    
+<body>
+<div class="topbar animated fadeInLeftBig"></div>
 
+<!-- Header Starts -->
+<div class="navbar-wrapper">
+      <div class="container">
 
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="top-nav">
+          <div class="container">
+            <div class="navbar-header">
+              <!-- Logo Starts -->
+              <a class="navbar-brand" href="#home"><img src="images/logo.png" alt="logo"></a>
+              <!-- #Logo Ends -->
 
-    <!--[if IE]><![endif]-->
-    <meta charset="utf-8">
 
-    <link href="https://a0.muscache.com/airbnb/static/packages/common_o2.1-a84974472c42fae5975aa033f9cf6fde.css" media="all" rel="stylesheet" type="text/css" />
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
 
-    <link href="https://a0.muscache.com/airbnb/static/p1/main-7cf65482d6dd1867ab1cc020e73891d6.css" media="screen" rel="stylesheet" type="text/css" />
-    
-
-    <meta id="csrf-param-meta-tag" name="csrf-param" content="authenticity_token"/>
-    <meta id="csrf-token-meta-tag" name="csrf-token" content=""/>
-
-
-    <title>게릴라트</title>
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-      <link rel="canonical" href="https://www.airbnb.co.kr/">
-          <link rel="alternate" href="https://es.airbnb.com/" hreflang="es">
-          <link rel="alternate" href="https://fr.airbnb.be/" hreflang="fr-BE">
-          <link rel="alternate" href="https://fr.airbnb.ca/" hreflang="fr-CA">
-          <link rel="alternate" href="https://fr.airbnb.ch/" hreflang="fr-CH">
-          <link rel="alternate" href="https://it.airbnb.ch/" hreflang="it-CH">
-          <link rel="alternate" href="https://th.airbnb.com/" hreflang="th">
-          <link rel="alternate" href="https://www.airbnb.at/" hreflang="de-AT">
-          <link rel="alternate" href="https://www.airbnb.be/" hreflang="nl-BE">
-          <link rel="alternate" href="https://www.airbnb.ca/" hreflang="en-CA">
-          <link rel="alternate" href="https://www.airbnb.cat/" hreflang="ca">
-          <link rel="alternate" href="https://www.airbnb.ch/" hreflang="de-CH">
-          <link rel="alternate" href="https://www.airbnb.cl/" hreflang="es-CL">
-          <link rel="alternate" href="https://www.airbnb.co.cr/" hreflang="es-CR">
-          <link rel="alternate" href="https://www.airbnb.co.id/" hreflang="id">
-          <link rel="alternate" href="https://www.airbnb.co.in/" hreflang="en-IN">
-          <link rel="alternate" href="https://www.airbnb.co.kr/" hreflang="ko">
-          <link rel="alternate" href="https://www.airbnb.co.nz/" hreflang="en-NZ">
-          <link rel="alternate" href="https://www.airbnb.co.uk/" hreflang="en-GB">
-          <link rel="alternate" href="https://www.airbnb.co.ve/" hreflang="es-VE">
-          <link rel="alternate" href="https://www.airbnb.com/" hreflang="en">
-          <link rel="alternate" href="https://www.airbnb.com.ar/" hreflang="es-AR">
-          <link rel="alternate" href="https://www.airbnb.com.au/" hreflang="en-AU">
-          <link rel="alternate" href="https://www.airbnb.com.bo/" hreflang="es-BO">
-          <link rel="alternate" href="https://www.airbnb.com.br/" hreflang="pt">
-          <link rel="alternate" href="https://www.airbnb.com.bz/" hreflang="es-BZ">
-          <link rel="alternate" href="https://www.airbnb.com.co/" hreflang="es-CO">
-          <link rel="alternate" href="https://www.airbnb.com.ec/" hreflang="es-EC">
-          <link rel="alternate" href="https://www.airbnb.com.gt/" hreflang="es-GT">
-          <link rel="alternate" href="https://www.airbnb.com.hk/" hreflang="zh-HK">
-          <link rel="alternate" href="https://www.airbnb.com.hn/" hreflang="es-HN">
-          <link rel="alternate" href="https://www.airbnb.com.mt/" hreflang="en-MT">
-          <link rel="alternate" href="https://www.airbnb.com.my/" hreflang="ms">
-          <link rel="alternate" href="https://www.airbnb.com.ni/" hreflang="es-NI">
-          <link rel="alternate" href="https://www.airbnb.com.pa/" hreflang="es-PA">
-          <link rel="alternate" href="https://www.airbnb.com.pe/" hreflang="es-PE">
-          <link rel="alternate" href="https://www.airbnb.com.py/" hreflang="es-PY">
-          <link rel="alternate" href="https://www.airbnb.com.sg/" hreflang="en-SG">
-          <link rel="alternate" href="https://www.airbnb.com.sv/" hreflang="es-SV">
-          <link rel="alternate" href="https://www.airbnb.com.tr/" hreflang="tr">
-          <link rel="alternate" href="https://www.airbnb.com.tw/" hreflang="zh-TW">
-          <link rel="alternate" href="https://www.airbnb.cz/" hreflang="cs">
-          <link rel="alternate" href="https://www.airbnb.de/" hreflang="de">
-          <link rel="alternate" href="https://www.airbnb.dk/" hreflang="da">
-          <link rel="alternate" href="https://www.airbnb.es/" hreflang="es-ES">
-          <link rel="alternate" href="https://www.airbnb.fi/" hreflang="fi">
-          <link rel="alternate" href="https://www.airbnb.fr/" hreflang="fr">
-          <link rel="alternate" href="https://www.airbnb.gr/" hreflang="el">
-          <link rel="alternate" href="https://www.airbnb.gy/" hreflang="en-GY">
-          <link rel="alternate" href="https://www.airbnb.hu/" hreflang="hu">
-          <link rel="alternate" href="https://www.airbnb.ie/" hreflang="en-IE">
-          <link rel="alternate" href="https://www.airbnb.is/" hreflang="is">
-          <link rel="alternate" href="https://www.airbnb.it/" hreflang="it">
-          <link rel="alternate" href="https://www.airbnb.jp/" hreflang="ja">
-          <link rel="alternate" href="https://www.airbnb.mx/" hreflang="es-MX">
-          <link rel="alternate" href="https://www.airbnb.nl/" hreflang="nl">
-          <link rel="alternate" href="https://www.airbnb.no/" hreflang="no">
-          <link rel="alternate" href="https://www.airbnb.pl/" hreflang="pl">
-          <link rel="alternate" href="https://www.airbnb.pt/" hreflang="pt-PT">
-          <link rel="alternate" href="https://www.airbnb.ru/" hreflang="ru">
-          <link rel="alternate" href="https://www.airbnb.se/" hreflang="sv">
-          <link rel="alternate" href="https://zh.airbnb.com/" hreflang="zh">
-
-      <link rel="alternate" href="android-app://com.airbnb.android/airbnb/home">
-
-      <meta name="description" content="191개 국가의 놀랍고 독특한 숙박 시설을 찾아보세요. 에어비앤비를 통해 전 세계 어디를 가도 내집처럼 느끼실 수 있습니다.">
-
-
-
-
-      <meta property="fb:app_id" content="138566025676">
-      <meta property="og:site_name" content="Airbnb">
-      <meta property="og:type" content="website">
-      <meta property="og:url" content="https://www.airbnb.co.kr/">
-      <meta property="og:title" content="에어비앤비 (Airbnb) – 어디서나 우리집처럼 편안하게">
-      <meta property="og:description" content="191개 국가의 놀랍고 독특한 숙박 시설을 찾아보세요. 에어비앤비를 통해 전 세계 어디를 가도 내집처럼 느끼실 수 있습니다.">
-      <meta property="og:image" content="https://a2.muscache.com/airbnb/static/logos/belo-1200x630-a0d52af6aba9463c82017da13912f19f.png">
-      <meta property="og:locale" content="ko_KR">
-
-    <meta name="twitter:widgets:csp" content="on">
-
-        <meta name="twitter:url" content="https://www.airbnb.co.kr/">
-        <meta name="twitter:description" content="191개 국가의 놀랍고 독특한 숙박 시설을 찾아보세요. 에어비앤비를 통해 전 세계 어디를 가도 내집처럼 느끼실 수 있습니다.">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="에어비앤비 (Airbnb) – 어디서나 우리집처럼 편안하게">
-        <meta name="twitter:site" content="@airbnb">
-        <meta name="twitter:app:name:iphone" content="Airbnb">
-        <meta name="twitter:app:name:ipad" content="Airbnb">
-        <meta name="twitter:app:name:googleplay" content="Airbnb">
-        <meta name="twitter:app:id:iphone" content="401626263">
-        <meta name="twitter:app:id:ipad" content="401626263">
-        <meta name="twitter:app:id:googleplay" content="com.airbnb.android">
-        <meta name="twitter:app:url:iphone" content="airbnb://">
-        <meta name="twitter:app:url:ipad" content="airbnb://">
-        <meta name="twitter:app:url:googleplay" content="airbnb://">
-
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="image_src" href="https://a2.muscache.com/airbnb/static/logos/belo-200x200-4d851c5b28f61931bf1df28dd15e60ef.png">
-    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Airbnb">
-
-    <!--[if lte IE 9]>
-      <script src="https://a1.muscache.com/airbnb/static/packages/libs_ie_support.bundle-5e03dd9df0bd1fd0fd92.js" type="text/javascript"></script>
-      <link href="https://a0.muscache.com/airbnb/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
-      <link href="/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
-      <script src="/respond.proxy.js?cb=1"></script>
-    <![endif]-->
-
-    <meta name="mobile-web-app-capable" content="yes">
-
-    <meta name="theme-color" content="#f5f5f5">
-
-    <link rel="apple-touch-icon" href="https://a0.muscache.com/airbnb/static/icons/apple-touch-icon-76x76-3b313d93b1b5823293524b9764352ac9.png" />
-<link rel="apple-touch-icon" sizes="76x76" href="https://a0.muscache.com/airbnb/static/icons/apple-touch-icon-76x76-3b313d93b1b5823293524b9764352ac9.png" />
-<link rel="apple-touch-icon" sizes="120x120" href="https://a1.muscache.com/airbnb/static/icons/apple-touch-icon-120x120-52b1adb4fe3a8f825fc4b143de12ea4b.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://a0.muscache.com/airbnb/static/icons/apple-touch-icon-152x152-7b7c6444b63d8b6ebad9dae7169e5ed6.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://a2.muscache.com/airbnb/static/icons/apple-touch-icon-180x180-bcbe0e3960cd084eb8eaf1353cf3c730.png" />
-<link rel="icon" sizes="192x192" href="https://a1.muscache.com/airbnb/static/icons/android-icon-192x192-c0465f9f0380893768972a31a614b670.png" />
-<link rel="shortcut icon" sizes="76x76" type="image/x-icon" href="https://a1.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico" />
-
-
-  </head>
-  <body class="with-new-header home_view v2 simple-header p1">
-    <a class="screen-reader-only screen-reader-only-focusable skip-to-content"
-       data-hook="skip-to-content"
-       tabindex="1"
-       href="#site-content">
-      콘텐츠로 바로가기
-    </a>
-
-    <span class="screen-reader-only">
-      에어비앤비
-    </span>
-
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-46MK"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-
-
-
-      <div class="smart-banner" aria-hidden="true" role="banner">
-  <a href="#" class="icon icon-remove icon-size-1 pull-left link-reset banner-close">
-    <span class="screen-reader-only">
-      닫기
-    </span>
-  </a>
-  <a href="#"
-     class="pull-left app-icon install-link action-link">
-    <span class="screen-reader-only">
-      설치
-    </span>
-  </a>
-  <div class="banner-content">
-    <div class="banner-title space-top-sm-1 space-top-3">
-      <strong class="icon-dark-gray ios-item">
-        iOS용 에어비앤비
-      </strong>
-      <strong class="icon-dark-gray android-item hide">
-        안드로이드용 에어비앤비
-      </strong>
-      <br class="android-item hide">
-      <br class="ios-item hide-sm">
-      <div class="star-rating">
-        <i class="icon icon-beach icon-star"></i>
-        <i class="icon icon-beach icon-star"></i>
-        <i class="icon icon-beach icon-star"></i>
-        <i class="icon icon-beach icon-star"></i>
-        <i class="icon icon-star icon-light-gray"></i>
-      </div>
-      <small class="banner-reviews icon-gray ios-item">(6,761)</small>
-      <small class="banner-reviews icon-gray android-item hide">(87,782)</small>
-    </div>
-    <div class="banner-buttons text-right space-top-sm-2 space-top-4">
-      <a class="link-reset btn btn-primary btn-small banner-button install-link action-link"
-         href="#">
-        설치
-      </a>
-      <a class="btn btn-small banner-button open-in-app-button action-link"
-         href="airbnb://">
-        앱에서 열기
-      </a>
-    </div>
-  </div>
-</div>
-
-
-      <div
-  id="header"
-  class="airbnb-header new  "
->
-  <header class="header--sm show-sm" aria-hidden="true" role="banner">
-  <a href="#"
-     aria-label="홈페이지"
-     data-prevent-default
-     class="link-reset burger--sm">
-    <i class="icon icon-reorder icon-rausch"></i>
-    <span class="screen-reader-only">
-      에어비앤비
-    </span>
-  </a>
-  <div class="title--sm text-center">
-      <a href="/" class="header-belo">
-        <span class="screen-reader-only">
-          에어비앤비
-        </span>
-      </a>
-  </div>
-  <div class="action--sm"></div>
-  <nav class="nav--sm" role="navigation"></nav>
-  <div class="search-modal-container"></div>
-</header>
-
-
-  <div class="regular-header regular-header--new clearfix hide-sm" id="new-header">
-
-    
-<div class="comp pull-left">
-  <a
-    href="/"
-    class="hdr-btn link-reset belo-container"
-    aria-label="에어비앤비"
-  >
-    <i class="icon icon-pos--lower icon-white icon-airbnb-alt h2 show-login"></i>
-    <i class="icon icon-pos--lower icon-white icon-airbnb show-logout"></i>
-  </a>
-</div>
-
-
-      
-
-    
-<div class="comp pull-right show-login">
-  <a class="no-crawl hdr-btn link-reset header-avatar-trigger needsclick"
-     rel="nofollow"
-     href="#"
-     data-href="/dashboard"
-     data-href-host="/trips">
-    <span class="value_name margin-right--tiny hide-md"></span>
-    <div class="media-photo media-round user-profile-image header-icon icon-profile-alt-white"></div>
-  </a>
-
-  <div class="panel tooltip-top-right drop-down-menu avatar-tooltip--new">
-    <div class="panel-header no-border hide-lg">
-      <strong><span class="value_name"></span></strong>
-    </div>
-        <a href="#" class="js-your-trips-item panel-body link-reset hover-item no-crawl" data-href="/trips">
-          <div class="hover-item__content">여행 목록</div>
-</a>        <a href="#" class="js-wishlists-item panel-body link-reset hover-item no-crawl" data-href="/wishlists/my">
-          <div class="hover-item__content">위시리스트</div>
-</a>        <a href="#" class=" panel-body link-reset hover-item no-crawl" data-href="/users/edit">
-          <div class="hover-item__content">프로필 수정</div>
-</a>        <a href="/invite?r=3" class=" panel-body link-reset hover-item">
-          <div class="hover-item__content">여행 크레딧</div>
-</a>        <a href="#" class=" panel-body link-reset hover-item no-crawl" data-href="/users/notifications">
-          <div class="hover-item__content">계정 관리</div>
-</a>        <a href="/business-travel?s=nav" class="business-travel  panel-body link-reset hover-item">
-          <div class="hover-item__content">출장 프로그램</div>
-</a>        <a href="/things-to-do/" class="js-guidebook-item panel-body link-reset hover-item">
-          <div class="hover-item__content">나의 가이드북</div>
-</a>        <a href="#" class=" panel-body link-reset hover-item no-crawl" data-href="/logout">
-          <div class="hover-item__content">로그아웃</div>
-</a>  </div>
-</div>
-
-
-    <div class="comp pull-right show-logout">
-  <a data-login-modal=""
-     href="/login"
-     data-redirect="redirect_params[action]=show&amp;redirect_params[controller]=homepages"
-     class="hdr-btn link-reset">
-    로그인
-  </a>
-</div>
-<div class="comp pull-right show-logout">
-  <a data-signup-modal="" data-header-view="true"
-     href="/signup_login"
-     data-redirect="redirect_params[action]=show&amp;redirect_params[controller]=homepages"
-     class="hdr-btn link-reset">
-    회원가입
-  </a>
-</div>
-
-
-    
-<div id="js-header-help-menu">
-  <div class="comp pull-right help-trigger-wrapper no-border  ">
-    <a class="hdr-btn js-help-toggle link-reset needsclick"
-       href="/help">
-      <span class="margin-right--tiny hide-md">도움말</span>
-      <i class="header-icon icon-lifesaver-alt-white"></i>
-    </a>
-  </div>
-</div>
-
-
-    
-<div class="comp pull-right show-login">
-  <a class="needsclick no-crawl hdr-btn link-reset js-inbox-comp text-white"
-     href="#"
-     data-href="/inbox"
-     rel="nofollow">
-    <div class="inbox-icon-container text-center">
-      <span class="margin-right--tiny hide-md">메시지</span>
-      <i class="header-icon message-icon icon-message-white">
-        <i class="alert-count unread-count text-center fade">0</i>
-      </i>
-    </div>
-  </a>
-
-  <div class="panel tooltip-top-right drop-down-menu notifications-dropdown hide">
-  </div>
-</div>
-
-
-    
-<div class="comp pull-right show-trips show-login js-trips-menu-container hide %>">
-  <a class="needsclick no-crawl hdr-btn link-reset js-trips-comp text-white"
-     href="#"
-     rel="nofollow"
-     data-href="/trips">
-    <div class="inbox-icon-container text-center">
-      <span class="margin-right--tiny hide-md">여행</span>
-      <i class="header-icon js-trips-icon icon-suitcase-white">
-        <i class="alert-count js-trips-unread-count text-center fade">0</i>
-      </i>
-    </div>
-  </a>
-
-  <div class="panel tooltip-top-right drop-down-menu trips-dropdown hide">
-  </div>
-</div>
-
-
-    
-
-<div class="comp pull-right show-host">
-  <a class="needsclick host-icon-wrapper no-crawl hdr-btn link-reset js-host-menu-icon text-white"
-     href="#"
-     rel="nofollow"
-     data-href="/dashboard">
-    <span class="hide-md margin-right--tiny">
-      호스트
-    </span>
-    <i class="header-icon host-icon icon-home-white">
-      <i class="alert-count js-host-item-count listing-count text-center fade">0</i>
-    </i>
-  </a>
-
-  <div class="panel tooltip-top-right drop-down-menu host-tooltip--new">
-    <div class="panel-header no-border hide-lg">
-      <span><strong>호스트</strong></span>
-    </div>
-    <div class="hover-item panel-body relist-your-space hide">
-      <a href="#" class="link-reset click-area">
-        <div class="cta-container va-container va-container-v" >
-          <div class="va-middle">
-            <div class="cta-text">
-              숙소 등록 완료하기
             </div>
-            <div class="cta-text-v3 hide">
-              숙소 등록 완료하기
+
+
+            <!-- Nav Starts -->
+            <div class="navbar-collapse  collapse">
+              <ul class="nav navbar-nav navbar-right scroll">
+                 <li class="active"><a href="#home">Home</a></li>
+                 <li ><a href="#about">About</a></li>
+                 <li ><a href="#works">Works</a></li>
+                 <li ><a href="#partners">Partners</a></li>
+                 <li ><a href="#contact">Contact</a></li>
+              </ul>
             </div>
-            <div class="cta-text-v3-reactivate hide">
-              재활성화하기
-            </div>
-            <div class="progress">
-              <div class="progress-bar" >
-              </div>
-            </div>
+            <!-- #Nav Ends -->
+
           </div>
         </div>
-</a>      <div class="close-button hide">
-        <a href="#" class="alert-close"></a>
+
       </div>
     </div>
+<!-- #Header Starts -->
 
-        <a href="#" class=" panel-body link-reset hover-item origin-item js-host-dashboard-link no-crawl" data-href="/dashboard">
-          <div class="hover-item__content">
-            알림판
-            <i class="alert-count js-pending-request-count--inline text-center fade">0</i>
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item js-host-manage-listings-link no-crawl" data-href="/rooms">
-          <div class="hover-item__content">
-            숙소 관리
-            <i class="alert-count listing-count listing-count--inline text-center fade">0</i>
-          </div>
-</a>        <a href="/rooms/new" class=" panel-body link-reset hover-item origin-item js-host-list-your-space-link">
-          <div class="hover-item__content">
-            숙소 등록
-            
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item js-host-my-reservations-link no-crawl" data-href="/my_reservations">
-          <div class="hover-item__content">
-            예약 관리
-            
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item js-host-transaction-history-link no-crawl" data-href="/users/transaction_history">
-          <div class="hover-item__content">
-            대금 수령 내역
-            
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item hide item-refer-hosts js-host-refer-hosts-link no-crawl" data-href="/refer?r=41">
-          <div class="hover-item__content">
-            호스트 추천하기
-            <span class="label label-pink label-new">NEW!</span>
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item js-host-reviews-link no-crawl" data-href="/users/reviews">
-          <div class="hover-item__content">
-            후기
-            
-          </div>
-</a>        <a href="#" class=" panel-body link-reset hover-item origin-item hide item-host-assist js-host-assist-link no-crawl" data-href="/host-assist">
-          <div class="hover-item__content">
-            호스트 지원
-            
-          </div>
-</a>        <a href="/hospitality" class=" panel-body link-reset hover-item origin-item js-host-hospitality-link">
-          <div class="hover-item__content">
-            따뜻한 손님맞이
-            
-          </div>
-</a>  </div>
+
+
+
+<div id="home">
+<!-- Slider Starts -->
+<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">     
+      <div class="carousel-inner">
+        <!-- Item 1 -->
+        <div class="item active">
+          <img src="images/back1.jpg" alt="banner">
+        </div>
+        <!-- #Item 1 -->
+
+        <!-- Item 1 -->
+        <div class="item">
+          <img src="images/back2.jpg" alt="banner">
+        </div>
+        <!-- #Item 1 -->
+
+        <!-- Item 1 -->
+        <div class="item">
+          <img src="images/back3.jpg" alt="banner">
+        </div>
+        <!-- #Item 1 -->
+
+        <!-- Item 1 -->
+        <div class="item">
+          <img src="images/back4.jpg" alt="banner">
+        </div>
+        <!-- #Item 1 -->
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon-chevron-left"><i class="fa fa-angle-left"></i></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon-chevron-right"><i class="fa fa-angle-right"></i></span></a>
+    </div>
+<!-- #Slider Ends -->
 </div>
 
+
+
+
+
+
+
+
+
+<!-- Cirlce Starts -->
+<div id="about"  class="container spacer about">
+<h2 class="text-center wowload fadeInUp">Creative photographers of London</h2>  
+  <div class="row">
+  <div class="col-sm-6 wowload fadeInLeft">
+    <h4><i class="fa fa-camera-retro"></i> Introduction </h4>
+    <p>Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs, lead by passionate and uber progressive team that lives and breathes design. Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs.</p>
     
-    <div class="comp pull-right hide-host not-launched comp-hire-a-host ">
-  <a class="hdr-btn link-reset lys-link hire-a-host-link text-white"
-     href="/host/experienced_hosts/intro">
-    <span class="btn btn-small btn-hire-a-host" />
-  </a>
-  <div class="panel tooltip-top-right drop-down-menu hire-a-host-dropdown">
-    <p class="panel-body">
-      <a class="link-reset hire-a-host-tooltip" href="/host/experienced_hosts/intro">
-        Tooltip content!
-      </a>
-    </p>
+
   </div>
-</div>
-
-    
-<div class="comp pull-right hide-host comp-become-a-host ">
-  <a class="hdr-btn link-reset lys-link js-become-a-host-link text-white"
-     href="/become-a-host?from_nav=1&link=1">
-    <span class="btn btn-small btn-become-a-host">
-      호스팅 하기
-      <i class="icon icon-gift icon-host-referral-gift js-host-referral-gift-icon hide text-white"></i>
-    </span>
-  </a>
-  <div class="panel tooltip-top-right drop-down-menu hide js-become-a-host-dropdown">
-    <a class="link-reset panel-body hover-item hide js-become-a-host-lys" href="/become-a-host?from_nav=1&link=2">
-      <div class="hover-item__content">
-        숙소 등록
-      </div>
-    </a>
-    <a class="link-reset js-become-a-host-tooltip panel-body hover-item" href="/rooms/new?from_nav=1&link=3">
-      <div class="tooltip-content">
-        호스팅 하기
-      </div>
-    </a>
-    <a class="link-reset panel-body hover-item js-become-a-host-why-host hide" href="/host?from_nav=1">
-      <div class="hover-item__content">
-        호스팅 방법
-      </div>
-    </a>
+  <div class="col-sm-6 wowload fadeInRight">
+  <h4><i class="fa fa-coffee"></i> Passion</h4>
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>    
   </div>
-</div>
+  </div>
 
-
-</div>
-
-
-</div>
-
-
-    <noscript>
-    <div class="alert alert-with-icon alert-error  no-js-alert"
-     >
-  <i class="icon alert-icon icon-alert-alt"></i>
-  
-      죄송합니다. 에어비앤비 웹사이트의 일부는 자바스크립트가 활성화되어 있지 않으면 제대로 작동하지 않습니다.
-
-</div>
-</noscript>
-
-
-
-      
-<script src="https://a0.muscache.com/airbnb/static/packages/header_cookie.bundle-9fcdab3e69cb03213727.js" type="text/javascript"></script>
-
-
-      <div class="flash-container"></div>
-
-    <main id="site-content" role="main">
-      
-
-
-
-
-<script>
-
-  var AIR = AIR || {};
-!function() {
-  var xhr,
-    callbacks = [],
-    loaded = false,
-    response = null,
-    url = '/discovery/discover_feed';
-
-  AIR.onCustomRecommendedDestinationsLoad = function(callback) {
-    if (loaded) {
-      // [do not release zalgo]
-      // http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
-      setTimeout(function() { callback(response); }, 0);
-    } else {
-      callbacks.push(callback);
-    }
-  };
-
-  if (window.XMLHttpRequest) {
-    xhr = new XMLHttpRequest();
-  } else if (window.ActiveXObject) {
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-  } else {
-    return; // Can't do XHR - Give up
-  }
-
-  xhr.onreadystatechange = function() {
-    var status;
-
-    if (xhr.readyState != 4)
-      return false;
-
-    status = xhr.status;
-    if (status !== 200) {
-      response = '{"error": "Internal server error"}';
-    } else {
-      response = xhr.responseText;
-    }
-
-    loaded = true;
-    while (callbacks.length > 0) {
-      callbacks.pop()(response);
-    }
-
-    return (status === 200);
-  };
-  url += window.location.search;
-  xhr.open('get', url, true);
-  xhr.setRequestHeader('Accept', 'application/json');
-  // WE MUST set the XHR http headers since this is loaded on a cached home page which without
-  // this code it will run the cross domain POST request which logs the user out for no reason
-  // without even successfully transfering the cookie session.
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.send();
-}();
-
-</script>
-
-
-
-<div class="hero shift-with-hiw js-hero">
-  <div class="hero__background"
-       data-native-currency="KRW"
-       aria-hidden="true">
-    <div class="air-slideshow hero-slideshow">
-      <ul class="air-slideshow__list list-unstyled js-hero-slideshow">
-        <li class="air-slide air-slide--active">
-          <img alt="P1f1" src="https://a0.muscache.com/airbnb/static/P1F1.jpg" width="100%" />
+  <div class="services">
+  <h3 class="text-center wowload fadeInUp">Services</h3>
+	<ul class="row text-center list-inline  wowload bounceInUp">
+   		<li>
+            <span><i class="fa fa-camera-retro"></i><b>Photography</b></span>
         </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_IMG_5818.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Los_Angeles_Elliott_Pool_House_16-03-21_0137.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Los_Angeles_Elliott_Pool_House_16-03-21_6529.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Paris_Elliott_A-Frame-Loft_16-03-08_3255.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Paris_Elliott_Tower-View_16-03-09_4364.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Tokyo_Elliott_Artist-Loft_20160222_0153_comp.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Tokyo_Elliott_Dinner_20160223_0137.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Tokyo_Elliott_Family-House_20160221_0003.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Tokyo_Elliott_Sento_20160223_0078.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-          <li class="air-slide">
-            <img data-image-url="https://a0.muscache.com/airbnb/static/Live-There_Tokyo_FarhadSamari-40.jpg"
-                 alt=""
-                 width="100%">
-          </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="hero__content page-container page-container-full text-center">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle">
-        <div class="raise-30">
-            <a href="#"
-               data-prevent-default
-               id="hero-play-button"
-               class="link-reset hide-md hide-lg">
-              <i class="belong-anywhere__icon icon icon-video-play text-contrast text-jumbo"></i>
-              <span class="screen-reader-only">
-                비디오 재생
-              </span>
-            </a>
-            <h2 class="text-branding text-jumbo text-contrast hero__heading">
-            음악은 라이브야  
-            </h2>
-            <div class="h4 text-contrast space-4">
-            검색해서 라이브를 들으러 가보자 
-            </div>
-        </div>
-
-        <div class="show-sm sm-search">
-            <div class="input-addon" id="sm-search-field">
-    <span class="input-stem input-large fake-search-field">
-      어디로 가세요?
-    </span>
-    <i class="input-suffix btn btn-primary icon icon-full icon-search"></i>
-  </div>
-
-        </div>
-
-          <a href="#"
-             data-prevent-default
-             id="hero-play-button"
-             class="link-reset hide-sm">
-            <i class="belong-anywhere__icon icon icon-video-play text-contrast text-jumbo"></i>
-            <span class="screen-reader-only">
-              비디오 재생
-            </span>
-          </a>
-      </div>
-    </div>
-    <div class="hero__content-footer hide-sm">
-      <div class="col-sm-12">
-        
-
-<div id="searchbar">
-  <div class="searchbar">
-    <form id="searchbar-form" action="/s">
-
-      <div class="searchbar__input-wrapper">
-
-        <label class="searchbar__location">
-          <span class="screen-reader-only">
-            어디로 가세요?
-          </span>
-          <input
-            id="location"
-            type="text"
-            class="input-large input-contrast"
-            autocomplete="off"
-            name="location"
-            placeholder="어디로 가세요?" />
-            <div id="searchbar-location-error" class="searchbar__location-error hide">
-              위치를 설정해 주세요
-            </div>
-        </label>
-
-        <label class="searchbar__checkin">
-          <span class="screen-reader-only">
-            체크인
-          </span>
-          <input
-            id="checkin"
-            type="text"
-            class="checkin input-large input-contrast"
-            name="checkin"
-            placeholder="체크인" />
-        </label>
-
-        <label class="searchbar__checkout">
-          <span class="screen-reader-only">
-            체크아웃
-          </span>
-          <input
-            id="checkout"
-            type="text"
-            class="checkout input-large input-contrast"
-            name="checkout"
-            placeholder="체크아웃" />
-        </label>
-
-        <label class="searchbar__guests">
-          <span class="screen-reader-only">
-            게스트 수
-          </span>
-          <div class="select select-large">
-            <select id="guests" name="guests">
-              <option value="1">숙박 인원 1명</option>
-<option value="2">숙박 인원 2명</option>
-<option value="3">숙박 인원 3명</option>
-<option value="4">숙박 인원 4명</option>
-<option value="5">숙박 인원 5명</option>
-<option value="6">숙박 인원 6명</option>
-<option value="7">숙박 인원 7명</option>
-<option value="8">숙박 인원 8명</option>
-<option value="9">숙박 인원 9명</option>
-<option value="10">숙박 인원 10명</option>
-<option value="11">숙박 인원 11명</option>
-<option value="12">숙박 인원 12명</option>
-<option value="13">숙박 인원 13명</option>
-<option value="14">숙박 인원 14명</option>
-<option value="15">숙박 인원 15명</option>
-<option value="16">숙박 인원 16+명</option>
-            </select>
-          </div>
-        </label>
-
-      </div>
-
-      <button
-        id="submit_location"
-        type="submit"
-        class="searchbar__submit btn btn-primary btn-large">
-        숙소 검색
-      </button>
-
-      <input type="hidden" name="source" value="bb">
-
-    </form>
-  </div>
-</div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<section
-  class="
-    how-it-works
-    how-it-works--overlay
-    js-how-it-works"
-  aria-hidden="true"
->
-
-    <a href="#"
-       class="how-it-works__close panel-close js-close-how-it-works">
-      <span class="screen-reader-only">
-        이용 방법 닫기
-      </span>
-      &times;
-    </a>
-
-  <div class="page-container-responsive panel-contrast text-contrast">
-
-    <h2 class="screen-reader-only">
-      에어비앤비 이용방법
-    </h2>
-
-    <div class="row space-top-8 text-center">
-
-      <div class="how-it-works__step how-it-works__step-one col-md-4">
-        <div class="panel-body">
-          <div class="how-it-works__image"></div>
-          <h3>
-            멋진 숙소 찾아보기
-          </h3>
-          <p>
-            개인실 또는 집 전체를 대여하거나 성과 이글루와 같은 독특한 형태의 숙소를 가진 호스트를 찾아보세요.
-          </p>
-        </div>
-      </div>
-
-      <div class="how-it-works__step how-it-works__step-two col-md-4">
-        <div class="panel-body">
-          <div class="how-it-works__image"></div>
-          <h3>
-            예약하기
-          </h3>
-          <p>
-            에어비앤비의 믿을만한 시스템을 통해서 호스트와 연락하고 여행 일정을 확인하세요. 결제도 물론 가능합니다.
-          </p>
-        </div>
-      </div>
-
-      <div class="how-it-works__step how-it-works__step-three col-md-4">
-        <div class="panel-body">
-          <div class="how-it-works__image"></div>
-          <h3>
-            여행
-          </h3>
-          <p>
-            전 세계 어디든 내 집처럼 느껴보세요. 에어비앤비로 여행하는 방법에 대해 <a href='/help/getting-started/how-to-travel'>자세히 알아보세요</a>.
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row space-top-4 space-4 text-center">
-      <p>에어비앤비를 통한 호스팅에 대하여 <a href='/help/getting-started/how-to-host'>더욱 자세히 알아보고</a> 게스트에게 회원님의 숙소가 안성맞춤이라는 사실을 알리세요.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!--[if (gt IE 8)|!(IE)]><!-->
-  <div id="hero-video-player"
-       class="fullscreen-video-player fullscreen-video-player--hidden"
-       aria-hidden="true">
-    <div class="row row-table row-full-height">
-      <div class="col-sm-12 col-middle text-center">
-        <div data-hook="homepage-video"
-             data-preload="none"
-             data-mp4="https://a0.muscache.com/airbnb/static/0509_AIRBNB_ANTHEM_30s.mp4"
-             data-webm="https://a0.muscache.com/airbnb/static/0509_AIRBNB_ANTHEM_30s.webm"
-             data-video-id=3>
-        </div>
-        <i id="play-button-hero"
-           class="fullscreen-video-player__icon icon icon-video-play icon-white hide"></i>
-        <a id="close-fullscreen-hero" class="fullscreen-video-player__close link-reset" href="#">
-          <i class="icon icon-remove"></i>
-          <span class="screen-reader-only">
-            전체화면 나가기
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-<!--<![endif]-->
-
-
-
-
-<div class="js-host-banner panel-dark host-banner hide">
-  <div class="page-container-responsive">
-    <div class="panel host-banner--panel-no-border space-top-8">
-      <div class="row">
-        <div class="col-sm-8 hide-sm">
-          <div class="host-banner__media-container">
-            <a href="/rooms/new?p1_b=1" class="host-banner__image-link">
-              <div class="air-slideshow hide-sm host-banner__slide">
-                <ul class="list-unstyled" id="host-banner-slideshow">
-                  <li class="air-slide air-slide--active background-cover host-banner__welcome-guest"
-                      aria-hidden="false">
-                  </li>
-                  <li class="air-slide background-cover host-banner__green-doors"
-                      aria-hidden="false">
-                  </li>
-                  <li class="air-slide background-cover host-banner__having-dinner"
-                      aria-hidden="false">
-                  </li>
-                </ul>
-              </div>
-            </a>
-            <!--[if (gt IE 8)|!(IE)]><!-->
-            <div class="host-banner__video-container js-host-banner-video-play hide-sm hide">
-              <div class="background-cover host-banner__video-preview">
-              </div>
-              <div id="host-banner-video-raw"
-                 data-id="host-banner-video"
-                 data-class="host-banner__video"
-                 data-preload="none"
-                 data-mp4="https://a0.muscache.com/airbnb/static/host_banner_v1.mp4"
-                 data-webm="https://a0.muscache.com/airbnb/static/host_banner_v1.webm"
-                 data-video-id="3">
-              </div>
-              <i id="host-banner__play-button"
-                 class="host-banner__play-icon icon icon-video-play icon-white"></i>
-            </div>
-            <!--<![endif]-->
-          </div>
-        </div>
-        <div class="col-md-4 host-banner__body js-host-banner-body">
-          <div class="media-cover media-cover-dark background-cover host-banner__welcome-guest show-sm"></div>
-          <div class="va-container va-container-v va-container-h">
-            <div class="va-middle host-banner__content--cta-right js-host-banner-content">
-              <div class="host-banner__title space-4">
-                <strong>
-                  호스팅을 시작하면 무궁무진한 기회의 세상이 열립니다!
-                </strong>
-              </div>
-              <div class="host-banner__subtitle space-4">
-                집에 있는 여유 공간을 게스트와 공유하여 수입을 창출하세요.
-              </div>
-              <a href="/rooms/new?p1_b=1"
-                 class='link-reset host-banner__btn'>
-                <strong class='btn btn-host btn-large btn-block host-banner__cta'>
-                  예상 수입을 확인해 보세요
-                </strong>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="react-hero-promo-container panel-dark"></div>
-
-
-<div class="panel panel-dark no-border-top">
-  <div id="discovery-container">
-    <div class="discovery-section hide page-container-responsive page-container-no-padding" id="discovery-saved-searches">
-    </div>
-
-    <div class="discovery-section hide page-container-responsive page-container-no-padding" id="guidebook">
-    </div>
-
-    <div class="discovery-section hide page-container-responsive page-container-no-padding" id="weekend-recommendations">
-    </div>
-
-    <div class="discovery-section page-container-responsive page-container-no-padding row-space-6"
-         id="discover-recommendations">
-      <noscript>
-        <div class="all-destinations row-space-top-6">
-          <h5 class="space-4 text-center">
-    <p>
-      에어비앤비를 제대로 보시려면 자바스크립트를 켜세요.
-    </p>
-    <p>
-      자바스크립트를 설치하는 동안 먼저 인기 숙소를 둘러 볼 수 있습니다.
-    </p>
-</h5>
-<div class="row space-8 text-center">
-    <div class="col-2">
-        <p><a href="/s/Anna-Maria-Island--FL">Anna Maria Island</a></p>
-        <p><a href="/s/Aruba">Aruba</a></p>
-        <p><a href="/s/Asheville--NC?type=bnb">Asheville</a></p>
-        <p><a href="/s/Aspen--CO">Aspen</a></p>
-        <p><a href="/s/Austin--TX">Austin</a></p>
-        <p><a href="/s/Bermuda">Bermuda</a></p>
-        <p><a href="/s/Boone--NC?type=cabin">Boone</a></p>
-        <p><a href="/s/Cannon-Beach--OR">Cannon Beach</a></p>
-    </div>
-    <div class="col-2">
-        <p><a href="/s/Cocoa-Beach--FL">Cocoa Beach</a></p>
-        <p><a href="/s/Daytona-Beach--FL">Daytona Beach</a></p>
-        <p><a href="/s/Destin--FL">Destin</a></p>
-        <p><a href="/s/Florida--United-States">Florida</a></p>
-        <p><a href="/s/Florida-Keys">Florida Keys</a></p>
-        <p><a href="/s/Fredericksburg--TX?type=bnb">Fredericksburg</a></p>
-        <p><a href="/s/Gulf-Shores--AL">Gulf Shores</a></p>
-        <p><a href="/s/Hawaii--United-States">Hawaii</a></p>
-    </div>
-    <div class="col-2">
-        <p><a href="/s/Hilton-Head-Island--SC">Hilton Head Island</a></p>
-        <p><a href="/s/Key-West--FL">Key West</a></p>
-        <p><a href="/s/Lake-Tahoe--CA">Lake Tahoe</a></p>
-        <p><a href="/s/Los-Angeles--CA">Los Angeles</a></p>
-        <p><a href="/s/Maine--United-States">Maine</a></p>
-        <p><a href="/s/Maui--HI">Maui</a></p>
-        <p><a href="/s/Myrtle-Beach--SC">Myrtle Beach</a></p>
-        <p><a href="/s/New-Orleans--LA?type=bnb">New Orleans</a></p>
-    </div>
-    <div class="col-2">
-        <p><a href="/s/North-Myrtle-Beach--SC">North Myrtle Beach</a></p>
-        <p><a href="/s/Orange-Beach--AL">Orange Beach</a></p>
-        <p><a href="/s/Orlando--FL">Orlando</a></p>
-        <p><a href="/s/Outer-Banks--NC">Outer Banks</a></p>
-        <p><a href="/s/O‘ahu--HI">O‘ahu</a></p>
-        <p><a href="/s/Palm-Springs--CA">Palm Springs</a></p>
-        <p><a href="/s/Panama-City--FL">Panama City</a></p>
-        <p><a href="/s/Pigeon-Forge--TN?type=cabin">Pigeon Forge</a></p>
-    </div>
-    <div class="col-2">
-        <p><a href="/s/Portland--OR">Portland</a></p>
-        <p><a href="/s/Saint-Augustine--FL?type=bnb">Saint Augustine</a></p>
-        <p><a href="/s/San-Diego--CA">San Diego</a></p>
-        <p><a href="/s/San-Francisco--CA">San Francisco</a></p>
-        <p><a href="/s/Sanibel-Island--FL">Sanibel Island</a></p>
-        <p><a href="/s/Santa-Barbara--CA">Santa Barbara</a></p>
-        <p><a href="/s/Santa-Catalina-Island--CA">Santa Catalina Island</a></p>
-        <p><a href="/s/Seaside--OR">Seaside</a></p>
-    </div>
-    <div class="col-2">
-        <p><a href="/s/Seattle--WA">Seattle</a></p>
-        <p><a href="/s/Sedona--AZ?type=bnb">Sedona</a></p>
-        <p><a href="/s/Siesta-Key--FL">Siesta Key</a></p>
-        <p><a href="/s/Sonoma--CA">Sonoma</a></p>
-        <p><a href="/s/South-Padre-Island--TX">South Padre Island</a></p>
-        <p><a href="/s/Sunriver--OR">Sunriver</a></p>
-        <p><a href="/s/Tybee-Island--GA">Tybee Island</a></p>
-        <p><a href="/s/Virginia-Beach--VA">Virginia Beach</a></p>
-    </div>
-</div>
-
-        </div>
-      </noscript>
-      <div class="section-intro text-center row-space-6 row-space-top-8">
-        <h2 class="row-space-1">
-          <strong>두근두근 세계 여행</strong>
-        </h2>
-        <p class='text-lead'>
-          세계 곳곳을 누벼 보세요
-        </p>
-      </div>
-      <div class="discovery-tiles">
-        <div class="homepage-module">
-          
-<div class="row">
-
-
-  <div class="col-lg-8 col-md-12 rm-padding-sm">
-    <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-  </div>
-  <div class="col-lg-4 col-md-6 col-sm-12 rm-padding-sm row-space-4">
-  <div class="discovery-card-blank">
-    <div class="">
-        <div class="discovery-card">
-          <div class="va-container va-container-v va-container-h">
-            <div class="va-middle text-center">
-              <i class="icon icon-picture icon-size-4
-                discovery-loading-icon"></i>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-    <div class="col-lg-4 col-md-6 col-sm-12 rm-padding-sm ">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 rm-padding-sm hide-sm">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 rm-padding-sm hide-sm">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-
-  <div class="col-lg-4 col-md-6 col-sm-12 rm-padding-sm row-space-4">
-  <div class="discovery-card-blank">
-    <div class="">
-        <div class="discovery-card">
-          <div class="va-container va-container-v va-container-h">
-            <div class="va-middle text-center">
-              <i class="icon icon-picture icon-size-4
-                discovery-loading-icon"></i>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
-</div>
-
-  <div class="col-lg-8 col-md-12 hide-sm rm-padding-sm">
-    <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-  </div>
-
-    <div class="col-lg-4 col-md-6 hide-sm rm-padding-sm col-switch col-md-push-6 col-lg-push-0">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-    <div class="col-lg-4 col-md-6 hide-sm rm-padding-sm ">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-    <div class="col-lg-4 col-md-6 hide-sm rm-padding-sm ">
-      <div class="discovery-card rm-padding-sm row-space-4  discovery-card-blank"
-      style=""
-      data-sm-img-url="">
-    <div class="va-container va-container-v va-container-h">
-      <div class="va-middle text-center text-contrast">
-          <i class="icon icon-picture icon-size-4 discovery-loading-icon"></i>
-      </div>
-    </div>
-</div>
-
-    </div>
-</div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div id="belong-anywhere-container"
-     class="air-slideshow belong-anywhere hide-sm js-belong-anywhere">
-  <ul class="belong-anywhere__slides list-unstyled" id="belong-anywhere-slideshow">
-<!--[if (gt IE 8)|!(IE)]><!-->
-    <li class="air-slide air-slide--active
-               background-cover belong-anywhere__belong"
-        aria-hidden="false">
-      <div class="row row-table row-full-height text-center">
-        <div class="col-sm-12 col-middle">
-          <div class="text-jumbo text-contrast text-branding">
-            낯선 도시에서 우리집을 만나다
-          </div>
-          <div class="h3 text-contrast space-3">
-            전 세계 에어비앤비 호스트들이 내 집처럼 편안한 분위기를 만들기 위해 어떤 노력을 하고  있는지 알아보세요.
-          </div>
-          <a href="#"
-             data-prevent-default
-             id="belong-play-button"
-             class="link-reset">
-            <i class="belong-anywhere__icon icon icon-video-play text-contrast text-jumbo"></i>
-            <span class="screen-reader-only">
-              '낯선 도시에서 우리집을 만나다' 동영상 재생
-            </span>
-          </a>
-        </div>
-      </div>
-    </li>
-    <li class="air-slide background-cover belong-anywhere__belo" aria-hidden="true">
-      <div class="row row-table row-full-height text-center">
-        <div class="col-sm-12 col-middle">
-          <div class="text-jumbo text-contrast text-branding">
-            벨로(Bélo)를 소개합니다
-          </div>
-          <div class="h3 text-contrast space-3">
-            에어비앤비 심볼의 따뜻한 소속감에 관한 이야기를 들어보세요.
-          </div>
-          <a id="belo-play-button"
-             class="belong-anywhere__icon text-contrast text-jumbo link-reset"
-             href="#">
-            <i class="icon icon-video-play"></i>
-            <span class="screen-reader-only">
-              벨로 동영상 재생
-            </span>
-          </a>
-        </div>
-      </div>
-    </li>
-<!--<![endif]-->
-<!--[if (gt IE 8)|!(IE)]><!-->
-    <li class="air-slide belong-anywhere__create" aria-hidden="true">
-<!--<![endif]-->
-      <a href="https://create.airbnb.com">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-             alt=""
-             height="292"
-             data-original="https://a1.muscache.com/airbnb/static/homepages/create-02-06fcf9119127632bdeeec8a3aa2cddce.png"
-             class="col-center lazy">
-        <div class="row space-top-6">
-          <div class="col-md-3 col-offset-1">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                 alt="크리에이트 에어비앤비"
-                 data-original="https://a0.muscache.com/airbnb/static/homepages/create-01-91da0830c13bb80e81530326600da7a5.png"
-                 class="pull-right lazy">
-          </div>
-          <div class="col-md-7 space-top-2">
-            <div class="h2 text-contrast">
-              <strong>
-                나만의 에어비앤비로 만들어 보세요.
-              </strong>
-            </div>
-            <div class="h2 text-contrast belong-anywhere__create-subtitle">
-              <strong>
-                나만의 로고를 만들고 이야기를 들려주세요.
-              </strong>
-            </div>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li class="air-slide belong-anywhere__rentals" aria-hidden="true">
-      <div class="row row-table row-full-height text-center">
-        <div class="col-sm-6 col-middle">
-          <div class="belong-anywhere__rentals-title text-jumbo text-contrast
-                      text-branding space-3">
-            어디에서나 집에서처럼
-          </div>
-          <div class="belong-anywhere__rentals-subtitle h3 text-contrast space-4">
-            에어비앤비에서라면 휴가지에서도 항상 집에서처럼 편안하게 지낼 수 있습니다. 고급 빌라에서 가족용 아파트까지 어떤 숙소든 찾아보세요.
-          </div>
-          <div class="row">
-            <div class="col-sm-6 col-offset-3">
-              <a href="/vacation-rentals"
-                 class="btn btn-contrast btn-large btn-semi-transparent">
-                검색하기
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-<!--[if (gt IE 8)|!(IE)]><!-->
-  <a href="#"
-     aria-controls="belong-anywhere-slideshow"
-     class="air-slideshow__prev link-reset text-jumbo js-previous-slide">
-    <i class="icon icon-chevron-left text-contrast"></i>
-    <span class="screen-reader-only">
-      지나간 여행
-    </span>
-  </a>
-  <a href="#"
-     aria-controls="belong-anywhere-slideshow"
-     class="air-slideshow__next link-reset text-jumbo js-next-slide">
-    <i class="icon icon-chevron-right text-contrast"></i>
-    <span class="screen-reader-only">다음</span>
-  </a>
-<!--<![endif]-->
-</div>
-
-<!--[if (gt IE 8)|!(IE)]><!-->
-<div id="belong-video-player"
-     class="fullscreen-video-player fullscreen-video-player--hidden"
-     aria-hidden="true">
-  <div class="row row-table row-full-height">
-    <div class="col-sm-12 col-middle text-center">
-      <div data-hook="homepage-video"
-           data-preload="none"
-           data-mp4="https://a0.muscache.com/airbnb/static/Belong_p1_v2.mp4"
-           data-webm="https://a0.muscache.com/airbnb/static/Belong_p1_v2.webm"
-           data-video-id=1>
-      </div>
-      <i id="play-button-belong"
-         class="fullscreen-video-player__icon icon icon-video-play icon-white hide"></i>
-      <a id="close-fullscreen-belong" class="fullscreen-video-player__close link-reset" href="#">
-        <i class="icon icon-remove"></i>
-        <span class="screen-reader-only">
-          전체화면 나가기
-        </span>
-      </a>
-    </div>
-  </div>
-</div>
-<div id="belo-video-player"
-     class="fullscreen-video-player fullscreen-video-player--hidden"
-     aria-hidden="true">
-  <div class="row row-table row-full-height">
-    <div class="col-sm-12 col-middle text-center">
-      <div data-hook="homepage-video"
-           data-preload="none"
-           data-mp4="https://a0.muscache.com/airbnb/static/belo-3.mp4"
-           data-webm="https://a0.muscache.com/airbnb/static/belo-3.webm"
-           data-video-id=2>
-      </div>
-      <i id="play-button-belo"
-         class="fullscreen-video-player__icon icon icon-video-play icon-white hide"></i>
-      <a id="close-fullscreen-belo" class="fullscreen-video-player__close link-reset" href="#">
-        <i class="icon icon-remove"></i>
-        <span class="screen-reader-only">
-          전체화면 나가기
-        </span>
-      </a>
-    </div>
-  </div>
-</div>
-
-
-<!--<![endif]-->
-
-
-<section id="community-wrapper" class="community space-4 hide-sm">
-
-  <div class="space-top-8 space-8 text-center">
-    <h2><strong>에어비앤비 커뮤니티</strong></h2>
-  </div>
-
-  <ul class="community__container row col-center list-unstyled js-community-container">
-
-
-    <li class="col-md-6 col-lg-3 space-md-4">
-      <div class="community-card community-card--hidden community-card--create js-community-card">
-        <div class="panel">
-          <a href="https://create.airbnb.com"
-             class="community-card__link
-                    panel-image media-photo
-                    media-link
-                    js-community-card-create">
-            <div class="media-cover media-cover-dark"></div>
-            <div class="row row-table row-full-height">
-              <div class="col-sm-12 col-middle text-contrast text-center">
-                <div class="space-5">
-                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                       alt="크리에이트 에어비앤비"
-                       width="105"
-                       height="36"
-                       class="lazy"
-                       data-original="https://a0.muscache.com/airbnb/static/homepages/create-logo2-3b7774a2b2ed6e4b930ce744916e5849.png">
-                </div>
-                <div class="space-3">
-                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                       alt=""
-                       class="lazy"
-                       data-original="https://a1.muscache.com/airbnb/static/homepages/create-img-bd380285eda2b7e32ba35c00c10699b7.png">
-                </div>
-                <div class="h3">
-                  <strong>
-                    나만의 에어비앤비를 만들어 보세요.
-                  </strong>
-                </div>
-                <div>
-                  여러분만의 마크를 만들고 스토리를 들려주세요.
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </li>
-
-
-    <li class="col-md-6 col-lg-3 space-md-4">
-      <div class="community-card community-card--hidden community-card--traveling
-                  js-community-card">
-        <div class="panel">
-          <a href="/help/getting-started/how-to-travel",
-             class="community-card__link panel-image media-photo media-link text-center">
-            <div class="media-cover media-cover-dark background-cover"></div>
-
-            <div class="community-card__header">
-              <div class="community-card__header-label">
-                <strong class="text-contrast">
-                  여행
-                </strong>
-              </div>
-            </div>
-
-            <div class="row row-table row-full-height text-contrast">
-              <div class="col-sm-10 col-center col-bottom">
-                <div class="h2">
-                  <strong>게리와 리앤</strong>
-                </div>
-
-                <div class="space-4">게리와 리앤은 곳곳을 누비며 현지에서만 경험할 수 있는 특별한 액티비티를 찾고 있습니다. <br><br> <u>에어비앤비 여행에 대해 자세히 알아보세요.</u></div>
-
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </li>
-
-
-    <li class="col-md-6 col-lg-3 space-md-4">
-      <div class="community-card
-                  community-card--hidden
-                  community-card--business
-                  js-community-card">
-        <div class="panel">
-          <a href="/business-travel",
-             class="community-card__link
-                    panel-image
-                    media-photo
-                    media-link
-                    text-center
-                    js-community-card-business">
-            <div class="media-cover media-cover-dark background-cover"></div>
-
-            <div class="community-card__header">
-              <div class="community-card__header-label">
-                <strong class="text-contrast">
-                  출장 프로그램
-                </strong>
-              </div>
-            </div>
-
-            <div class="row row-table row-full-height text-contrast">
-              <div class="col-sm-11 col-center col-bottom">
-                <div class="h2">
-                  <strong>
-                    에어비앤비 출장 프로그램
-                  </strong>
-                </div>
-
-                <div class="space-8">
-                  출장을 가서도 어디에서나 내 집처럼 편안하게 머무세요. <br><br> <u>에어비앤비 출장 프로그램에 등록하세요.</u>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </li>
-
-
-    <li class="col-md-6 col-lg-3 space-md-4">
-      <div class="community-card community-card--hidden community-card--hosting js-community-card">
-        <div class="panel">
-          <a href="/help/getting-started/how-to-host",
-             class="community-card__link panel-image media-photo media-link text-center">
-            <div class="media-cover media-cover-dark background-cover"></div>
-
-            <div class="community-card__header">
-              <div class="community-card__header-label">
-                <strong class="text-contrast">
-                  호스트
-                </strong>
-              </div>
-            </div>
-
-            <div class="row row-table row-full-height">
-              <div class="col-sm-12 col-center col-bottom text-contrast">
-                <div class="h2">
-                  <strong>패트리샤</strong>
-                </div>
-                <div class="space-4">
-                  전문 사진사인 패트리샤는 게스트가 상하이의 예술을 감상할 수 있도록 도와주는 것을 좋아합니다. <br><br> <u>에어비앤비 호스팅에 대해 자세히 알아보세요.</u>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </li>
-
-  </ul>
-</div>
-
-
-    </main>
-
-      <div class="react-sticky-footer-promo-container"></div>
-      <div id="footer" class="container-brand-dark footer-surround footer-container">
-        <footer class="page-container-responsive">
-  <div class="row row-condensed">
-    <div class="col-md-3 col-md-offset-1">
-      <div class="language-curr-picker clearfix space-2">
-        <div class="language-picker"></div>
-          <div class="currency-picker"></div>
-        <div class="cx-number"></div>
-      </div>
-
-    </div>
-
-    <div class="col-md-2 col-md-offset-1 hide-sm">
-      <h2 class="h5">회사 이야기</h2>
-      <ul class="list-layout">
-          <li><a href="/about/about-us" class="link-contrast">소개</a></li>
-          <li><a href="/careers" class="link-contrast">채용정보</a></li>
-          <li><a href="/press/news" class="link-contrast">미디어</a></li>
-          <li><a href="http://blog.airbnb.com" class="link-contrast">블로그</a></li>
-          <li><a href="/help?from=footer" class="link-contrast">도움말</a></li>
-          <li><a href="/policies" class="link-contrast">정책</a></li>
-          <li><a href="/disaster-response" class="link-contrast">재해 대책</a></li>
-          <li><a href="/terms" class="link-contrast">이용약관</a></li>
-      </ul>
-    </div>
-
-    <div class="col-md-2 hide-sm">
-      <h2 class="h5">둘러보기</h2>
-      <ul class="list-layout">
-          <li><a href="/trust" class="link-contrast">신뢰와 안전</a></li>
-          <li><a href="/invite?r=6" class="link-contrast">여행 크레딧</a></li>
-          <li><a href="/wishlists/airbnb_picks" class="link-contrast">에어비앤비 추천</a></li>
-          <li><a href="/mobile" class="link-contrast">앱 다운로드</a></li>
-          <li><a href="https://www.airbnbaction.com?utm_source=airbnb&amp;utm_medium=footer&amp;utm_campaign=product" class="link-contrast" target="_blank">에어비앤비 액션</a></li>
-          <li><a href="/business-travel?s=footer" class="link-contrast">출장 프로그램</a></li>
-          <li><a href="/sitemaps" class="link-contrast">여행지 찾기</a></li>
-      </ul>
-    </div>
-
-    <div class="col-md-2 hide-sm">
-      <h2 class="h5">호스팅하기</h2>
-      <ul class="list-layout">
-          <li><a href="/host" class="link-contrast">호스팅을 해야 하는 이유</a></li>
-          <li><a href="/hospitality" class="link-contrast">따뜻한 손님맞이</a></li>
-          <li><a href="/help/responsible-hosting" class="link-contrast">책임감 있는 호스트 되기</a></li>
-          <li><a href="/home-safety" class="link-contrast">숙소 안전</a></li>
-          <li><a href="/host/instant" class="link-contrast">즉시 예약</a></li>
-      </ul>
-    </div>
-  </div>
-
-    <div class="col-sm-12 space-4 space-top-4 show-sm">
-      <ul class="list-layout list-inline text-center h5">
-          <li><a href="/about/about-us" class="link-contrast">소개</a></li>
-          <li><a href="/careers" class="link-contrast">채용정보</a></li>
-          <li><a href="/press/news" class="link-contrast">미디어</a></li>
-          <li><a href="http://blog.airbnb.com" class="link-contrast">블로그</a></li>
-          <li><a href="/terms" class="link-contrast">이용약관</a></li>
-      </ul>
-    </div>
-
-    <hr class="footer-divider space-top-8 space-4 hide-sm">
-
-    <div class="text-center">
-      <h2 class="h5 space-4 hide-sm">에어비앤비 소셜미디어 채널</h2>
-      <ul class="list-layout list-inline" itemscope itemtype="http://schema.org/Organization">
-        <link itemprop="url" href="https://www.airbnb.co.kr">
-        <meta itemprop="logo" content="https://a2.muscache.com/airbnb/static/logos/belo-200x200-4d851c5b28f61931bf1df28dd15e60ef.png">
-          <li>
-            <a href="https://www.facebook.com/AirbnbKorea" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-              <span class="screen-reader-only">페이스북</span>
-              <i class='icon footer-icon icon-facebook'></i>
-</a>          </li>
-          <li>
-            <a href="https://plus.google.com/+airbnb" class="link-contrast footer-icon-container" itemprop="sameAs" rel="publisher" target="_blank">
-              <span class="screen-reader-only">Google+</span>
-              <i class='icon footer-icon icon-google-plus'></i>
-</a>          </li>
-
-          <li>
-            <a href="https://twitter.com/airbnb" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-              <span class="screen-reader-only">트위터</span>
-              <i class='icon footer-icon icon-twitter'></i>
-</a>          </li>
-
         <li>
-          <a href="https://www.linkedin.com/company/airbnb" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-            <span class="screen-reader-only">링크드인</span>
-            <i class='icon footer-icon icon-linkedin'></i>
-</a>        </li>
+            <span><i class="fa fa-cube"></i><b>Studio</b></span>
+        </li>
+        <li>
+            <span><i class="fa fa-graduation-cap"></i><b>Trainings</b></span>
+        </li>
+        <li>
+            <span><i class="fa fa-umbrella"></i><b>Travel</b></span>
+        </li>        
+        <li>
+            <span><i class="fa fa-heart-o"></i><b>Wedding</b></span>
+        </li>
+  	</ul>
+  </div>
+</div>
+<!-- #Cirlce Ends -->
 
-          <li>
-            <a href="https://www.pinterest.com/airbnb/" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-              <span class="screen-reader-only">Pinterest</span>
-              <i class='icon footer-icon icon-pinterest'></i>
-</a>          </li>
-          <li>
-            <a href="https://www.youtube.com/user/Airbnb" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-              <span class="screen-reader-only">유튜브</span>
-              <i class='icon footer-icon icon-youtube'></i>
-</a>          </li>
-          <li>
-            <a href="https://instagram.com/airbnb" class="link-contrast footer-icon-container" itemprop="sameAs" target="_blank">
-              <span class="screen-reader-only">인스타그램</span>
-              <i class='icon footer-icon icon-instagram'></i>
-</a>          </li>
-      </ul>
-      <div class="space-top-2 text-muted">
-        &copy; Airbnb, Inc.
-      </div>
+
+<!-- works -->
+<div id="works"  class=" clearfix grid"> 
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/1.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Nature</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/1.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/2.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Events</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/2.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/3.jpg" alt="img01"/>
+        <figcaption>
+            <h2>music</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/3.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/4.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Vintage</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/4.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/5.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Typers</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/5.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+     
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/6.jpg" alt="img01"/>
+        <figcaption>
+            <h2>hotel</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/6.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/7.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Chinese</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/7.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/8.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Dicrap</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/8.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/9.jpg" alt="img01"/>
+        <figcaption>
+            <h2>Coffee</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/9.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/10.jpg" alt="img01"/>
+        <figcaption>
+            <h2>cameras</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/10.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/11.jpg" alt="img01"/>
+        <figcaption>
+            <h2>design</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/11.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar  wowload fadeInUp">
+        <img src="images/portfolio/12.jpg" alt="img01"/>
+        <figcaption>
+            <h2>studio</h2>
+            <p>Lily likes to play with crayons and pencils<br>
+            <a href="images/portfolio/12.jpg" title="1" data-gallery>View more</a></p>            
+        </figcaption>
+    </figure>
+    
+
+     
+</div>
+<!-- works -->
+
+
+<div id="partners" class="container spacer ">
+	<h2 class="text-center  wowload fadeInUp">Some of our happy clients</h2>
+  <div class="clearfix">
+    <div class="col-sm-6 partners  wowload fadeInLeft">
+         <img src="images/partners/1.jpg" alt="partners">
+         <img src="images/partners/2.jpg" alt="partners">
+         <img src="images/partners/3.jpg" alt="partners">
+         <img src="images/partners/4.jpg" alt="partners">
     </div>
-</footer>
+    <div class="col-sm-6">
 
+
+    <div id="carousel-testimonials" class="carousel slide testimonails  wowload fadeInRight" data-ride="carousel">
+    <div class="carousel-inner">  
+      <div class="item active animated bounceInRight row">
+      <div class="animated slideInLeft col-xs-2"><img alt="portfolio" src="images/team/1.jpg" width="100" class="img-circle img-responsive"></div>
+      <div  class="col-xs-10">
+      <p> I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. </p>      
+      <span>Angel Smith - <b>eshop Canada</b></span>
       </div>
+      </div>
+      <div class="item  animated bounceInRight row">
+      <div class="animated slideInLeft col-xs-2"><img alt="portfolio" src="images/team/2.jpg" width="100" class="img-circle img-responsive"></div>
+      <div  class="col-xs-10">
+      <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+      <span>John Partic - <b>Crazy Pixel</b></span>
+      </div>
+      </div>
+      <div class="item  animated bounceInRight row">
+      <div class="animated slideInLeft  col-xs-2"><img alt="portfolio" src="images/team/3.jpg" width="100" class="img-circle img-responsive"></div>
+      <div  class="col-xs-10">
+      <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue.</p>
+      <span>Harris David - <b>Jet London</b></span>
+      </div>
+      </div>
+  </div>
 
-    <meta content="{&quot;canonical_host&quot;:&quot;www.airbnb.co.kr&quot;,&quot;language&quot;:&quot;ko&quot;,&quot;locale&quot;:&quot;ko&quot;,&quot;api_config&quot;:{&quot;baseUrl&quot;:&quot;https://www.airbnb.co.kr/api&quot;,&quot;key&quot;:&quot;d306zoyjsyarp7ifhu67rjxn52tv0t20&quot;},&quot;deep_link&quot;:null,&quot;tracking_context&quot;:{&quot;source&quot;:&quot;monorail&quot;,&quot;platform&quot;:&quot;js&quot;,&quot;version&quot;:&quot;1c15fc6fcaac44aff82cc53cb82d48d4ddc60be5&quot;,&quot;controller&quot;:&quot;homepages&quot;,&quot;action&quot;:&quot;show&quot;,&quot;req_uuid&quot;:&quot;2c09bf3b-f721-4e63-87e7-ee0099031854&quot;,&quot;shardset&quot;:&quot;a0,a1,a2&quot;},&quot;no_flash_alerts&quot;:null,&quot;google_maps_url&quot;:&quot;https://maps.googleapis.com/maps/api/js?language=ko&amp;region=KR&amp;v=3.22&amp;libraries=places&amp;client=gme-airbnbinc&amp;channel=monorail-prod&quot;,&quot;airbnb_open_street_map_js_url&quot;:&quot;https://a1.muscache.com/airbnb/static/vendor/mapbox-2.2.1.min-9e935466a5b7f591326491247248298d.js&quot;,&quot;airbnb_open_street_map_css_url&quot;:&quot;https://a2.muscache.com/airbnb/static/vendor/mapbox-2.2.1.min-f9ab2df001aa2b6c43acfef69ecf7ada.css&quot;,&quot;sift_key&quot;:&quot;3d72676b30&quot;,&quot;pellet_id&quot;:&quot;kfgn8s24&quot;}" id="_bootstrap-layout-init" />
-<meta content="{&quot;language&quot;:&quot;ko&quot;,&quot;locale&quot;:&quot;ko&quot;,&quot;country&quot;:&quot;KR&quot;,&quot;tld_country&quot;:&quot;KR&quot;,&quot;currencies&quot;:{&quot;AED&quot;:{&quot;symbol&quot;:&quot;&amp;#1583;.&amp;#1573;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;ﺩ.ﺇ&quot;}},&quot;ARS&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;AUD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;BGN&quot;:{&quot;symbol&quot;:&quot;&amp;#1083;&amp;#1074;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;лв&quot;}},&quot;BRL&quot;:{&quot;symbol&quot;:&quot;R$&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;CAD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;CHF&quot;:{&quot;symbol&quot;:&quot;CHF&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true,&quot;hide_code_if_symbol_shown&quot;:true}},&quot;CLP&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;CNY&quot;:{&quot;symbol&quot;:&quot;&amp;#65509;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;￥&quot;}},&quot;COP&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;CRC&quot;:{&quot;symbol&quot;:&quot;&amp;#8353;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₡&quot;}},&quot;CZK&quot;:{&quot;symbol&quot;:&quot;&amp;#75;&amp;#269;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;Kč&quot;}},&quot;DKK&quot;:{&quot;symbol&quot;:&quot;kr&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true,&quot;explicit_currency_not_aesthetic&quot;:true}},&quot;EUR&quot;:{&quot;symbol&quot;:&quot;&amp;euro;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;€&quot;,&quot;position&quot;:&quot;special&quot;}},&quot;GBP&quot;:{&quot;symbol&quot;:&quot;&amp;pound;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;£&quot;}},&quot;HKD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;HRK&quot;:{&quot;symbol&quot;:&quot;kn&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;HUF&quot;:{&quot;symbol&quot;:&quot;Ft&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;IDR&quot;:{&quot;symbol&quot;:&quot;Rp&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;ILS&quot;:{&quot;symbol&quot;:&quot;&amp;#8362;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₪&quot;}},&quot;INR&quot;:{&quot;symbol&quot;:&quot;&amp;#8377;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₹&quot;}},&quot;JPY&quot;:{&quot;symbol&quot;:&quot;&amp;yen;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;¥&quot;,&quot;space_between_price_and_symbol&quot;:true}},&quot;KRW&quot;:{&quot;symbol&quot;:&quot;&amp;#8361;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₩&quot;}},&quot;MAD&quot;:{&quot;symbol&quot;:&quot;MAD&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;MXN&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;MYR&quot;:{&quot;symbol&quot;:&quot;&amp;#82;&amp;#77;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;RM&quot;}},&quot;NOK&quot;:{&quot;symbol&quot;:&quot;kr&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true,&quot;explicit_currency_not_aesthetic&quot;:true}},&quot;NZD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;PEN&quot;:{&quot;symbol&quot;:&quot;&amp;#83;&amp;#47;&amp;#46;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;S/.&quot;}},&quot;PHP&quot;:{&quot;symbol&quot;:&quot;&amp;#8369;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₱&quot;}},&quot;PLN&quot;:{&quot;symbol&quot;:&quot;z&amp;#22;&amp;#322;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;zł&quot;,&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true}},&quot;RON&quot;:{&quot;symbol&quot;:&quot;lei&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;RUB&quot;:{&quot;symbol&quot;:&quot;&amp;#1088;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₽&quot;,&quot;position&quot;:&quot;after&quot;}},&quot;SAR&quot;:{&quot;symbol&quot;:&quot;SR&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;SEK&quot;:{&quot;symbol&quot;:&quot;kr&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true,&quot;explicit_currency_not_aesthetic&quot;:true}},&quot;SGD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;THB&quot;:{&quot;symbol&quot;:&quot;&amp;#3647;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;฿&quot;}},&quot;TRY&quot;:{&quot;symbol&quot;:&quot;&amp;#84;&amp;#76;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₺&quot;,&quot;position&quot;:&quot;after&quot;,&quot;space_between_price_and_symbol&quot;:true}},&quot;TWD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}},&quot;UAH&quot;:{&quot;symbol&quot;:&quot;&amp;#8372;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₴&quot;}},&quot;USD&quot;:{&quot;symbol&quot;:&quot;$&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{}},&quot;UYU&quot;:{&quot;symbol&quot;:&quot;&amp;#36;&amp;#85;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;$U&quot;}},&quot;VND&quot;:{&quot;symbol&quot;:&quot;&amp;#8363;&quot;,&quot;code_required&quot;:false,&quot;options&quot;:{&quot;unicode_symbol&quot;:&quot;₫&quot;}},&quot;ZAR&quot;:{&quot;symbol&quot;:&quot;R&quot;,&quot;code_required&quot;:true,&quot;options&quot;:{}}},&quot;current_locale_name&quot;:&quot;한국어&quot;,&quot;languages&quot;:[{&quot;locale_name&quot;:&quot;Bahasa Indonesia&quot;,&quot;locale&quot;:&quot;id&quot;},{&quot;locale_name&quot;:&quot;Bahasa Melayu&quot;,&quot;locale&quot;:&quot;ms&quot;},{&quot;locale_name&quot;:&quot;Català&quot;,&quot;locale&quot;:&quot;ca&quot;},{&quot;locale_name&quot;:&quot;Dansk&quot;,&quot;locale&quot;:&quot;da&quot;},{&quot;locale_name&quot;:&quot;Deutsch&quot;,&quot;locale&quot;:&quot;de&quot;},{&quot;locale_name&quot;:&quot;English&quot;,&quot;locale&quot;:&quot;en&quot;},{&quot;locale_name&quot;:&quot;Español&quot;,&quot;locale&quot;:&quot;es&quot;},{&quot;locale_name&quot;:&quot;Eλληνικά&quot;,&quot;locale&quot;:&quot;el&quot;},{&quot;locale_name&quot;:&quot;Français&quot;,&quot;locale&quot;:&quot;fr&quot;},{&quot;locale_name&quot;:&quot;Italiano&quot;,&quot;locale&quot;:&quot;it&quot;},{&quot;locale_name&quot;:&quot;Magyar&quot;,&quot;locale&quot;:&quot;hu&quot;},{&quot;locale_name&quot;:&quot;Nederlands&quot;,&quot;locale&quot;:&quot;nl&quot;},{&quot;locale_name&quot;:&quot;Norsk&quot;,&quot;locale&quot;:&quot;no&quot;},{&quot;locale_name&quot;:&quot;Polski&quot;,&quot;locale&quot;:&quot;pl&quot;},{&quot;locale_name&quot;:&quot;Português&quot;,&quot;locale&quot;:&quot;pt&quot;},{&quot;locale_name&quot;:&quot;Suomi&quot;,&quot;locale&quot;:&quot;fi&quot;},{&quot;locale_name&quot;:&quot;Svenska&quot;,&quot;locale&quot;:&quot;sv&quot;},{&quot;locale_name&quot;:&quot;Türkçe&quot;,&quot;locale&quot;:&quot;tr&quot;},{&quot;locale_name&quot;:&quot;Íslenska&quot;,&quot;locale&quot;:&quot;is&quot;},{&quot;locale_name&quot;:&quot;Čeština&quot;,&quot;locale&quot;:&quot;cs&quot;},{&quot;locale_name&quot;:&quot;Русский&quot;,&quot;locale&quot;:&quot;ru&quot;},{&quot;locale_name&quot;:&quot;ภาษาไทย&quot;,&quot;locale&quot;:&quot;th&quot;},{&quot;locale_name&quot;:&quot;中文 (简体)&quot;,&quot;locale&quot;:&quot;zh&quot;},{&quot;locale_name&quot;:&quot;中文 (繁體)&quot;,&quot;locale&quot;:&quot;zh-TW&quot;},{&quot;locale_name&quot;:&quot;日本語&quot;,&quot;locale&quot;:&quot;ja&quot;},{&quot;locale_name&quot;:&quot;한국어&quot;,&quot;locale&quot;:&quot;ko&quot;}]}" id="_bootstrap-i18n-init" />
-<meta content="{&quot;enabled&quot;:true,&quot;appId&quot;:&quot;138566025676&quot;,&quot;scope&quot;:&quot;email,user_birthday,user_likes,user_education_history,user_hometown,user_location,user_friends&quot;,&quot;sdkUrl&quot;:&quot;https://connect.facebook.net/ko_KR/sdk.js&quot;}" id="_bootstrap-facebook-init" />
-<meta content="{&quot;packages/field_guide.bundle.js&quot;:&quot;https://a2.muscache.com/airbnb/static/packages/field_guide.bundle-9fd2ab0d51f4e0bb2966.js&quot;,&quot;packages/airlock_modal.bundle.js&quot;:&quot;https://a1.muscache.com/airbnb/static/packages/airlock_modal.bundle-9109a76763a02038b250.js&quot;,&quot;packages/airlock_inline.bundle.js&quot;:&quot;https://a2.muscache.com/airbnb/static/packages/airlock_inline.bundle-ab72dc712b685c2bbfa4.js&quot;,&quot;packages/account_activation.bundle.js&quot;:&quot;https://a2.muscache.com/airbnb/static/packages/account_activation.bundle-9a443dbd19d55daf40fd.js&quot;,&quot;packages/reset_password_modal.bundle.js&quot;:&quot;https://a1.muscache.com/airbnb/static/packages/reset_password_modal.bundle-4724be2ee0cc864de7ad.js&quot;}" id="_bootstrap-javascript_paths" />
-<meta content="{&quot;show_engagement_overlay_p2_p3&quot;:true,&quot;show_engagement_overlay_p1&quot;:true,&quot;account_activation_flow&quot;:true,&quot;account_activation_trust_copy&quot;:false,&quot;host_growth.show_dashboard_moweb_nav_bar&quot;:true,&quot;px_trips_menu_in_header&quot;:true,&quot;back_to_search_results&quot;:true,&quot;first_visit_survey&quot;:false,&quot;intelligent_signup_or_login_modal&quot;:true,&quot;oauth_popup&quot;:true,&quot;ethnio_p1&quot;:false,&quot;content_framework_video_autoplay&quot;:true,&quot;render_p1_instant_promo_hero_banner&quot;:true,&quot;fetch_p1_instant_promo&quot;:true,&quot;host_cta_header_v3&quot;:true,&quot;mt_show_city_host_link_header&quot;:true}" id="_bootstrap-trebuchet" />
-<meta content="&quot;homepages#show&quot;" id="_bootstrap-controller_action_pair" />
-<meta content="false" id="_bootstrap-show-signup-garden" />
-<meta content="true" id="_bootstrap-download_garden_enabled" />
-<meta content="false" id="_bootstrap-help-dropdown-experiment-enabled" />
-<meta content="true" id="_bootstrap-help-side-panel-experiment-enabled" />
-<meta content="&quot;google&quot;" id="_bootstrap-map_provider" />
-<meta content="true" id="_bootstrap-new_datepicker" />
-<meta content="{&quot;trust_and_safety&quot;:{&quot;header&quot;:&quot;신뢰를 기반으로 구축된 커뮤니티&quot;,&quot;points&quot;:[{&quot;name&quot;:&quot;profile&quot;,&quot;header&quot;:&quot;웨이보 인증&quot;,&quot;description&quot;:&quot;웨이보 계정으로 로그인해서 본인 인증을 하세요. &lt;a href=&#x27;help/article/452&#x27;&gt;더 알아보기&lt;/a&gt;&quot;,&quot;icon&quot;:&quot;icon-weibo&quot;},{&quot;name&quot;:&quot;payments&quot;,&quot;header&quot;:&quot;믿을 수 있는 서비스&quot;,&quot;description&quot;:&quot;커뮤니티 내의 신뢰와 안전이 저희의 1순위입니다. &lt;a href=&#x27;trust&#x27;&gt;더 알아보기&lt;/a&gt;&quot;,&quot;icon&quot;:&quot;icon-lock&quot;},{&quot;name&quot;:&quot;verified-id&quot;,&quot;header&quot;:&quot;안심 결제&quot;,&quot;description&quot;:&quot;주요 신용카드와 알리페이 같은 현지 결제 방식을 지원합니다. &lt;a href=&#x27;help/article/795&#x27;&gt;더 알아보기&lt;/a&gt;&quot;,&quot;icon&quot;:&quot;icon-alipay-text&quot;}]},&quot;inShowCookie&quot;:false,&quot;cookieNoticeText&quot;:&quot;본 사이트는 더 나은 경험을 위해 쿠키를 이용합니다. 에어비앤비를 이용하시면 본사의 &lt;a href=&#x27;//www.airbnb.com/terms/privacy_policy&#x27; class=&#x27;alert-link&#x27;&gt;쿠키 이용&lt;/a&gt;에 동의하시게 됩니다.&quot;,&quot;slideShowOnly&quot;:true,&quot;map_css&quot;:&quot;https://a0.muscache.com/airbnb/static/packages/map_search-f20130979293c80abe35b3b2eeb825b1.css&quot;,&quot;map_js&quot;:&quot;https://a2.muscache.com/airbnb/static/packages/p2.bundle-6284935c350603079d78.js&quot;}" id="_bootstrap-p1_init" />
-<meta content="{&quot;searchFormAction&quot;:&quot;/s&quot;,&quot;guestCountOptions&quot;:[{&quot;text&quot;:&quot;숙박 인원 1명&quot;,&quot;value&quot;:1},{&quot;text&quot;:&quot;숙박 인원 2명&quot;,&quot;value&quot;:2},{&quot;text&quot;:&quot;숙박 인원 3명&quot;,&quot;value&quot;:3},{&quot;text&quot;:&quot;숙박 인원 4명&quot;,&quot;value&quot;:4},{&quot;text&quot;:&quot;숙박 인원 5명&quot;,&quot;value&quot;:5},{&quot;text&quot;:&quot;숙박 인원 6명&quot;,&quot;value&quot;:6},{&quot;text&quot;:&quot;숙박 인원 7명&quot;,&quot;value&quot;:7},{&quot;text&quot;:&quot;숙박 인원 8명&quot;,&quot;value&quot;:8},{&quot;text&quot;:&quot;숙박 인원 9명&quot;,&quot;value&quot;:9},{&quot;text&quot;:&quot;숙박 인원 10명&quot;,&quot;value&quot;:10},{&quot;text&quot;:&quot;숙박 인원 11명&quot;,&quot;value&quot;:11},{&quot;text&quot;:&quot;숙박 인원 12명&quot;,&quot;value&quot;:12},{&quot;text&quot;:&quot;숙박 인원 13명&quot;,&quot;value&quot;:13},{&quot;text&quot;:&quot;숙박 인원 14명&quot;,&quot;value&quot;:14},{&quot;text&quot;:&quot;숙박 인원 15명&quot;,&quot;value&quot;:15},{&quot;text&quot;:&quot;숙박 인원 16+명&quot;,&quot;value&quot;:16}],&quot;launchInfantsV2&quot;:false}" id="_bootstrap-search_form_data" />
-<meta content="false" id="_bootstrap-saved_search_kill" />
-<meta content="false" id="_bootstrap-saved_search_kill_sync" />
-<meta content="false" id="_bootstrap-p1_autofill_recent_search_kill" />
-<meta content="{&quot;env&quot;:&quot;production&quot;,&quot;client_id&quot;:&quot;5ca541ad-47b9-4b16-8045-2f4c6e830450&quot;,&quot;client_key&quot;:&quot;production_r29fkzj4_pfpfmbt48yh4ht8c&quot;}" id="_bootstrap-amex_checkout" />
-<meta content="{&quot;js&quot;:&quot;https://a0.muscache.com/airbnb/static/packages/surveyair.bundle-e7f12430b5194077c5be.js&quot;,&quot;css&quot;:&quot;https://a0.muscache.com/airbnb/static/packages/surveyair-46037f656707ea1bcd124dc2999262e4.css&quot;}" id="_bootstrap-surveyair" />
-<meta content="{&quot;js&quot;:&quot;https://a1.muscache.com/airbnb/static/packages/browser-update.bundle-a73ff37252547f17b78d.js&quot;}" id="_bootstrap-browser-update" />
-<meta content="&quot;https://a0.muscache.com/airbnb/static/china_typeahead_data-06cee030dd9f4e721c7044d7e83e002e.json&quot;" id="_bootstrap-china_typeahead_data" />
-<meta content="{&quot;engagement_overlay.single_page.title&quot;:&quot;에어비앤비에 오신 것을 환영합니다.&quot;,&quot;engagement_overlay.single_page.summary&quot;:&quot;2백만 개가 넘는 독특하면서 후기도 좋은 숙소 중에서 다음 여행을 위한 완벽한 숙소를 찾아 보세요. 가족 여행, 친구와의 우정 여행, 출장 등 어떤 여행이든 마음에 드는 숙소를 찾을 수 있을 거예요.&quot;,&quot;engagement_overlay.single_page.complete&quot;:&quot;호스팅 시작하기&quot;,&quot;first_visit_survey.help_us&quot;:&quot;에어비앤비 방문자 조사에 참여해 주세요.&quot;,&quot;first_visit_survey.ready&quot;:&quot;다음 여행에 에어비앤비를 이용할 준비가 되었다고 생각하시나요?&quot;,&quot;first_visit_survey.ready.not_ready&quot;:&quot;전혀 그렇지 않음&quot;,&quot;first_visit_survey.ready.ready&quot;:&quot;그러함&quot;,&quot;first_visit_survey.ready.sort_of_ready&quot;:&quot;약간 그러함&quot;,&quot;first_visit_survey.ready.totally_ready&quot;:&quot;매우 많이 그러함&quot;,&quot;first_visit_survey.ready.very_ready&quot;:&quot;상당히 그러함&quot;,&quot;first_visit_survey.planning_trip&quot;:&quot;현재 여행을 준비중이신지요?&quot;,&quot;first_visit_survey.planning_trip.trip_in_mind&quot;:&quot;네, 어디로 갈지 결정하였습니다&quot;,&quot;first_visit_survey.planning_trip.not_sure_where&quot;:&quot;네, 하지만 아직 어디에 갈지는 결정하지 않았습니다&quot;,&quot;first_visit_survey.planning_trip.no_plans&quot;:&quot;아니요. 그냥 둘러보는 중입니다.&quot;,&quot;skip&quot;:&quot;건너뛰기&quot;,&quot;nux_survey.header title&quot;:&quot;잠깐만요, 회원님의 의견이 필요해요!&quot;,&quot;nux_survey.pop modal body&quot;:&quot;오늘 에어비앤비를 어떻게 사용하셨는지 간단한 설문조사에 참여해 주세요. 참여해 주시면 에어비앤비 사용 환경을 개선하는데 큰 도움이 됩니다.&quot;,&quot;nux_survey.survey button text&quot;:&quot;설문조사 참여&quot;,&quot;homepage.notices.you have only until to leave a review&quot;:&quot;%{expiration_date}까지만 %{reviewee_name}님에 대한 후기를 작성할 수 있습니다. %{link_start}후기를 남기세요.%{link_end}&quot;,&quot;homepage.notices.only day left to leave a review&quot;:&quot;앞으로 %{smart_count}일 동안만 %{reviewee_name}님에 대한 후기를 작성할 수 있습니다. %{link_start}후기를 남기세요.%{link_end}&quot;,&quot;saved_search_search_for_city_address_landmark&quot;:&quot;도시, 주소, 명소로 검색하세요...&quot;,&quot;saved_search_search_button&quot;:&quot;숙소 검색&quot;,&quot;saved_search_please_set_location&quot;:&quot;위치를 설정해 주세요&quot;,&quot;saved_search_checkin&quot;:&quot;체크인&quot;,&quot;saved_search_checkout&quot;:&quot;체크아웃&quot;,&quot;saved_search_number_of_guests&quot;:&quot;게스트 수&quot;,&quot;saved_search_recent_searches&quot;:&quot;최근 검색 기록&quot;,&quot;saved_search_destinations&quot;:&quot;여행지&quot;,&quot;saved_search_guests&quot;:&quot;숙박 가능 인원 %{smart_count}명&quot;,&quot;saved_search_infants_label&quot;:&quot;유아 %{smart_count}명&quot;,&quot;android.strings.search_where_to&quot;:&quot;어디로 가세요?&quot;,&quot;saved_search_adult&quot;:&quot;성인 %{smart_count}명&quot;,&quot;saved_search_child&quot;:&quot;어린이 %{smart_count}명&quot;,&quot;saved_search_infant&quot;:&quot;유아 %{smart_count}명&quot;,&quot;saved_search_age_range&quot;:&quot;%{min} - %{max}세&quot;,&quot;saved_search_age_under&quot;:&quot;%{age}세 미만&quot;,&quot;video.exit_full_screen&quot;:&quot;전체화면 나가기&quot;,&quot;smart_banner.title&quot;:&quot;iOS용 에어비앤비&quot;,&quot;smart_banner.title_android&quot;:&quot;안드로이드용 에어비앤비&quot;,&quot;smart_banner.Install&quot;:&quot;설치&quot;,&quot;smart_banner.Open in App&quot;:&quot;앱에서 열기&quot;,&quot;smart_banner.INSTALL&quot;:&quot;설치&quot;,&quot;smart_banner.Always be ready&quot;:&quot;기회를 놓치지 마세요.&quot;,&quot;smart_banner.Find your next adventure&quot;:&quot;준비된 사람만이 기회를 잡을 수 있습니다. 이동 중에도 다음 여행을 준비하세요.&quot;,&quot;shared.Close&quot;:&quot;닫기&quot;,&quot;Password&quot;:&quot;비밀번호&quot;,&quot;users.Confirm_Password_to_Continue&quot;:&quot;계속하려면 비밀번호를 확인해 주세요.&quot;,&quot;users.Confirm_Password&quot;:&quot;비밀번호 확인&quot;,&quot;users.Cancel&quot;:&quot;취소&quot;,&quot;users.Please_enter_your_Airbnb_password_to_continue.&quot;:&quot;보안을 위해 계속하시려면 에어비앤비 비밀번호를 입력하세요.&quot;,&quot;user.signup.forgot_password&quot;:&quot;비밀번호가 생각나지 않으세요?&quot;,&quot;users.Confirm_Facebook_Password&quot;:&quot;페이스북 비밀번호 확인&quot;,&quot;home&quot;:&quot;홈&quot;,&quot;download_the_app&quot;:&quot;앱 다운로드&quot;,&quot;sign_up&quot;:&quot;회원가입&quot;,&quot;log_in&quot;:&quot;로그인&quot;,&quot;alerts&quot;:&quot;알림&quot;,&quot;inbox&quot;:&quot;메시지&quot;,&quot;discover&quot;:&quot;둘러보기&quot;,&quot;search&quot;:&quot;숙소 검색&quot;,&quot;how_it_works&quot;:&quot;이용방법&quot;,&quot;help&quot;:&quot;도움말&quot;,&quot;invite_friends&quot;:&quot;친구 초대&quot;,&quot;logout&quot;:&quot;로그아웃&quot;,&quot;name&quot;:&quot;사용자&quot;,&quot;photography&quot;:&quot;사진&quot;,&quot;your_trips&quot;:&quot;예정된 여행&quot;,&quot;become_a_host&quot;:&quot;호스팅 하기&quot;,&quot;dashboard&quot;:&quot;알림판&quot;,&quot;close&quot;:&quot;닫기&quot;,&quot;android.strings.search_where_to&quot;:&quot;어디로 가세요?&quot;,&quot;checkin&quot;:&quot;체크인&quot;,&quot;checkout&quot;:&quot;체크아웃&quot;,&quot;number_of_guests&quot;:&quot;게스트 수&quot;,&quot;room_type_0&quot;:&quot;집 전체&quot;,&quot;room_type_1&quot;:&quot;개인실&quot;,&quot;room_type_2&quot;:&quot;다인실&quot;,&quot;find_a_place&quot;:&quot;숙소 찾기&quot;,&quot;shared.x guests&quot;:&quot;숙박 인원 %{smart_count}명&quot;,&quot;guests&quot;:&quot;숙박 인원&quot;,&quot;room_type&quot;:&quot;숙소 유형&quot;,&quot;shared.Help Center&quot;:&quot;도움말 센터&quot;,&quot;shared.Ask the Community&quot;:&quot;커뮤니티에 물어보세요.&quot;,&quot;Back&quot;:&quot;뒤로&quot;,&quot;view this article in the help center&quot;:&quot;도움말 센터에서 도움말 보기&quot;,&quot;field_guide.error.no_load_topic&quot;:&quot;추천 도움말이 없습니다. 에어비앤비 %{link_start}도움말 센터%{link_end}를 방문해 주세요.&quot;,&quot;field_guide.no_results&quot;:&quot;결과를 찾을 수 없음&quot;,&quot;field_guide.suggested_actions&quot;:&quot;추천 작업&quot;,&quot;field_guide.search_down&quot;:&quot;검색할 수 없음. 다시 시도해 주세요.&quot;,&quot;field_guide.articles_result_title&quot;:&quot;&#x27;%{query}&#x27;와 관련된 도움말&quot;,&quot;field_guide.search_result_title&quot;:&quot;&#x27;%{query}&#x27;에 대한 검색결과&quot;,&quot;field_guide.suggested_articles&quot;:&quot;추천 도움말&quot;,&quot;field_guide.how_can_we_help&quot;:&quot;어떻게 도와드릴까요?&quot;,&quot;field_guide.welcome_name_how_can_we_help&quot;:&quot;%{first_name}님, 환영합니다! 무엇을 도와드릴까요?&quot;,&quot;field_guide.welcome_how_can_we_help&quot;:&quot;환영합니다! 무엇을 도와드릴까요?&quot;,&quot;field_guide.search_for_anything&quot;:&quot;무엇이든 검색하세요(예약하기, 대금 받기, 후기 등)&quot;,&quot;field_guide.search_for_help&quot;:&quot;도움말 찾기&quot;,&quot;field_guide.cant_find_what_youre_looking_for&quot;:&quot;원하는 정보가 없나요?&quot;,&quot;help.Visit the Help Center&quot;:&quot;도움말 보기&quot;,&quot;help.Airbnb Help&quot;:&quot;에어비앤비 도움말&quot;,&quot;shared.Messages&quot;:&quot;메시지&quot;,&quot;shared.Notifications&quot;:&quot;알림&quot;,&quot;shared.See all&quot;:&quot;전체 보기&quot;,&quot;shared.View Dashboard&quot;:&quot;알림판 보기&quot;,&quot;shared.View Inbox&quot;:&quot;메시지 보기&quot;,&quot;notifications.Unread Messages In Inbox&quot;:&quot;%{smart_count}개의 읽지 않은 메시지가 있습니다.&quot;,&quot;notifications.Unread Messages In Inbox From Last 7 Days&quot;:&quot;지난 1주간 %{smart_count}개의 읽지 않은 메시지가 있습니다.&quot;,&quot;notifications.Additional Unread Messages&quot;:&quot;%{smart_count}개의 읽지 않은 메시지가 있습니다.&quot;,&quot;notifications.Additional Unread Messages Last Week&quot;:&quot;지난 1주간 %{smart_count}개의 읽지 않은 메시지가 있습니다.&quot;,&quot;notifications.5+ Notifications&quot;:&quot;%{link_start}알림판%{link_end}에 읽지 않은 알림이 5개 이상 있습니다.&quot;,&quot;notifications.Read All Notifications&quot;:&quot;%{link_start}알림판%{link_end}에 읽지 않은 알림이 %{smart_count}개 있습니다.&quot;,&quot;notifications.Read All Messages&quot;:&quot;새로운 메시지가 없습니다. 모두 읽으셨네요!&quot;,&quot;notifications.Error&quot;:&quot;죄송합니다. 지금은 새로운 메시지를 가져올 수 없습니다. %{link_start}메시지 보기%{link_end}&quot;,&quot;airlock.title&quot;:&quot;보안 검사&quot;,&quot;airlock.multi_friction_selection.title&quot;:&quot;계정 보안 조치에 협조해 주세요.&quot;,&quot;airlock.multi_friction_selection.description&quot;:&quot;계정에 액세스하는 사람이 정말 회원님인지 확인해야 합니다. 다음 중 원하는 본인 인증 방법을 선택해 주세요.&quot;,&quot;airlock.cvv_verification.multi_select_title&quot;:&quot;신용 카드&quot;,&quot;airlock.cvv_verification.multi_select_helper&quot;:&quot;보안 코드를 입력하세요 (무료)&quot;,&quot;airlock.cvv_verification.title&quot;:&quot;신용카드 인증&quot;,&quot;airlock.cvv_verification.verified&quot;:&quot;계정 인증 완료&quot;,&quot;airlock.cvv_verification.response.title&quot;:&quot;계정 보안 조치에 협조해 주세요.&quot;,&quot;airlock.cvv_verification.response.description&quot;:&quot;계정에 액세스하는 사람이 정말 회원님인지 확인해야 합니다. 이전에 사용한 신용카드의 보안 코드를 입력하여 본인 인증을 해주세요.&quot;,&quot;airlock.cvv_verification.response.credit_card_label&quot;:&quot;신용카드&quot;,&quot;airlock.cvv_verification.response.security_code_label&quot;:&quot;보안 코드&quot;,&quot;airlock.cvv_verification.response.invalid&quot;:&quot;입력한 값이 틀립니다! 나중에 다시 시도하세요.&quot;,&quot;airlock.photo_id_verification.title&quot;:&quot;사진 본인 인증&quot;,&quot;airlock.photo_id_verification.option_selection.title&quot;:&quot;본인 인증하기&quot;,&quot;airlock.photo_id_verification.option_selection.description&quot;:&quot;에어비앤비 숙소는 누군가의 소중한 집입니다. 신분증으로 본인 인증을 해 주시면 호스트가 보다 안심하고 자신의 집을 공유할 수 있답니다.&quot;,&quot;airlock.photo_id_verification.response.title&quot;:&quot;신분증 인증&quot;,&quot;airlock.photo_id_verification.verified&quot;:&quot;계정 인증 완료&quot;,&quot;airlock.photo_id_verification.response.invalid&quot;:&quot;신분증을 스캔하는 중 오류가 발생했습니다. 다시 시도해 주세요.&quot;,&quot;airlock.captcha.thread_create.response.description&quot;:&quot;자동화된 프로그램이 악의적인 의도로 웹사이트에 접근하여 다른 사람에게 허위 메시지를 보내는 경우가 있습니다. 본인이 이 메시지를 보내는 실제 사람임을 알 수 있도록 아래의 보안 문자를 입력해 주세요.&quot;,&quot;airlock.captcha.response.invalid&quot;:&quot;보안 문자를 다시 입력해 주세요.&quot;,&quot;airlock.phone_verification.multi_select_title&quot;:&quot;전화&quot;,&quot;airlock.phone_verification.multi_select_helper&quot;:&quot;전화 또는 SMS로 코드 받기&quot;,&quot;airlock.phone_verification.title&quot;:&quot;전화 인증&quot;,&quot;airlock.phone_verification.option_selection.title&quot;:&quot;계정 보안 조치에 협조해 주세요.&quot;,&quot;airlock.phone_verification.listing_activate.option_selection.title&quot;:&quot;변경사항을 확인해 주세요.&quot;,&quot;airlock.phone_verification.payout_create.option_selection.title&quot;:&quot;변경사항을 확인해 주세요.&quot;,&quot;airlock.phone_verification.option_selection.description&quot;:&quot;계정에 액세스하는 사람이 정말 본인인지 확인해야 합니다. 이를 위해 이전에 에어비앤비에서 인증한 휴대전화로 코드를 보내 드립니다.&quot;,&quot;airlock.phone_verification.listing_activate.option_selection.description&quot;:&quot;숙소를 등록하는 사람이 정말 본인인지 확인해야 합니다. 이를 위해 이전에 에어비앤비에서 인증한 휴대전화로 코드를 보내 드립니다.&quot;,&quot;airlock.phone_verification.payout_create.option_selection.description&quot;:&quot;대금 수령 방법을 추가하는 사람이 정말 본인인지 확인해야 합니다. 이를 위해 이전에 에어비앤비에서 인증한 휴대전화로 코드를 보내 드립니다.&quot;,&quot;airlock.phone_verification.option_selection.how&quot;:&quot;인증코드 전송 방법을 선택하세요.&quot;,&quot;airlock.phone_verification.option_selection.where&quot;:&quot;코드를 어디로 보낼까요?&quot;,&quot;airlock.phone_verification.response.title&quot;:&quot;4개의 숫자 코드를 입력하세요.&quot;,&quot;airlock.phone_verification.We sent a code to your phone number&quot;:&quot;%{last_four_digits}번으로 끝나는 휴대전화로 코드를 전송했습니다.&quot;,&quot;airlock.phone_verification.Depending on your provider&quot;:&quot;이동통신사에 따라 메시지가 도착하는 데 몇 분이 소요될 수 있습니다.&quot;,&quot;airlock.phone_verification.We will wait right here&quot;:&quot;기다리겠습니다.&quot;,&quot;airlock.phone_verification.Send me a text message&quot;:&quot;문자 메시지&quot;,&quot;airlock.phone_verification.Call me&quot;:&quot;전화 통화&quot;,&quot;airlock.api_error&quot;:&quot;요청을 처리하는 도중 오류가 발생했습니다. 다시 시도해 주세요.&quot;,&quot;airlock.phone_verification.Phone number ending in&quot;:&quot;%{last_four}번으로 끝나는 전화번호&quot;,&quot;airlock.phone_verification.Enter Your Code&quot;:&quot;인증 코드 입력&quot;,&quot;airlock.phone_verification.response.invalid&quot;:&quot;입력한 코드가 올바르지 않습니다.&quot;,&quot;airlock.email_verification.multi_select_title&quot;:&quot;이메일&quot;,&quot;airlock.email_verification.multi_select_helper&quot;:&quot;인증 이메일 받기&quot;,&quot;airlock.phone_verification_or_email_verification.title&quot;:&quot;전화 인증&quot;,&quot;airlock.phone_verification_or_email_verification.option_selection.title&quot;:&quot;계정 보안 조치에 협조해 주세요.&quot;,&quot;airlock.phone_verification_or_email_verification.option_selection.description&quot;:&quot;계정에 액세스하는 사람이 정말 본인인지 확인해야 합니다. 이를 위해 휴대전화로 보안 코드를 보내거나 확인 이메일을 전송해 드립니다.&quot;,&quot;airlock.phone_verification_or_email_verification.option_selection.how&quot;:&quot;인증코드 전송 방법을 선택하세요.&quot;,&quot;airlock.phone_verification_or_email_verification.option_selection.where&quot;:&quot;코드를 어디로 보낼까요?&quot;,&quot;airlock.phone_verification_or_email_verification.response.title&quot;:&quot;4개의 숫자 코드를 입력하세요.&quot;,&quot;airlock.phone_verification_or_email_verification.We sent a code to your phone number&quot;:&quot;%{last_four_digits}번으로 끝나는 휴대전화로 코드를 전송했습니다.&quot;,&quot;airlock.phone_verification_or_email_verification.Depending on your provider&quot;:&quot;이동통신사에 따라 메시지가 도착하는 데 몇 분이 소요될 수 있습니다.&quot;,&quot;airlock.phone_verification_or_email_verification.We will wait right here&quot;:&quot;기다리겠습니다.&quot;,&quot;airlock.phone_verification_or_email_verification.Send me a text message&quot;:&quot;문자 메시지&quot;,&quot;airlock.phone_verification_or_email_verification.Call me&quot;:&quot;전화 통화&quot;,&quot;airlock.phone_verification_or_email_verification.Phone number ending in&quot;:&quot;%{last_four}번으로 끝나는 전화번호&quot;,&quot;airlock.phone_verification_or_email_verification.Enter Your Code&quot;:&quot;코드를 입력하세요.&quot;,&quot;airlock.phone_verification_or_email_verification.response.invalid&quot;:&quot;입력한 코드가 올바르지 않습니다.&quot;,&quot;airlock.identity_info_confirmation.response.confirm_details&quot;:&quot;세부사항 확인&quot;,&quot;airlock.identity_info_confirmation.response.make_sure_details_are_correct&quot;:&quot;잠시 시간을 내어 계정 세부 정보가 올바른지 확인하세요.&quot;,&quot;airlock.identity_info_confirmation.response.name&quot;:&quot;이름&quot;,&quot;airlock.identity_info_confirmation.response.first_name&quot;:&quot;이름&quot;,&quot;airlock.identity_info_confirmation.response.last_name&quot;:&quot;성&quot;,&quot;airlock.identity_info_confirmation.response.email&quot;:&quot;이메일 주소&quot;,&quot;airlock.identity_info_confirmation.response.birthday&quot;:&quot;생일&quot;,&quot;airlock.identity_info_confirmation.response.birthday_month&quot;:&quot;월&quot;,&quot;airlock.identity_info_confirmation.response.birthday_day&quot;:&quot;일&quot;,&quot;airlock.identity_info_confirmation.response.birthday_year&quot;:&quot;년&quot;,&quot;airlock.identity_info_confirmation.response.confirm_and_continue&quot;:&quot;확인 및 계속&quot;,&quot;airlock.identity_info_confirmation.response.you_are_X_years_old&quot;:&quot;%{emphasis_start}%{smart_count}세%{emphasis_end}라고 입력하셨습니다.&quot;,&quot;airlock.identity_info_confirmation.response.is_this_age_correct&quot;:&quot;맞나요?&quot;,&quot;airlock.identity_info_confirmation.response.not_correct_change_my_birthday&quot;:&quot;아니요, 생일을 변경할께요.&quot;,&quot;airlock.identity_info_confirmation.response.yes_my_birthday_is_correct&quot;:&quot;예, 맞아요.&quot;,&quot;airlock.password_reset.response.title&quot;:&quot;비밀번호를 변경해 봅시다.&quot;,&quot;airlock.password_reset.response.description&quot;:&quot;계정을 안전하게 보호하는 쉬운 방법은 비밀번호를 변경하는 것입니다. 지금 변경해 볼까요?&quot;,&quot;airlock.password_reset.response.current_password&quot;:&quot;현재 비밀번호&quot;,&quot;airlock.password_reset.response.new_password&quot;:&quot;새 비밀번호&quot;,&quot;airlock.password_reset.response.confirm_new_password&quot;:&quot;새 비밀번호 확인&quot;,&quot;airlock.password_reset.Next&quot;:&quot;비밀번호 변경&quot;,&quot;airlock.email_verification.option_selection.title&quot;:&quot;이메일 주소 확인&quot;,&quot;airlock.email_verification.option_selection.description&quot;:&quot;다음 주소로 계정 인증 이메일을 보내드립니다. %{linebreak} %{user_email} %{linebreak} %{linebreak} 이메일이 수신되지 않는다면 스팸 폴더를 확인해 주세요.&quot;,&quot;airlock.email_verification.response.title&quot;:&quot;이메일 확인하기&quot;,&quot;airlock.email_verification.response.description&quot;:&quot;다음 주소로 계정 인증 이메일을 보냈습니다.  %{linebreak} %{user_email} %{linebreak} %{linebreak} 이메일 주소를 인증하면 자유롭게 이용할 수 있습니다.&quot;,&quot;airlock.email_verification.response.Next&quot;:&quot;완료&quot;,&quot;airlock.email_verification.cant_get_to_email&quot;:&quot;이메일에 액세스할 수 없나요?&quot;,&quot;airlock.email_verification.let_us_know&quot;:&quot;에어비앤비에 알려주세요.&quot;,&quot;airlock.account_disabled.introduction.title&quot;:&quot;정지된 계정입니다&quot;,&quot;airlock.account_disabled.introduction.introduction&quot;:&quot;회원님의 정보 보호를 위해 일시적으로 에어비앤비 계정을 차단했습니다.&quot;,&quot;airlock.account_disabled.introduction.description&quot;:&quot;액세스를 복원하려면 에어비앤비에 등록된 이메일 주소로 account.disabled@airbnb.com에 이메일을 보내 주세요.&quot;,&quot;airlock.no_phone_access.introduction.title&quot;:&quot;이메일은 시간이 더 오래 소요됩니다.&quot;,&quot;airlock.no_phone_access.introduction.introduction&quot;:&quot;보안상의 이유로 에어비앤비가 직접 변경사항을 확인하려면 하루에서 이틀이 소요됩니다. 에어비앤와 연결된 이메일 주소로 &lt;a href=\&quot;mailto:account.disabled@airbnb.com\&quot;&gt;account.disabled@airbnb.com&lt;/a&gt;에 이메일을 보내 주세요. 확인해서 처리하도록 하겠습니다.&quot;,&quot;airlock.no_phone_access.introduction.tip.title&quot;:&quot;휴대전화로 빠르게 업데이트하세요.&quot;,&quot;airlock.no_phone_access.introduction.tip.description&quot;:&quot;여행 중이거나 휴대전화를 사용할 수 없는 상황이라면 기다렸다가 다시 업데이트하세요.&quot;,&quot;airlock.no_phone_access.Send Me a Code&quot;:&quot;인증 코드 받기&quot;,&quot;airlock.no_email_access.introduction.title&quot;:&quot;이메일은 시간이 더 오래 소요됩니다.&quot;,&quot;airlock.no_email_access.introduction.introduction&quot;:&quot;보안상의 이유로 에어비앤비가 직접 변경사항을 확인하려면 하루에서 이틀이 소요됩니다. 에어비앤와 연결된 이메일 주소로 &lt;a href=\&quot;mailto:account.disabled@airbnb.com\&quot;&gt;account.disabled@airbnb.com&lt;/a&gt;에 이메일을 보내 주세요. 확인해서 처리하도록 하겠습니다.&quot;,&quot;airlock.no_email_access.introduction.tip.title&quot;:&quot;휴대전화로 빠르게 업데이트하세요.&quot;,&quot;airlock.no_email_access.introduction.tip.description&quot;:&quot;여행 중이거나 휴대전화를 사용할 수 없는 상황이라면 기다렸다가 다시 업데이트하세요.&quot;,&quot;airlock.contact_us.response.title&quot;:&quot;문의하기&quot;,&quot;airlock.contact_us.response.description&quot;:&quot;보안상의 이유로 추가적인 계정 확인 조치를 취해야 합니다. &lt;a href=\&quot;mailto:account.disabled@airbnb.com\&quot;&gt;account.disabled@airbnb.com&lt;/a&gt;으로 문의해 주세요.&quot;,&quot;airlock.introduction&quot;:&quot;계속하려면 보안 확인 절차를 완료하셔야 합니다.&quot;,&quot;airlock.Get Started&quot;:&quot;시작하기&quot;,&quot;airlock.Continue&quot;:&quot;계속&quot;,&quot;airlock.Next&quot;:&quot;다음&quot;,&quot;airlock.Done&quot;:&quot;완료&quot;,&quot;airlock.Back&quot;:&quot;뒤로&quot;,&quot;airlock.Email Airbnb&quot;:&quot;에어비앤비에 이메일 보내기&quot;,&quot;airlock.Start Over&quot;:&quot;시작&quot;,&quot;airlock.success.Thanks&quot;:&quot;%{first_name}님, 감사합니다.&quot;,&quot;airlock.success.You are done&quot;:&quot;완료되었습니다. 계속해 주세요.&quot;,&quot;have_a_moment&quot;:&quot;잠시만요!&quot;,&quot;help_make_experience_better&quot;:&quot;에어비앤비 서비스 향상을 위한 간단한 설문조사에 참여해 주세요.&quot;,&quot;lets_do_this&quot;:&quot;참여하기&quot;,&quot;thanks_for_helping&quot;:&quot;참여해 주셔서 감사합니다!&quot;,&quot;fill_out_survey&quot;:&quot;간단한 설문 조사에 참여해 주시면 매우 감사하겠습니다.&quot;,&quot;surveyair_cancel&quot;:&quot;취소&quot;,&quot;surveyair_submit&quot;:&quot;제출하기&quot;,&quot;surveyair_next&quot;:&quot;다음&quot;,&quot;surveyair_back&quot;:&quot;뒤로&quot;,&quot;surveyair_pagination&quot;:&quot;%{currentPage}/%{totalNumPages} 페이지&quot;,&quot;surveyair_strongly_disagree&quot;:&quot;매우 아니다&quot;,&quot;surveyair_disagree&quot;:&quot;아니다&quot;,&quot;surveyair_neutral&quot;:&quot;보통&quot;,&quot;surveyair_agree&quot;:&quot;그렇다&quot;,&quot;surveyair_strongly_agree&quot;:&quot;매우 그렇다&quot;,&quot;surveyair_no_answer&quot;:&quot;응답 안함&quot;,&quot;surveyair_very_difficult&quot;:&quot;매우 어려움&quot;,&quot;surveyair_difficult&quot;:&quot;어려움&quot;,&quot;surveyair_easy&quot;:&quot;쉬움&quot;,&quot;surveyair_very_easy&quot;:&quot;매우 쉬움&quot;,&quot;shared.Close this modal&quot;:&quot;닫기&quot;,&quot;your_trips.x_guest(s)&quot;:&quot;게스트 %{smart_count}명&quot;,&quot;your_trips.x_listing(s)&quot;:&quot;숙소 %{smart_count}개&quot;,&quot;shared.Trips&quot;:&quot;여행&quot;,&quot;header.View Trips&quot;:&quot;여행 보기&quot;,&quot;header.View Wish Lists&quot;:&quot;위시리스트 보기&quot;,&quot;header.You Have X Wish List(s)&quot;:&quot;%{smart_count}개의 위시리스트가 있습니다.&quot;,&quot;header.X home(s)&quot;:&quot;집 %{smart_count}개&quot;,&quot;header.Popular Wish Lists&quot;:&quot;인기 위시리스트&quot;,&quot;your_trips.Error&quot;:&quot;죄송합니다. 지금은 여행 업데이트를 불러올 수 없습니다. %{link_start}여행 보기%{link_end}&quot;,&quot;reservation_status.timedout&quot;:&quot;기간만료&quot;,&quot;shared.Wish Lists&quot;:&quot;위시리스트&quot;,&quot;header.Create a wish list&quot;:&quot;위시리스트 만들기&quot;,&quot;header.No wish list created&quot;:&quot;위시리스트 없음&quot;,&quot;header.No upcoming trips&quot;:&quot;예정된 여행 없음&quot;,&quot;header.Continue searching in (x)&quot;:&quot;%{location}의 숙소 계속 검색하기&quot;,&quot;create_new_wish_list&quot;:&quot;새로운 위시리스트 만들기&quot;,&quot;wish_list_name&quot;:&quot;위시리스트 제목&quot;,&quot;priv.everyone&quot;:&quot;전체공개&quot;,&quot;priv.invite_only&quot;:&quot;비공개&quot;,&quot;priv.privacy_settings&quot;:&quot;공개 설정&quot;,&quot;priv.everyone_description&quot;:&quot;전체공개 및 에어비앤비 프로필에 게시&quot;,&quot;priv.invite_only_description&quot;:&quot;나와 내가 초대한 친구만 볼 수 있습니다.&quot;,&quot;shared.Save&quot;:&quot;저장하기&quot;,&quot;shared.Cancel&quot;:&quot;취소&quot;,&quot;dl.heading&quot;:&quot;에어비앤비 모바일 앱에서 이 페이지를 여시겠습니까?&quot;,&quot;dl.open_in_app&quot;:&quot;앱에서 열기&quot;,&quot;dl.no_thanks&quot;:&quot;아니요&quot;,&quot;dl.interstitial.continue&quot;:&quot;계속&quot;,&quot;dl.interstitial.sign_up_with_browser&quot;:&quot;브라우저에서 회원 가입하기&quot;,&quot;dl.interstitial.get_the_app_for_a_faster&quot;:&quot;에어비앤비를 더 빠르고 쉽게 이용하려면 앱을 다운로드하세요.&quot;,&quot;shared.Log_in&quot;:&quot;로그인&quot;,&quot;must_log_in&quot;:&quot;계속하시려면 로그인해 주세요.&quot;,&quot;log_in_to_save&quot;:&quot;위시리스트에 저장하려면 로그인해주세요.&quot;,&quot;concur.link_your_account&quot;:&quot;Concur 계정을 연결하세요.&quot;,&quot;concur.sign_up&quot;:&quot;에어비앤비에 가입하여 여행하시고, Concur를 통해 여행과 비용 내역을 확인하세요.&quot;,&quot;shared.Sign up with email&quot;:&quot;이메일로 회원가입&quot;,&quot;shared.Create Account&quot;:&quot;회원가입&quot;,&quot;shared.Google&quot;:&quot;구글&quot;,&quot;shared.Facebook&quot;:&quot;페이스북&quot;,&quot;signup_method.continue_with_service&quot;:&quot;%{service_name} 계정으로 회원 가입&quot;,&quot;shared.Sign up with Facebook&quot;:&quot;페이스북으로 회원가입&quot;,&quot;shared.Sign up with WeChat&quot;:&quot;위챗 회원 가입&quot;,&quot;shared.Sign up with Weibo&quot;:&quot;웨이보로 회원 가입&quot;,&quot;shared.Sign up with Google&quot;:&quot;구글 계정으로 회원가입&quot;,&quot;shared.Log in with WeChat&quot;:&quot;위챗으로 로그인&quot;,&quot;shared.Log in with Weibo&quot;:&quot;웨이보로 로그인&quot;,&quot;shared.Log in with Facebook&quot;:&quot;페이스북 계정으로 로그인&quot;,&quot;shared.Log in with Google&quot;:&quot;구글 계정으로 로그인&quot;,&quot;user.signup.already_member&quot;:&quot;이미 에어비앤비 회원이신가요?&quot;,&quot;shared.generic_tos_acceptance_2016&quot;:&quot;회원가입을 하면 에어비앤비의 %{terms_of_service_link}, %{payments_terms_link}, %{privacy_policy_link}, %{guest_refund_policy_link}, %{host_guarantee_terms_link}에 동의하는 것으로 간주됩니다.&quot;,&quot;shared.Terms of Service&quot;:&quot;서비스 약관&quot;,&quot;shared.Payments Terms of Service&quot;:&quot;결제 서비스 약관&quot;,&quot;shared.Privacy_Policy&quot;:&quot;개인정보 보호정책&quot;,&quot;shared.Guest Refund Policy&quot;:&quot;게스트 환불 정책&quot;,&quot;shared.Host_Guarantee_Terms&quot;:&quot;호스트 보호 프로그램 이용약관&quot;,&quot;shared.or&quot;:&quot;또는&quot;,&quot;shared.Learn_more&quot;:&quot;더 알아보기&quot;,&quot;Email Address&quot;:&quot;이메일 주소&quot;,&quot;shared.Remember me&quot;:&quot;비밀번호 저장&quot;,&quot;user.signup.forgot_password_moweb&quot;:&quot;로그인이 안 되나요?&quot;,&quot;signup.use phone number instead&quot;:&quot;전화번호 사용&quot;,&quot;user.signup.no account yet&quot;:&quot;에어비앤비 계정이 없으세요?&quot;,&quot;shared.Sign up&quot;:&quot;회원가입&quot;,&quot;signup.other methods&quot;:&quot;다른 방법 사용하기&quot;,&quot;First name&quot;:&quot;이름&quot;,&quot;Last name&quot;:&quot;성&quot;,&quot;Email address&quot;:&quot;이메일 주소&quot;,&quot;Confirm Password&quot;:&quot;비밀번호 확인&quot;,&quot;Work email&quot;:&quot;회사 이메일&quot;,&quot;tooltip.signup_form.work_email&quot;:&quot;회사의 에어비앤비 출장 프로그램 계정에 회원님을 추가할 때 이 이메일을 사용합니다.&quot;,&quot;user.signup.opt_in_emails.coupons&quot;:&quot;쿠폰과 정보 메일 수신&quot;,&quot;Birthday&quot;:&quot;생일&quot;,&quot;user.signup.validation.birthday.must be 18 or older&quot;:&quot;회원 가입을 하시려면 18세 이상이어야 합니다. 생일은 다른 회원에게는 공개되지 않습니다.&quot;,&quot;user.birthday.month&quot;:&quot;월&quot;,&quot;user.birthday.day&quot;:&quot;일&quot;,&quot;user.birthday.year&quot;:&quot;년&quot;,&quot;shared.Take me back to my last search results&quot;:&quot;검색 결과로 돌아가기&quot;,&quot;choose_language&quot;:&quot;언어 선택하기&quot;,&quot;choose_currency&quot;:&quot;통화단위 선택하기&quot;,&quot;clear_dates&quot;:&quot;날짜 선택 지우기&quot;,&quot;datepicker_updated_years_ago&quot;:&quot;%{smart_count}년 전에 업데이트 됨&quot;,&quot;datepicker_updated_months_ago&quot;:&quot;%{smart_count}달 전에 업데이트 됨&quot;,&quot;datepicker_updated_days_ago&quot;:&quot;%{smart_count}일 전에 업데이트 됨&quot;,&quot;datepicker_updated_today&quot;:&quot;오늘 업데이트 됨&quot;,&quot;datepicker_never_updated&quot;:&quot;업데이트 사항 없음&quot;,&quot;datepicker_min_nights&quot;:&quot;최소 %{smart_count}박 숙박&quot;,&quot;datepicker_min_nights_this_month&quot;:&quot;이번 달, 최소 %{smart_count}일&quot;,&quot;datepicker_min_nights_varies&quot;:&quot;최소 숙박일은 각기 다름&quot;,&quot;sorry_something_went_wrong&quot;:&quot;죄송합니다. 오류가 발생했습니다. 페이지를 새로고침하고 다시 시도해 주세요.&quot;}" id="_bootstrap-phrases" />
-<meta content="{&quot;engagement/overlay_panel1.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/engagement/overlay_panel1-457ef05a7508fd8b5f8eeaf251e29d1d.jpg&quot;,&quot;engagement/overlay_panel2.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/engagement/overlay_panel2-e527fcc4de6fccdc96feb6d70f8c58f2.jpg&quot;,&quot;engagement/overlay_panel3.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel3-f7b1e2d0007f6298c069df4dcce311db.jpg&quot;,&quot;engagement/overlay_panel4.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel4-bf9eb62d4e8befc4d7a41a520a3dcad3.jpg&quot;,&quot;engagement/overlay_panel5.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/engagement/overlay_panel5-cdcad426b1dd8956d9b0ff454dd4441e.jpg&quot;,&quot;engagement/overlay_panel6.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel6-04171448ba4eb0337d06cb9aa1a22559.jpg&quot;,&quot;engagement/overlay_panel7.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel7-58b03c50e1eac957ec12f6ced3bf7872.jpg&quot;,&quot;engagement/overlay_panel8.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel8-b6915b7a14b1ce8d1081b078b867ea34.jpg&quot;,&quot;engagement/overlay_panel9.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/engagement/overlay_panel9-bbe13adcee0122f5325db135211af175.jpg&quot;,&quot;engagement/overlay_panel10.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/engagement/overlay_panel10-993449dfdae5ea316589c0a84558f2f6.jpg&quot;,&quot;account_activation/welcome.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/account_activation/welcome-aa503648ad6513fc0cb1284728e70d35.jpg&quot;,&quot;account_activation/success.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/account_activation/success-15a147d04b3a4af77d3ac5bd6f03d95d.jpg&quot;,&quot;account_activation/aspiration_welcome.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/account_activation/aspiration_welcome-77fb1902e83012f5f357ccbe064be80c.jpg&quot;,&quot;account_activation/aspiration_success.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/account_activation/aspiration_success-6e2bc6976123dc4b9517816f1ed5d65e.jpg&quot;,&quot;account_activation/families_welcome.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/account_activation/families_welcome-62b2f84cb13fd2c6f6eb1c904ab3d5c8.jpg&quot;,&quot;account_activation/families_success.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/account_activation/families_success-d838dc8bc3a8c165a048dbd20a90abdc.jpg&quot;,&quot;account_activation/groups_welcome.jpg&quot;:&quot;https://a2.muscache.com/airbnb/static/account_activation/groups_welcome-dcdff4fc29234276fb9df2084757afa1.jpg&quot;,&quot;account_activation/groups_success.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/account_activation/groups_success-11199e00dba0b9b4441a6ad081a0336a.jpg&quot;,&quot;account_activation/old_welcome.jpg&quot;:&quot;https://a1.muscache.com/airbnb/static/account_activation/old_welcome-64f6c25b9dbd8297e636ea9394bb6051.jpg&quot;,&quot;account_activation/old_success.jpg&quot;:&quot;https://a0.muscache.com/airbnb/static/account_activation/old_success-39e5a734404783981a72ff2748bcd0d5.jpg&quot;,&quot;partners/concur_pre_link.png&quot;:&quot;https://a0.muscache.com/airbnb/static/partners/concur_pre_link-63058dcdce0a710086c79101b68e178c.png&quot;,&quot;user_pic-225x225.png?v=2&quot;:&quot;https://a0.muscache.com/airbnb/static/user_pic-225x225.png?v=2&quot;,&quot;signinup/hello@2x.png&quot;:&quot;https://a0.muscache.com/airbnb/static/signinup/hello@2x-6755b9e17e788bf166f7a44d6e636238.png&quot;,&quot;signinup/google_icon_2x.png&quot;:&quot;https://a1.muscache.com/airbnb/static/signinup/google_icon_2x-745c2280e5004d4c90e3ca4e60e3f677.png&quot;}" id="_bootstrap-image_paths" />
-<script src="https://a1.muscache.com/airbnb/static/packages/libs_jquery.bundle-49ebaac3009ed5ddd73d.js" type="text/javascript"></script>
-
-
-<script src="https://a1.muscache.com/airbnb/static/packages/core.bundle-51ef4ff4a166c9eb592f.js" type="text/javascript"></script>
+   <!-- Indicators -->
+   	<ol class="carousel-indicators">
+    <li data-target="#carousel-testimonials" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-testimonials" data-slide-to="1"></li>
+    <li data-target="#carousel-testimonials" data-slide-to="2"></li>
+  	</ol>
+  	<!-- Indicators -->
+  </div>
 
 
 
+    </div>
+  </div>
 
-    <div id="fb-root"></div>
 
-    
-    <script src="https://a2.muscache.com/airbnb/static/packages/p1.bundle-0bd4843af925cb7bdf99.js" type="text/javascript"></script>
-    
+<!-- team -->
+<h3 class="text-center  wowload fadeInUp">Our team</h3>
+<p class="text-center  wowload fadeInLeft">Our creative team that is making everything possible</p>
+<div class="row grid team  wowload fadeInUpBig">	
+	<div class=" col-sm-3 col-xs-6">
+	<figure class="effect-chico">
+        <img src="images/team/8.jpg" alt="img01" class="img-responsive" />
+        <figcaption>
+            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>            
+        </figcaption>
+    </figure>
+    </div>
 
-  </body>
+    <div class=" col-sm-3 col-xs-6">
+	<figure class="effect-chico">
+        <img src="images/team/10.jpg" alt="img01"/>
+        <figcaption>            
+            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>            
+        </figcaption>
+    </figure>
+    </div>
+
+    <div class=" col-sm-3 col-xs-6">
+	<figure class="effect-chico">
+        <img src="images/team/12.jpg" alt="img01"/>
+        <figcaption>
+            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>          
+        </figcaption>
+    </figure>
+    </div>
+
+    <div class=" col-sm-3 col-xs-6">
+	<figure class="effect-chico">
+        <img src="images/team/17.jpg" alt="img01"/>
+        <figcaption>
+            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>
+        </figcaption>
+    </figure>
+    </div>
+
+ 
+</div>
+<!-- team -->
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- About Starts -->
+<div class="highlight-info">
+<div class="overlay spacer">
+<div class="container">
+<div class="row text-center  wowload fadeInDownBig">
+	<div class="col-sm-3 col-xs-6">
+	<i class="fa fa-smile-o  fa-5x"></i><h4>24 Clients</h4>
+	</div>
+	<div class="col-sm-3 col-xs-6">
+	<i class="fa fa-rocket  fa-5x"></i><h4>75 Projects</h4>
+	</div>
+	<div class="col-sm-3 col-xs-6">
+	<i class="fa fa-cloud-download  fa-5x"></i><h4>454 Downloads</h4>
+	</div>
+	<div class="col-sm-3 col-xs-6">
+	<i class="fa fa-map-marker fa-5x"></i><h4>2 Offices</h4>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<!-- About Ends -->
+
+
+
+
+
+
+
+
+<div id="contact" class="spacer">
+<!--Contact Starts-->
+<div class="container contactform center">
+<h2 class="text-center  wowload fadeInUp">Get in touch to start your project</h2>
+  <div class="row wowload fadeInLeftBig">      
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12">      
+        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Company">
+        <textarea rows="5" placeholder="Message"></textarea>
+        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send</button>
+      </div>
+  </div>
+
+
+
+</div>
+</div>
+<!--Contact Ends-->
+
+
+
+<!-- Footer Starts -->
+<div class="footer text-center spacer">
+<p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a> <a href="#"><i class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i class="fa fa-flickr fa-2x"></i></a> </p>
+Copyright 2014 Cyrus Creative Studio. All rights reserved.
+</div>
+<!-- # Footer Ends -->
+<a href="#home" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
+
+
+
+
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title">Title</h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->    
+</div>
+
+
+
+<!-- jquery -->
+<script src="assets/jquery.js"></script>
+
+<!-- wow script -->
+<script src="assets/wow/wow.min.js"></script>
+
+
+<!-- boostrap -->
+<script src="assets/bootstrap/js/bootstrap.js" type="text/javascript" ></script>
+
+<!-- jquery mobile -->
+<script src="assets/mobile/touchSwipe.min.js"></script>
+<script src="assets/respond/respond.js"></script>
+
+<!-- gallery -->
+<script src="assets/gallery/jquery.blueimp-gallery.min.js"></script>
+
+<!-- custom script -->
+<script src="assets/script.js"></script>
+
+</body>
 </html>
-<!-- ver. 1c15fc6fcaac44aff82cc53cb82d48d4ddc60be5 -->
