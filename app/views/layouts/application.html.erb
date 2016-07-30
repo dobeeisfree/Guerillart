@@ -131,28 +131,28 @@
 						</div>
 
 						<!-- Nav Starts -->
-						<div class="navbar-collapse  collapse">
+						<div class="navbar-collapse collapse">
 							<ul class="nav navbar-nav navbar-right scroll">
 								<li class="active">
-									<a href="#home">공연</a>
+									<a href="#">공연</a>
 								</li>
-								<li >
-									<a href="#about">아티스트</a>
+								<li>
+									<a href="#">아티스트</a>
 								</li>
 								<%if user_signed_in?%>
-								<li >
+								<li>
 									<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#SignUpModal">알림</a>
 								</li>
 								<!-- 이름만 바꿔놓음-->
-								<li >
+								<li>
 									<a href="users/sign_out" data-method="get" rel="nofollow">로그아웃</a>
 								</li>
 
 								<%else%>
-								<li >
+								<li>
 									<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#SignUpModal">회원가입</a>
 								</li>
-								<li >
+								<li>
 									<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#LogInModal">로그인</a>
 								</li>
 								<%end%>
@@ -166,5 +166,4 @@
 		</div>
 		<!-- <%= yield %> -->
 	</body>
-
 </html>
