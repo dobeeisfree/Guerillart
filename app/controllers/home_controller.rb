@@ -9,4 +9,8 @@ class HomeController < ApplicationController
       # redirect_to '/users/sign_out'
     # end
   end
+  
+  def search
+    
+  end
 end

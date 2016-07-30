@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/index' 
   
+  get "/search" => 'searching#index'
+  
   # get '/hihi'
   # get '/hihi' => 'home#index'
   
