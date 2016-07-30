@@ -36,23 +36,27 @@
 					<li data-target="#myCarousel" data-slide-to="3"></li>
 				</ol>
 
-				<div class="carousel-caption">
-          <div class="branding-text" style="margin-bottom:250px;">
-            <h1>음악은 라이브야</h1>
-          </div>
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">+</div>
-								<label class="sr-only" for="location"></label>
-								<input type="text" class="form-control input-lg" id="location" placeholder="위치를 입력해주세요">
-								<span class="input-group-btn">
-									<button type="submit" class="btn btn-primary">검색</button>
-								</span>
-							</div>
-						</div>
-					</form>
-				</div>
+        <form action="/search" method="GET">
+        <div class="carousel-caption">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  +
+                </div>
+
+                <label class="sr-only" for="location"></label>
+                <input type="text" class="form-control input-lg" id="location" name="location" placeholder="위치를 입력해주세요">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary">
+                    검색
+                  </button> </span>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </form>
 
 				<div class="carousel-inner">
 					<div class="item active">
