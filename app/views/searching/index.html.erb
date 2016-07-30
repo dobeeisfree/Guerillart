@@ -61,23 +61,6 @@
 				/*overflow-y:scroll;*/
 				float: left;
 			}
-			
-			.map_wraper{
-position:relative;
-}
-.map_wraper:after{
-background: none;
-content: " ";
-display: inline-block;
-font-size: 0;
-height: 100%;
-left: 0;
-opacity: 0;
-position: absolute;
-top: 0;
-width: 100%;
-z-index: 9;
-}
 		</style>
 
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI	
@@ -137,7 +120,7 @@ z-index: 9;
 					//disableDoubleClickZoom:false,
 					center : latlng,
 
-					
+					scrollwheel : false,
 					navigationControl : false, // 눈금자 형태로 스케일 조절하는 컨트롤 활성화 선택.
 					navigationControlOptions : {
 						position : google.maps.ControlPosition.TOP_RIGHT,
@@ -171,6 +154,7 @@ z-index: 9;
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
+
 
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
 					showMapPos();
@@ -349,7 +333,7 @@ z-index: 9;
 	</head>
 
 	<body onload="initialize(0,0)">
-		<div id="s_left" class="map_wraper">
+		<div id="s_left">
 			<div id="map_canvas"></div>
 
 			<div id="control">
