@@ -61,6 +61,23 @@
 				/*overflow-y:scroll;*/
 				float: left;
 			}
+			
+			.map_wraper{
+position:relative;
+}
+.map_wraper:after{
+background: none;
+content: " ";
+display: inline-block;
+font-size: 0;
+height: 100%;
+left: 0;
+opacity: 0;
+position: absolute;
+top: 0;
+width: 100%;
+z-index: 9;
+}
 		</style>
 
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI	
@@ -120,6 +137,7 @@
 					//disableDoubleClickZoom:false,
 					center : latlng,
 
+					
 					navigationControl : false, // 눈금자 형태로 스케일 조절하는 컨트롤 활성화 선택.
 					navigationControlOptions : {
 						position : google.maps.ControlPosition.TOP_RIGHT,
@@ -331,7 +349,7 @@
 	</head>
 
 	<body onload="initialize(0,0)">
-		<div id="s_left">
+		<div id="s_left" class="map_wraper">
 			<div id="map_canvas"></div>
 
 			<div id="control">
