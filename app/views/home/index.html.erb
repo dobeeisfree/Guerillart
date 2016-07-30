@@ -35,17 +35,19 @@
 					<li data-target="#myCarousel" data-slide-to="2"></li>
 					<li data-target="#myCarousel" data-slide-to="3"></li>
 				</ol>
-								
+
 				<div class="carousel-caption">
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class="input-group">
-								<div class="input-group-addon">+</div>
-								<label class="sr-only" for="location"></label>
-								<input type="text" class="form-control input-lg" id="location" placeholder="위치를 입력해주세요">
-								<span class="input-group-btn">
-									<button type="submit" class="btn btn-primary">검색</button>
-								</span>
+								<form action="/searching/index" method="get">
+									<div class="input-group-addon">+</div>
+									<label class="sr-only" for="location"></label>
+									<input type="text" class="form-control input-lg" id="location" name="location" placeholder="위치를 입력해주세요">
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-primary">검색</button>
+									</span>
+								</form>
 							</div>
 						</div>
 					</form>

@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  get 'searching/index'
+
   root 'home#index'
   get 'home/index'
   devise_for :users
-  get 'home/index'
-
+  get 'home/index' 
+  
+  # get '/hihi'
+  # get '/hihi' => 'home#index'
+  
+  # get 'searching/index' => 'searching#index'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
