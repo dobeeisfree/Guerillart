@@ -80,7 +80,7 @@
 							<div class="field">
 								<%= f.label :name %>
 								<br />
-								<%= f.email_field :name, autofocus: true %>
+								<%= f.text_field :name, autofocus: true %>
 							</div>
 
 							<div class="field">
@@ -141,7 +141,7 @@
 								</li>
 								<%if user_signed_in?%>
 								<li>
-									<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#SignUpModal">알림</a>
+									<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#SignUpModal"><%=current_user.name%>님</a>
 								</li>
 								<!-- 이름만 바꿔놓음-->
 								<li>

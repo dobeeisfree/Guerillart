@@ -2,7 +2,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       ##Guerillart required data####
-      t.string :name
       t.integer :level
 
       
