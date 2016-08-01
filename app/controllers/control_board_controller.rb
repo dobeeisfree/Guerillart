@@ -1,17 +1,11 @@
-class UsersController < ApplicationController
+class ControlBoardController < ApplicationController
   def dashboard
   end
 
-  def myguerillart
-  end
-
-  def myguerillart_category
+  def my_guerillart
   end
 
   def profile
-  end
-
-  def show
   end
 
   def write
