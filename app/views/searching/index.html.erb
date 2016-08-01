@@ -153,6 +153,20 @@
 					}
 				});
 
+				
+				<%@show_all.each do |x|%>
+					var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
+					
+				globalMarker = new google.maps.Marker({
+				map : globalMap,
+				position : latlng,
+				draggable : true
+				});
+			
+					// globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
+				<%end%>
+
+
 
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
 					showMapPos();
