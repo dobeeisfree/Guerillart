@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   end
 
   def guerillart
+    @shows = Show.all
   end
 
   def profle
@@ -12,6 +13,12 @@ class DashboardController < ApplicationController
   end
 
   def write_complete
+    show = Show.all
+    show.title = params[:show_title]
+    show.content = params[:show_content]
+    show.genre = params[:genre]
+    show.date = params[:date]
+    show.playlist = params[:playlist]
   end
 
   def edit
