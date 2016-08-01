@@ -1,28 +1,18 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
-  test "should get dashboard" do
-    get :dashboard
+class DashboardControllerTest < ActionController::TestCase
+  test "should get home" do
+    get :home
     assert_response :success
   end
 
-  test "should get myguerillart" do
-    get :myguerillart
+  test "should get guerillart" do
+    get :guerillart
     assert_response :success
   end
 
-  test "should get myguerillart_category" do
-    get :myguerillart_category
-    assert_response :success
-  end
-
-  test "should get profile" do
-    get :profile
-    assert_response :success
-  end
-
-  test "should get show" do
-    get :show
+  test "should get profle" do
+    get :profle
     assert_response :success
   end
 
