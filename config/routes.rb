@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  get 'users/dashboard'
+
+  get 'users/myguerillart'
+
+  get 'users/myguerillart_category'
+
+  get 'users/profile'
+
+  get 'users/show'
+
+  get 'users/write'
+
+  get 'users/write_complete'
+
+  get 'users/edit'
+
+  get 'users/edit_complete'
+
+  get 'users/delete_complete'
+
   get 'searching/index'
 
   root 'home#index'
