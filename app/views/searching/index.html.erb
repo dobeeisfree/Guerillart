@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>Guerillart</title>
-		<!-- Google fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-		<!-- font awesome -->
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-		<!-- animate.css -->
-		<link rel="stylesheet" href="assets/animate/animate.css" />
-		<link rel="stylesheet" href="assets/animate/set.css" />
-		<!-- gallery -->
-		<link rel="stylesheet" href="assets/gallery/blueimp-gallery.min.css">
-		<!-- favicon -->
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="assets/style.css">
 
 		<!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> -->
 		<!-- <title>TownStory: Google Map</title> -->
@@ -56,7 +37,7 @@
 				float: left;
 			}
 			#s_right {
-				width: 34%;
+				width: 33%;
 				/*height: 100%;*/
 				/*overflow-y:scroll;*/
 				float: left;
@@ -143,11 +124,11 @@
 					if (status == google.maps.GeocoderStatus.OK) {
 						globalMap.setCenter(results[0].geometry.location);
 
-						globalMarker = new google.maps.Marker({
-							map : globalMap,
-							position : results[0].geometry.location,
-							draggable : true
-						});
+						// globalMarker = new google.maps.Marker({
+							// map : globalMap,
+							// position : results[0].geometry.location,
+							// draggable : true
+						// });
 					} else {
 						alert("Geocode was not successful for the following reason: " + status);
 					}
@@ -160,21 +141,35 @@
 				globalMarker = new google.maps.Marker({
 				map : globalMap,
 				position : latlng,
-				draggable : true
+				draggable : false,
+				// icon: GreenIcon,
+				info: "말풍선",
+				title : 'Hello World!'
 				});
+				
+				var content = "이곳은 말풍선 테스트 하는 곳 입니다. ";
+				
+				var infowindow = new google.maps.InfoWindow({ content: content});
+
+				google.maps.event.addListener(globalMarker, "click", function() {
+        			infowindow.open(globalMap,globalMarker);});
+			
+			
 			
 					// globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
 				<%end%>
 
+				
+			
 
 
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
 					showMapPos();
 					showMapAddr();
 				});
-				google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
-					moveMarker(event.latLng);
-				});
+				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
+					// moveMarker(event.latLng);
+				// });
 			}
 
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
