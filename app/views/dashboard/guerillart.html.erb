@@ -1,1 +1,12 @@
 <%= render :partial => "/layouts/header_dashboard" %>
+
+<% @shows.reverse.each do |s| %>
+<div style="border :1px solid #ffffff">
+  <h4>제목:<%= s.title %></h4> 
+  <br><p>장소:<%= s.location %></p>
+  <br><p>시간:<%= s.time %></p>
+  <br><p>장르:<%= s.genre %></p>
+  <br><p>플레이리스트:<%= s.playlist %></p>
+  <br><p>소개글:<%= s.content %></p>
+</div>
+<% end %>

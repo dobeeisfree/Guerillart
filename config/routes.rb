@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'dashboard/guerillart'
   get 'dashboard/profle'
   get 'dashboard/write'
-  get 'dashboard/write_complete'
+  post 'dashboard/write_complete'
   get 'dashboard/edit'
   get 'dashboard/edit_complete'
   get 'dashboard/delete_complete'

@@ -10,8 +10,10 @@ class CreateShows < ActiveRecord::Migration
       t.datetime :start
       t.datetime :end
       t.text  :playlist
+      t.string :location
       t.float :location_x
       t.float :location_y
+      t.string :time
 
       t.integer :artist_id
 
