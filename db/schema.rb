@@ -68,8 +68,15 @@ ActiveRecord::Schema.define(version: 20160731094200) do
     t.datetime "start"
     t.datetime "end"
     t.text     "playlist"
+<<<<<<< HEAD
+    t.string   "location"
     t.float    "location_x"
     t.float    "location_y"
+    t.string   "time"
+=======
+    t.float    "location_x"
+    t.float    "location_y"
+>>>>>>> d3ef2873453256081bbfc8f05f0cd8712eee32d1
     t.integer  "artist_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
