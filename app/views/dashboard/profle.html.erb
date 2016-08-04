@@ -1,1 +1,95 @@
 <%= render :partial => "/layouts/header_dashboard" %>
+
+<div class="container">
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>계정 관리</legend>
+
+<!-- Multiple Radios (inline) -->
+
+<!-- 등록된 이메일, 가입일 표시(가입일 ?) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">등록된 이메일</label>
+  <div class="col-md-1">
+
+  </div>
+  <div class="col-md-4">
+    <h4><%= current_user.email %></h4>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">가입일</label>
+  <div class="col-md-1">
+
+  </div>
+  <div class="col-md-4">
+    <h4><%= current_user.current_sign_in_at %></h4>
+  </div>
+</div>
+
+<!-- 나머지 변경 가능한 정보 -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">이름</label>
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="text" placeholder="<%= current_user.name %>" class="form-control input-md">
+
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">현재 비밀번호</label>
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="password" placeholder="현재 비밀번호를 입력하세요." class="form-control input-md">
+
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">새 비밀번호</label>
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="password" placeholder="새 비밀번호를 입력하세요." class="form-control input-md">
+
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">새 비밀번호 확인</label>
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="password" placeholder="새 비밀번호를 한번 더 입력하세요." class="form-control input-md">
+
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">연락처</label>
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
+
+  </div>
+</div>
+
+<!-- File Button -->
+<!--
+<div class="form-group">
+  <label class="col-md-4 control-label" for="filebutton">photo</label>
+  <div class="col-md-4">
+    <input id="filebutton" name="filebutton" class="input-file" type="file">
+  </div>
+</div> -->
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">수정하기</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>
