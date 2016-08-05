@@ -133,7 +133,8 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
-
+				
+				
 				
 				<%@show_all.each do |x|%>
 					var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
