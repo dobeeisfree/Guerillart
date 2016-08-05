@@ -143,12 +143,16 @@
 					//var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
 					
 					globalMarker = new google.maps.Marker({
-					map : globalMap,
-					position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
-					draggable : false,
-					// icon: GreenIcon,
-					// info: "말풍선",
-					// title : 'Hello World!'
+						map : globalMap,
+						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
+						draggable : false
+						//icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=1|FE6256|000000'
+  
+						
+	   					// labelClass: "labels"
+						// icon: GreenIcon,
+						// info: "말풍선",
+						// title : 'Hello World!'
 					});
 					
 					(function(globalMarker, i) {
