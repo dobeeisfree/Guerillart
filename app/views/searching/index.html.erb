@@ -134,9 +134,8 @@
 					}
 				});
 
-				var content = "이곳은 말풍선 테스트 하는 곳 입니다. ";
 					
-				var infowindow = new google.maps.InfoWindow({ content: content});
+				var infowindow = null;
 
 				var i = 0;
 				<%@show_all.each do |x|%>
@@ -148,8 +147,8 @@
 					position : latlng,
 					draggable : false,
 					// icon: GreenIcon,
-					info: "말풍선",
-					title : 'Hello World!'
+					// info: "말풍선",
+					// title : 'Hello World!'
 					});
 					
 					(function(globalMarker, i) {
@@ -159,7 +158,7 @@
 						        infowindow.close();
 						    }
                             infowindow = new google.maps.InfoWindow({
-                                content: "Hello, World!!" + i
+                                content: "Hello, World!!" + i + " <%=x.genre%>"+ "<br />"+"hi"
                             });
                             infowindow.open(globalMap, globalMarker);
                         });
