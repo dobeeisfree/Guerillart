@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get 'searching/index'
   root 'home#index'
   get 'home/index'
+  # devise_for :users, controllers: { sessions: 'users/sessions' }
+  # devise_for :users
+  
   devise_for :users, :skip => [:sessions]
   as :user do
     get '/users/sign_in' => 'devise/sessions#new', :as => :new_user_session
@@ -17,17 +20,10 @@ Rails.application.routes.draw do
     delete '/users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   
-  # devise_for :users
-  # devise_scope :user do
-    # delete "/users/sign_out" => "devise/sessions#destroy"
-  # end  
-  
   get "/search" => 'searching#index'
-  
   
   # get '/hihi'
   # get '/hihi' => 'home#index'
-  
   # get 'searching/index' => 'searching#index'
   
   
