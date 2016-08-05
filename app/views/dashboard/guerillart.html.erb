@@ -1,4 +1,6 @@
 <%= render :partial => "/layouts/header_dashboard" %>
+<h2>공연정보</h2>
+<p><%= flash[:alert] %></p>
 
 <% @shows.reverse.each do |s| %>
 <div style="border :1px solid #ffffff">
@@ -9,4 +11,6 @@
   <br><p>플레이리스트:<%= s.playlist %></p>
   <br><p>소개글:<%= s.content %></p>
 </div>
+  <a href="/dashboard/edit/<%= s.id %>">[수정]</a>
+  <a href="/dashboard/delete_complete/<%= s.id %>">[삭제]</a>
 <% end %>

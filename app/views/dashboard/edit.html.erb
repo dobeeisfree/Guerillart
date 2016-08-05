@@ -1,2 +1,73 @@
-<h1>Dashboard#edit</h1>
-<p>Find me in app/views/dashboard/edit.html.erb</p>
+<p><%= flash[:alert] %></p>
+<%= render :partial => "/layouts/header_dashboard" %>
+
+
+
+<div class="form-group" style="margin: 0cm 6cm 0cm 6cm;">
+<h2>공연정보등록</h2>
+
+<!-- 보안문제로 form helper를 사용해서 아래를 수정한뒤, ApplicationController의 protect_from_forgery 주석을 해제해야 한다.-->
+
+<form action="/dashboard/edit_complete/<%=@one_show.id%>" method="post">
+
+    <div class="form-group">
+      <label for="inputName" class="control-label">제목</label>
+      <input type="text" name="show_title"class="form-control" value="<%= @one_show.title%>" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
+    </div>
+    <div class="form-group">
+      <label for="2inputName" class="control-label">시간</label>
+      <input type="text" name="time" value="<%= @one_show.time %>"class="form-control" id="5inputName" placeholder="공연 날짜와 시간을 선택주세요" required>
+    </div>
+    <div class="form-group">
+      <label for="3inputName" class="control-label">플레이리스트</label>
+      <input type="text" name="playlist" value="<%= @one_show.playlist %>"class="form-control" id="6inputName" placeholder="플레이할 곡을 입력해주세요" required>
+    </div>
+    <div class="form-group">
+      <label for="comment">자기소개</label>
+      <textarea class="form-control" name="show_content" rows="5" id="comment"><%= @one_show.content%></textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputName" class="control-label" >장르</label>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="genre[]"value="Rock" >
+          Rock  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="Electro" >
+          Electro  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="Pop" >
+          Pop  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="R&B" >
+          R&B  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="Metal" >
+          Metal  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="Jazz" >
+          Jazz  
+        </label>
+        <label>
+          <input type="checkbox" name="genre[]"value="Latino" >
+          Latino  
+        </label>
+      </div> 
+    </div>
+    <div class="form-group">
+      <label for="inputName" class="control-label">장소</label>
+      <input type="text" class="form-control" name="location" value="<%= @one_show.location%>" placeholder="공연장소를 선택주세요" required>
+    </div>
+
+    
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="추가하기">
+    </div>
+ </form> 
+</div>
+

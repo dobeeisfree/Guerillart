@@ -11,6 +11,8 @@ class HomeController < ApplicationController
   end
   
   def search
-    
+  end
+  
+  def artists
   end
 end

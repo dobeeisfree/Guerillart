@@ -4,14 +4,15 @@ Rails.application.routes.draw do
   get 'dashboard/profle'
   get 'dashboard/write'
   post 'dashboard/write_complete'
-  get 'dashboard/edit'
-  get 'dashboard/edit_complete'
-  get 'dashboard/delete_complete'
+  get 'dashboard/edit/:show_id' => 'dashboard#edit'
+  post 'dashboard/edit_complete/:show_id'=> 'dashboard#edit_complete'
+  get 'dashboard/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
   root 'home#index'
   get 'home/index'
   devise_for :users
   get "/search" => 'searching#index'
+  get 'dashboard/mypage'
   
   # get '/hihi'
   # get '/hihi' => 'home#index'
