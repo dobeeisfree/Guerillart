@@ -140,11 +140,11 @@
 				var i = 0;
 				<%@show_all.each do |x|%>
 					
-					var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
+					//var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
 					
 					globalMarker = new google.maps.Marker({
 					map : globalMap,
-					position : latlng,
+					position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
 					draggable : false,
 					// icon: GreenIcon,
 					// info: "말풍선",
