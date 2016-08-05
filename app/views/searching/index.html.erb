@@ -133,29 +133,42 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
-				
-				
-				
-				<%@show_all.each do |x|%>
-					var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
-					
-				globalMarker = new google.maps.Marker({
-				map : globalMap,
-				position : latlng,
-				draggable : false,
-				// icon: GreenIcon,
-				info: "말풍선",
-				title : 'Hello World!'
-				});
-				
+
 				var content = "이곳은 말풍선 테스트 하는 곳 입니다. ";
-				
+					
 				var infowindow = new google.maps.InfoWindow({ content: content});
 
-				google.maps.event.addListener(globalMarker, "click", function() {
-        			infowindow.open(globalMap,globalMarker);});
+				var i = 0;
+				<%@show_all.each do |x|%>
+					
+					var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
+					
+					globalMarker = new google.maps.Marker({
+					map : globalMap,
+					position : latlng,
+					draggable : false,
+					// icon: GreenIcon,
+					info: "말풍선",
+					title : 'Hello World!'
+					});
+					
+					(function(globalMarker, i) {
+                        // add click event
+                        google.maps.event.addListener(globalMarker, 'click', function() {
+                        	if (infowindow) {
+						        infowindow.close();
+						    }
+                            infowindow = new google.maps.InfoWindow({
+                                content: "Hello, World!!" + i
+                            });
+                            infowindow.open(globalMap, globalMarker);
+                        });
+                    })(globalMarker, i);
+	
+					// google.maps.event.addListener(globalMarker, "click", function() {
+	        			// infowindow.open(globalMap,globalMarker);});
 			
-			
+					i++;
 			
 					// globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
 				<%end%>
