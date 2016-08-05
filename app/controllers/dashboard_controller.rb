@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
     show.playlist = params[:playlist]
     if show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/guerillart"
     else 
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -43,7 +43,7 @@ class DashboardController < ApplicationController
     @one_show.playlist = params[:playlist]
     if @one_show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/guerillart"
     else 
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -54,7 +54,7 @@ class DashboardController < ApplicationController
   def delete_complete
     @one_show = Show.find(params[:show_id])
     @one_show.destroy
-    redirect_to "/dashboard/guerillart"
+    redirect_to "/guerillart"
     flash[:alert] = "삭제되었습니다."
   end
   

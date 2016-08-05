@@ -7,8 +7,7 @@
 <h2>공연정보등록</h2>
 
 <!-- 보안문제로 form helper를 사용해서 아래를 수정한뒤, ApplicationController의 protect_from_forgery 주석을 해제해야 한다.-->
-
-<form action="/dashboard/edit_complete/<%=@one_show.id%>" method="post">
+<form action="/edit_complete/<%=@one_show.id%>" method="post">
 
     <div class="form-group">
       <label for="inputName" class="control-label">제목</label>
