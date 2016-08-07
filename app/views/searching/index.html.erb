@@ -136,7 +136,8 @@
 
 					
 				var infowindow = null;
-
+				var markers = [];
+				
 				var i = 0;
 				<%@show_all.each do |x|%>
 					
@@ -154,6 +155,7 @@
 						// info: "말풍선",
 						// title : 'Hello World!'
 					});
+					markers.push(globalMarker);
 					
 					//marker 클릭시 infowindow 팝업 
 					(function(globalMarker, i) {
@@ -182,14 +184,28 @@
 					var bounds = globalMap.getBounds();
 					var NE = bounds.getNorthEast();
 					var SW = bounds.getSouthWest();
+					// removeAllMarkers(markers);
 					
 					
 					// scheduleDelayedCallback();
 					
 				});
 				
+				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
+					removeAllMarkers(markers);
+					showMapPos();
+					showMapAddr();
+				});
 				
-				//
+				google.maps.event.addListener(globalMap, 'zoom_changed', function() {// 줌 변경시 이벤트 추가
+					removeAllMarkers(markers);
+					showMapPos();
+					showMapAddr();
+				});
+				
+				
+				
+				// 갱신 딜레이
 				// function fireIfLastEvent()
 				// {
 				    // if (lastEvent.getTime() + 500 <= new Date().getTime())
@@ -197,7 +213,6 @@
 				        // alert('i am cool');
 				    // }
 				// }
-// 				
 				// function scheduleDelayedCallback()
 				// {
 				    // lastEvent = new Date();
@@ -205,15 +220,32 @@
 				// }
 
 
-				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
-					showMapPos();
-					showMapAddr();
-				});
+
+				// google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
+					// showMapPos();
+					// showMapAddr();
+				// });
 				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
 					// moveMarker(event.latLng);
 				// });
 			}
-
+			
+			function updateMarkers(globalMap){
+				var bounds = globalMap.getBounds();
+				var NE = bounds.getNorthEast();
+				var SW = bounds.getSouthWest();
+				<show_
+			}
+			
+			
+			//마커 모두 지우기
+			function removeAllMarkers(markers){
+				while(markers.length){
+			            markers.pop().setMap(null);
+			        }
+			}
+			
+			
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
 			function showMapPos() {
 				var pos = globalMap.getCenter();
