@@ -146,7 +146,16 @@
 					globalMarker = new google.maps.Marker({
 						map : globalMap,
 						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
-						draggable : false
+						draggable : false,
+						
+						icon: new google.maps.MarkerImage(
+					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|Label%20123|FF8080|000000",
+					    	null, null, new google.maps.Point(0, 42)),
+					    shadow: new google.maps.MarkerImage(
+					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small_shadow&chld=bb|Label%20123",
+					        null, null, new google.maps.Point(0, 45))
+						
+						
 						//icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=1|FE6256|000000'
   
 						
@@ -234,7 +243,6 @@
 				var bounds = globalMap.getBounds();
 				var NE = bounds.getNorthEast();
 				var SW = bounds.getSouthWest();
-				<show_
 			}
 			
 			
