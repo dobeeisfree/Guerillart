@@ -59,5 +59,25 @@ class DashboardController < ApplicationController
   end
   
   def mypage
+    @artist = Artist.all
   end
-end
+
+  def create
+
+    if current_user.Artist.nil?
+    artist = Artist.new(name: params[:name],
+                        genre: params[:genre],
+                        phone_number: params[:phone_number],
+                        area: params[:area],
+                        sns: params[:sns],
+                        introduction: params[:introduction])
+    
+    artist.save
+    redirect_to '/mypage'
+    else 
+    flash[:alert]: "you already have one"
+    end
+    
+
+  end                     
+ end 

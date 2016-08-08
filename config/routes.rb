@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'create' => 'dashboard#create'
   get 'home' => 'dashboard#home'
   get 'guerillart' => 'dashboard#guerillart'
   get 'profle' => 'dashboard#profle'
@@ -9,7 +10,6 @@ Rails.application.routes.draw do
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
   root 'home#index'
-  get 'home/index'
   devise_for :users
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
