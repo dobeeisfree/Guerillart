@@ -1,2 +1,6 @@
 <%= render :partial => "/layouts/header_dashboard" %>
-
+<div class="container">
+<img src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" alt="wondergirls" class="img-circle" width="300" height="300">
+<h3><%= @artist.name %></h3> 
+  
+</div>
