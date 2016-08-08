@@ -133,7 +133,27 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
+					// var image = {
+  // url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc",
+  // size: new google.maps.Size(71, 71),
+  // origin: new google.maps.Point(0, 0),
+  // anchor: new google.maps.Point(17, 34),
+  // scaledSize: new google.maps.Size(25, 25)
+// };
 
+// var icon = {
+    // url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000", // url
+    // scaledSize: new google.maps.Size(50, 50), // scaled size
+    // origin: new google.maps.Point(0,0), // origin
+    // anchor: new google.maps.Point(0, 0) // anchor
+// };
+
+var icon = new google.maps.MarkerImage(
+					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	null, null, new google.maps.Point(30, 32));
+				// var image = "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000"
+				
 					
 				var infowindow = null;
 				var markers = [];
@@ -147,13 +167,15 @@
 						map : globalMap,
 						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
 						draggable : false,
+						// title : iconSize,
+						// label : "hello",
 						
-						icon: new google.maps.MarkerImage(
-					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|Label%20123|FF8080|000000",
-					    	null, null, new google.maps.Point(0, 42)),
-					    shadow: new google.maps.MarkerImage(
-					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small_shadow&chld=bb|Label%20123",
-					        null, null, new google.maps.Point(0, 45))
+						// icon: new google.maps.MarkerImage(
+					        // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
+					    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	// null, null, new google.maps.Point(30, 32))
+						
+						icon: icon
 						
 						
 						//icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=1|FE6256|000000'
@@ -165,6 +187,8 @@
 						// title : 'Hello World!'
 					});
 					markers.push(globalMarker);
+					
+								
 					
 					//marker 클릭시 infowindow 팝업 
 					(function(globalMarker, i) {
@@ -188,28 +212,35 @@
 					i++;
 				<%end%>
 
-				//bounds가 변경되면
+				//bounds 변경시
 				google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					var bounds = globalMap.getBounds();
 					var NE = bounds.getNorthEast();
 					var SW = bounds.getSouthWest();
-					// removeAllMarkers(markers);
+					removeAllMarkers(markers);
 					
 					
 					// scheduleDelayedCallback();
 					
 				});
 				
+				google.maps.event.addListener(globalMap, 'center_changed', function() {// 센터 변경시 이벤트 추가
+					// removeAllMarkers(markers);
+					// showMapPos();
+					// showMapAddr();
+				});
+				
+				
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
 					removeAllMarkers(markers);
-					showMapPos();
-					showMapAddr();
+					// showMapPos();
+					// showMapAddr();
 				});
 				
 				google.maps.event.addListener(globalMap, 'zoom_changed', function() {// 줌 변경시 이벤트 추가
 					removeAllMarkers(markers);
-					showMapPos();
-					showMapAddr();
+					// showMapPos();
+					// showMapAddr();
 				});
 				
 				
