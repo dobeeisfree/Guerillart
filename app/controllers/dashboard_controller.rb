@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
     if show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/guerillart"
-    else 
+    else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
     end
@@ -44,11 +44,11 @@ class DashboardController < ApplicationController
     if @one_show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/guerillart"
-    else 
+    else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
-    end   
-    
+    end
+
   end
 
   def delete_complete
@@ -57,7 +57,7 @@ class DashboardController < ApplicationController
     redirect_to "/guerillart"
     flash[:alert] = "삭제되었습니다."
   end
-  
+
   def mypage
     @artist = Artist.all
   end
@@ -71,13 +71,13 @@ class DashboardController < ApplicationController
                         area: params[:area],
                         sns: params[:sns],
                         introduction: params[:introduction])
-    
+
     artist.save
     redirect_to '/mypage'
-    else 
-    flash[:alert]: "you already have one"
+    else
+    #flash[:alert]: "you already have one"
     end
-    
 
-  end                     
- end 
+
+  end
+ end
