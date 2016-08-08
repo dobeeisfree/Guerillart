@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	</head>
-
-	<body>
-
 		<div id="home">
 			<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">
 
@@ -132,31 +125,35 @@
 		<p class="text-center  wowload fadeInLeft">
 			기대해주세요
 		</p>
+
 		<div id="upcomings"  class=" clearfix grid" style="margin-top:-70px">
+      <% @cnt = 1 %>
+      <% @shows.reverse.each do |show| %>
 			<%
-			# 나중에 S3로부터 사진정보와 디비를 불러오기로 하고
-			# 일시적으로 아래의 코드를 작성
-			@cnt = 1
-			while @cnt < 10
+			if true
 			%>
 			<figure class="effect-oscar  wowload fadeInUp">
 				<img src="images/portfolio/<%= @cnt %>.jpg" alt="img01"/>
 				<figcaption>
-					<h2>이센스</h2>
+          <h2><%= show.title %></h2>
+          <p><%= show.location %>
+              <%= show.time %><br>
+          </p>
 					<p>
-						홍대공연
-						<br>
-						2016-07-14 오후 7시 ~ 오후 9시
-						<br>
 						<a class="btn" data-toggle="modal" data-target="#upcomings-modal">More</a>
 					</p>
 				</figcaption>
 			</figure>
-			<%
+      <%
 			@cnt += 1
 			end
 			%>
+      <% end %>
 		</div>
+
+
+
+
 
 		<div class="highlight-info">
 			<div class="overlay spacer">
@@ -265,6 +262,3 @@
 		<script src="assets/respond/respond.js"></script>
 		<script src="assets/gallery/jquery.blueimp-gallery.min.js"></script>
 		<script src="assets/script.js"></script>
-
-	</body>
-</html>

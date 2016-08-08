@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 gem 'devise'
-
 gem 'simple_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

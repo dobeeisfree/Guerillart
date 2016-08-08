@@ -8,6 +8,13 @@ class HomeController < ApplicationController
     # if user_signed_in?
       # redirect_to '/users/sign_out'
     # end
+    @shows = Show.all
   end
   
+  def artists
+  end
+  
+  def shows
+    @shows = Show.all
+  end
 end
