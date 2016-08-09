@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160731094200) do
     t.string   "genre"
     t.integer  "view_count"
     t.integer  "attend_count"
-    t.integer  "date"
+    t.string   "date"
     t.datetime "start"
     t.datetime "end"
     t.text     "playlist"

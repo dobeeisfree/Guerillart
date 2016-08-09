@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     # if user_signed_in?
       # redirect_to '/users/sign_out'
     # end
-    @shows = Show.all
+    @shows = Show.all.reverse
   end
   
   def search
@@ -18,6 +18,6 @@ class HomeController < ApplicationController
   end
   
   def shows
-    @shows = Show.all
+    @shows = Show.all.reverse
   end
 end
