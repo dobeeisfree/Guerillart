@@ -148,13 +148,23 @@
     // anchor: new google.maps.Point(0, 0) // anchor
 // };
 
-var icon = new google.maps.MarkerImage(
-					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-					    	null, null, new google.maps.Point(30, 32));
+	mark = {
+		icon: {
+			url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
+		}
+	}
+
+
+
+
+				var icon = new google.maps.MarkerImage(
+			        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
+			    	// "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+			    	// mark.icon.url,
+			    	null, null, null);
 				// var image = "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000"
 				
-					
+				// var icon_h = icon.getHeight();	
 				var infowindow = null;
 				var markers = [];
 				
@@ -170,12 +180,12 @@ var icon = new google.maps.MarkerImage(
 						// title : iconSize,
 						// label : "hello",
 						
-						// icon: new google.maps.MarkerImage(
-					        // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
-					    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-					    	// null, null, new google.maps.Point(30, 32))
+						icon: new google.maps.MarkerImage(
+					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|"+"<%=x.genre%>"+"|FF8080|000000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	null, null, null)
 						
-						icon: icon
+						// icon: icon
 						
 						
 						//icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=1|FE6256|000000'
@@ -217,7 +227,7 @@ var icon = new google.maps.MarkerImage(
 					var bounds = globalMap.getBounds();
 					var NE = bounds.getNorthEast();
 					var SW = bounds.getSouthWest();
-					removeAllMarkers(markers);
+					// removeAllMarkers(markers);
 					
 					
 					// scheduleDelayedCallback();
