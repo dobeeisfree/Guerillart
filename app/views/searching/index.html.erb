@@ -51,6 +51,7 @@
 			var globalMap;
 			var globalMarker;
 			var globalGeocoder;
+			var markers = [];
 
 			// 맵 초기화
 			function initialize(x, y) {
@@ -135,11 +136,10 @@
 				});
 
 				var infowindow = null;
-				var markers = [];
 				
 				var i = 0;
 				<%@show_all.each do |x|%>
-					
+					 // if ( <%=x.location_x %> > ne_lat && <%=x.location_x%> < sw_lat && <%=x.location_y%> < sw_lng && <%=x.location_y%> > ne_lng ){
 					
 					globalMarker = new google.maps.Marker({
 						map : globalMap,
@@ -180,6 +180,7 @@
 			
 					// globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
 					i++;
+					// }
 				<%end%>
 
 				//bounds 변경시 이벤트 추가
@@ -195,21 +196,21 @@
 				});
 				
 				google.maps.event.addListener(globalMap, 'center_changed', function() {// 센터 변경시 이벤트 추가
-					// removeAllMarkers(markers);
+					// removeAllMarkers();
 					// showMapPos();
 					// showMapAddr();
 				});
 				
 				
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
-					removeAllMarkers(markers);
+					removeAllMarkers();
 					updateMarkers(globalMap);
 					// showMapPos();
 					// showMapAddr();
 				});
 				
 				google.maps.event.addListener(globalMap, 'zoom_changed', function() {// 줌 변경시 이벤트 추가
-					removeAllMarkers(markers);
+					removeAllMarkers();
 					// showMapPos();
 					// showMapAddr();
 				});
@@ -251,36 +252,51 @@
 				var sw_lat = sw.lat();
 				var sw_lng = sw.lng();
 				
-								
+				var i = 0;				
 				<% @show_all.each do |show| %>
 					if ( <%=show.location_x %> < ne_lat && <%=show.location_x%> > sw_lat && <%=show.location_y%> > sw_lng && <%=show.location_y%> < ne_lng ){
-						 					globalMarker = new google.maps.Marker({
-						map : globalMap,
-						position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-						draggable : false,
-						
-						icon: new google.maps.MarkerImage(
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-					    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
-					    	null, null, null)
-						
-						//label : "hi"
-						
+						globalMarker = new google.maps.Marker({
+							map : globalMap,
+							position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+							draggable : false,
+							
+							icon: new google.maps.MarkerImage(
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
+						    	null, null, null)
+							//label : "hi"
 						});
+						markers.push(globalMarker);
 					
+					
+						//marker 클릭시 infowindow 팝업 
+						(function(globalMarker, i) {
+	                        // add click event
+	                        google.maps.event.addListener(globalMarker, 'click', function() {
+	                        	if (infowindow) {
+							        infowindow.close();
+							    }
+	                            infowindow = new google.maps.InfoWindow({
+	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            });
+	                            infowindow.open(globalMap, globalMarker);
+	                        });
+	                    })(globalMarker, i);
+						
+						i++;
 					}
-				
 				<% end %>				
 			}
 			
 			
 			//마커 모두 지우기
-			function removeAllMarkers(markers){
+			function removeAllMarkers(){
 				while(markers.length){
 			            markers.pop().setMap(null);
 			        }
+			    // markers = [];    
 			}
 			
 			
