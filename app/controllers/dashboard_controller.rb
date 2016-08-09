@@ -80,4 +80,8 @@ class DashboardController < ApplicationController
 
 
   end
+
+  def create_artist
+
+  end
  end
