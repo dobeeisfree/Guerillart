@@ -140,6 +140,7 @@
 				var i = 0;
 				<%@show_all.each do |x|%>
 					
+					
 					globalMarker = new google.maps.Marker({
 						map : globalMap,
 						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
@@ -202,6 +203,7 @@
 				
 				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
 					removeAllMarkers(markers);
+					updateMarkers(globalMap);
 					// showMapPos();
 					// showMapAddr();
 				});
@@ -241,8 +243,36 @@
 			
 			function updateMarkers(globalMap){
 				var bounds = globalMap.getBounds();
-				var NE = bounds.getNorthEast();
-				var SW = bounds.getSouthWest();
+				var ne = bounds.getNorthEast();
+				var sw = bounds.getSouthWest();
+				
+				var ne_lat = ne.lat();
+				var ne_lng = ne.lng();
+				var sw_lat = sw.lat();
+				var sw_lng = sw.lng();
+				
+								
+				<% @show_all.each do |show| %>
+					if ( <%=show.location_x %> < ne_lat && <%=show.location_x%> > sw_lat && <%=show.location_y%> > sw_lng && <%=show.location_y%> < ne_lng ){
+						 					globalMarker = new google.maps.Marker({
+						map : globalMap,
+						position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+						draggable : false,
+						
+						icon: new google.maps.MarkerImage(
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
+					    	null, null, null)
+						
+						//label : "hi"
+						
+						});
+					
+					}
+				
+				<% end %>				
 			}
 			
 			
