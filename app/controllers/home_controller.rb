@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       # redirect_to '/users/sign_out'
     # end
     @shows = Show.all.reverse
+		@current_genre = "모아보기"
   end
   
   def search
