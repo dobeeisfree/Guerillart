@@ -133,68 +133,27 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
-					// var image = {
-  // url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc",
-  // size: new google.maps.Size(71, 71),
-  // origin: new google.maps.Point(0, 0),
-  // anchor: new google.maps.Point(17, 34),
-  // scaledSize: new google.maps.Size(25, 25)
-// };
 
-// var icon = {
-    // url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000", // url
-    // scaledSize: new google.maps.Size(50, 50), // scaled size
-    // origin: new google.maps.Point(0,0), // origin
-    // anchor: new google.maps.Point(0, 0) // anchor
-// };
-
-	mark = {
-		icon: {
-			url: "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
-		}
-	}
-
-
-
-
-				var icon = new google.maps.MarkerImage(
-			        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000",
-			    	// "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-			    	// mark.icon.url,
-			    	null, null, null);
-				// var image = "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|Label%20123|FF8080|000000"
-				
-				// var icon_h = icon.getHeight();	
 				var infowindow = null;
 				var markers = [];
 				
 				var i = 0;
 				<%@show_all.each do |x|%>
 					
-					//var latlng = new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>");
-					
 					globalMarker = new google.maps.Marker({
 						map : globalMap,
 						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
 						draggable : false,
-						// title : iconSize,
-						// label : "hello",
 						
 						icon: new google.maps.MarkerImage(
-					        "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|"+"<%=x.genre%>"+"|FF8080|000000",
+					        // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|"+"<%=x.genre%>"+"|000000|FF0000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
 					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
 					    	null, null, null)
 						
-						// icon: icon
-						
-						
-						//icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=1|FE6256|000000'
-  
-						
-	   					// labelClass: "labels"
-						// icon: GreenIcon,
-						// info: "말풍선",
-						// title : 'Hello World!'
+						//label : "hi"
 					});
 					markers.push(globalMarker);
 					
@@ -222,7 +181,7 @@
 					i++;
 				<%end%>
 
-				//bounds 변경시
+				//bounds 변경시 이벤트 추가
 				google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					var bounds = globalMap.getBounds();
 					var NE = bounds.getNorthEast();
