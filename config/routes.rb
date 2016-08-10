@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
   root 'home#index'
   get 'home/index' => 'home#index'
   get 'home/shows' =>'home#shows'
