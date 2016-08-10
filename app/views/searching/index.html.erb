@@ -206,7 +206,7 @@
 				
 				i = 0;				
 				<% @show_all.each do |show| %>
-					if ( <%=show.location_x %> < ne_lat && <%=show.location_x%> > sw_lat && <%=show.location_y%> > sw_lng && <%=show.location_y%> < ne_lng ){
+					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng ){
 						globalMarker = new google.maps.Marker({
 							map : globalMap,
 							position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
@@ -431,7 +431,7 @@
 
 	</head>
 
-	<body onload="initialize(); setTimeout('updateMarkers()', 550);">
+	<body onload="initialize(); setTimeout('updateMarkers()', 600);">
 		<div id="s_left">
 			<div id="map_canvas"></div>
 
