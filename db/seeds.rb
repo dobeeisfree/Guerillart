@@ -15,7 +15,7 @@ g = ["힙합", "하우스", "발라드", "인디음악", "락", "팝", "댄스"]
 c.each do |c|
   0.upto(0) do |i|
     s = Show.new
-    s.artist_id = i + 1
+    s.user_id = i + 1
     s.title = c
 =begin
 	임의로 타임값 생성. 공연정보페이지에서 조회 시 사용

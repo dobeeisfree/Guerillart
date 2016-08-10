@@ -1,4 +1,7 @@
 class DashboardController < ApplicationController
+  before_action :check_ownership, only: [:edit, :update, :destroy]
+
+
   def home
   end
 
@@ -48,7 +51,6 @@ class DashboardController < ApplicationController
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
     end
-
   end
 
   def delete_complete
@@ -59,29 +61,35 @@ class DashboardController < ApplicationController
   end
 
   def mypage
-    @artist = Artist.all
   end
 
   def create
-
-    if current_user.Artist.nil?
-    artist = Artist.new(name: params[:name],
-                        genre: params[:genre],
-                        phone_number: params[:phone_number],
-                        area: params[:area],
-                        sns: params[:sns],
-                        introduction: params[:introduction])
-
-    artist.save
-    redirect_to '/mypage'
+    if current_user.artist_name.nil?
+    
+      current_user.artist_name = params[:name]
+      current_user.genre = params[:genre]
+      current_user.phone_number = params[:phone_number]
+      current_user.area = params[:area]
+      current_user.sns = params[:sns]
+      current_user.introduction = params[:introduction]
+      current_user.save
+      redirect_to '/mypage'
     else
-    #flash[:alert]: "you already have one"
+      flash[:alert]= "you already have one"
     end
-
-
   end
+
+  private
+
+  def check_ownership
+      @one_show = Show.find_by(id: params[:id])
+      redirect_to root_path if @one_show.user.id != current_user.id
+  end
+
 
   def create_artist
 
   end
- end
+
+end
+>>>>>>> 9cdb02db65fffc053c8c2e50619abd70ca03c039
