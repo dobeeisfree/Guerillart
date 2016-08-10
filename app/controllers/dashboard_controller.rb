@@ -75,8 +75,9 @@ class DashboardController < ApplicationController
 
     artist.save
     redirect_to '/dashboard/mypage'
+    end
     if current_user.artist_name.nil?
-    
+
       current_user.artist_name = params[:name]
       current_user.genre = params[:genre]
       current_user.phone_number = params[:phone_number]
