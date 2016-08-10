@@ -1,4 +1,10 @@
 class Show < ActiveRecord::Base
+  searchable do
+    # text :
+    # float :
+    double :location_x, :location_y
+  end
+  
   has_many :like_shows
   has_many :users, through: :like_shows
   has_many :likes

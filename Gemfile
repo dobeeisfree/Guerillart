@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+
 gem 'devise'
 gem 'simple_form'
 

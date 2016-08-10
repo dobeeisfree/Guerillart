@@ -204,6 +204,20 @@
 				sw_lat = sw.lat();
 				sw_lng = sw.lng();
 				
+				
+			   	$(document).ready(function(){
+			        $("#neLat").val(ne_lat);
+			   	});
+				
+				
+				
+				<% @searched = Show.search do %>
+					
+				<%end%>
+				
+				
+				
+				
 				i = 0;				
 				<% @show_all.each do |show| %>
 					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng ){
