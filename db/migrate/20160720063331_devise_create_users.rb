@@ -3,7 +3,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       ##Guerillart required data####
       t.integer :level
-      
+
       ######## If a user are an artist
       t.string :artist_name
       t.string :genre
@@ -14,10 +14,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :fan
       t.integer :fan_count
       t.integer :artist_id
-      
-
-      
-
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
