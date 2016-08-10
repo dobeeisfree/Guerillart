@@ -205,8 +205,21 @@
 				sw_lng = sw.lng();
 				
 				
+				
 			   	$(document).ready(function(){
-			        $("#neLat").val(ne_lat);
+			        // $("#neLat").val(ne_lat);
+			       	$.ajax({
+			        	method: "POST",
+			        	url: "/searching/getBounds",
+			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng }, 
+			        	success: function(){ 
+			        	 	alert("^^");
+			        	},
+			        	error: function(){
+			        		alert("T^T "+ne_lat);
+			        	}
+			        })
+			        
 			   	});
 				
 				//<%Show.reindex%>
