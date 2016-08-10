@@ -7,7 +7,9 @@
     %>
     <%= render partial: "/layouts/show_modal", colloection: @marshall_show_modal %>
     <figure class="effect-oscar wowload fadeInUp">
+
       <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
+
       <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
       <figcaption>
         <h2><%= show.title %></h2>

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'dashboard/write' => 'dashboard#write'
   post 'dashboard/write_complete' => 'dashboard#write_complete'
 
-  post 'create' => 'dashboard#create'
+  post 'dashboard/create' => 'dashboard#create'
 
   post 'write_complete' => 'dashboard#write_complete'
   get 'edit/:show_id' => 'dashboard#edit'
