@@ -16,4 +16,9 @@
 !/log/.keep
 /tmp
 *.swp
-/solr/development/data
+
+# Ignore solr files
+/solr/test
+/solr/pids
+/log/*.log.lck
+/solr/development
