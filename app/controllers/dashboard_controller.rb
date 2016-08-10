@@ -85,7 +85,7 @@ class DashboardController < ApplicationController
       current_user.sns = params[:sns]
       current_user.introduction = params[:introduction]
       current_user.save
-      redirect_to '/mypage'
+      redirect_to '/dashboard/mypage'
     else
       flash[:alert]= "you already have one"
     end
