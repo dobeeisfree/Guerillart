@@ -1,5 +1,13 @@
-<div class="modal fade" id="upcomings-modal">
-  <div class="modal-dialog modal-lg" role="document">
+<%
+=begin
+   @marshall_show_modal : @shows의 각 show마다의 정보가 담김
+   모달창의 id값은 각각의 공연정보로 바꿔줘야한다.
+
+   TODO 모달이 너무 이상하여 이쁘게 수정해야한다.
+=end
+%>
+<div class="modal fade" id="upcomings-modal-<%= @marshall_show_modal.id %>">
+  <div class="modal-lg modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,59 +15,49 @@
         </button>
         <img style="float:left;" src="http://www.iworldtoday.com/news/photo/201604/190562_64853_4133.jpg" alt="범준" class="img-circle" width="70px" height="70px"  class="img-responsive">
         <div style="margin-left:80px">
-          <h4 class="modal-title">버스커버스커 첫 솔로 활동</h4>
-          <p>
-            by 장범준
-          </p>
+          <h4 class="modal-title"><%= @marshall_show_modal.title %></h4>
+          <p>by 장범준</p><!--TODO 아티스트의 이름을 가져와야함 -->
         </div>
       </div>
       <div class="modal-body">
-        <img src="/images/portfolio/1.jpg" class="img-responsive" alt="img01" width="400px"
-        alian="left"/>
+        <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
+        <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" class="img-responsive" alt="img01" width="400px" alian="left"/>
+        <p>공연정보</p>
         <div style="float:right;">
-          <p>
-            공연정보
-          </p>
-          <span> 장소 : 마로니에 공원
-            <br>
-            시각 : 18:00, 7월 30일 2016년
-            <br>
-            장르 : Rock
-            <br>
-            <br>
-            플레이리스트 :
-            <br>
-            1. 여수밤바다
-            <br>
-            2. You are my lady
-            <br>
-            3. You are my lady
+          <span>
+            장소 : <%= @marshall_show_modal.location %><br>
+            시각 : <%= @marshall_show_modal.time %>,  <%= @marshall_show_modal.date %><br>
+            장르 : <%= @marshall_show_modal.genre %><br>
+            <br>플레이리스트 :<br>
+            <%= @marshall_show_modal.playlist %>
             <br>
           </span>
         </div>
       </div>
+      <!-- TODO 기능 4가지 -->
       <div class="modal-footer" style="clear:both;">
+        <!-- 좋아요 -->
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true">
-            <br>
-            123</span>
+            <br>123</span>
         </button>
+        <!-- 댓글쓰기 : TODO 공연이 끝난 후 작성할 수 있다. -->
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-comment" aria-hidden="true">
-            <br>
-            123</span>
+            <br>323</span>
         </button>
+        <!-- 공유하기 -->
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-            <br>
-            222</span>
+            <br>222</span>
         </button>
+        <!-- 조회수 -->
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-eye-open" aria-hidden="true">
-            <br>
-            332</span>
+            <br>332</span>
         </button>
       </div>
+      <!-- 기능 4가지 끝 -->
     </div>
   </div>
 </div>
