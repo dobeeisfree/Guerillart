@@ -2,8 +2,14 @@
     <%
       @shows.reverse.each do |show|
       if show.genre == @current_genre || "모아보기" == @current_genre
+        # 모달에 값을 넘겨준다
+        @marshall_show_modal = show
     %>
+    <%= render partial: "/layouts/show_modal", colloection: @marshall_show_modal %>
     <figure class="effect-oscar wowload fadeInUp">
+
+      <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
+
       <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
       <figcaption>
         <h2><%= show.title %></h2>
@@ -12,7 +18,7 @@
             <%= show.time %><br>
         </p>
         <p>
-          <a class="btn" data-toggle="modal" data-target="#upcomings-modal">More</a>
+          <a class="btn" data-toggle="modal" data-target="#upcomings-modal-<%= @marshall_show_modal.id %>">More</a>
         </p>
       </figcaption>
     </figure>
@@ -21,4 +27,3 @@
   end
 %>
 </div>
-<%= render partial: "/layouts/show_modal" %>

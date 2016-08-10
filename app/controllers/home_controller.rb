@@ -12,9 +12,6 @@ class HomeController < ApplicationController
 		@current_genre = "모아보기"
   end
   
-  def search
-  end
-  
   def artists
   end
   

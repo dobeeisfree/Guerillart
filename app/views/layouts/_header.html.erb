@@ -1,3 +1,5 @@
+= javascript_include_tag "application"
+
 <!--로그인 Modal 시작-->
     <div class="modal fade" id="LogInModal" role="dialog">
       <div class="modal-dialog">
@@ -142,7 +144,7 @@
                        <li><a href="/dashboard/profile" data-method="get">계정관리</a></li>
 
                        <li role="separator" class="divider"></li>
-                       <li> <a href="/users/sign_out" data-method="get" rel="nofollow">로그아웃</a></li>
+                       <li> <a href="/users/sign_out" data-method="delete" rel="nofollow">로그아웃</a></li>
                    </ul>
                  </li>
                 <%else%>
