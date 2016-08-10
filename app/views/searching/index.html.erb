@@ -209,11 +209,18 @@
 			        $("#neLat").val(ne_lat);
 			   	});
 				
+				//<%Show.reindex%>
+			    <%@search = Show.search do%>
+				    <%all_of do%>
+				      <%with(:location_x, 37.514..130.0)%>
+				      <%with(:location_y, 127.05362262676700..130.0)%>
+				    <%end%>
+			    <%end%>
+			    <%@results = @search.results%>  
 				
 				
-				<% @searched = Show.search do %>
-					
-				<%end%>
+				
+				alert(""+"<%=@results%>");
 				
 				
 				
