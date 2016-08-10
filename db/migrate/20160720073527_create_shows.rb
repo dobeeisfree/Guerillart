@@ -6,7 +6,7 @@ class CreateShows < ActiveRecord::Migration
       t.string :genre
       t.integer :view_count
       t.integer :attend_count
-      t.integer :date
+      t.string :date
       t.datetime :start
       t.datetime :end
       t.text  :playlist
@@ -15,7 +15,7 @@ class CreateShows < ActiveRecord::Migration
       t.float :location_y
       t.string :time
 
-      t.integer :artist_id
+      t.integer :user_id
 
       t.timestamps null: false
     end

@@ -11,27 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731094200) do
-
-  create_table "artists", force: :cascade do |t|
-    t.string   "name"
-    t.string   "genre"
-    t.integer  "phone_number"
-    t.string   "area"
-    t.string   "sns"
-    t.text     "introduction"
-    t.string   "fan"
-    t.integer  "fan_count"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
+ActiveRecord::Schema.define(version: 20160810000447) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.integer  "artist_id"
     t.integer  "show_id"
-    t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,17 +28,16 @@ ActiveRecord::Schema.define(version: 20160731094200) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.text     "content"
+  create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "artist_id"
+    t.integer  "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "registers", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
+    t.text     "content"
     t.integer  "user_id"
-    t.integer  "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -64,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160731094200) do
     t.string   "genre"
     t.integer  "view_count"
     t.integer  "attend_count"
-    t.integer  "date"
+    t.string   "date"
     t.datetime "start"
     t.datetime "end"
     t.text     "playlist"
@@ -72,13 +56,22 @@ ActiveRecord::Schema.define(version: 20160731094200) do
     t.float    "location_x"
     t.float    "location_y"
     t.string   "time"
-    t.integer  "artist_id"
+    t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.integer  "level"
+    t.string   "artist_name"
+    t.string   "genre"
+    t.integer  "phone_number"
+    t.string   "area"
+    t.string   "sns"
+    t.text     "introduction"
+    t.string   "fan"
+    t.integer  "fan_count"
+    t.integer  "artist_id"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

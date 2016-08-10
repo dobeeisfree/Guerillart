@@ -1,15 +1,26 @@
 Rails.application.routes.draw do
-  get 'home' => 'dashboard#home'
-  get 'guerillart' => 'dashboard#guerillart'
-  get 'profle' => 'dashboard#profle'
-  get 'write' => 'dashboard#write'
+  devise_for :users
+  root 'home#index'
+  get 'home/index' => 'home#index'
+  get 'home/shows' =>'home#shows'
+  get 'home/artists' => 'home#artists'
+
+  get 'dashboard/home' => 'dashboard#home'
+  get 'dashboard/guerillart' => 'dashboard#guerillart'
+  get 'dashboard/profile' => 'dashboard#profile'
+  get 'dashboard/mypage' => 'dashboard#mypage'
+  get 'dashboard/create_artist' => 'dashboard#create_artist'
+  get 'dashboard/write' => 'dashboard#write'
+  post 'dashboard/write_complete' => 'dashboard#write_complete'
+
+  post 'create' => 'dashboard#create'
+
   post 'write_complete' => 'dashboard#write_complete'
   get 'edit/:show_id' => 'dashboard#edit'
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
-  root 'home#index'
-  get 'home/index'
+
   # devise_for :users, controllers: { sessions: 'users/sessions' }
   # devise_for :users
   
@@ -24,12 +35,15 @@ Rails.application.routes.draw do
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
   get 'artists' => 'home#artists'
-  
+  get 'dashboard/:show_id/like' => 'likes#like_toggle'
+  resources :comments, only: [:create, :destroy]
+
   # get '/hihi'
   # get '/hihi' => 'home#index'
+
   # get 'searching/index' => 'searching#index'
-  
-  
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
