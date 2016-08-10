@@ -86,4 +86,8 @@ class DashboardController < ApplicationController
       redirect_to root_path if @one_show.user.id != current_user.id
   end
 
+
+  def create_artist
+
+  end
  end

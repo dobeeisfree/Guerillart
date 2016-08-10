@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'home' => 'dashboard#home'
   get 'guerillart' => 'dashboard#guerillart'
   get 'profle' => 'dashboard#profle'
+  get 'create_artist' => 'dashboard#create_artist'
   get 'write' => 'dashboard#write'
   post 'write_complete' => 'dashboard#write_complete'
   get 'edit/:show_id' => 'dashboard#edit'
@@ -19,12 +20,13 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
 
   
+
   # get '/hihi'
   # get '/hihi' => 'home#index'
-  
+
   # get 'searching/index' => 'searching#index'
-  
-  
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
