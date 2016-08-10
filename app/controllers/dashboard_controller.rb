@@ -1,4 +1,7 @@
 class DashboardController < ApplicationController
+  before_action :check_ownership, only: [:edit, :update, :destroy]
+
+
   def home
   end
 
@@ -6,7 +9,7 @@ class DashboardController < ApplicationController
     @shows = Show.all
   end
 
-  def profle
+  def profile
   end
 
   def write
@@ -22,8 +25,8 @@ class DashboardController < ApplicationController
     show.playlist = params[:playlist]
     if show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/guerillart"
-    else 
+      redirect_to "/dashboard/guerillart"
+    else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
     end
@@ -43,21 +46,59 @@ class DashboardController < ApplicationController
     @one_show.playlist = params[:playlist]
     if @one_show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/guerillart"
-    else 
+      redirect_to "/dashboard/guerillart"
+    else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
-    end   
-    
+    end
   end
 
   def delete_complete
     @one_show = Show.find(params[:show_id])
     @one_show.destroy
-    redirect_to "/guerillart"
+    redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
   end
-  
+
   def mypage
+  end
+
+  def create
+
+    if current_user.Artist.nil?
+    artist = Artist.new(name: params[:name],
+                        genre: params[:genre],
+                        phone_number: params[:phone_number],
+                        area: params[:area],
+                        sns: params[:sns],
+                        introduction: params[:introduction])
+
+    artist.save
+    redirect_to '/dashboard/mypage'
+    end
+    if current_user.artist_name.nil?
+
+      current_user.artist_name = params[:name]
+      current_user.genre = params[:genre]
+      current_user.phone_number = params[:phone_number]
+      current_user.area = params[:area]
+      current_user.sns = params[:sns]
+      current_user.introduction = params[:introduction]
+      current_user.save
+      redirect_to '/mypage'
+    else
+      flash[:alert]= "you already have one"
+    end
+  end
+
+  private
+
+  def check_ownership
+      @one_show = Show.find_by(id: params[:id])
+      redirect_to root_path if @one_show.user.id != current_user.id
+  end
+
+
+  def create_artist
   end
 end

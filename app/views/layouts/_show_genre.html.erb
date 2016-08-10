@@ -1,0 +1,24 @@
+<div id="#<%= @current_genre %>"  class="clearfix grid">
+    <%
+      @shows.reverse.each do |show|
+      if show.genre == @current_genre || "모아보기" == @current_genre
+    %>
+    <figure class="effect-oscar wowload fadeInUp">
+      <img src="images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
+      <figcaption>
+        <h2><%= show.title %></h2>
+        <p><%= show.location %><br>
+            <%= show.date  %><br>
+            <%= show.time %><br>
+        </p>
+        <p>
+          <a class="btn" data-toggle="modal" data-target="#upcomings-modal">More</a>
+        </p>
+      </figcaption>
+    </figure>
+    <%
+    end
+  end
+%>
+</div>
+<%= render partial: "/layouts/show_modal" %>
