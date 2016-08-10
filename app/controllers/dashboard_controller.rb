@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
     @shows = Show.all
   end
 
-  def profle
+  def profile
   end
 
   def write
@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
     show.playlist = params[:playlist]
     if show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/guerillart"
+      redirect_to "/dashboard/guerillart"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -46,7 +46,7 @@ class DashboardController < ApplicationController
     @one_show.playlist = params[:playlist]
     if @one_show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/guerillart"
+      redirect_to "/dashboard/guerillart"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -56,7 +56,7 @@ class DashboardController < ApplicationController
   def delete_complete
     @one_show = Show.find(params[:show_id])
     @one_show.destroy
-    redirect_to "/guerillart"
+    redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
   end
 
@@ -64,6 +64,17 @@ class DashboardController < ApplicationController
   end
 
   def create
+
+    if current_user.Artist.nil?
+    artist = Artist.new(name: params[:name],
+                        genre: params[:genre],
+                        phone_number: params[:phone_number],
+                        area: params[:area],
+                        sns: params[:sns],
+                        introduction: params[:introduction])
+
+    artist.save
+    redirect_to '/dashboard/mypage'
     if current_user.artist_name.nil?
     
       current_user.artist_name = params[:name]

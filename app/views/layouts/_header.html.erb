@@ -30,7 +30,7 @@
                 <%= f.check_box :remember_me %>
                 <%= f.label :remember_me %>
               </div>
-              <% end -%>
+              <% end %>
 
             </div>
           </div>
@@ -117,15 +117,15 @@
             <!-- Nav Starts -->
             <div class="navbar-collapse collapse">
               <a href="/" class="topbar-logo">
-                <img src="images/logo.png" alt="게릴라트">
+                <img src="/images/logo.png" alt="게릴라트">
 			        </a>
               <ul class="nav navbar-nav navbar-right scroll">
 
                 <li class="active">
-                  <a href="/shows" data-method="get">공연</a>
+                  <a href="/home/shows" data-method="get">공연</a>
                 </li>
                 <li>
-                  <a href="/artists" data-method="get">아티스트</a>
+                  <a href="/home/artists" data-method="get">아티스트</a>
                 </li>
                 <%if user_signed_in?%>
                 <!-- 이름만 바꿔놓음-->
@@ -134,6 +134,10 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %>님 <span class="caret"></span></a>
                    <ul class="dropdown-menu">
+                       <li><a href="/dashboard/home" data-method="get">대쉬보드</a></li>
+                       <li><a href="/dashboard/guerillart" data-method="get">나의게릴라트</a></li>
+                       <li><a href="/dashboard/write" data-method="get">공연등록</a></li>
+                       <li><a href="/dashboard/profile" data-method="get">계정관리</a></li>
                        <li><a href="/home" data-method="get">대쉬보드</a></li>
                        <li><a href="/guerillart" data-method="get">나의게릴라트</a></li>
                        <% if !current_user.artist_name.nil? %>
