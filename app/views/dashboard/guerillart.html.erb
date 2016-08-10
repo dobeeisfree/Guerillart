@@ -20,7 +20,20 @@
                   <% else %>
                    <a href="/dashboard/<%= show.id %>/like">좋아요</a> 
                   <% end %>
-                  <a href="#">댓글 달기</a>
+  </form>   
+                  <% unless show.comments.nil?%>
+                      <% show.comments.each do |comment| %> 
+                        <p>제목<%= comment.user.name %></p>
+                        <p>날짜:<%= comment.created_at %></p>
+                        <p>내용<%= comment.content %></p>
+                      <% end %>
+                  <% end %>
+   
+                  <%= form_tag comments_path do %>
+                      <input type="hidden" name="show_id" value="<%= show.id %>">
+                      <p><%= current_user.name %> <input type="text" name="content" placeholder="댓글 내용을 입력하세요."> <input type="submit" value="확인"></p>
+                  <% end %>
+
                     <% if current_user.id != show.user_id %>
                       <a href="/edit/<%= show.id %>">[수정]</a>
                       <a href="/delete_complete/<%= show.id %>">[삭제]</a>
