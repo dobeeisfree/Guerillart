@@ -137,85 +137,90 @@
 
 				var infowindow = null;
 				
-				var i = 0;
-				<%@show_all.each do |x|%>
-					 // if ( <%=x.location_x %> > ne_lat && <%=x.location_x%> < sw_lat && <%=x.location_y%> < sw_lng && <%=x.location_y%> > ne_lng ){
-					
-					globalMarker = new google.maps.Marker({
-						map : globalMap,
-						position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
-						draggable : false,
-						
-						icon: new google.maps.MarkerImage(
-					        // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|"+"<%=x.genre%>"+"|000000|FF0000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
-					    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-					    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
-					    	null, null, null)
-						
-						//label : "hi"
-					});
-					markers.push(globalMarker);
-					
-								
-					
-					//marker 클릭시 infowindow 팝업 
-					(function(globalMarker, i) {
-                        // add click event
-                        google.maps.event.addListener(globalMarker, 'click', function() {
-                        	if (infowindow) {
-						        infowindow.close();
-						    }
-                            infowindow = new google.maps.InfoWindow({
-                                content: "Hello, World!!" + i + " <%=x.genre%>"+ "<br />"+"hi"
-                            });
-                            infowindow.open(globalMap, globalMarker);
-                        });
-                    })(globalMarker, i);
-	
-					// google.maps.event.addListener(globalMarker, "click", function() {
-	        			// infowindow.open(globalMap,globalMarker);});
-			
-			
-					// globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
-					i++;
-					// }
-				<%end%>
+				// var i = 0;
+				// <%@show_all.each do |x|%>
+					 // // if ( <%=x.location_x %> > ne_lat && <%=x.location_x%> < sw_lat && <%=x.location_y%> < sw_lng && <%=x.location_y%> > ne_lng ){
+// 					
+					// globalMarker = new google.maps.Marker({
+						// map : globalMap,
+						// position : new google.maps.LatLng("<%=x.location_x%>", "<%=x.location_y%>"),
+						// draggable : false,
+// 						
+						// icon: new google.maps.MarkerImage(
+					        // // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|"+"<%=x.genre%>"+"|000000|FF0000",
+					    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+					    	// // "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
+					    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+					    	// "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
+					    	// null, null, null)
+// 						
+						// //label : "hi"
+					// });
+					// markers.push(globalMarker);
+// 					
+// 								
+// 					
+					// //marker 클릭시 infowindow 팝업 
+					// (function(globalMarker, i) {
+                        // // add click event
+                        // google.maps.event.addListener(globalMarker, 'click', function() {
+                        	// if (infowindow) {
+						        // infowindow.close();
+						    // }
+                            // infowindow = new google.maps.InfoWindow({
+                                // content: "Hello, World!!" + i + " <%=x.genre%>"+ "<br />"+"hi"
+                            // });
+                            // infowindow.open(globalMap, globalMarker);
+                        // });
+                    // })(globalMarker, i);
+// 	
+					// // google.maps.event.addListener(globalMarker, "click", function() {
+	        			// // infowindow.open(globalMap,globalMarker);});
+// 			
+// 			
+					// // globalMap.addMarker(new MarkerOptions().position(LatLng("<%=x.location_x%>", "<%=x.location_y%>"));
+					// i++;
+					// // }
+				// <%end%>
 
-				//bounds 변경시 이벤트 추가
-				google.maps.event.addListener(globalMap, 'bounds_changed', function() {
-					var bounds = globalMap.getBounds();
-					var NE = bounds.getNorthEast();
-					var SW = bounds.getSouthWest();
-					// removeAllMarkers(markers);
-					
-					
-					// scheduleDelayedCallback();
-					
-				});
-				
-				google.maps.event.addListener(globalMap, 'center_changed', function() {// 센터 변경시 이벤트 추가
-					// removeAllMarkers();
-					// showMapPos();
-					// showMapAddr();
-				});
+				//bounds 변경시 이벤트 추가 (계속 발생함)
+				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
+					// var bounds = globalMap.getBounds();
+					// var NE = bounds.getNorthEast();
+					// var SW = bounds.getSouthWest();
+					// // updateMarkers();
+					// // removeAllMarkers(markers);
+					// // scheduleDelayedCallback();
+				// });
 				
 				
-				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
+				//맵 로딩 완료후 실행할 함수 (정확히 언제 실행되는지 말 모르겠음)
+				// google.maps.event.addListenerOnce(globalMap, 'idle', function(){
+    			// });
+				
+				// 센터 변경시 이벤트 추가 (계속 발생함)
+				// google.maps.event.addListener(globalMap, 'center_changed', function() {
+					// // removeAllMarkers();
+					// // updateMarkers();
+					// // removeAllMarkers();
+					// // showMapPos();
+					// // showMapAddr();
+				// });
+				
+				
+				// 드래그 끝났을 때 이벤트 추가
+				google.maps.event.addListener(globalMap, 'dragend', function() {
 					removeAllMarkers();
-					updateMarkers(globalMap);
-					// showMapPos();
-					// showMapAddr();
+					updateMarkers();
 				});
 				
-				google.maps.event.addListener(globalMap, 'zoom_changed', function() {// 줌 변경시 이벤트 추가
+				// 줌 변경시 이벤트 추가
+				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
 					removeAllMarkers();
+					updateMarkers();
 					// showMapPos();
 					// showMapAddr();
 				});
-				
-				
 				
 				// 갱신 딜레이
 				// function fireIfLastEvent()
@@ -232,18 +237,14 @@
 				// }
 
 
-
-				// google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
-					// showMapPos();
-					// showMapAddr();
-				// });
 				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
 					// moveMarker(event.latLng);
 				// });
 			}
 			
-			function updateMarkers(globalMap){
+			function updateMarkers(){
 				var bounds = globalMap.getBounds();
+				// alert(""+bounds);
 				var ne = bounds.getNorthEast();
 				var sw = bounds.getSouthWest();
 				
@@ -264,7 +265,7 @@
 						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
 						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
 						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|안녕",
+						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|반가워",
 						    	null, null, null)
 							//label : "hi"
 						});
@@ -298,6 +299,15 @@
 			        }
 			    // markers = [];    
 			}
+			
+			
+			// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
+         		// alert(globalMap.getBounds());
+      		// });
+			
+			
+			
+			
 			
 			
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
@@ -467,7 +477,7 @@
 
 	</head>
 
-	<body onload="initialize(0,0)">
+	<body onload="initialize(0,0); setTimeout('updateMarkers()', 550);">
 		<div id="s_left">
 			<div id="map_canvas"></div>
 
