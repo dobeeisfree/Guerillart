@@ -15,7 +15,7 @@ class CreateShows < ActiveRecord::Migration
       t.float :location_y
       t.string :time
 
-      t.integer :artist_id
+      t.integer :user_id
 
       t.timestamps null: false
     end

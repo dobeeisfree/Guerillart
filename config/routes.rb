@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
   get 'artists' => 'home#artists'
+  get 'dashboard/:show_id/like' => 'likes#like_toggle'
+
+
   
   # get '/hihi'
   # get '/hihi' => 'home#index'

@@ -1,4 +1,7 @@
 class DashboardController < ApplicationController
+  before_action :check_ownership, only: [:edit, :update, :destroy]
+
+
   def home
   end
 
@@ -75,4 +78,12 @@ class DashboardController < ApplicationController
       flash[:alert]= "you already have one"
     end
   end
+
+  private
+
+  def check_ownership
+      @one_show = Show.find_by(id: params[:id])
+      redirect_to root_path if @one_show.user.id != current_user.id
+  end
+
  end
