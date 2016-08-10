@@ -30,7 +30,7 @@
                 <%= f.check_box :remember_me %>
                 <%= f.label :remember_me %>
               </div>
-              <% end -%>
+              <% end %>
 
             </div>
           </div>
@@ -138,6 +138,12 @@
                        <li><a href="/dashboard/guerillart" data-method="get">나의게릴라트</a></li>
                        <li><a href="/dashboard/write" data-method="get">공연등록</a></li>
                        <li><a href="/dashboard/profile" data-method="get">계정관리</a></li>
+                       <li><a href="/home" data-method="get">대쉬보드</a></li>
+                       <li><a href="/guerillart" data-method="get">나의게릴라트</a></li>
+                       <% if !current_user.artist_name.nil? %>
+                         <li><a href="/write" data-method="get">공연등록</a></li>
+                       <% end %>
+                       <li><a href="/profle" data-method="get">계정관리</a></li>
                        <li role="separator" class="divider"></li>
                        <li> <a href="/users/sign_out" data-method="get" rel="nofollow">로그아웃</a></li>
                    </ul>

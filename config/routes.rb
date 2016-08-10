@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
-
-
   get "/search" => 'searching#index'
-
-
+  get 'mypage' => 'dashboard#mypage'
+  get 'shows' =>'home#shows'
+  get 'artists' => 'home#artists'
+  get 'dashboard/:show_id/like' => 'likes#like_toggle'
+  resources :comments, only: [:create, :destroy]
 
   # get '/hihi'
   # get '/hihi' => 'home#index'

@@ -1,5 +1,7 @@
 class Show < ActiveRecord::Base
   has_many :like_shows
   has_many :users, through: :like_shows
-  belongs_to :artist
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
+  has_many :comments
 end
