@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get 'artists' => 'home#artists'
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
-
   
 
   # get '/hihi'
