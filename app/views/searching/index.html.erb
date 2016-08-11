@@ -205,12 +205,14 @@
 				sw_lng = sw.lng();
 				
 				
+				
 			   	$(document).ready(function(){
 			        // $("#neLat").val(ne_lat);
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/searching/getBounds",
-			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng }, 
+			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
+			        	// data: { ne_lat: ne_lat }, 
 			        	success: function(){ 
 			        	 	alert("^^");
 			        	},
@@ -220,20 +222,10 @@
 			        })
 			        
 			   	});
-				
-				//<%Show.reindex%>
-			    <%@search = Show.search do%>
-				    <%all_of do%>
-				      <%with(:location_x, 37.514..130.0)%>
-				      <%with(:location_y, 127.05362262676700..130.0)%>
-				    <%end%>
-			    <%end%>
-			    <%@results = @search.results%>  
-				
-				
-				
-				// alert(""+"<%=@results%>");
-				alert(""+"<%=@neLat%>");
+			   	
+			   	
+				alert(""+"<%=@results%>"+"<%=Time.now%>");
+				//alert(""+"<%=@neLat%>");
 				
 				
 				
@@ -247,7 +239,8 @@
 							
 							icon: new google.maps.MarkerImage(
 						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
 						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
 						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
 						    	null, null, null)
