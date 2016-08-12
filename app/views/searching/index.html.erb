@@ -248,7 +248,14 @@
 						});
 						markers.push(globalMarker);
 					
-					
+						
+						globalinfoWindow = new google.maps.InfoWindow({
+									map : globalMap,
+									position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            });
+	                            
+											
 						//marker 클릭시 infowindow 팝업 
 						(function(globalMarker, i) {
 	                        // add click event
@@ -260,8 +267,25 @@
 	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
 	                            });
 	                            infowindow.open(globalMap, globalMarker);
+	                            
+	                            
 	                        });
 	                    })(globalMarker, i);
+	                    
+	                    (function(globalinfoWindow, i) {
+	                        // add click event
+	                        google.maps.event.addListener(globalinfoWindow, 'click', function() {
+	                        	if (infowindow) {
+							        infowindow.close();
+							    }
+	                            infowindow = new google.maps.InfoWindow({
+	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            });
+	                            infowindow.open(globalMap, globalinfoWindow);
+	                            
+	                            
+	                        });
+	                    })(globalinfoWindow, i);
 						
 						i++;
 					}
