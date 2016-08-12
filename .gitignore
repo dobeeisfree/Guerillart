@@ -22,3 +22,4 @@
 /solr/pids
 /log/*.log.lck
 /solr/development
+solr/default/data
