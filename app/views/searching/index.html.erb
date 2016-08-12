@@ -45,39 +45,39 @@
 			.gm-style-iw + div {display: none;}	//infowindow x 버튼 삭제
 			
 			#styles, #add-tab {
-        float: left;
-        margin-top: 10px;
-        width: 400px;
-      }
-      #styles label,
-      #add-tab label {
-        display: inline-block;
-        width: 130px;
-      }
-      .phoney {
-        background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));
-        background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);
-      }
-      .phoneytext {
-        text-shadow: 0 -1px 0 #000;
-        color: #fff;
-        font-family: Helvetica Neue, Helvetica, arial;
-        font-size: 16px;
-        line-height: 25px;
-        padding: 4px 45px 4px 15px;
-        font-weight: bold;
-        /*background: url(../images/arrow.png) 95% 50% no-repeat;*/
-      }
-      .phoneytab {
-        text-shadow: 0 -1px 0 #000;
-        color: #fff;
-        font-family: Helvetica Neue, Helvetica, arial;
-        font-size: 18px;
-        background: rgb(112,112,112) !important;
-      }
+		    	float: left;
+		        margin-top: 10px;
+		        width: 400px;
+		    }
+  	        #styles label,
+	        #add-tab label {
+	        	display: inline-block;
+	        	width: 130px;
+	      	}
+	        .phoney {
+	        	background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));
+	        	background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);
+	      	}
+		    .phoneytext {
+			    text-shadow: 0 -1px 0 #000;
+			    color: #fff;
+			    font-family: Helvetica Neue, Helvetica, arial;
+			    font-size: 16px;
+			    line-height: 25px;
+			    padding: 4px 45px 4px 15px;
+			    font-weight: bold;
+			    /*background: url(../images/arrow.png) 95% 50% no-repeat;*/
+		    }
+		    .phoneytab {
+		    	text-shadow: 0 -1px 0 #000;
+		    	color: #fff;
+		        font-family: Helvetica Neue, Helvetica, arial;
+		        font-size: 18px;
+		        background: rgb(112,112,112) !important;
+	    	}
 		</style>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script>
-		<script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
+		<script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>	//infobubble 사용
 		<!-- <script>
 	    	var script = '<script src="../searching/infobubble';
 	    	if (document.location.search.indexOf('compiled') !== -1) {
@@ -96,6 +96,8 @@
 			
 			var markers = [];
 			var infowindow = null;
+			
+			var infoBubbleArray = [];
 			var infoBubble2;
 			
 			var bounds;
@@ -304,6 +306,7 @@
 					        arrowStyle: 2	//화살표 모양 (0 : 가운데)
 				        });
 				        infoBubble2.open();
+				        infoBubbleArray.push(infoBubble2);
 					
 						//infoBubble 클릭 리스너
 						google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
@@ -364,9 +367,13 @@
 			
 			//마커 모두 지우기
 			function removeAllMarkers(){
-				while(markers.length){
-			            markers.pop().setMap(null);
-			        }
+				while(infoBubbleArray.length){
+			            infoBubbleArray.pop().setMap(null);
+		        }
+				
+				// while(markers.length){
+			            // markers.pop().setMap(null);
+			        // }
 			    // markers = [];    
 			}
 			
