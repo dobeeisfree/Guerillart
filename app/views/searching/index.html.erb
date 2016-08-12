@@ -179,7 +179,6 @@
 				});
 
 
-
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					// var bounds = globalMap.getBounds();
@@ -292,7 +291,7 @@
 					        position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
 					        shadowStyle: 0,	//그림자 off
 					        padding: 0,
-					        minWidth: 50,
+					        minWidth: 5,
 					        backgroundColor: '#FFFFFF',
 					        borderRadius: 4,
 					        arrowSize: 10,
@@ -308,9 +307,8 @@
 					
 						//infoBubble 클릭 리스너
 						google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-					    	alert("Ooo..!");
+					    	alert("Ooo..!"+"<%=show.genre%>");
 						});
-						
 						
 						
 						
