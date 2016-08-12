@@ -42,9 +42,51 @@
 				/*overflow-y:scroll;*/
 				float: left;
 			}
+			.gm-style-iw + div {display: none;}	//infowindow x 버튼 삭제
+			
+			#styles, #add-tab {
+        float: left;
+        margin-top: 10px;
+        width: 400px;
+      }
+      #styles label,
+      #add-tab label {
+        display: inline-block;
+        width: 130px;
+      }
+      .phoney {
+        background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));
+        background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);
+      }
+      .phoneytext {
+        text-shadow: 0 -1px 0 #000;
+        color: #fff;
+        font-family: Helvetica Neue, Helvetica, arial;
+        font-size: 16px;
+        line-height: 25px;
+        padding: 4px 45px 4px 15px;
+        font-weight: bold;
+        /*background: url(../images/arrow.png) 95% 50% no-repeat;*/
+      }
+      .phoneytab {
+        text-shadow: 0 -1px 0 #000;
+        color: #fff;
+        font-family: Helvetica Neue, Helvetica, arial;
+        font-size: 18px;
+        background: rgb(112,112,112) !important;
+      }
 		</style>
-
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script>
+		<script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
+		<!-- <script>
+	    	var script = '<script src="../searching/infobubble';
+	    	if (document.location.search.indexOf('compiled') !== -1) {
+	        script += '-compiled';
+	      	}
+	      	script += '.js"><' + '/script>';
+	      	document.write(script);
+	    </script> -->
+		
 		<script type="text/javascript">
 			var StreetViewPanorama = new function(){}
 
@@ -54,6 +96,7 @@
 			
 			var markers = [];
 			var infowindow = null;
+			var infoBubble2;
 			
 			var bounds;
 			var ne, sw;
@@ -61,6 +104,7 @@
 			var ne_lat, ne_lng, sw_lat, sw_lng;
 			
 			var i;
+			
 			
 			// 맵 초기화
 			function initialize() {
@@ -134,6 +178,8 @@
 					}
 				});
 
+
+
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					// var bounds = globalMap.getBounds();
@@ -192,6 +238,10 @@
 				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
 					// moveMarker(event.latLng);
 				// });
+				
+			
+		        
+		        
 			}
 			
 			function updateMarkers(){
@@ -206,91 +256,113 @@
 				
 				
 				
-			   	$(document).ready(function(){
-			        // $("#neLat").val(ne_lat);
-			       	$.ajax({
-			        	method: "POST",
-			        	url: "/searching/getBounds",
-			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
-			        	// data: { ne_lat: ne_lat }, 
-			        	success: function(){ 
-			        	 	alert("^^");
-			        	},
-			        	error: function(){
-			        		alert("T^T "+ne_lat);
-			        	}
-			        })
-			        
-			   	});
+			   	// $(document).ready(function(){
+			        // // $("#neLat").val(ne_lat);
+			       	// $.ajax({
+			        	// method: "POST",
+			        	// url: "/searching/getBounds",
+			        	// data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
+			        	// // data: { ne_lat: ne_lat }, 
+			        	// success: function(){ 
+			        	 	// alert("^^");
+			        	// },
+			        	// error: function(){
+			        		// alert("T^T "+ne_lat);
+			        	// }
+			        // })
+// 			        
+			   	// });
 			   	
 			   	
-				alert(""+"<%=@results%>"+"<%=Time.now%>");
+				// alert(""+"<%=@results%>"+"<%=Time.now%>");
 				//alert(""+"<%=@neLat%>");
 				
 				
 				
 				i = 0;				
 				<% @show_all.each do |show| %>
-					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng ){
-						globalMarker = new google.maps.Marker({
-							map : globalMap,
-							position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-							draggable : false,
-							
-							icon: new google.maps.MarkerImage(
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
-						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
-						    	null, null, null)
-							//label : "hi"
-						});
-						markers.push(globalMarker);
-					
+				
+					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng )
+					{
 						
-						globalinfoWindow = new google.maps.InfoWindow({
-									map : globalMap,
-									position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-	                            });
+						//infoBubble 띄우기
+						infoBubble2 = new InfoBubble({
+					    	map: globalMap,
+					        content: "<%=show.genre%>",
+					        position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+					        shadowStyle: 0,	//그림자 off
+					        padding: 0,
+					        minWidth: 50,
+					        backgroundColor: '#FFFFFF',
+					        borderRadius: 4,
+					        arrowSize: 10,
+					        borderWidth: 1,
+					        borderColor: '#2c2c2c',
+					        disableAutoPan: true,	//무슨 뜻인지 모르겠음
+					        hideCloseButton: true,	//닫기 버튼 숨기기
+					        arrowPosition: 30,
+					        // backgroundClassName: 'phoney',
+					        arrowStyle: 2	//화살표 모양 (0 : 가운데)
+				        });
+				        infoBubble2.open();
+					
+						//infoBubble 클릭 리스너
+						google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
+					    	alert("Ooo..!");
+						});
+						
+						
+						
+						
+						
+						//marker 띄우기
+						// globalMarker = new google.maps.Marker({
+							// map : globalMap,
+							// position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+							// draggable : false,
+// 							
+							// icon: new google.maps.MarkerImage(
+						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
+						    	// null, null, null)
+							// //label : "hi"
+						// });
+						// markers.push(globalMarker);
+// 					
+						// //marker 클릭시 infowindow 팝업 
+						// (function(globalMarker, i) {
+	                        // // add click event
+	                        // google.maps.event.addListener(globalMarker, 'click', function() {
+	                        	// if (infowindow) {
+							        // infowindow.close();
+							    // }
+	                            // infowindow = new google.maps.InfoWindow({
+	                                // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            // });
+	                            // infowindow.open(globalMap, globalMarker);
+// 	                            
+// 	                            
+	                        // });
+	                    // })(globalMarker, i);
+						
+						
+						
+						//marker 대신 infowindow 띄우기
+						// globalinfoWindow = new google.maps.InfoWindow({
+							// clickable : true,
+							// map : globalMap,
+							// position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+                            // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+                        // });
 	                            
-											
-						//marker 클릭시 infowindow 팝업 
-						(function(globalMarker, i) {
-	                        // add click event
-	                        google.maps.event.addListener(globalMarker, 'click', function() {
-	                        	if (infowindow) {
-							        infowindow.close();
-							    }
-	                            infowindow = new google.maps.InfoWindow({
-	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-	                            });
-	                            infowindow.open(globalMap, globalMarker);
-	                            
-	                            
-	                        });
-	                    })(globalMarker, i);
-	                    
-	                    (function(globalinfoWindow, i) {
-	                        // add click event
-	                        google.maps.event.addListener(globalinfoWindow, 'click', function() {
-	                        	if (infowindow) {
-							        infowindow.close();
-							    }
-	                            infowindow = new google.maps.InfoWindow({
-	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-	                            });
-	                            infowindow.open(globalMap, globalinfoWindow);
-	                            
-	                            
-	                        });
-	                    })(globalinfoWindow, i);
+
+						
 						
 						i++;
-					}
+					}//if end
 				<% end %>				
-			}
+			}//updateMarkers end
+			
 			
 			//마커 모두 지우기
 			function removeAllMarkers(){
@@ -299,7 +371,6 @@
 			        }
 			    // markers = [];    
 			}
-			
 			
 			
 			
@@ -482,6 +553,7 @@
 	</head>
 
 	<body onload="initialize(); setTimeout('updateMarkers()', 600);">
+	<!-- <body onload="initialize()"> -->
 		<div id="s_left">
 			<div id="map_canvas"></div>
 
