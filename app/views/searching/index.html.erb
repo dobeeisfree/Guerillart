@@ -246,6 +246,7 @@
 			}
 			
 			function updateMarkers(){
+				
 				bounds = globalMap.getBounds();
 				ne = bounds.getNorthEast();
 				sw = bounds.getSouthWest();
@@ -256,27 +257,30 @@
 				sw_lng = sw.lng();
 				
 				
+			   	$(document).ready(function(){
+			        // $("#neLat").val(ne_lat);
+			       	$.ajax({
+			        	method: "POST",
+			        	url: "/searching/getBounds",
+			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
+			        	// data: { ne_lat: ne_lat }, 
+			        	success: function(){ 
+			        	 	alert("^^");
+			        	},
+			        	error: function(){
+			        		alert("T^T "+ne_lat);
+			        	}
+			        })
+			        
+			   	});
+			   	
+			   	
+			   	<% javascript_tag "var js_results = #{@results.to_json};" %>
+			   	
 				
-			   	// $(document).ready(function(){
-			        // // $("#neLat").val(ne_lat);
-			       	// $.ajax({
-			        	// method: "POST",
-			        	// url: "/searching/getBounds",
-			        	// data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
-			        	// // data: { ne_lat: ne_lat }, 
-			        	// success: function(){ 
-			        	 	// alert("^^");
-			        	// },
-			        	// error: function(){
-			        		// alert("T^T "+ne_lat);
-			        	// }
-			        // })
-// 			        
-			   	// });
-			   	
-			   	
+				// alert(""+js_results+"<%=Time.now%>");			   	
 				// alert(""+"<%=@results%>"+"<%=Time.now%>");
-				//alert(""+"<%=@neLat%>");
+				// alert(""+"<%=@neLat%>");
 				
 				
 				
@@ -299,7 +303,7 @@
 					        arrowSize: 10,
 					        borderWidth: 1,
 					        borderColor: '#2c2c2c',
-					        disableAutoPan: true,	//무슨 뜻인지 모르겠음
+					        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 					        hideCloseButton: true,	//닫기 버튼 숨기기
 					        arrowPosition: 30,
 					        // backgroundClassName: 'phoney',
@@ -633,19 +637,10 @@
 
 		</div>
 
-		<div id="s_right">
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
-			<h1>오른쪽</h1></br>
+		<div class="pre-scrollable" id="s_right">
+			<% @show_all.each do |show| %>
+				<h1><%=show.genre%></h1></br>
+			<%end%>
 		</div>
 
 	</body>
