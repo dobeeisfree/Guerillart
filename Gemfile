@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+gem 'progress_bar'
+
 gem 'devise'
 gem 'simple_form'
 
@@ -49,4 +51,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
