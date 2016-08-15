@@ -306,6 +306,8 @@
 			                    })(infoBubble2, i);
 								
 								
+								document.getElementById("s_right").innerHTML += "<h1>"+data[i].genre+"</h1> <br />";
+								
 			        	 	
 			        	 	}
 			        	 	
@@ -681,9 +683,9 @@
 		</div>
 
 		<div class="pre-scrollable" id="s_right">
-			<% @show_all.each do |show| %>
+			<!-- <% @show_all.each do |show| %>
 				<h1><%=show.genre%></h1></br>
-			<%end%>
+			<%end%> -->
 		</div>
 
 	</body>
