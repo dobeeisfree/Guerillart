@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
-  before_action :check_ownership, only: [:edit, :update, :destroy]
-
+#보안  before_action :check_ownership, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def home
   end
@@ -23,6 +23,7 @@ class DashboardController < ApplicationController
     show.genre = params[:genre]
     show.location = params[:location]
     show.playlist = params[:playlist]
+    show.user_id = current_user.id
     if show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/dashboard/guerillart"
@@ -61,21 +62,12 @@ class DashboardController < ApplicationController
   end
 
   def mypage
+   a = params[:artist_name]
+   @users = User.find_by(artist_name = a ) 
+   @posts = Post.all
   end
 
   def create
-
-    if current_user.Artist.nil?
-    artist = Artist.new(name: params[:name],
-                        genre: params[:genre],
-                        phone_number: params[:phone_number],
-                        area: params[:area],
-                        sns: params[:sns],
-                        introduction: params[:introduction])
-
-    artist.save
-    redirect_to '/dashboard/mypage'
-    end
     if current_user.artist_name.nil?
 
       current_user.artist_name = params[:name]
@@ -88,17 +80,36 @@ class DashboardController < ApplicationController
       redirect_to '/mypage'
     else
       flash[:alert]= "you already have one"
+      redirect_to '/dashboard/home'
     end
   end
 
+  def create_artist
+  end
+
+  def write_post
+    @post = Post.new
+    @post.content = params[:content]
+    @post.user_id = current_user.id
+    
+    if  @post.save
+    redirect_to '/mypage' 
+    else 
+    redirect_to :back
+    end
+  end
+  
+  def edit_post
+    @post = Post.find(params[:id])
+  end
+
+=begin
   private
 
   def check_ownership
       @one_show = Show.find_by(id: params[:id])
       redirect_to root_path if @one_show.user.id != current_user.id
   end
+=end
 
-
-  def create_artist
-  end
 end

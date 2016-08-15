@@ -21,9 +21,11 @@
         <li class="dropdown">
           <a href="/dashboard/profile" method="get">계정관리</a>
         </li>
+        <% unless current_user.artist_name.nil? %>
         <li class="dropdown">
           <a href="/dashboard/mypage" method="get">나의페이지</a>
         </li>
+        <% end %>
         <li class="dropdown">
           <a href="/dashboard/create_artist" method="get">아티스트 신청서</a>
         </li>

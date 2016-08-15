@@ -24,6 +24,11 @@
 					<div class="profile-usertitle-job">
 						<%= current_user.email %>
 					</div>
+          <% if current_user.artist_name %>
+					<div class="profile-usertitle-job">
+						아티스트: <%= current_user.artist_name %>
+					</div>
+          <% end %>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
