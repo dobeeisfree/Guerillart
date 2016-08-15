@@ -1,27 +1,28 @@
-
-    <div class="container" style="margin-top: 4cm">
-      <div class="row">
-           <% user = User.all %>
-           <% post = Post.all %>
-             <% user.each do |user| %>
-             <% post.each do |post| %> 
-              <div class="col-md-3">
-                <div class="profile-sidebar">
-                    <div class="profile-userpic">
-                      <img src="/images/profile_default.jpg" class="img-responsive" alt="">
-                    </div>
-                    <div class="profile-usertitle">
-                      <div class="profile-usertitle-name">
-                        <% if user.id = post.user_id %> 
-                        <%= user.artist_name %>
-                        <% artist_name = user.artist_name %>
-                        <a href="/mypage/<%= post.id %>"><input type="hidden" name='artist_name' value="<%= artist_name %>">[페이지가기]</a>                                 
-                        <% end %>
-                      </div>
-                    </div>
+<div class="container" style="margin-top: 4cm">
+  <div class="row">
+       <% user = User.all %>
+       <% post = Post.all %>
+         <% user.each do |user| %>
+         <% post.each do |post| %>
+          <div class="col-md-3">
+            <div class="profile-sidebar">
+                <div class="profile-userpic">
+                  <img src="/images/profile_default.jpg" class="img-responsive" alt="">
                 </div>
-              </div>
-            <% end%>
-            <% end%>
-      </div>
-    </div>
+                <div class="profile-usertitle">
+                  <div class="profile-usertitle-name">
+                    <% if user.id = post.user_id %>
+                    <%= user.artist_name %>
+                    <% artist_name = user.artist_name %>
+                    <a href="/mypage/<%= post.id %>">
+                      <input type="hidden" name='artist_name' value="<%= artist_name %>">[페이지가기]
+                    </a>
+                    <% end %>
+                  </div>
+                </div>
+            </div>
+          </div>
+        <% end%>
+        <% end%>
+  </div>
+</div>
