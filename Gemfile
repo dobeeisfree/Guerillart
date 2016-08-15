@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'gon'
+
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
