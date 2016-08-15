@@ -1,0 +1,17 @@
+<div class="modal-footer" style="clear:both;">
+  <% unless @marshall_show_modal.comments.nil?%>
+      <% @marshall_show_modal.comments.each do |comment| %>
+        <p>제목<%= comment.user.name %></p>
+        <p>날짜:<%= comment.created_at %></p>
+        <p>내용<%= comment.content %></p>
+      <% end %>
+  <% end %>
+  <%= form_tag comments_path do %>
+      <input type="hidden" name="show_id" value="<%= @marshall_show_modal.id %>">
+      <p>
+        <%= current_user.name %>
+        <input type="text" name="content" placeholder="댓글 내용을 입력하세요.">
+        <input type="submit" value="확인">
+      </p>
+  <% end %>
+</div>
