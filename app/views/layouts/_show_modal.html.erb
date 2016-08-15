@@ -1,10 +1,12 @@
 <%
 =begin
+  공연정보 모달페이지.
    @marshall_show_modal : @shows의 각 show마다의 정보가 담김
-   모달창의 id값은 각각의 공연정보로 바꿔줘야한다.
-
    TODO 모달이 너무 이상하여 이쁘게 수정해야한다.
 =end
+  if @marshall_show_modal.view_count.nil?
+    @marshall_show_modal.view_count = 1
+  end
 %>
 <div class="modal fade" id="upcomings-modal-<%= @marshall_show_modal.id %>">
   <div class="modal-lg modal-dialog" role="document">
@@ -34,30 +36,36 @@
           </span>
         </div>
       </div>
-      <!-- TODO 기능 4가지 -->
+
       <div class="modal-footer" style="clear:both;">
         <!-- 좋아요 -->
         <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true">
-            <br>123</span>
+          <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
+            <%= @marshall_show_modal.likes.size %>
+            <% if current_user.is_like?(@marshall_show_modal) %>
+             <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요 취소</a>
+            <% else %>
+             <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요</a>
+            <% end %>
         </button>
-        <!-- 댓글쓰기 : TODO 공연이 끝난 후 작성할 수 있다. -->
+        <!-- 댓글쓰기 버튼 : 공연이 끝난 후 작성할 수 있다. -->
         <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-comment" aria-hidden="true">
-            <br>323</span>
+          <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
+          <%= @marshall_show_modal.comments.size %>
         </button>
-        <!-- 공유하기 -->
+        <!-- 공유하기 : 공유된 횟수를 보여준다-->
         <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-share-alt" aria-hidden="true">
-            <br>222</span>
+          <span class="glyphicon glyphicon-share-alt" aria-hidden="true"><br></span>
+          22
         </button>
-        <!-- 조회수 -->
+        <!-- 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
         <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-eye-open" aria-hidden="true">
-            <br>332</span>
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
+          <%= @marshall_show_modal.view_count %>
         </button>
       </div>
-      <!-- 기능 4가지 끝 -->
+      <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
+      <%= render partial: "layouts/show_modal_comments", object: @marshall_show_modal %>
     </div>
   </div>
 </div>
