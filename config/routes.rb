@@ -23,19 +23,20 @@ Rails.application.routes.draw do
 
   # devise_for :users, controllers: { sessions: 'users/sessions' }
   # devise_for :users
-  
+
   devise_for :users, :skip => [:sessions]
   as :user do
     get '/users/sign_in' => 'devise/sessions#new', :as => :new_user_session
     post '/users/sign_in' => 'devise/sessions#create', :as => :user_session
     delete '/users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
-  
+
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
   get 'artists' => 'home#artists'
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
+  get 'shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
 
   # get '/hihi'
