@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     # unless user_signed_in?
       # redirect_to '/users/sign_in'
@@ -13,6 +14,11 @@ class HomeController < ApplicationController
   end
 
   def artists
+  
+   @artist_name = params[:artist_name]
+    
+   @users = User.find_by(artist_name: "@artist_name")
+    
   end
 
   def shows
