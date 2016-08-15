@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'dashboard/create_artist' => 'dashboard#create_artist'
   get 'dashboard/write' => 'dashboard#write'
   post 'dashboard/write_complete' => 'dashboard#write_complete'
+  post 'dashboard/create' => 'dashboard#create'
+  post 'dashboard/write_post' => 'dashboard#write_post'
 
   post 'dashboard/create' => 'dashboard#create'
 
@@ -37,7 +39,9 @@ Rails.application.routes.draw do
   get 'artists' => 'home#artists'
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
+  get '/mypage/:post_id' => 'dashboard#mypage'
 
+ 
   # get '/hihi'
   # get '/hihi' => 'home#index'
 
