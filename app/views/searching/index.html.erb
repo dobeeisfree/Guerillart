@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>Guerillart</title>
-		<!-- Google fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-		<!-- font awesome -->
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-		<!-- animate.css -->
-		<link rel="stylesheet" href="assets/animate/animate.css" />
-		<link rel="stylesheet" href="assets/animate/set.css" />
-		<!-- gallery -->
-		<link rel="stylesheet" href="assets/gallery/blueimp-gallery.min.css">
-		<!-- favicon -->
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="assets/style.css">
 
 		<!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> -->
 		<!-- <title>TownStory: Google Map</title> -->
@@ -56,7 +37,7 @@
 				float: left;
 			}
 			#s_right {
-				width: 34%;
+				width: 33%;
 				/*height: 100%;*/
 				/*overflow-y:scroll;*/
 				float: left;
@@ -70,9 +51,19 @@
 			var globalMap;
 			var globalMarker;
 			var globalGeocoder;
-
+			
+			var markers = [];
+			var infowindow = null;
+			
+			var bounds;
+			var ne, sw;
+			
+			var ne_lat, ne_lng, sw_lat, sw_lng;
+			
+			var i;
+			
 			// 맵 초기화
-			function initialize(x, y) {
+			function initialize() {
 				
 				var address = "<%=@location%>"
 				
@@ -101,17 +92,7 @@
 				// });
 				
 				
-				// 입력된 좌표가 없으면 기본좌표를 역삼동으로 설정.
-				// if (x == 0) {
-					// x = 37.50075507977441;
-				// }
-				// if (y == 0) {
-					// y = 127.03690767288208;
-				// }
-
 				globalGeocoder = new google.maps.Geocoder();
-
-				// var latlng = new google.maps.LatLng(x, y);
 
 				var myOptions = {
 					zoom : 17,
@@ -143,26 +124,146 @@
 					if (status == google.maps.GeocoderStatus.OK) {
 						globalMap.setCenter(results[0].geometry.location);
 
-						globalMarker = new google.maps.Marker({
-							map : globalMap,
-							position : results[0].geometry.location,
-							draggable : true
-						});
+						// globalMarker = new google.maps.Marker({
+							// map : globalMap,
+							// position : results[0].geometry.location,
+							// draggable : true
+						// });
 					} else {
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
 
+				//bounds 변경시 이벤트 추가 (계속 발생함)
+				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
+					// var bounds = globalMap.getBounds();
+					// var NE = bounds.getNorthEast();
+					// var SW = bounds.getSouthWest();
+					// // updateMarkers();
+					// // removeAllMarkers(markers);
+					// // scheduleDelayedCallback();
+				// });
+				
+				
+				//맵 로딩 완료후 실행할 함수 (정확히 언제 실행되는지 말 모르겠음)
+				// google.maps.event.addListenerOnce(globalMap, 'idle', function(){
+    			// });
+				
+				// 센터 변경시 이벤트 추가 (계속 발생함)
+				// google.maps.event.addListener(globalMap, 'center_changed', function() {
+					// // removeAllMarkers();
+					// // updateMarkers();
+					// // removeAllMarkers();
+					// // showMapPos();
+					// // showMapAddr();
+				// });
+				
+				
+				// 드래그 끝났을 때 이벤트 추가
+				google.maps.event.addListener(globalMap, 'dragend', function() {
+					removeAllMarkers();
+					updateMarkers();
+				});
+				
+				// 줌 변경시 이벤트 추가
+				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
+					removeAllMarkers();
+					updateMarkers();
+					// showMapPos();
+					// showMapAddr();
+				});
+				
+				
+				// 갱신 딜레이
+				// function fireIfLastEvent()
+				// {
+				    // if (lastEvent.getTime() + 500 <= new Date().getTime())
+				    // {
+				        // alert('i am cool');
+				    // }
+				// }
+				// function scheduleDelayedCallback()
+				// {
+				    // lastEvent = new Date();
+				    // setTimeout(fireIfLastEvent, 500);
+				// }
 
-				google.maps.event.addListener(globalMap, 'dragend', function() {// 드래그시 이벤트 추가
-					showMapPos();
-					showMapAddr();
-				});
-				google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
-					moveMarker(event.latLng);
-				});
+
+				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
+					// moveMarker(event.latLng);
+				// });
 			}
-
+			
+			function updateMarkers(){
+				bounds = globalMap.getBounds();
+				ne = bounds.getNorthEast();
+				sw = bounds.getSouthWest();
+				
+				ne_lat = ne.lat();
+				ne_lng = ne.lng();
+				sw_lat = sw.lat();
+				sw_lng = sw.lng();
+				
+				i = 0;				
+				<% @show_all.each do |show| %>
+					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng ){
+						globalMarker = new google.maps.Marker({
+							map : globalMap,
+							position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+							draggable : false,
+							
+							icon: new google.maps.MarkerImage(
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=snack|+edge_bc|안녕|ffbb00|000000",		    	// "http://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&amp;chld=snack|bb|$2.99|ffbb00|000000",
+						    	// "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|hello|000000|FF0000",
+						    	"http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
+						    	null, null, null)
+							//label : "hi"
+						});
+						markers.push(globalMarker);
+					
+					
+						//marker 클릭시 infowindow 팝업 
+						(function(globalMarker, i) {
+	                        // add click event
+	                        google.maps.event.addListener(globalMarker, 'click', function() {
+	                        	if (infowindow) {
+							        infowindow.close();
+							    }
+	                            infowindow = new google.maps.InfoWindow({
+	                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            });
+	                            infowindow.open(globalMap, globalMarker);
+	                        });
+	                    })(globalMarker, i);
+						
+						i++;
+					}
+				<% end %>				
+			}
+			
+			//마커 모두 지우기
+			function removeAllMarkers(){
+				while(markers.length){
+			            markers.pop().setMap(null);
+			        }
+			    // markers = [];    
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
 			function showMapPos() {
 				var pos = globalMap.getCenter();
@@ -318,7 +419,7 @@
 				globalMarker = null;
 				globalGeocoder = null;
 
-				initialize(loc.lat(), loc.lng());
+				// initialize(loc.lat(), loc.lng());
 			}
 
 			// 지도 클릭시 마커 이동
@@ -330,7 +431,7 @@
 
 	</head>
 
-	<body onload="initialize(0,0)">
+	<body onload="initialize(); setTimeout('updateMarkers()', 600);">
 		<div id="s_left">
 			<div id="map_canvas"></div>
 
