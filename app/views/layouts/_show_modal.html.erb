@@ -42,10 +42,12 @@
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
             <%= @marshall_show_modal.likes.size %>
-            <% if current_user.is_like?(@marshall_show_modal) %>
-             <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요 취소</a>
-            <% else %>
-             <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요</a>
+            <% unless current_user.nil? %>
+              <% if current_user.is_like?(@marshall_show_modal) %>
+               <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요 취소</a>
+              <% else %>
+               <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요</a>
+              <% end %>
             <% end %>
         </button>
         <!-- 댓글쓰기 버튼 : 공연이 끝난 후 작성할 수 있다. -->

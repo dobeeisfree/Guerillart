@@ -6,6 +6,7 @@
         <p>내용<%= comment.content %></p>
       <% end %>
   <% end %>
+  <% unless current_user.nil? %>
   <%= form_tag comments_path do %>
       <input type="hidden" name="show_id" value="<%= @marshall_show_modal.id %>">
       <p>
@@ -13,5 +14,8 @@
         <input type="text" name="content" placeholder="댓글 내용을 입력하세요.">
         <input type="submit" value="확인">
       </p>
-  <% end %>
+<%
+    end
+  end
+%>
 </div>
