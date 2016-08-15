@@ -291,26 +291,21 @@
 						        infoBubble2.open();
 						        infoBubbleArray.push(infoBubble2);
 							
-								//infoBubble 클릭 리스너
-								google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-							    	alert("Ooo..!"+i);
-								});
-								
-																						//marker 클릭시 infowindow 팝업 
-								(function(globalMarker, i) {
+								//infoBubble2 클릭시 infowindow 팝업 
+								(function(infoBubble2, i) {
 	                        		// add click event
-			                        google.maps.event.addListener(globalMarker, 'click', function() {
+			                        google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
 			                        	if (infowindow) {
 									        infowindow.close();
 									    }
 			                            infowindow = new google.maps.InfoWindow({
-			                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+			                            	content: "Hello, World!!" + i + "<br />"+"hi"
 			                            });
-			                            infowindow.open(globalMap, globalMarker);
-			                            
+			                            infowindow.open(globalMap, infoBubble2);
+			                            // alert("Ooo..!"+i);
 			                            
 			                     	  });
-			                    })(globalMarker, i);
+			                    })(infoBubble2, i);
 								
 								
 			        	 	
