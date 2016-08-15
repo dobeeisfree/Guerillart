@@ -250,22 +250,28 @@
 			function updateMarkers(){
 				
 				bounds = globalMap.getBounds();
+				center = globalMap.getCenter();
+				
 				ne = bounds.getNorthEast();
 				sw = bounds.getSouthWest();
 				
-				ne_lat = ne.lat();
-				ne_lng = ne.lng();
-				sw_lat = sw.lat();
-				sw_lng = sw.lng();
+				// ne_lat = ne.lat();
+				// ne_lng = ne.lng();
+				// sw_lat = sw.lat();
+				// sw_lng = sw.lng();
 				
+				
+				//bounds와 center 좌표 searching#getBounds controller에 보내기
 			   	$(document).ready(function(){
 			        // $("#neLat").val(ne_lat);
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/searching/getBounds",
-			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
+			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng()},
+			        	// data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng()},
 			        	dataType: 'json',
 			        	success: function(data){ 
+			        		
 			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 	
@@ -313,7 +319,6 @@
 								
 								document.getElementById("s_right").innerHTML += "<h1>"+data[i].genre+"</h1> <br />";
 								
-			        	 	
 			        	 	}
 			        	 	
 			        	},
@@ -431,9 +436,6 @@
 			        // }
 			    // markers = [];    
 			}
-			
-			
-			
 			
 			
 			

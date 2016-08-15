@@ -6,43 +6,43 @@ class SearchingController < ApplicationController
   end
   
   def getBounds
-    # # @neLat = params[:ne_lat]
-    # # @neLng = params[:ne_lng]
-    # # @swLat = params[:sw_lat]
-    # # @swLng = params[:sw_lng]
-    # # puts @swLng.to_f
-#     
-    # # Show.reindex
-    # @search = Show.search do
-      # all_of do
-        # # # with(:location_x, 37.514..130.0)
-        # # # with(:location_y, 127.05362262676700..130.0)
-        # with(:location_x, @swLat.to_f..@neLat.to_f)
-        # with(:location_y, @swLng.to_f..@neLng.to_f)
-      # end
-    # end
-    # # @results = @search.results
-    # redirect_to :back
-    
-    
-    # @neLat = params[:ne_lat].to_s.to_f
-    # puts @neLat
-    
     
     Show.index
     @search = Show.search do
       all_of do
-        with(:location_x, params[:sw_lat].to_s.to_f..params[:ne_lat].to_s.to_f)
-        with(:location_y, params[:sw_lng].to_s.to_f..params[:ne_lng].to_s.to_f)
+        with(:location_x, params[:sw_lat].to_f..params[:ne_lat].to_f)
+        with(:location_y, params[:sw_lng].to_f..params[:ne_lng].to_f)
       end
     end
-    @results = @search.results
+    
+    center_lat = params[:ct_lat].to_f
+    center_lng = params[:ct_lng].to_f
+    
+    @dist = Array.new()
+
+
+    # i = 0
+    # @search.results.each do |x|
+      # @resa.push({ id: x.id, dist: i })
+      # i+=1
+    # end
+    
     puts Time.now
-    @results.each do |x|
-      puts x.genre 
+
+    @results = @search.results
+
+    @results.each do |res|
+      @dist.push(Math.sqrt((res.location_x-center_lat)*(res.location_x-center_lat)+(res.location_y-center_lng)*(res.location_y-center_lng)))
+      # puts res.genre 
     end
     
+    # @dist.each do |x|
+      # puts x
+    # end
+    
+    
     render json: @results
+    
     #render :json => {'results' => results}
     # redirect_to :back
     
