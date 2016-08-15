@@ -35,5 +35,11 @@ class HomeController < ApplicationController
 
     @current_genre = params[:g]
 	end
+  
+  def mypage
+   a = params[:artist_name]
+   @users = User.find_by(artist_name: a )
+   @posts = Post.all
+  end
 
 end

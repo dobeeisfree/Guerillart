@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'dashboard/write_complete' => 'dashboard#write_complete'
   post 'dashboard/create' => 'dashboard#create'
   post 'dashboard/write_post' => 'dashboard#write_post'
+  get '/dashboard/create' => 'dashboard#create'
 
   post 'dashboard/create' => 'dashboard#create'
 
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
   get '/mypage/:post_id' => 'dashboard#mypage'
   
   post '/searching/getBounds' => 'searching#getBounds'
+  get '/mypage/:user.artist_name' => 'home#mypage'
 
  
   # get '/hihi'
