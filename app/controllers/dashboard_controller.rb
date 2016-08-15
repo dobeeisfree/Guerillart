@@ -63,23 +63,12 @@ class DashboardController < ApplicationController
 
   def mypage
    a = params[:artist_name]
-   @users = User.find_by(artist_name = a )
+   @users = User.find_by(artist_name: a )
    @posts = Post.all
   end
 
   def create
 
-    if current_user.artist_name.nil?
-    artist = User.new(name: params[:name],
-                        genre: params[:genre],
-                        phone_number: params[:phone_number],
-                        area: params[:area],
-                        sns: params[:sns],
-                        introduction: params[:introduction])
-
-    artist.save
-    redirect_to 'dashboard/mypage'
-    end
     if current_user.artist_name.nil?
 
       current_user.artist_name = params[:name]
@@ -89,10 +78,10 @@ class DashboardController < ApplicationController
       current_user.sns = params[:sns]
       current_user.introduction = params[:introduction]
       current_user.save
-      redirect_to '/dashboard/mypage'
+      redirect_to 'dashboard/mypage'
     else
       flash[:alert]= "you already have one"
-      redirect_to '/dashboard/home'
+      redirect_to 'dashboard/home'
     end
   end
 
