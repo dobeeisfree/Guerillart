@@ -2,6 +2,7 @@ class SearchingController < ApplicationController
   def index
     @location = params[:location]
     @show_all = Show.all
+    
   end
   
   def getBounds
@@ -41,7 +42,9 @@ class SearchingController < ApplicationController
       puts x.genre 
     end
     
-    redirect_to :back
+    render json: @results
+    #render :json => {'results' => results}
+    # redirect_to :back
     
   end
 end

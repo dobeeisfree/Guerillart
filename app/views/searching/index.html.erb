@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
+		<%= include_gon %>
+		
 		<!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> -->
 		<!-- <title>TownStory: Google Map</title> -->
 		<style type="text/css">
@@ -110,7 +111,6 @@
 			
 			// 맵 초기화
 			function initialize() {
-				
 				var address = "<%=@location%>"
 				
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
@@ -256,116 +256,168 @@
 				sw_lat = sw.lat();
 				sw_lng = sw.lng();
 				
-				
 			   	$(document).ready(function(){
 			        // $("#neLat").val(ne_lat);
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/searching/getBounds",
 			        	data: { ne_lat: ne_lat, ne_lng: ne_lng, sw_lat:sw_lat, sw_lng:sw_lng },
-			        	// data: { ne_lat: ne_lat }, 
-			        	success: function(){ 
-			        	 	alert("^^");
+			        	dataType: 'json',
+			        	success: function(data){ 
+			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
+			        	 	// alert("^^ "+JSON.stringify(data));
+			        	 	
+			        	 	for (var i = 0; i < data.length; i++) 
+			        	 	{
+								//infoBubble 띄우기
+								infoBubble2 = new InfoBubble({
+							    	map: globalMap,
+							        content: data[i].genre,
+							        position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
+							        shadowStyle: 0,	//그림자 off
+							        padding: 0,
+							        minWidth: 5,
+							        backgroundColor: '#FFFFFF',
+							        borderRadius: 4,
+							        arrowSize: 10,
+							        borderWidth: 1,
+							        borderColor: '#2c2c2c',
+							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
+							        hideCloseButton: true,	//닫기 버튼 숨기기
+							        arrowPosition: 30,
+							        // backgroundClassName: 'phoney',
+							        arrowStyle: 2	//화살표 모양 (0 : 가운데)
+						        });
+						        infoBubble2.open();
+						        infoBubbleArray.push(infoBubble2);
+							
+								//infoBubble 클릭 리스너
+								google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
+							    	alert("Ooo..!"+i);
+								});
+								
+																						//marker 클릭시 infowindow 팝업 
+								(function(globalMarker, i) {
+	                        		// add click event
+			                        google.maps.event.addListener(globalMarker, 'click', function() {
+			                        	if (infowindow) {
+									        infowindow.close();
+									    }
+			                            infowindow = new google.maps.InfoWindow({
+			                                content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+			                            });
+			                            infowindow.open(globalMap, globalMarker);
+			                            
+			                            
+			                     	  });
+			                    })(globalMarker, i);
+								
+								
+			        	 	
+			        	 	}
+			        	 	
 			        	},
-			        	error: function(){
-			        		alert("T^T "+ne_lat);
+			        	error: function(data){
+			        		alert(data[0].IDKey);
+			        		// alert("T^T "+data);
 			        	}
+			        	// comlete: function(data){
+							// alert("T^T "+data);
+						// }
 			        })
 			        
 			   	});
 			   	
 			   	
-			   	<% javascript_tag "var js_results = #{@results.to_json};" %>
-			   	
-				
+				// alert(gon.hi);
 				// alert(""+js_results+"<%=Time.now%>");			   	
 				// alert(""+"<%=@results%>"+"<%=Time.now%>");
 				// alert(""+"<%=@neLat%>");
 				
 				
 				
-				i = 0;				
-				<% @show_all.each do |show| %>
-				
-					if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng )
-					{
-						
-						//infoBubble 띄우기
-						infoBubble2 = new InfoBubble({
-					    	map: globalMap,
-					        content: "<%=show.genre%>",
-					        position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-					        shadowStyle: 0,	//그림자 off
-					        padding: 0,
-					        minWidth: 5,
-					        backgroundColor: '#FFFFFF',
-					        borderRadius: 4,
-					        arrowSize: 10,
-					        borderWidth: 1,
-					        borderColor: '#2c2c2c',
-					        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
-					        hideCloseButton: true,	//닫기 버튼 숨기기
-					        arrowPosition: 30,
-					        // backgroundClassName: 'phoney',
-					        arrowStyle: 2	//화살표 모양 (0 : 가운데)
-				        });
-				        infoBubble2.open();
-				        infoBubbleArray.push(infoBubble2);
-					
-						//infoBubble 클릭 리스너
-						google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-					    	alert("Ooo..!"+"<%=show.genre%>");
-						});
-						
-						
-						
-						
-						//marker 띄우기
-						// globalMarker = new google.maps.Marker({
-							// map : globalMap,
-							// position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-							// draggable : false,
-// 							
-							// icon: new google.maps.MarkerImage(
-						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-						    	// "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
-						    	// null, null, null)
-							// //label : "hi"
-						// });
-						// markers.push(globalMarker);
+				// i = 0;				
+				// <% @show_all.each do |show| %>
+// 				
+					// if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng )
+					// {
+// 						
+						// //infoBubble 띄우기
+						// infoBubble2 = new InfoBubble({
+					    	// map: globalMap,
+					        // content: "<%=show.genre%>",
+					        // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+					        // shadowStyle: 0,	//그림자 off
+					        // padding: 0,
+					        // minWidth: 5,
+					        // backgroundColor: '#FFFFFF',
+					        // borderRadius: 4,
+					        // arrowSize: 10,
+					        // borderWidth: 1,
+					        // borderColor: '#2c2c2c',
+					        // disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
+					        // hideCloseButton: true,	//닫기 버튼 숨기기
+					        // arrowPosition: 30,
+					        // // backgroundClassName: 'phoney',
+					        // arrowStyle: 2	//화살표 모양 (0 : 가운데)
+				        // });
+				        // infoBubble2.open();
+				        // infoBubbleArray.push(infoBubble2);
 // 					
-						// //marker 클릭시 infowindow 팝업 
-						// (function(globalMarker, i) {
-	                        // // add click event
-	                        // google.maps.event.addListener(globalMarker, 'click', function() {
-	                        	// if (infowindow) {
-							        // infowindow.close();
-							    // }
-	                            // infowindow = new google.maps.InfoWindow({
-	                                // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-	                            // });
-	                            // infowindow.open(globalMap, globalMarker);
+						// //infoBubble 클릭 리스너
+						// google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
+					    	// alert("Ooo..!"+"<%=show.genre%>");
+						// });
+// 						
+// 						
+// 						
+// 						
+						// //marker 띄우기
+						// // globalMarker = new google.maps.Marker({
+							// // map : globalMap,
+							// // position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+							// // draggable : false,
+// // 							
+							// // icon: new google.maps.MarkerImage(
+						    	// // // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
+						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
+						    	// // null, null, null)
+							// // //label : "hi"
+						// // });
+						// // markers.push(globalMarker);
+// // 					
+						// // //marker 클릭시 infowindow 팝업 
+						// // (function(globalMarker, i) {
+	                        // // // add click event
+	                        // // google.maps.event.addListener(globalMarker, 'click', function() {
+	                        	// // if (infowindow) {
+							        // // infowindow.close();
+							    // // }
+	                            // // infowindow = new google.maps.InfoWindow({
+	                                // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+	                            // // });
+	                            // // infowindow.open(globalMap, globalMarker);
+// // 	                            
+// // 	                            
+	                        // // });
+	                    // // })(globalMarker, i);
+// 						
+// 						
+// 						
+						// //marker 대신 infowindow 띄우기
+						// // globalinfoWindow = new google.maps.InfoWindow({
+							// // clickable : true,
+							// // map : globalMap,
+							// // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
+                            // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
+                        // // });
 // 	                            
-// 	                            
-	                        // });
-	                    // })(globalMarker, i);
-						
-						
-						
-						//marker 대신 infowindow 띄우기
-						// globalinfoWindow = new google.maps.InfoWindow({
-							// clickable : true,
-							// map : globalMap,
-							// position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-                            // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-                        // });
-	                            
-
-						
-						
-						i++;
-					}//if end
-				<% end %>				
+// 
+// 						
+// 						
+						// i++;
+					// }//if end
+				// <% end %>				
 			}//updateMarkers end
 			
 			

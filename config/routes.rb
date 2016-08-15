@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   # get '/hihi'
   # get '/hihi' => 'home#index'
 
-  # get 'searching/index' => 'searching#index'
+  # post 'searching/index' => 'searching#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
