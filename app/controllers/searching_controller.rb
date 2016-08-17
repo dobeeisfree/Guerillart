@@ -31,11 +31,11 @@ class SearchingController < ApplicationController
 
     @results = @search.results
 
-    @results.each do |res|
-      @dist.push(Math.sqrt((res.location_x-center_lat)*(res.location_x-center_lat)+(res.location_y-center_lng)*(res.location_y-center_lng)))
-      # puts res.genre 
-    end
-    
+    # @results.each do |res|
+      # @dist.push(Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2))
+      # # puts res.genre 
+    # end
+#     
     # @dist.each do |x|
       # puts x
     # end

@@ -54,8 +54,10 @@
 	        	width: 130px;
 	      	}
 	        .phoney {
-	        	background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));
-	        	background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);
+	        	text-align: center
+	        	/*margin-top: 10px;*/
+	        	/*background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));*/
+	        	/*background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);*/
 	      	}
 		    .phoneytext {
 			    text-shadow: 0 -1px 0 #000;
@@ -109,7 +111,7 @@
 			var ne_lat, ne_lng, sw_lat, sw_lng;
 			
 			var i;
-			
+			var closedBubble;
 			
 			// 맵 초기화
 			function initialize() {
@@ -294,7 +296,7 @@
 							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 							        hideCloseButton: true,	//닫기 버튼 숨기기
 							        arrowPosition: 30,
-							        // backgroundClassName: 'phoney',
+							        backgroundClassName: 'phoney',
 							        arrowStyle: 2	//화살표 모양 (0 : 가운데)
 						        });
 						        infoBubble2.open();
@@ -304,13 +306,20 @@
 								(function(infoBubble2, i) {
 	                        		// add click event
 			                        google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-			                        	if (infowindow) {
+			                        	if (infowindow && closedBubble) {
 									        infowindow.close();
+									        closedBubble.open();
 									    }
+									    closedBubble = infoBubble2;
+									    infoBubble2.close();
+									    
 			                            infowindow = new google.maps.InfoWindow({
-			                            	content: "Hello, World!!" + i + "<br />"+"hi"
+			                            	content: "Hello, World!!" + data[i].genre + "<br />"+"hi"
 			                            });
 			                            infowindow.open(globalMap, infoBubble2);
+			                            
+			                            
+			                            
 			                            // alert("Ooo..!"+i);
 			                            
 			                     	  });
