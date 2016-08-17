@@ -84,7 +84,7 @@
 		<script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
 		
 		<!-- <script>
-	    	var script = '<script src="../searching/infobubble';
+	    	var script = '<script src="infobubble';
 	    	if (document.location.search.indexOf('compiled') !== -1) {
 	        script += '-compiled';
 	      	}
@@ -93,7 +93,6 @@
 	    </script> -->
 		
 		<script type="text/javascript">
-			var StreetViewPanorama = new function(){}
 
 			var globalMap;
 			var globalMarker;
@@ -275,7 +274,7 @@
 			        	success: function(data){ 
 			        		
 			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
-			        	 	//alert("^^ "+JSON.stringify(data));
+			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 	
 			        	 	document.getElementById("s_right").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
@@ -283,8 +282,8 @@
 								//infoBubble 띄우기
 								infoBubble2 = new InfoBubble({
 							    	map: globalMap,
-							        content: data[i].genre,
-							        position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
+							        content: data[i].show.genre,
+							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
 							        minWidth: 5,
@@ -314,26 +313,22 @@
 									    infoBubble2.close();
 									    
 			                            infowindow = new google.maps.InfoWindow({
-			                            	content: "Hello, World!!" + data[i].genre + "<br />"+"hi"
+			                            	content: "Hello, World!!" + data[i].show.genre + "<br />"+"hi"
 			                            });
 			                            infowindow.open(globalMap, infoBubble2);
-			                            
-			                            
 			                            
 			                            // alert("Ooo..!"+i);
 			                            
 			                     	  });
 			                    })(infoBubble2, i);
 								
-								
-								document.getElementById("s_right").innerHTML += "<h1>"+data[i].genre+"</h1> <br />";
+								document.getElementById("s_right").innerHTML += "<h1>"+data[i].show.genre+"</h1> <br />";
 								
 			        	 	}
 			        	 	
 			        	},
 			        	error: function(data){
-			        		alert(data[0].IDKey);
-			        		// alert("T^T "+data);
+			        		alert("load failed T^T");
 			        	}
 			        	// comlete: function(data){
 							// alert("T^T "+data);

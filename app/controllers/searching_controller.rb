@@ -1,4 +1,5 @@
 class SearchingController < ApplicationController
+  
   def index
     @location = params[:location]
     @show_all = Show.all
@@ -18,7 +19,7 @@ class SearchingController < ApplicationController
     center_lat = params[:ct_lat].to_f
     center_lng = params[:ct_lng].to_f
     
-    @dist = Array.new()
+    
 
 
     # i = 0
@@ -31,17 +32,26 @@ class SearchingController < ApplicationController
 
     @results = @search.results
 
-    # @results.each do |res|
-      # @dist.push(Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2))
-      # # puts res.genre 
-    # end
-#     
-    # @dist.each do |x|
-      # puts x
-    # end
+    addedDist = []
+    @results.each do |res|
+      addedDist.push({"show"=>res, "dist"=>Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2)})
+    end
+  
+    addedDist.each do |x|
+      puts x
+    end
     
+    puts ""
+    puts Time.now
+    addedDist.sort! { |a, b| a["dist"] <=> b["dist"]}
+    puts Time.now
     
-    render json: @results
+    addedDist.each do |x|
+      puts x["dist"]
+    end
+    
+    # render json: @results
+    render json: addedDist
     
     #render :json => {'results' => results}
     # redirect_to :back
