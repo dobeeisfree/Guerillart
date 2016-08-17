@@ -2,7 +2,7 @@ class SearchingController < ApplicationController
   
   def index
     @location = params[:location]
-    @show_all = Show.all
+    @show_all = Show.all  #쓸모 없음
     
   end
   
@@ -20,7 +20,6 @@ class SearchingController < ApplicationController
     center_lng = params[:ct_lng].to_f
     
     
-
 
     # i = 0
     # @search.results.each do |x|

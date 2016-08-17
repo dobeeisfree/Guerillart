@@ -43,12 +43,12 @@ Rails.application.routes.draw do
   
   get '/mypage/:post_id' => 'dashboard#mypage'
   
-  post '/searching/getBounds' => 'searching#getBounds'
-
+  post '/search' => 'searching#getBounds'
+  # post '/searching/getBounds' => 'searching#getBounds'
+  # post '/searching/getBounds'
+  # post '/searching/index' => 'searching#getBounds'
+  # get '/searching/getBounds' => 'searching#index'
  
-  # get '/hihi'
-  # get '/hihi' => 'home#index'
-
   # post 'searching/index' => 'searching#index'
 
 

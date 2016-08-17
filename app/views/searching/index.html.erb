@@ -267,7 +267,7 @@
 			        // $("#neLat").val(ne_lat);
 			       	$.ajax({
 			        	method: "POST",
-			        	url: "/searching/getBounds",
+			        	url: "/search?location="+"<%=@location%>",
 			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng()},
 			        	// data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng()},
 			        	dataType: 'json',
