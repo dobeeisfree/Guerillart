@@ -37,8 +37,8 @@
 			}
 			#s_right {
 				width: 33%;
-				/*height: 100%;*/
-				/*overflow-y:scroll;*/
+				height: 100%;
+				overflow-y:scroll;
 				float: left;
 			}
 			.gm-style-iw + div {display: none;}	//infowindow x 버튼 삭제
@@ -145,7 +145,7 @@
 
 				var myOptions = {
 					zoom : 17,
-
+					// MyLocationEnabled : true,
 					//disableDoubleClickZoom:false,
 					// center : latlng,
 
@@ -166,6 +166,7 @@
 				};
 
 				globalMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+								
 				
 				globalGeocoder.geocode({
 					'address' : address
@@ -182,7 +183,11 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
-
+				var geolocationDiv = document.createElement('div');
+			    var geolocationControl = new GeolocationControl(geolocationDiv, globalMap);
+			
+			    globalMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(geolocationDiv);
+				
 
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
@@ -248,6 +253,61 @@
 		        
 			}
 			
+			function GeolocationControl(controlDiv, map) {
+
+			    // Set CSS for the control button
+			    var controlUI = document.createElement('div');
+			    controlUI.style.backgroundColor = '#444';
+			    controlUI.style.borderStyle = 'solid';
+			    controlUI.style.borderWidth = '1px';
+			    controlUI.style.borderColor = 'white';
+			    controlUI.style.height = '28px';
+			    controlUI.style.marginTop = '5px';
+			    controlUI.style.cursor = 'pointer';
+			    controlUI.style.textAlign = 'center';
+			    controlUI.title = 'Click to center map on your location';
+			    controlDiv.appendChild(controlUI);
+			
+			    // Set CSS for the control text
+			    var controlText = document.createElement('div');
+			    controlText.style.fontFamily = 'Arial,sans-serif';
+			    controlText.style.fontSize = '10px';
+			    controlText.style.color = 'white';
+			    controlText.style.paddingLeft = '10px';
+			    controlText.style.paddingRight = '10px';
+			    controlText.style.marginTop = '8px';
+			    controlText.innerHTML = 'Center map on your location';
+			    controlUI.appendChild(controlText);
+			
+			    // Setup the click event listeners to geolocate user
+			    google.maps.event.addDomListener(controlUI, 'click', geolocate);
+			}
+			
+			function geolocate() {
+			
+			    if (navigator.geolocation) {
+			
+			        navigator.geolocation.getCurrentPosition(function (position) {
+			
+			            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			
+			            // Create a marker and center map on user location
+			            marker = new google.maps.Marker({
+			                position: pos,
+			                draggable: true,
+			                animation: google.maps.Animation.DROP,
+			                map: map
+			            });
+			
+			            map.setCenter(pos);
+			        });
+			        // alert(position.coords.latitude);
+			        // romoveAllMarkers();
+			        // updateMarkers();
+			    }
+			}
+			
+			
 			function updateMarkers(){
 				
 				bounds = globalMap.getBounds();
@@ -287,11 +347,11 @@
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
 							        minWidth: 5,
-							        backgroundColor: '#FFFFFF',
+							        backgroundColor: '#FFFF8F',
 							        borderRadius: 4,
 							        arrowSize: 10,
 							        borderWidth: 1,
-							        borderColor: '#2c2c2c',
+							        borderColor: '#000000',
 							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 							        hideCloseButton: true,	//닫기 버튼 숨기기
 							        arrowPosition: 30,
@@ -693,7 +753,7 @@
 
 		</div>
 
-		<div class="pre-scrollable" id="s_right">
+		<div id="s_right">
 			<!-- <% @show_all.each do |show| %>
 				<h1><%=show.genre%></h1></br>
 			<%end%> -->
