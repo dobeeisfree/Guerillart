@@ -77,6 +77,7 @@
 		        background: rgb(112,112,112) !important;
 	    	}
 		</style>
+		<!-- google map 사용 -->
 		<script async defer
 	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI&callback=initMap">
 	    </script>
@@ -84,7 +85,7 @@
 		
 		<!--infobubble 사용-->
 		<script type="text/javascript" src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
-		<script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
+		<!-- <script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script> -->
 		
 		<!-- <script>
 	    	var script = '<script src="infobubble';
@@ -114,6 +115,8 @@
 			
 			var i;
 			var closedBubble;
+			
+			var centerMarker;	//센터 표시 마커
 			
 			// 맵 초기화
 			function initialize() {
@@ -177,15 +180,17 @@
 					if (status == google.maps.GeocoderStatus.OK) {
 						globalMap.setCenter(results[0].geometry.location);
 
-						// globalMarker = new google.maps.Marker({
-							// map : globalMap,
-							// position : results[0].geometry.location,
-							// draggable : true
-						// });
+						centerMarker = new google.maps.Marker({
+							map : globalMap,
+							position : results[0].geometry.location,
+							draggable : false
+						});
 					} else {
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
+				
+				
 				var geolocationDiv = document.createElement('div');
 			    var geolocationControl = new GeolocationControl(geolocationDiv, globalMap);
 			
@@ -256,6 +261,7 @@
 		        
 			}
 			
+			
 			function GeolocationControl(controlDiv, map) {
 
 			    // Set CSS for the control button
@@ -286,29 +292,36 @@
 			    google.maps.event.addDomListener(controlUI, 'click', geolocate);
 			}
 			
+			
 			function geolocate() {
 			
 			    if (navigator.geolocation) {
 			
-			        navigator.geolocation.getCurrentPosition(function (position) {
+			    	navigator.geolocation.getCurrentPosition(function (position) {
 			
-			            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			        	var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 			
 			            // Create a marker and center map on user location
-			            marker = new google.maps.Marker({
-			                position: pos,
-			                draggable: false,
-			                animation: google.maps.Animation.DROP,
-			                map: globalMap
-			            });
+			            // marker = new google.maps.Marker({
+			            //     position: pos,
+			            //     draggable: false,
+			            //     animation: google.maps.Animation.DROP,
+			            //     map: globalMap
+			            // });
 			
 			            globalMap.setCenter(pos);
-			        });
-			        // alert(position.coords.latitude);
-			        // romoveAllMarkers();
-			        // updateMarkers();
+			            
+						
+						
+			           	(function(){
+				        	removeAllMarkers();
+							updateMarkers();
+		            		// alert("hi");
+			            })();
+			    	});
 			    }
 			}
+			
 			
 			
 			function updateMarkers(){
@@ -325,6 +338,8 @@
 				// sw_lng = sw.lng();
 				
 				
+				
+				
 				//bounds와 center 좌표 searching#getBounds controller에 보내기
 			   	$(document).ready(function(){
 			        // $("#neLat").val(ne_lat);
@@ -339,6 +354,9 @@
 			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 	
+			        		 	//센터 마커 이동
+			        	 	centerMarker.setPosition(center);
+
 			        	 	document.getElementById("s_right").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
 			        	 	{
