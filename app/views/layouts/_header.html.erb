@@ -139,11 +139,14 @@
                    <ul class="dropdown-menu">
                        <li><a href="/dashboard/home" data-method="get">대쉬보드</a></li>
                        <li><a href="/dashboard/guerillart" data-method="get">나의게릴라트</a></li>
-                       <% if current_user.artist_name? %>
-                       <li><a href="/dashboard/write" data-method="get">공연등록</a></li>
-                       <% end %>
                        <li><a href="/dashboard/profile" data-method="get">계정관리</a></li>
-
+                       <% if current_user.artist_name? %>
+                       <% artist_name = current_user.artist_name %>
+                       <li><a href="/dashboard/write" data-method="get">공연등록</a></li>
+                       <li class="dropdown">
+                        <%= link_to "마이페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
+                        </li>
+                       <% end %>
                        <li role="separator" class="divider"></li>
                        <li> <a href="/users/sign_out" data-method="delete" rel="nofollow">로그아웃</a></li>
                    </ul>

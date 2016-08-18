@@ -64,6 +64,7 @@ class DashboardController < ApplicationController
   def mypage
    a = params[:artist_name]
    @users = User.find_by(artist_name: a )
+   @one_post = Post.find_by(user_id: @users.id)
    @posts = Post.all
   end
 
@@ -78,10 +79,10 @@ class DashboardController < ApplicationController
       current_user.sns = params[:sns]
       current_user.introduction = params[:introduction]
       current_user.save
-      redirect_to 'dashboard/mypage'
+      redirect_to '/dashboard/home'
     else
       flash[:alert]= "you already have one"
-      redirect_to 'dashboard/home'
+      redirect_to '/dashboard/home'
     end
   end
 
@@ -94,7 +95,7 @@ class DashboardController < ApplicationController
     @post.user_id = current_user.id
 
     if  @post.save
-    redirect_to '/mypage'
+    redirect_to :back 
     else
     redirect_to :back
     end
@@ -104,6 +105,23 @@ class DashboardController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def mypage_edit
+   a = params[:artist_name]
+   @users = User.find_by(artist_name: a )
+   @posts = Post.all
+  end
+  
+  def mypage_edit_complete
+    @users = User.find(params[:user_id])
+    @users.introduction = params[:introduction]
+    @users.sns = params[:sns]
+    
+    if @users.save
+    redirect_to :back 
+    else
+    redirect_to :back
+    end
+  end
 =begin
   private
 

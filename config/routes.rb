@@ -46,6 +46,10 @@ Rails.application.routes.draw do
   
   post '/searching/getBounds' => 'searching#getBounds'
   get '/mypage/:user.artist_name' => 'home#mypage'
+  get '/mypage/:user.artist_name' => 'dashboard#mypage'
+  get '/mypage_edit' => 'dashboard#mypage_edit'
+  post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
+  resources :follows, only: [:create, :destroy]
 
  
   # get '/hihi'
