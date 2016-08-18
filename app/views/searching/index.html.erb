@@ -77,7 +77,10 @@
 		        background: rgb(112,112,112) !important;
 	    	}
 		</style>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script>
+		<script async defer
+	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI&callback=initMap">
+	    </script>
+		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script> -->
 		
 		<!--infobubble 사용-->
 		<script type="text/javascript" src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
@@ -294,12 +297,12 @@
 			            // Create a marker and center map on user location
 			            marker = new google.maps.Marker({
 			                position: pos,
-			                draggable: true,
+			                draggable: false,
 			                animation: google.maps.Animation.DROP,
-			                map: map
+			                map: globalMap
 			            });
 			
-			            map.setCenter(pos);
+			            globalMap.setCenter(pos);
 			        });
 			        // alert(position.coords.latitude);
 			        // romoveAllMarkers();
