@@ -10,11 +10,22 @@ class User < ActiveRecord::Base
 
   has_many :liked_shows, through: :likes, source: :show
 
+  # 관계 이름 : follower_relations(다른 이름으로 변경 가능)
+  # 외래키 : followed_id
+  # 모델명 : Follow
+  has_many :follower_relations, foreign_key: "followed_id", class_name: "Follow"
+  # 관계 이름 : followers (다른 이름으로 변경 가능)
+  # follow_relations를 통해 가져올 값 : follower ( follow.follower )
+  has_many :followers, through: :follower_relations, source: :follower
+  has_many :following_relations, foreign_key: "follower_id", class_name: "Follow"
+  has_many :followings, through: :following_relations, source: :followed
+
+
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   def is_like?(show)
     Like.find_by(user_id: self.id, show_id: show.id).present?
   end
-
 end

@@ -1,20 +1,49 @@
-<div class="modal-footer" style="clear:both;">
+<div class="modal-footer" style="text-align:left">
+  <div class="row" style="margin-top:-60px">
+    <div class="col-sm-12">
+      <h3>댓글 <%= @marshall_show_modal.comments.size %></h3>
+    </div>
+  </div>
   <% unless @marshall_show_modal.comments.nil?%>
       <% @marshall_show_modal.comments.each do |comment| %>
-        <p>제목<%= comment.user.name %></p>
-        <p>날짜:<%= comment.created_at %></p>
-        <p>내용<%= comment.content %></p>
+
+        <div class="container" id="comments">
+
+        	<div class="row">
+        		<div class="col-sm-1">
+        			<div class="thumbnail">
+                <!-- TODO 댓글을 단 유저의 프로필을 가져온다-->
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+        			</div>
+        		</div>
+
+        		<div class="col-sm-5">
+        			<div class="panel panel-default">
+        				<div class="panel-heading">
+        					<strong><%= comment.user.name %></strong>
+                  <span class="text-muted"><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></span>
+        				</div>
+        				<div class="panel-body"><%= comment.content %></div>
+        			</div>
+        		</div>
+        	</div>
+
+        </div>
       <% end %>
   <% end %>
-  <% unless current_user.nil? %>
+
+  <%
+    #로그인을 한 유저에게는 댓글창이 보인다
+    unless current_user.nil?
+   %>
   <%= form_tag comments_path do %>
       <input type="hidden" name="show_id" value="<%= @marshall_show_modal.id %>">
       <p>
         <%= current_user.name %>
-        <input type="text" name="content" placeholder="댓글 내용을 입력하세요.">
+        <input type="text" name="content" id="comment_content" placeholder="댓글 내용을 입력하세요.">
         <input type="submit" value="확인">
       </p>
-<%
+  <%
     end
   end
 %>

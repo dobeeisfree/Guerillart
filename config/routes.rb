@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'dashboard/write_complete' => 'dashboard#write_complete'
   post 'dashboard/create' => 'dashboard#create'
   post 'dashboard/write_post' => 'dashboard#write_post'
+  get '/dashboard/create' => 'dashboard#create'
 
   post 'dashboard/create' => 'dashboard#create'
 
@@ -44,13 +45,19 @@ Rails.application.routes.draw do
   get '/mypage/:post_id' => 'dashboard#mypage'
   
   post '/search' => 'searching#getBounds'
-  
   # post '/searching/getBounds' => 'searching#getBounds'
   # post '/searching/getBounds'
   # post '/searching/index' => 'searching#getBounds'
   # get '/searching/getBounds' => 'searching#index'
-  # post 'searching/index' => 'searching#index'
 
+
+  get '/mypage/:user.artist_name' => 'home#mypage'
+  get '/mypage/:user.artist_name' => 'dashboard#mypage'
+  get '/mypage_edit' => 'dashboard#mypage_edit'
+  post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
+  resources :follows, only: [:create, :destroy]
+
+ 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
