@@ -10,32 +10,33 @@ class HomeController < ApplicationController
       # redirect_to '/users/sign_out'
     # end
     @shows = Show.all
-		@current_genre = "모아보기"
   end
 
   def artists
-  
+
    @artist_name = params[:artist_name]
-    
    @users = User.find_by(artist_name: "@artist_name")
-    
+
   end
 
   def shows
     @shows = Show.all
 
     # @names는 장르의 중복값을 제거한 배열
-    # 페이지가 로드될 때마다 되서 좀 그럼
     @names = Array.new
-		@shows.each do |s|
-			unless @names.include? s.genre
-				@names << s.genre
-			end
-		end
+    @shows.each do |s|
+      unless @names.include? s.genre
+        @names << s.genre
+      end
+    end
 
-    @current_genre = params[:g]
+    @current_genre = params[:choose]
+    # 디폴트로 모아보기
+    if @current_genre.nil?
+      @current_genre = "모아보기"
+    end
 	end
-  
+
   def mypage
    a = params[:artist_name]
    @users = User.find_by(artist_name: a )
