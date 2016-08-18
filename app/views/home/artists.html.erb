@@ -10,8 +10,8 @@
                 <div class="profile-usertitle">
                   <div class="profile-usertitle-name">
                     <%= user.artist_name %>
-                    <form action="/mypage/<%= user.artist_name %>" method="get"><input type="hidden" name='artist_name' value="<%= user.artist_name %>"><input type="submit" value="[페이지가기]">
-</form>
+                    <%= link_to "페이지가기", controller: "dashboard", action:"mypage", artist_name: user.artist_name %>
+        
                   </div>
                 </div>
             </div>
