@@ -6,6 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 show = Show.new
+show.genre = "balad"
+show.location_x = 37.49720818812354
+show.location_y = 126.95616475134287
+show.save #학교 운동장
+
+show = Show.new
+show.genre = "jazz"
+show.location_x = 37.53195287306739
+show.location_y = 127.1480328738189
+show.save #우리집 근처
+
+show = Show.new
 show.genre = "rock"
 show.location_x = 37.519695589572116
 show.location_y = 127.04732480000007
@@ -44,7 +56,7 @@ show.save #하
 
 c = ["왜 벌써가", "링마이벨", "눈의꽃", "야생화", "보고싶다", "하루", "바람기억", "가지마가지마", "독","비행소년","쌈디디스곡"]
 g = ["힙합", "하우스", "발라드", "인디음악", "락", "팝", "댄스"]
-i = 7
+i = 9
 
 # 공연 정보 생성
 c.each do |one|
