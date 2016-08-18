@@ -189,12 +189,12 @@
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
+				addYourLocationButton(globalMap, centerMarker);
 				
-				
-				var geolocationDiv = document.createElement('div');
-			    var geolocationControl = new GeolocationControl(geolocationDiv, globalMap);
+				// var geolocationDiv = document.createElement('div');
+			 //   var geolocationControl = new GeolocationControl(geolocationDiv, globalMap);
 			
-			    globalMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(geolocationDiv);
+			 //   globalMap.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(geolocationDiv);
 				
 
 				//bounds 변경시 이벤트 추가 (계속 발생함)
@@ -262,69 +262,126 @@
 			}
 			
 			
-			function GeolocationControl(controlDiv, map) {
+			// function GeolocationControl(controlDiv, map) {
 
-			    // Set CSS for the control button
-			    var controlUI = document.createElement('div');
-			    controlUI.style.backgroundColor = '#444';
-			    controlUI.style.borderStyle = 'solid';
-			    controlUI.style.borderWidth = '1px';
-			    controlUI.style.borderColor = 'white';
-			    controlUI.style.height = '28px';
-			    controlUI.style.marginTop = '5px';
-			    controlUI.style.cursor = 'pointer';
-			    controlUI.style.textAlign = 'center';
-			    controlUI.title = 'Click to center map on your location';
-			    controlDiv.appendChild(controlUI);
+			//     // Set CSS for the control button
+			//     var controlUI = document.createElement('div');
+			//     controlUI.style.backgroundColor = '#444';
+			//     controlUI.style.borderStyle = 'solid';
+			//     controlUI.style.borderWidth = '1px';
+			//     controlUI.style.borderColor = 'white';
+			//     controlUI.style.height = '28px';
+			//     controlUI.style.marginTop = '5px';
+			//     controlUI.style.cursor = 'pointer';
+			//     controlUI.style.textAlign = 'center';
+			//     controlUI.title = 'Click to center map on your location';
+			//     controlDiv.appendChild(controlUI);
 			
-			    // Set CSS for the control text
-			    var controlText = document.createElement('div');
-			    controlText.style.fontFamily = 'Arial,sans-serif';
-			    controlText.style.fontSize = '10px';
-			    controlText.style.color = 'white';
-			    controlText.style.paddingLeft = '10px';
-			    controlText.style.paddingRight = '10px';
-			    controlText.style.marginTop = '8px';
-			    controlText.innerHTML = 'Center map on your location';
-			    controlUI.appendChild(controlText);
+			//     // Set CSS for the control text
+			//     var controlText = document.createElement('div');
+			//     controlText.style.fontFamily = 'Arial,sans-serif';
+			//     controlText.style.fontSize = '10px';
+			//     controlText.style.color = 'white';
+			//     controlText.style.paddingLeft = '10px';
+			//     controlText.style.paddingRight = '10px';
+			//     controlText.style.marginTop = '8px';
+			//     controlText.innerHTML = 'Center map on your location';
+			//     controlUI.appendChild(controlText);
 			
-			    // Setup the click event listeners to geolocate user
-			    google.maps.event.addDomListener(controlUI, 'click', geolocate);
-			}
+			//     // Setup the click event listeners to geolocate user
+			//     google.maps.event.addDomListener(controlUI, 'click', geolocate);
+			// }
 			
 			
-			function geolocate() {
+			// function geolocate() {
 			
-			    if (navigator.geolocation) {
+			//     if (navigator.geolocation) {
 			
-			    	navigator.geolocation.getCurrentPosition(function (position) {
+			//     	navigator.geolocation.getCurrentPosition(function (position) {
 			
-			        	var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			//         	var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 			
-			            // Create a marker and center map on user location
-			            // marker = new google.maps.Marker({
-			            //     position: pos,
-			            //     draggable: false,
-			            //     animation: google.maps.Animation.DROP,
-			            //     map: globalMap
-			            // });
+			//             // Create a marker and center map on user location
+			//             // marker = new google.maps.Marker({
+			//             //     position: pos,
+			//             //     draggable: false,
+			//             //     animation: google.maps.Animation.DROP,
+			//             //     map: globalMap
+			//             // });
 			
-			            globalMap.setCenter(pos);
+			//             globalMap.setCenter(pos);
 			            
-						
-						
-			           	(function(){
-				        	removeAllMarkers();
-							updateMarkers();
-		            		// alert("hi");
-			            })();
-			    	});
-			    }
+			//           	(function(){
+			// 	        	removeAllMarkers();
+			// 				updateMarkers();
+		 //           		// alert("hi");
+			//             })();
+			//     	});
+			//     }
+			// }
+			
+			
+			function addYourLocationButton (map, marker) 
+			{
+			    var controlDiv = document.createElement('div');
+			
+			    var firstChild = document.createElement('button');
+			    firstChild.style.backgroundColor = '#fff';
+			    firstChild.style.border = 'none';
+			    firstChild.style.outline = 'none';
+			    firstChild.style.width = '28px';
+			    firstChild.style.height = '28px';
+			    firstChild.style.borderRadius = '2px';
+			    firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+			    firstChild.style.cursor = 'pointer';
+			    firstChild.style.marginRight = '10px';
+			    firstChild.style.padding = '0';
+			    firstChild.title = 'Your Location';
+			    controlDiv.appendChild(firstChild);
+			
+			    var secondChild = document.createElement('div');
+			    secondChild.style.margin = '5px';
+			    secondChild.style.width = '18px';
+			    secondChild.style.height = '18px';
+			    secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-2x.png)';
+			    secondChild.style.backgroundSize = '180px 18px';
+			    secondChild.style.backgroundPosition = '0 0';
+			    secondChild.style.backgroundRepeat = 'no-repeat';
+			    firstChild.appendChild(secondChild);
+			
+			    google.maps.event.addListener(map, 'center_changed', function () {
+			        secondChild.style['background-position'] = '0 0';
+			    });
+			
+			    firstChild.addEventListener('click', function () {
+			
+			        if (navigator.geolocation) 
+			        {
+				    	navigator.geolocation.getCurrentPosition(function (position) 
+				    	{
+				            globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+				           	
+				           	(function(){
+					        	removeAllMarkers();
+								updateMarkers();
+			            		// alert("hi");
+				            })();
+				    	});
+				    } 
+				    else 
+				    {
+			            clearInterval(animationInterval);
+			            secondChild.style['background-position'] = '0 0';
+			        }
+			    });
+			
+			    controlDiv.index = 1;
+			    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 			}
 			
 			
-			
-			function updateMarkers(){
+			function updateMarkers()
+			{
 				
 				bounds = globalMap.getBounds();
 				center = globalMap.getCenter();
