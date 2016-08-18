@@ -2,6 +2,7 @@
   <div class="row">
        <% user = User.all %>
          <% user.each do |user| %>
+          <% unless user.artist_name.nil? %>
           <div class="col-md-3">
             <div class="profile-sidebar">
                 <div class="profile-userpic">
@@ -11,11 +12,12 @@
                   <div class="profile-usertitle-name">
                     <%= user.artist_name %>
                     <%= link_to "페이지가기", controller: "dashboard", action:"mypage", artist_name: user.artist_name %>
-        
+           
                   </div>
                 </div>
             </div>
           </div>
+          <% end %>
         <% end%>
   </div>
 </div>
