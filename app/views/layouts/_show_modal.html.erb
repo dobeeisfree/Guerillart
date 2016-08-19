@@ -1,9 +1,3 @@
-<%
-=begin
-   @marshall_show_modal : @shows의 각 show마다의 정보가 담김.
-   TODO 모달페이지마다 url이 다르도록 수정
-=end
-%>
 <div class="modal fade" id="upcomings-modal-<%= @marshall_show_modal.id %>">
   <div class="modal-lg modal-dialog" role="document">
     <div class="modal-content">
@@ -12,9 +6,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <div class="modal-title"> <!-- 가수 프로필,타이틀, 이름 -->
+        <div class="modal-title">
           <img style="float:left;" src="https://pbs.twimg.com/profile_images/378800000445879850/a11984ecd97f090790ef89d52233e842.jpeg" alt="범준" class="img-circle" width="70px" height="70px"  class="img-responsive">
-          <h4 style="float:left; margin-left:20px"><%= @marshall_show_modal.title %></h4>
+          <h4 style="float:left; margin-left:20px">
+            <%= @marshall_show_modal.title %>
+          </h4>
           <%
             # 공연을 등록한 아티스트를 찾는다.
             this_artist = User.find_by(id: @marshall_show_modal.user_id)
@@ -25,7 +21,6 @@
           <p style="float:left; margin-left:20px">장범준</p>
           <% end %>
         </div>
-
       </div>
 
       <div class="modal-body">

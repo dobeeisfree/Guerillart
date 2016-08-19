@@ -6,17 +6,14 @@
   </div>
   <% unless @marshall_show_modal.comments.nil?%>
       <% @marshall_show_modal.comments.each do |comment| %>
-
         <div class="container" id="comments">
-
         	<div class="row">
         		<div class="col-sm-1">
         			<div class="thumbnail">
-                <!-- TODO 댓글을 단 유저의 프로필을 가져온다-->
+                <!-- TODO 댓글을 단 유저의 프로필 사진을 가져온다-->
                 <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
         			</div>
         		</div>
-
         		<div class="col-sm-5">
         			<div class="panel panel-default">
         				<div class="panel-heading">
@@ -27,7 +24,6 @@
         			</div>
         		</div>
         	</div>
-
         </div>
       <% end %>
   <% end %>
