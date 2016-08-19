@@ -36,6 +36,10 @@ class HomeController < ApplicationController
       @current_genre = "모아보기"
     end
 	end
+  
+  def view
+    @show = Show.find(params[:show_id])
+  end
 
   def mypage
    a = params[:artist_name]
