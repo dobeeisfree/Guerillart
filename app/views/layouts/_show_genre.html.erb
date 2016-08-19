@@ -1,13 +1,13 @@
 <div id="#<%= @current_genre %>"  class="clearfix grid">
-    <%
-      @shows.reverse.each do |show|
-      if show.genre == @current_genre || "모아보기" == @current_genre
-        # 모달에 값을 넘겨준다
-        @marshall_show_modal = show
-    %>
-    <%= render partial: "/layouts/show_modal", colloection: @marshall_show_modal %>
-    <figure class="effect-oscar wowload fadeInUp">
+  <%
+    @shows.reverse.each do |show|
+    if show.genre == @current_genre || "모아보기" == @current_genre
+      # 모달에 값을 넘겨준다
+      @show = show
+  %>
+  <%= render partial: "/layouts/show_modal", colloection: @show %>
 
+    <figure class="effect-oscar wowload fadeInUp">
       <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
       <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
       <figcaption>
@@ -17,7 +17,10 @@
             <%= show.time %><br>
         </p>
         <p>
-          <a class="btn" data-toggle="modal" data-target="#upcomings-modal-<%= @marshall_show_modal.id %>">More</a>
+          <a class="btn" href="/shows/view/<%=show.id%>">
+            <input type="hidden" name="show_id" value="<%= show.id %>">
+            More
+          </a>
         </p>
       </figcaption>
     </figure>

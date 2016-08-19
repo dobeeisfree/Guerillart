@@ -20,8 +20,8 @@
             <ul class="dropdown-menu">
                 <li><%= link_to "모아보기", g: "모아보기" %></li>
                 <li class="divider"></li>
-                <% @names.each do |s| %>
-                  <li><%= link_to "#{s}", controller: "home", action: "shows", choose: "#{s}" %></li>
+                <% @names.each do |name| %>
+                  <li><%= link_to "#{name}", controller: "home", action: "shows", choose: "#{name}" %></li>
                 <% end %>
             </ul>
           </li>
@@ -30,6 +30,7 @@
       </div>
     </div>
   </nav>
+  <!-- 선택한 장르의 공연목록 출력-->
   <div style="margin-top:-20px">
     <%= render partial: "/layouts/show_genre", object: @current_genre %>
   </div>
