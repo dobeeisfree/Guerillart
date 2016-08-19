@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
   
+  def user_root_path
+    '/dashboard/home'
+  end
+  
   #로그아웃시 current page에 남고 싶으면 사용
   # private
   # # override the devise method for where to go after signing out because theirs
