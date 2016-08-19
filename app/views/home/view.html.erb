@@ -1,7 +1,107 @@
+<!--
+  TODO  나중에 각 파일별로 css 파일 정리
+-->
+<style>
+.wrap-show {
+  margin-top: 90px;
+}
+.photo {
+ float : left;
+ margin-right: 20px;
+}
+.show-share {
+ width: 100%;
+ margin-top: 10px;
+}
+#show-info-section {
+ clear : both;
+ margin-top: -20px;
+}
+</style>
 
-        <h2><%= @show.title %></h2>
-        <p><%= @show.location %><br>
-            <%= @show.date  %><br>
-            <%= @show.time %><br>
-        </p>
+<div class="container wrap-show">
+  <!-- 타이틀 섹션 : 아티스트 사진, 이름, 글 타이틀  -->
+  <div id="title-section" class="full">
+    <div class="slat-header user">
+      <a class="url hoverable" rel="contact" href="#">
+        <img alt="null" class="photo" src="https://d13yacurqjgara.cloudfront.net/users/35381/avatars/normal/meg4.png?1401981546" data-pin-nopin="true">
+      </a>
+      <h1><%= @show.title %></h1>
+      <h2 class="shot-byline">
+        <span class="attribution">
+          <span class="shot-byline-user">
+          <%
+          # 공연을 등록한 아티스트를 찾는다.
+          this_artist = User.find_by(id: @show.user_id)
+          if !this_artist.nil?
+          %>
+          by <a class="url hoverable" rel="contact" href="#"><%= this_artist.artist_name %></a>
+          <% else %>
+          by <a class="url hoverable" rel="contact" href="#">장범준</a>
+          <% end %>
+          </span>
+        </span>
+        <span class="shot-byline-date">
+        on <a href="#"><%= @show.time %></a>
+        </span>
+      </h2>
+    </div>
+  </div>
 
+
+  <div id="show-info-section" class="full">
+    <a class="url hoverable" rel="contact" href="#">
+      <img alt="null" class="photo" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" width="500" data-pin-nopin="true">
+    </a>
+    <h4>공연정보</h4>
+    <div>
+      장소 : <%= @show.location %><br>
+      시각 : <%= @show.time %>, <%= @show.date %><br>
+      장르 : <%= @show.genre %><br>
+      <br>플레이리스트 :<br>
+      <%= @show.playlist %>
+      <br>
+    </div>
+  </div>
+
+  <div class="btn-group show-share">
+
+      <% unless current_user.nil? %>
+        <% if current_user.is_like?(@show) %>
+         <a href="/shows/<%= @show.id %>/like">
+           <button type="button" class="btn btn-default">
+             <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
+             <%= @show.likes.size %>
+           </button>
+         </a>
+        <% else %>
+         <a href="/shows/<%= @show.id %>/like">
+           <button type="button" class="btn btn-default">
+             <span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"><br></span>
+             <%= @show.likes.size %>
+           </button>
+         </a>
+        <% end %>
+      <% end %>
+
+
+    <!-- 댓글쓰기 버튼 : TODO 공연이 끝난 후 작성할 수 있다. -->
+    <button type="button" class="btn btn-default">
+      <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
+      <%= @show.comments.size %>
+    </button>
+    <!-- TODO 공유하기 : 공유된 횟수를 보여준다-->
+    <button type="button" class="btn btn-default">
+      <span class="glyphicon glyphicon-share-alt" aria-hidden="true"><br></span>
+      22
+    </button>
+    <!-- TODO 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
+    <button type="button" class="btn btn-default">
+      <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
+      <%= @show.view_count %>
+    </button>
+    <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
+    <%= render partial: "layouts/show_modal_comments", object: @show %>
+  </div>
+
+</div>
