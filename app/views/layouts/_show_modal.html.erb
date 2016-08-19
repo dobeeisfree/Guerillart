@@ -1,4 +1,4 @@
-<div class="modal fade" id="upcomings-modal-<%= @marshall_show_modal.id %>">
+<div class="modal fade" id="upcomings-modal-<%= @show.id %>">
   <div class="modal-lg modal-dialog" role="document">
     <div class="modal-content">
 
@@ -9,11 +9,11 @@
         <div class="modal-title">
           <img style="float:left;" src="https://pbs.twimg.com/profile_images/378800000445879850/a11984ecd97f090790ef89d52233e842.jpeg" alt="범준" class="img-circle" width="70px" height="70px"  class="img-responsive">
           <h4 style="float:left; margin-left:20px">
-            <%= @marshall_show_modal.title %>
+            <%= @show.title %>
           </h4>
           <%
             # 공연을 등록한 아티스트를 찾는다.
-            this_artist = User.find_by(id: @marshall_show_modal.user_id)
+            this_artist = User.find_by(id: @show.user_id)
             if !this_artist.nil?
           %>
           <p style="float:left; margin-left:20px"><%= this_artist.artist_name %></p>
@@ -28,11 +28,11 @@
         <img style="float:left;" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" class="img-responsive" width="400px"/>
         <h4 style="float:left; margin-left:20px">공연정보</h4>
         <div style="float:left; text-align: left;">
-          장소 : <%= @marshall_show_modal.location %><br>
-          시각 : <%= @marshall_show_modal.time %>, <%= @marshall_show_modal.date %><br>
-          장르 : <%= @marshall_show_modal.genre %><br>
+          장소 : <%= @show.location %><br>
+          시각 : <%= @show.time %>, <%= @show.date %><br>
+          장르 : <%= @show.genre %><br>
           <br>플레이리스트 :<br>
-          <%= @marshall_show_modal.playlist %>
+          <%= @show.playlist %>
           <br>
         </div>
       </div>
@@ -40,19 +40,19 @@
       <!-- 꼭 보러갈래요 : 사용자가 본 공연을 위한 기능 -->
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
-        <%= @marshall_show_modal.likes.size %>
+        <%= @show.likes.size %>
         <% unless current_user.nil? %>
-          <% if current_user.is_like?(@marshall_show_modal) %>
-           <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요 취소</a>
+          <% if current_user.is_like?(@show) %>
+           <a href="/shows/<%= @show.id %>/like">꼭 보러갈래요 취소</a>
           <% else %>
-           <a href="/shows/<%= @marshall_show_modal.id %>/like">꼭 보러갈래요</a>
+           <a href="/shows/<%= @show.id %>/like">꼭 보러갈래요</a>
           <% end %>
         <% end %>
       </button>
       <!-- 댓글쓰기 버튼 : TODO 공연이 끝난 후 작성할 수 있다. -->
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
-        <%= @marshall_show_modal.comments.size %>
+        <%= @show.comments.size %>
       </button>
       <!-- TODO 공유하기 : 공유된 횟수를 보여준다-->
       <button type="button" class="btn btn-default">
@@ -62,10 +62,10 @@
       <!-- TODO 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
-        <%= @marshall_show_modal.view_count %>
+        <%= @show.view_count %>
       </button>
       <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
-      <%= render partial: "layouts/show_modal_comments", object: @marshall_show_modal %>
+      <%= render partial: "layouts/show_modal_comments", object: @show %>
     </div>
   </div>
 </div>
