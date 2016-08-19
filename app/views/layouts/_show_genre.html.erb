@@ -17,7 +17,8 @@
             <%= show.time %><br>
         </p>
         <p>
-          <a class="btn" data-toggle="modal" data-target="#upcomings-modal-<%= @marshall_show_modal.id %>">More</a>
+          <a class="btn" href="/shows/view/<%=show.id%>"><input type="hidden" name="show_id" value="<%= show.id %>">More</a>
+ 
         </p>
       </figcaption>
     </figure>

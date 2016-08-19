@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get '/mypage_edit' => 'dashboard#mypage_edit'
   post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
   resources :follows, only: [:create, :destroy]
+  get '/shows/view/:show_id' => 'home#view'
 
  
 
