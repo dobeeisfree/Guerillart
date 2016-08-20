@@ -1,8 +1,11 @@
+
 <!--
   TODO  나중에 각 파일별로 css 파일 정리
 -->
 <style>
 .wrap-show {
+  /* 모달의 전체 속성을 좌우 */
+  max-width: 900px;
   margin-top: 90px;
 }
 .photo {
@@ -17,10 +20,17 @@
  clear : both;
  margin-top: -20px;
 }
+/* 공유하기 */
+
 </style>
 
 <div class="container wrap-show">
   <!-- 타이틀 섹션 : 아티스트 사진, 이름, 글 타이틀  -->
+<div class="modal-header" style="margin-top:-80px">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
   <div id="title-section" class="full">
     <div class="slat-header user">
       <a class="url hoverable" rel="contact" href="#">
@@ -47,7 +57,6 @@
       </h2>
     </div>
   </div>
-
 
   <div id="show-info-section" class="full">
     <a class="url hoverable" rel="contact" href="#">
@@ -90,18 +99,69 @@
       <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
       <%= @show.comments.size %>
     </button>
-    <!-- TODO 공유하기 : 공유된 횟수를 보여준다-->
-    <button type="button" class="btn btn-default">
-      <span class="glyphicon glyphicon-share-alt" aria-hidden="true"><br></span>
-      22
-    </button>
     <!-- TODO 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
     <button type="button" class="btn btn-default">
       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
       <%= @show.view_count %>
     </button>
+    <!-- 공유하기 -->
+    <div id="socialHolder" class="col-md-3">
+  		<div id="socialShare" class="btn-group share-group">
+      <a data-toggle="dropdown" class="btn btn-info">
+           <i class="fa fa-share-alt fa-inverse"></i>
+      </a>
+  		<ul class="dropdown-menu" style="max-width:124px">
+  			<li>
+          <a target="_blank" id="popup" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= @show.title %>&url=http://localhost:3000/shows/view/<%= @show.id %>" data-size="large">
+    			     <button data-original-title="Twitter" rel="tooltip"  href="#" class="btn btn-twitter" data-placement="left">
+              <i class="fa fa-twitter"></i>
+            </button>
+    			</a>
+  			</li>
+  			<li>
+  				<a data-original-title="Facebook" rel="tooltip"  href="#" class="btn btn-facebook" data-placement="left">
+            <!-- Your share button code -->
+            	<div class="fb-share-button"
+            		data-href="http://localhost:3000/shows/view/<%= @show.id %>"
+            		data-layout="button_count">
+            	</div>
+            <i class="fa fa-facebook"></i>
+  			  </a>
+  			</li>
+  			<li>
+  				<a data-original-title="Google+" rel="tooltip"  href="#" class="btn btn-google" data-placement="left">
+  				  <i class="fa fa-google-plus"></i>
+  			  </a>
+  			</li>
+  			<li>
+  				<a data-original-title="Pinterest" rel="tooltip"  class="btn btn-pinterest" data-placement="left">
+  				  <i class="fa fa-pinterest"></i>
+  			  </a>
+  			</li>
+      </ul>
+  	 </div>
+    </div>
     <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
     <%= render partial: "layouts/show_modal_comments", object: @show %>
   </div>
 
 </div>
+
+
+<div id="fb-root"></div>
+<script>
+window.onload = function() {
+  document.getElementById("popup").onclick =  function() {
+    return !window.open(this.href, "pop", "width=600, height=300");
+  }
+}
+
+// Load Facebook SDK for JavaScript
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
