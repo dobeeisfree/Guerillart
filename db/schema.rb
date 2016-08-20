@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160818071656) do
     t.float    "location_x"
     t.float    "location_y"
     t.string   "time"
+    t.integer  "status"
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false

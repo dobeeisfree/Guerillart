@@ -2,6 +2,7 @@ class Show < ActiveRecord::Base
   searchable do
     float :location_x
     float :location_y
+    integer :status
   end
   
   has_many :like_shows
