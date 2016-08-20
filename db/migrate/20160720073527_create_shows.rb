@@ -14,6 +14,7 @@ class CreateShows < ActiveRecord::Migration
       t.float :location_x
       t.float :location_y
       t.string :time
+      t.integer :status, default: 0 # 0 : 예정 , 1 : 진행중, 2 : 종료
 
       t.integer :user_id
 
