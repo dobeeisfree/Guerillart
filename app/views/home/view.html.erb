@@ -141,3 +141,19 @@
   <br>
   <br>
 </div>
+
+
+
+
+<script>
+
+  // _show_modal.html.erb에서도 아래 함수가 나오지만 또 적어줘야만 하는 건
+  // 이 view.html.erb에 단독적으로 뷰가 보일 때에
+  // 즉 http://localhost:3000/shows/view/<%= @show.id %> 에서
+  // 댓글 열고닫기가 안되기 때문에 적어두었습니다
+
+  document.getElementById("openComments-<%= @show.id %>").onclick = function() {
+    $("#open-comments-list-<%= @show.id %>").toggle();
+  }
+
+</script>
