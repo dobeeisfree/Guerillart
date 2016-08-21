@@ -5,6 +5,8 @@ class Show < ActiveRecord::Base
     integer :status
   end
   
+  belongs_to :creator, :class_name => User  #공연 등록자에 종속
+  
   has_many :like_shows
   has_many :users, through: :like_shows
   has_many :likes

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> -->
-		<!-- <title>TownStory: Google Map</title> -->
 		<style type="text/css">
 			html {
 				height: 100%
@@ -387,7 +385,7 @@
 									    infoBubble2.close();
 									    
 			                            infowindow = new google.maps.InfoWindow({
-			                            	content: "Hello, World!!" + data[i].show.genre + "<br />"+"hi"
+			                            	content: "Hello, World!!" + data[i].creator.name + "<br />"+"hi"
 			                            });
 			                            infowindow.open(globalMap, infoBubble2);
 			                            
