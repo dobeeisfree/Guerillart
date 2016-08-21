@@ -1,4 +1,8 @@
-
+<!-- Clipboard.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+<%
+  @current_url = "http://localhost:3000/shows/view/#{ @show.id }"
+%>
 <!--
   TODO  나중에 각 파일별로 css 파일 정리
 -->
@@ -16,22 +20,21 @@
  width: 100%;
  margin-top: 10px;
 }
-#show-info-section {
+.show-info-section {
  clear : both;
  margin-top: -20px;
 }
 /* 공유하기 */
-
 </style>
 
-<div class="container wrap-show">
+<div class="container-fluid wrap-show">
   <!-- 타이틀 섹션 : 아티스트 사진, 이름, 글 타이틀  -->
 <div class="modal-header" style="margin-top:-80px">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-  <div id="title-section" class="full">
+  <div class="title-section" class="full">
     <div class="slat-header user">
       <a class="url hoverable" rel="contact" href="#">
         <img alt="null" class="photo" src="https://d13yacurqjgara.cloudfront.net/users/35381/avatars/normal/meg4.png?1401981546" data-pin-nopin="true">
@@ -47,10 +50,10 @@
           %>
           by <a class="url hoverable" rel="contact" href="#"><%= this_artist.artist_name %></a>
           <% else %>
-          by <a class="url hoverable" rel="contact" href="#">장범준</a>
           <% end %>
           </span>
         </span>
+        by <a class="url hoverable" rel="contact" href="#">장범준</a>
         <span class="shot-byline-date">
         on <a href="#"><%= @show.time %></a>
         </span>
@@ -58,7 +61,7 @@
     </div>
   </div>
 
-  <div id="show-info-section" class="full">
+  <div class="show-info-section" class="full">
     <a class="url hoverable" rel="contact" href="#">
       <img alt="null" class="photo" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" width="500" data-pin-nopin="true">
     </a>
@@ -74,94 +77,67 @@
   </div>
 
   <div class="btn-group show-share">
-
-      <% unless current_user.nil? %>
-        <% if current_user.is_like?(@show) %>
-         <a href="/shows/<%= @show.id %>/like">
-           <button type="button" class="btn btn-default">
-             <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
-             <%= @show.likes.size %>
-           </button>
-         </a>
-        <% else %>
-         <a href="/shows/<%= @show.id %>/like">
-           <button type="button" class="btn btn-default">
-             <span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"><br></span>
-             <%= @show.likes.size %>
-           </button>
-         </a>
-        <% end %>
+    <!-- 좋아요=꼭 보러갈래요 -->
+    <% unless current_user.nil? %>
+      <% if current_user.is_like?(@show) %>
+       <a href="/shows/<%= @show.id %>/like" class="btn btn-default">
+         <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
+         <%= @show.likes.size %>
+       </a>
+      <% else %>
+       <a href="/shows/<%= @show.id %>/like" class="btn btn-default">
+         <span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"><br></span>
+         <%= @show.likes.size %>
+       </a>
       <% end %>
-
+    <% end %>
 
     <!-- 댓글쓰기 버튼 : TODO 공연이 끝난 후 작성할 수 있다. -->
-    <button type="button" class="btn btn-default">
+    <button type="button" class="btn btn-default" id="openComments-<%= @show.id %>">
       <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
       <%= @show.comments.size %>
     </button>
+
     <!-- TODO 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
     <button type="button" class="btn btn-default">
       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
       <%= @show.view_count %>
     </button>
-    <!-- 공유하기 -->
-    <div id="socialHolder" class="col-md-3">
-  		<div id="socialShare" class="btn-group share-group">
-      <a data-toggle="dropdown" class="btn btn-info">
-           <i class="fa fa-share-alt fa-inverse"></i>
-      </a>
-  		<ul class="dropdown-menu" style="max-width:124px">
-  			<li>
-          <a target="_blank" id="popup" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= @show.title %>&url=http://localhost:3000/shows/view/<%= @show.id %>" data-size="large">
-    			     <button data-original-title="Twitter" rel="tooltip"  href="#" class="btn btn-twitter" data-placement="left">
-              <i class="fa fa-twitter"></i>
-            </button>
-    			</a>
-  			</li>
-  			<li>
-  				<a data-original-title="Facebook" rel="tooltip"  href="#" class="btn btn-facebook" data-placement="left">
-            <!-- Your share button code -->
-            	<div class="fb-share-button"
-            		data-href="http://localhost:3000/shows/view/<%= @show.id %>"
-            		data-layout="button_count">
-            	</div>
-            <i class="fa fa-facebook"></i>
-  			  </a>
-  			</li>
-  			<li>
-  				<a data-original-title="Google+" rel="tooltip"  href="#" class="btn btn-google" data-placement="left">
-  				  <i class="fa fa-google-plus"></i>
-  			  </a>
-  			</li>
-  			<li>
-  				<a data-original-title="Pinterest" rel="tooltip"  class="btn btn-pinterest" data-placement="left">
-  				  <i class="fa fa-pinterest"></i>
-  			  </a>
-  			</li>
-      </ul>
-  	 </div>
-    </div>
-    <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
+
+    <!--트위터 -->
+    <a
+       id="popup-<%= @show.id %>"
+       target="_blank"
+       class="btn btn-default twitter-share-button"
+       href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= @show.title %>&url=<%= @current_url %>"
+       data-size="large">
+       <i class="fa fa-twitter"></i>
+    </a>
+
+    <!-- 페이스북
+      정식으로 서버를 등록이 되야 쓰일 수 있습니다
+      @current_url 에 네이버랑 구글만 넣어도 공유하기가 되요
+    -->
+    <a
+      target="_blank"
+      class="btn btn-default"
+      href="https://www.facebook.com/sharer/sharer.php?u=<%= @current_url %>">
+      <i class="fa fa-facebook"></i>
+    </a>
+
+    <!-- url 복사하기 -->
+    <button class="btn btn-default" id="clipboard-url-<%= @show.id %>" data-toggle="tooltip" title="Copy!" data-clipboard-text="<%= @current_url %>">
+      <span class="glyphicon glyphicon-link" aria-hidden="true">
+        <small id="msg-copied-<%= @show.id %>"></small>
+      </span>
+    </button>
+  </div>
+
+  <!-- 댓글 펼치기 : 히든으로 되어있다가 댓글버튼을 클릭할 떄 나타난다 -->
+  <div id="open-comments-list-<%= @show.id %>" style="display:none;">
     <%= render partial: "layouts/show_modal_comments", object: @show %>
   </div>
 
+  <br>
+  <br>
 </div>
-
-
-<div id="fb-root"></div>
-<script>
-window.onload = function() {
-  document.getElementById("popup").onclick =  function() {
-    return !window.open(this.href, "pop", "width=600, height=300");
-  }
-}
-
-// Load Facebook SDK for JavaScript
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>

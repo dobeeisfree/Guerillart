@@ -1,15 +1,34 @@
-<style>
-
-</style>
-
 <div class="modal fade" id="upcomings-modal-<%= @show.id %>">
   <div class="modal-lg modal-dialog" role="document">
-
     <div class="modal-content">
 
-
-        <%= render template: "home/view/" %>
+      <%= render template: "home/view" %>
 
     </div>
   </div>
 </div>
+
+
+<!-- 나중에 js 파일로 저장-->
+<script>
+
+  // 모달때문에 엘리멘트가 반복됨
+  // 즉 모달개수마다 함수가 존재해야만 하는 이런...이상함...
+  // 나중에 모달 형식을 바꾸어야할듯
+
+  // 트위터의 팝업
+  document.getElementById("popup-<%= @show.id %>").onclick = function() {
+    return !window.open(this.href, "pop", "width=600, height=300");
+  }
+  // 클립보드 복사 기능
+  var clipboard = new Clipboard('.btn');
+  $('[data-toggle="tooltip"]').tooltip();
+  document.getElementById("clipboard-url-<%= @show.id %>").onclick = function() {
+    document.getElementById("msg-copied-<%= @show.id %>").innerHTML = "Copied!";
+  }
+  // 댓글 버튼이 눌렀을 때 나오는 댓글창
+  document.getElementById("openComments-<%= @show.id %>").onclick = function() {
+    $("#open-comments-list-<%= @show.id %>").toggle();
+  }
+
+</script>
