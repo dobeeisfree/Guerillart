@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
   get 'shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
+  post '/comments/create' => 'comments#create'
   
   get '/mypage/:post_id' => 'dashboard#mypage'
   
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
   post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
   resources :follows, only: [:create, :destroy]
   get '/shows/view/:show_id' => 'home#view'
+  
 
  
 
