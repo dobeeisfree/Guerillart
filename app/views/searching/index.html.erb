@@ -53,8 +53,23 @@
 	        	width: 130px;
 	      	}
 	        .phoney {
+	        	overflow: hidden !important; 
+  				 /*line-height: 1.4;*/
+  				 white-space: nowrap;
+	        	/*line-height: 25px;*/
+	        	/*width: auto !important; */
+	        	min-width: 20;
+	        	min-height: 23;
+	        	max-width: 160;
+	        	max-height: 50;
+	        	font-weight: bold;
 	        	text-align: center;
-	        	/*margin-top: 10px;*/
+	        	/*text-overflow: ellipsis; */
+	        	white-space: nowrap; 
+	        	/*overflow: hidden;*/
+	        	font-size: 16px;
+	        	/*background: rgb(112,112,112) !important;*/
+	        	margin-top: 2px;
 	        	/*background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));*/
 	        	/*background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);*/
 	      	}
@@ -204,9 +219,11 @@
 				// });
 				
 				
-				//맵 로딩 완료후 실행할 함수 (정확히 언제 실행되는지 말 모르겠음)
-				// google.maps.event.addListenerOnce(globalMap, 'idle', function(){
-    			// });
+				//맵 로딩 완료후 한번만 실행할 함수
+				google.maps.event.addListenerOnce(globalMap, 'idle', function(){
+					removeAllMarkers();
+					updateMarkers();
+    			});
 				
 				// 센터 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'center_changed', function() {
@@ -220,17 +237,20 @@
 				
 				// 드래그 끝났을 때 이벤트 추가
 				google.maps.event.addListener(globalMap, 'dragend', function() {
-					removeAllMarkers();
-					updateMarkers();
+					$(function(){
+						removeAllMarkers();
+						updateMarkers();
+					});
 				});
 				
 				// 줌 변경시 이벤트 추가
 				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
-					removeAllMarkers();
-					updateMarkers();
-					// showMapPos();
-					// showMapAddr();
+					$(function(){
+						removeAllMarkers();
+						updateMarkers();
+					});
 				});
+				
 				
 				
 				// 갱신 딜레이
@@ -252,7 +272,6 @@
 					// moveMarker(event.latLng);
 				// });
 				
-		        
 			}
 			
 			
@@ -300,7 +319,6 @@
 				           	(function(){
 					        	removeAllMarkers();
 								updateMarkers();
-			            		// alert("hi");
 				            })();
 				    	});
 				    } 
@@ -326,16 +344,8 @@
 				ne = bounds.getNorthEast();
 				sw = bounds.getSouthWest();
 				
-				// ne_lat = ne.lat();
-				// ne_lng = ne.lng();
-				// sw_lat = sw.lat();
-				// sw_lng = sw.lng();
-				
-				
 				//bounds와 center 좌표 searching#getBounds controller에 보내기
-        //아래338줄처럼 하면 바로 콜    
 			   	$(document).ready(function(){
-			        // $("#neLat").val(ne_lat);
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/search?location="+"<%=@location%>",
@@ -356,11 +366,15 @@
 								//infoBubble 띄우기
 								infoBubble2 = new InfoBubble({
 							    	map: globalMap,
-							        content: data[i].creator.name,
+							        content: "<div class='phoney'>&nbsp;"+data[i].creator.name+'&nbsp;</div>',
+							        //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
 							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
-							        minWidth: 5,
+							        minWidth: 20,
+							        minHeight: 23,
+							        maxWidth: 160,
+							        maxHeight: 50,
 							        backgroundColor: '#FFFF8F',
 							        borderRadius: 4,
 							        arrowSize: 10,
@@ -369,7 +383,7 @@
 							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 							        hideCloseButton: true,	//닫기 버튼 숨기기
 							        arrowPosition: 49,
-							        backgroundClassName: 'phoney',
+							        // backgroundClassName: 'phoney',
 							        arrowStyle: 0	//화살표 모양 (0 : 가운데)
 						        });
 						        infoBubble2.open();
@@ -401,8 +415,8 @@
 			        	 	}
 			        	 	
 			        	},
-			        	error: function(data){
-			        		alert("load failed T^T");
+			        	error: function(){
+			        		alert("Sorry, load failed T^T");
 			        	}
 			        	// comlete: function(data){
 							// alert("T^T "+data);
@@ -689,8 +703,8 @@
 
 	</head>
 
-	<body onload="initialize(); setTimeout('updateMarkers()', 600);">
-	<!-- <body onload="initialize()"> -->
+	<!-- <body onload="initialize(); setTimeout('updateMarkers()', 600);"> -->
+	<body onload="initialize()">
 		<div id="s_left">
 			<div id="map_canvas"></div>
 
@@ -766,9 +780,6 @@
 		</div>
 
 		<div id="s_right">
-			<!-- <% @show_all.each do |show| %>
-				<h1><%=show.genre%></h1></br>
-			<%end%> -->
 		</div>
 
 	</body>

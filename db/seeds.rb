@@ -25,7 +25,7 @@ show = Show.new
 show.genre = "rock"
 show.location_x = 37.519695589572116
 show.location_y = 127.04732480000007
-show.creator_id = 3
+show.creator_id = 2
 show.status = 1
 show.save #상
 
