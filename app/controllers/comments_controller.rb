@@ -8,14 +8,11 @@ class CommentsController < ApplicationController
 
     comment.save
     redirect_to :back
-    
+
     @comment = Comment.find_by(id: current_user.id)
-    
-    render json: @comment 
-                              
+
   end
 
   def destroy
   end
 end
-
