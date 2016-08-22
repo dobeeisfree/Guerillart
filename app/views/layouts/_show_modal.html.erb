@@ -2,70 +2,33 @@
   <div class="modal-lg modal-dialog" role="document">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="modal-title">
-          <img style="float:left;" src="https://pbs.twimg.com/profile_images/378800000445879850/a11984ecd97f090790ef89d52233e842.jpeg" alt="범준" class="img-circle" width="70px" height="70px"  class="img-responsive">
-          <h4 style="float:left; margin-left:20px">
-            <%= @show.title %>
-          </h4>
-          <%
-            # 공연을 등록한 아티스트를 찾는다.
-            this_artist = User.find_by(id: @show.user_id)
-            if !this_artist.nil?
-          %>
-          <p style="float:left; margin-left:20px"><%= this_artist.artist_name %></p>
-          <% else %>
-          <p style="float:left; margin-left:20px">장범준</p>
-          <% end %>
-        </div>
-      </div>
+      <%= render template: "home/view" %>
 
-      <div class="modal-body">
-        <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
-        <img style="float:left;" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" class="img-responsive" width="400px"/>
-        <h4 style="float:left; margin-left:20px">공연정보</h4>
-        <div style="float:left; text-align: left;">
-          장소 : <%= @show.location %><br>
-          시각 : <%= @show.time %>, <%= @show.date %><br>
-          장르 : <%= @show.genre %><br>
-          <br>플레이리스트 :<br>
-          <%= @show.playlist %>
-          <br>
-        </div>
-      </div>
-
-      <!-- 꼭 보러갈래요 : 사용자가 본 공연을 위한 기능 -->
-      <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
-        <%= @show.likes.size %>
-        <% unless current_user.nil? %>
-          <% if current_user.is_like?(@show) %>
-           <a href="/shows/<%= @show.id %>/like">꼭 보러갈래요 취소</a>
-          <% else %>
-           <a href="/shows/<%= @show.id %>/like">꼭 보러갈래요</a>
-          <% end %>
-        <% end %>
-      </button>
-      <!-- 댓글쓰기 버튼 : TODO 공연이 끝난 후 작성할 수 있다. -->
-      <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-comment" aria-hidden="true"><br></span>
-        <%= @show.comments.size %>
-      </button>
-      <!-- TODO 공유하기 : 공유된 횟수를 보여준다-->
-      <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"><br></span>
-        22
-      </button>
-      <!-- TODO 조회수 : 사용자와 관계없이 모달을 클릭하면 올라간다 -->
-      <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><br></span>
-        <%= @show.view_count %>
-      </button>
-      <!-- 댓글 펼치기 : TODO 버튼을 눌렀을 때에만 나와야한다 -->
-      <%= render partial: "layouts/show_modal_comments", object: @show %>
     </div>
   </div>
 </div>
+
+
+<!-- 나중에 js 파일로 저장-->
+<script>
+
+  // 모달때문에 엘리멘트가 반복됨
+  // 즉 모달개수마다 함수가 존재해야만 하는 이런...이상함...
+  // 나중에 모달 형식을 바꾸어야할듯
+
+  // 트위터의 팝업
+  document.getElementById("popup-<%= @show.id %>").onclick = function() {
+    return !window.open(this.href, "pop", "width=600, height=300");
+  }
+  // 클립보드 복사 기능
+  var clipboard = new Clipboard('.btn');
+  $('[data-toggle="tooltip"]').tooltip();
+  document.getElementById("clipboard-url-<%= @show.id %>").onclick = function() {
+    document.getElementById("msg-copied-<%= @show.id %>").innerHTML = "Copied!";
+  }
+  // 댓글 버튼이 눌렀을 때 나오는 댓글창
+  document.getElementById("openComments-<%= @show.id %>").onclick = function() {
+    $("#open-comments-list-<%= @show.id %>").toggle();
+  }
+
+</script>

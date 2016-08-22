@@ -12,4 +12,14 @@ class Show < ActiveRecord::Base
   has_many :likes
   has_many :liked_users, through: :likes, source: :user
   has_many :comments
+
+  def cnt_view(show)
+    if show.view_count.nil?
+      show.view_count = 0
+    else
+    	show.update_attribute "view_count", show.view_count = show.view_count + 1
+      show.save
+    end
+  end
+
 end

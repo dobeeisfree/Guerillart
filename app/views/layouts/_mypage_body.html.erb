@@ -56,45 +56,71 @@
          <div class="row">
             <div class="col-sm-6 col-md-4">
               <div class="thumbnail">
-                <div class="caption">
-                <h4>새 글 작성하기</h4>
-                </div>
+                  <div class="caption">
+                  <h4>새 글 작성하기</h4>
+                  </div>
                  <%= form_tag '/dashboard/write_post' do %>
                    <textarea class="form-control" value="content" name="content"rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea> 
                    <input type="submit" class="btn" value="확인">
                  <% end %>
-                </div>
-            </div>
-         </div>
+             </div>
+           </div>
+        </div>
     </div>
     <% end %>
 
 
 
+
+<!-- 글 보여주기 -->
                 <div class="jumbotron">
                   <div class="container">
                     <% @posts.reverse.each do |post| %>
-                    <% if post.user_id == @users.id %>
                       <p><%= post.content %></p>
 
                       <% unless post.comments.nil?%>
                           <% post.comments.each do |comment| %> 
-                            <p>작성자<%= comment.user.name %></p>
-                            <p>날짜<%= comment.created_at %></p>
-                            <p>내용<%= comment.content %></p>
+                            <p>댓글:<%=comment.content %></p>
+                            <h5>작성자:<%= comment.user.name %>
+                            날짜:<%= comment.created_at %></h5> 
                           <% end %>
-                      <% end %>
-       
-                      <%= form_tag comments_path do %>
-                          <input type="hidden" name="post_id" value="<%= post.id %>">
-                          <p><%= current_user.name %> <input type="text" name="content" placeholder="댓글 내용을 입력하세요."> <input type="submit" value="확인"></p>
+                            <div id="reply_<%= post.id %>"> </div>
                       <% end %>
 
-                       <a href="#">좋아요</a><hr>
-                    <% end %>
+                          <p><%= current_user.name %>
+                             <input type="hidden" value="1" name="post_id">
+                             <textarea name="content" rows="1"id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea> 
+                             <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button><hr>
+                          </p>
                     <% end %>
                   </div>
                 </div>
 
 
+<!-- 댓글 시작 -->
+            <script>
+              $(function() {
+                $(".reply_submit").click(function(){
 
+                  post_id = this.value;
+                  post_content = $("#content_" + post_id).val()
+  
+                  $.ajax({
+                    method: "POST",
+                    url:  "/comments/create",
+                    data: { content: post_content, 
+                            post_id: post_id },
+                    success: function(data){
+                      alert("리플이 작성되었습니다");
+                      $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>" + "<h5>" + "작성자" + data[0].user.name + "날짜:" + data[0].cmt.created_at + "</h5>" );
+                      $( "#content_" + post_id).val('');
+                    },
+                    error: function(){
+                      alert("에러에러에러에러에러다");
+                    }
+                  });
+  
+                 });
+               });
+            </script>
+ 

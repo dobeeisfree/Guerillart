@@ -18,8 +18,6 @@ class CreateShows < ActiveRecord::Migration
       
       t.integer :creator_id #공연 등록자 id
 
-      t.integer :user_id
-
       t.timestamps null: false
     end
   end
