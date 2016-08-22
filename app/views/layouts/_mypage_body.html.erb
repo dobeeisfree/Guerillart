@@ -82,10 +82,9 @@
                           <% post.comments.each do |comment| %> 
                             <p>댓글:<%=comment.content %></p>
                             <h5>작성자:<%= comment.user.name %>
-                            날짜:<%= comment.created_at %></h5>
-                            <div id="reply_<%= post.id %>">
-                            </div>
+                            날짜:<%= comment.created_at %></h5> 
                           <% end %>
+                            <div id="reply_<%= post.id %>"> </div>
                       <% end %>
 
                           <p><%= current_user.name %>
@@ -109,13 +108,11 @@
                   $.ajax({
                     method: "POST",
                     url:  "/comments/create",
-                    dataType: "json",
                     data: { content: post_content, 
                             post_id: post_id },
-                    success: function(){
+                    success: function(data){
                       alert("리플이 작성되었습니다");
-                     // $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>");
-                      $( "#reply_" + post_id ).append(data);
+                      $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>" + "<h5>" + "작성자" + data[0].user.name + "날짜:" + data[0].cmt.created_at + "</h5>" );
                       $( "#content_" + post_id).val('');
                     },
                     error: function(){
@@ -126,4 +123,4 @@
                  });
                });
             </script>
-  
+ 
