@@ -49,27 +49,28 @@
     <div class="col-sm-12">
       <h3>
         Comments <span style="color: orange; font-weight:bold"><%= @show.comments.size %></span>
-        <small style="text-align: right;"><a href="#">펼쳐보기</a></small>
+        <small style="text-align: right;"></small>
       </h3>
+      <% unless @show.comments.nil? %>
+        <% @show.comments.each do |comment| %>
+          <div class="container" id="comments" style="max-width:900px">
+            <div style="max-width:700px">
+              <a class="pull-left" href="#">
+                <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
+              </a>
+              <div class="media-body" style="max-width:700px">
+                <h4 class="media-heading"><%= comment.user.name %>
+                  <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></small>
+                  <br>
+                  <small style="color:black"><%= comment.content %></small>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <hr>
+        <% end %>
+      <% end %>
     </div>
   </div>
-  <% unless @show.comments.nil? %>
-    <% @show.comments.each do |comment| %>
-      <div class="container" id="comments">
-        <div class="col-lg-10">
-          <a class="pull-left" href="#">
-            <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading"><%= comment.user.name %>
-              <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></small>
-              <br>
-              <small style="color:black"><%= comment.content %></small>
-            </h4>
-          </div>
-        </div>
-      </div>
-      <hr>
-    <% end %>
-  <% end %>
+
 </div>
