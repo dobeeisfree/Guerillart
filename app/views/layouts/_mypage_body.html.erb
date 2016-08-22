@@ -1,126 +1,153 @@
-    <div class="ProfileCanopy-header u-bgUserColor">
-        <div class="ProfileCanopy-headerBg">
-          <img alt="" src="https://pbs.twimg.com/profile_banners/74550725/1467017138/1500x500" height="350px" width="100%" >
-        </div>
-  
-      <div class="AppContainer">
-        <div class="ProfileCanopy-avatar" style="margin-top: -60px">
-          <a class="ProfileAvatar-container u-block js-tooltip profile-picture"   data-resolved-url-large="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" data-url="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" target="_blank" data-original-title="Wonder Girls">
+<!-- 아티스트 프로필 헤더 -->
+<div class="ProfileCanopy-header u-bgUserColor">
+    <div class="ProfileCanopy-headerBg" style="margin-top:-20px">
+      <img alt="" src="https://pbs.twimg.com/profile_banners/74550725/1467017138/1500x500" height="350px" width="100%" >
+    </div>
+
+  <div class="AppContainer">
+    <div class="ProfileCanopy-avatar" style="margin-top:-150px;">
+      <a class="ProfileAvatar-container u-block js-tooltip profile-picture"   data-resolved-url-large="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" data-url="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" target="_blank" data-original-title="Wonder Girls">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <img src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg"
+  alt="wondergirls" class="img-circle" style="box-shadow: 5px 10px 30px #888888;"
+  width="300" height="300">
+</div>
+
+
+
+<!-- 아티스트 프로필 -->
+<div class="container" style="color: #F5F5F5;">
+  <div class="row" >
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail" style="margin-top: 32px;margin-right: 37px;">
+        <div class="caption">
+        <p><%= @users.artist_name %></p>
+
+          <p>팔로워 : <%= current_user.followers.length %></p>
+          <p>팔로잉 : <%= current_user.followings.length %></p>
+
+          <% if user_signed_in? && current_user.id != @users.id%>
+            <% if current_user.followings.include?(@users) %>
+              <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
+                <button class="btn">팔로우 취소</button>
+              <% end %>
+            <% else %>
+              <%= form_tag follows_path, class: "right" do %>
+                <input type="hidden" name="followed_id" value="<%= @users.id %>" />
+                <button class="btn">팔로우</button>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        <p><%= @users.introduction %></p>
+        <p><%= @users.sns %></p>
+        <p>가입일:<%= @users.created_at %></p>
+
+        <% if current_user.artist_name == @users.artist_name %>
+          <% user = @users.artist_name %>
+            <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
+        <% end %>
+
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="container">
-      <img src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" alt="wondergirls" class="img-circle" width="300" height="300">
-    </div>
 
-<!-- 아티스트 프로필 -->
-    <div class="container" style="color: #F5F5F5">
-         <div class="row" >
-            <div class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <div class="caption">
-                <p><%= @users.artist_name %></p>
-                  <p>팔로워 : <%= current_user.followers.length %></p>
-                  <p>팔로잉 : <%= current_user.followings.length %></p>
 
-                  <% if user_signed_in? && current_user.id !=@users.id%>
-                    <% if current_user.followings.include?(@users) %>
-                      <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
-                        <button class="btn">팔로우 취소</button>
-                      <% end %>
-                    <% else %>
-                      <%= form_tag follows_path, class: "right" do %>
-                        <input type="hidden" name="followed_id" value="<%= @users.id %>" />
-                        <button class="btn">팔로우</button>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-
-                <p><%= @users.introduction %></p>
-                <p><%= @users.sns %></p>
-                <p>가입일:<%= @users.created_at %></p>
-                  <% if current_user.artist_name == @users.artist_name %>
-                  <% user = @users.artist_name %>
-        <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
-                  <% end %>
-                </div>
+<!-- 새 글 작성 폼시작 -->
+<% if @users.artist_name == current_user.artist_name %>
+<div class="container" style="color: #F5F5F5;">
+     <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+              <div class="caption">
+              <h4>새 글 작성하기</h4>
               </div>
-            </div>
+             <%= form_tag '/dashboard/write_post' do %>
+               <textarea class="form-control" value="content" name="content"rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea>
+               <input type="submit" class="btn" value="확인">
+             <% end %>
          </div>
+       </div>
     </div>
-
-<!-- 새 글 작성 폼시작 --> 
-    <% if @users.artist_name == current_user.artist_name %>
-    <div class="container" style="color: #F5F5F5">
-         <div class="row">
-            <div class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                  <div class="caption">
-                  <h4>새 글 작성하기</h4>
-                  </div>
-                 <%= form_tag '/dashboard/write_post' do %>
-                   <textarea class="form-control" value="content" name="content"rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea> 
-                   <input type="submit" class="btn" value="확인">
-                 <% end %>
-             </div>
-           </div>
-        </div>
-    </div>
-    <% end %>
-
+</div>
+<% end %>
 
 
 
 <!-- 글 보여주기 -->
-                <div class="jumbotron">
-                  <div class="container">
-                    <% @posts.reverse.each do |post| %>
-                      <p><%= post.content %></p>
+<div class="container col-sm-4">
+  <% @posts.reverse.each do |post| %>
+  <div class="panel panel-default">
 
-                      <% unless post.comments.nil?%>
-                          <% post.comments.each do |comment| %> 
-                            <p>댓글:<%=comment.content %></p>
-                            <h5>작성자:<%= comment.user.name %>
-                            날짜:<%= comment.created_at %></h5> 
-                          <% end %>
-                            <div id="reply_<%= post.id %>"> </div>
-                      <% end %>
+    <div class="panel-heading">
+      <p><%= post.content %></p>
+    </div>
 
-                          <p><%= current_user.name %>
-                             <input type="hidden" value="1" name="post_id">
-                             <textarea name="content" rows="1"id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea> 
-                             <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button><hr>
-                          </p>
-                    <% end %>
-                  </div>
-                </div>
+    <div class="panel-body">
+      <p>
+        <%= current_user.name %>
+         <input type="hidden" value="1" name="post_id">
+         <textarea class="form-control"name="content" rows="1"id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
+         <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button><hr>
+      </p>
+      <% unless post.comments.nil?%>
+        <% post.comments.each do |comment| %>
+        <div class="container" id="comments" style="max-width:900px">
+          <div style="max-width:700px">
+            <a class="pull-left" href="#" style="margin-right:10px">
+              <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
+            </a>
+            <div class="media-body" style="max-width:700px">
+              <h4 class="media-heading"><%= comment.user.name %>
+                <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></small>
+                <br>
+                <small style="color:black"><%= comment.content %></small>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div id="reply_<%= post.id %>"></div>
+        <% end %>
+      <% end %>
+
+    </div>
+  </div>
+  <% end %>
+</div>
+
 
 
 <!-- 댓글 시작 -->
-            <script>
-              $(function() {
-                $(".reply_submit").click(function(){
+<script>
+  $(function() {
+    $(".reply_submit").click(function(){
 
-                  post_id = this.value;
-                  post_content = $("#content_" + post_id).val()
-  
-                  $.ajax({
-                    method: "POST",
-                    url:  "/comments/create",
-                    data: { content: post_content, 
-                            post_id: post_id },
-                    success: function(data){
-                      alert("리플이 작성되었습니다");
-                      $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>" + "<h5>" + "작성자" + data[0].user.name + "날짜:" + data[0].cmt.created_at + "</h5>" );
-                      $( "#content_" + post_id).val('');
-                    },
-                    error: function(){
-                      alert("에러에러에러에러에러다");
-                    }
-                  });
-  
-                 });
-               });
-            </script>
- 
+      post_id = this.value;
+      post_content = $("#content_" + post_id).val()
+
+      $.ajax({
+        method: "POST",
+        url:  "/comments/create",
+        data: { content: post_content,
+                post_id: post_id },
+        success: function(data){
+          console.log("리플이 작성되었습니다");
+          $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>" + "<h5>" + "작성자" + data[0].user.name + "날짜:" + data[0].cmt.created_at + "</h5>" );
+          $( "#content_" + post_id).val('');
+        },
+        error: function(){
+          console.log("에러에러에러에러에러다");
+        }
+      });
+
+     });
+   });
+</script>
