@@ -7,12 +7,12 @@ class CommentsController < ApplicationController
     comment.user_id = current_user.id
 
     comment.save
-    redirect_to :back
     
-    @comment = Comment.find_by(id: current_user.id)
-    
-    render json: @comment 
-                              
+    @user = User.find_by(id: comment.user_id)
+    @cmt = Comment.find_by(user_id: current_user.id)
+    array = []
+    array.push("cmt"=>@cmt, "user"=>@user)  
+  render json: array 
   end
 
   def destroy
