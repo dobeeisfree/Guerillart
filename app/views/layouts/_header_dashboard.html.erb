@@ -17,7 +17,7 @@
         <a href="/dashboard/write" method="get">공연등록</a>
       </li>
       <li class="dropdown">
-      <%= link_to "마이페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
+      <%= link_to "#{artist_name} 페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
       </li>
     <% end %>
     <% if current_user.artist_name.nil? %>
