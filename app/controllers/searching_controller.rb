@@ -13,6 +13,7 @@ class SearchingController < ApplicationController
       all_of do
         with(:location_x, params[:sw_lat].to_f..params[:ne_lat].to_f)
         with(:location_y, params[:sw_lng].to_f..params[:ne_lng].to_f)
+        with(:status).equal_to(1) #진행중인 공연인지 확인
       end
     end
     
@@ -33,7 +34,7 @@ class SearchingController < ApplicationController
 
     addedDist = []
     @results.each do |res|
-      addedDist.push({"show"=>res, "dist"=>Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2)})
+      addedDist.push({"show"=>res, "creator"=>res.creator, "dist"=>Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2)})
     end
   
     addedDist.each do |x|
