@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
   resources :follows, only: [:create, :destroy]
   get '/shows/view/:show_id' => 'home#view'
- 
+  get '/artist/search' => 'home#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -45,7 +45,7 @@
           <span class="shot-byline-user">
           <%
           # 공연을 등록한 아티스트를 찾는다.
-          this_artist = User.find_by(id: @show.user_id)
+          this_artist = @show.creator
           if !this_artist.nil?
           %>
           by <a class="url hoverable" rel="contact" href="#"><%= this_artist.artist_name %></a>

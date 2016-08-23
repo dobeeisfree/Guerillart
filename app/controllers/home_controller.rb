@@ -47,4 +47,10 @@ class HomeController < ApplicationController
    @posts = Post.all
   end
 
+  def search 
+    @res_artists = User.find_by_artist_name(params[:artist_name])
+  end
+        
+
+
 end
