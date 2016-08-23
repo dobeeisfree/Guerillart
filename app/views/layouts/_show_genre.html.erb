@@ -5,7 +5,7 @@
       # 모달에 값을 넘겨준다
       @show = show
   %>
-  <%= render partial: "/layouts/show_modal", colloection: @show %>
+  <%= render partial: "/layouts/show_modal" %>
 
     <figure class="effect-oscar wowload fadeInUp">
       <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
@@ -29,3 +29,37 @@
   end
 %>
 </div>
+
+<!-- 댓글 작성 시작 -->
+            <script>
+              $(function() {
+                $(".reply_submit").click(function(){
+
+                  show_id = this.value;
+                  post_content = $("#comment_content_" + show_id).val();
+ 
+                  $.ajax({
+                    method: "POST",
+                    url:  "/comments/create",
+                    data: { content: post_content, 
+                            show_id: show_id },
+                    success: function(data){
+                      alert("리플이 작성되었습니다");
+            
+                    
+                      $(".googol_" + show_id ).append('<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;"  />');
+ 
+                      $( ".reply_" + show_id ).append( "<h4>" + data[0].user.name + "<small>" + data[0].cmt.created_at + "</small>"+ "<br/>"  + "<small style=color:black>" +  post_content + "</small>" + "</h4>"   );
+                      $( "#comment_content_" + show_id).val('');
+                    },
+                    error: function(){
+                      alert("에러에러에러에러에러다");
+                    }
+                  });
+  
+                 });
+               });
+            </script>
+<!-- 댓글작성  끝 -->
+
+
