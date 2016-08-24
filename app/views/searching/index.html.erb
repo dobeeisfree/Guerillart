@@ -187,7 +187,6 @@
 
 				globalMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 								
-				
 				globalGeocoder.geocode({
 					'address' : address
 				}, function(results, status) {
@@ -204,10 +203,37 @@
 					}
 				});
 				
-				
+				//gps버튼 추가
 				addYourLocationButton(globalMap, centerMarker);
 				
-
+				//맵 로딩 완료후 한번만 실행할 함수
+				google.maps.event.addListenerOnce(globalMap, 'idle', function(){
+					updateMarkers();
+    			});
+				
+				// 드래그 끝났을 때 이벤트 추가
+				google.maps.event.addListener(globalMap, 'dragend', function() {
+					$(function(){
+						updateMarkers();
+					});
+				});
+				
+				// 줌 변경시 이벤트 추가
+				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
+					$(function(){
+						updateMarkers();
+					});
+				});
+				
+				//지도의 빈 부분 클릭시
+				google.maps.event.addListener(globalMap, 'click', function() {
+					infowindow.close();
+					closedBubble.open();
+					closedBubble=null;
+				});
+				
+				
+				
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					// var bounds = globalMap.getBounds();
@@ -218,13 +244,6 @@
 					// // scheduleDelayedCallback();
 				// });
 				
-				
-				//맵 로딩 완료후 한번만 실행할 함수
-				google.maps.event.addListenerOnce(globalMap, 'idle', function(){
-					removeAllMarkers();
-					updateMarkers();
-    			});
-				
 				// 센터 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'center_changed', function() {
 					// // removeAllMarkers();
@@ -233,25 +252,6 @@
 					// // showMapPos();
 					// // showMapAddr();
 				// });
-				
-				
-				// 드래그 끝났을 때 이벤트 추가
-				google.maps.event.addListener(globalMap, 'dragend', function() {
-					$(function(){
-						removeAllMarkers();
-						updateMarkers();
-					});
-				});
-				
-				// 줌 변경시 이벤트 추가
-				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
-					$(function(){
-						removeAllMarkers();
-						updateMarkers();
-					});
-				});
-				
-				
 				
 				// 갱신 딜레이
 				// function fireIfLastEvent()
@@ -266,11 +266,6 @@
 				    // lastEvent = new Date();
 				    // setTimeout(fireIfLastEvent, 500);
 				// }
-
-
-				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
-					// moveMarker(event.latLng);
-				// });
 				
 			}
 			
@@ -317,7 +312,6 @@
 				            globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 				           	
 				           	(function(){
-					        	removeAllMarkers();
 								updateMarkers();
 				            })();
 				    	});
@@ -350,11 +344,12 @@
 			        	method: "POST",
 			        	url: "/search?location="+"<%=@location%>",
 			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng()},
-			        	// data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng()},
 			        	dataType: 'json',
-			        	success: function(data){ 
+			        	success: function(data){
+			        		 
+			        			//모든 infobubble 삭제
+			        		removeAllMarkers();
 			        		
-			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 
 							//센터 마커 이동
@@ -418,9 +413,6 @@
 			        	error: function(){
 			        		alert("Sorry, load failed T^T");
 			        	}
-			        	// comlete: function(data){
-							// alert("T^T "+data);
-						// }
 			        })
 			        
 			   	});
@@ -431,18 +423,11 @@
 				// alert(""+"<%=@neLat%>");
 				
 				
-				
-				// i = 0;				
-				// <% @show_all.each do |show| %>
 // 				
-					// if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng )
-					// {
 // 						
 						// //infoBubble 띄우기
 						// infoBubble2 = new InfoBubble({
 					    	// map: globalMap,
-					        // content: "<%=show.genre%>",
-					        // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
 					        // shadowStyle: 0,	//그림자 off
 					        // padding: 0,
 					        // minWidth: 5,
@@ -462,7 +447,6 @@
 // 					
 						// //infoBubble 클릭 리스너
 						// google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-					    	// alert("Ooo..!"+"<%=show.genre%>");
 						// });
 // 						
 // 						
@@ -471,12 +455,11 @@
 						// //marker 띄우기
 						// // globalMarker = new google.maps.Marker({
 							// // map : globalMap,
-							// // position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
 							// // draggable : false,
 // // 							
 							// // icon: new google.maps.MarkerImage(
 						    	// // // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
+						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|",
 						    	// // null, null, null)
 							// // //label : "hi"
 						// // });
@@ -490,7 +473,6 @@
 							        // // infowindow.close();
 							    // // }
 	                            // // infowindow = new google.maps.InfoWindow({
-	                                // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
 	                            // // });
 	                            // // infowindow.open(globalMap, globalMarker);
 // // 	                            
@@ -504,16 +486,7 @@
 						// // globalinfoWindow = new google.maps.InfoWindow({
 							// // clickable : true,
 							// // map : globalMap,
-							// // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-                            // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-                        // // });
-// 	                            
-// 
-// 						
-// 						
-						// i++;
 					// }//if end
-				// <% end %>				
 			}//updateMarkers end
 			
 			
@@ -528,9 +501,6 @@
 			        // }
 			    // markers = [];    
 			}
-			
-			
-			
 			
 			
 			
