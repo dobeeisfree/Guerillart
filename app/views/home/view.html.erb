@@ -43,19 +43,15 @@
       <h2 class="shot-byline">
         <span class="attribution">
           <span class="shot-byline-user">
-          <%
-          # 공연을 등록한 아티스트를 찾는다.
-          this_artist = @show.creator
-          if !this_artist.nil?
-          %>
-          by <a class="url hoverable" rel="contact" href="#"><%= this_artist.artist_name %></a>
-          <% else %>
+        <% if !@show.creator.nil? %>
+          by <a class="url hoverable" rel="contact" href="#"><%= @show.creator.artist_name %></a>
+        <% else %>
           by <a class="url hoverable" rel="contact" href="#">장범준</a>
-          <% end %>
+        <% end %>
           </span>
         </span>
         <span class="shot-byline-date">
-        on <a href="#"><%= @show.time %></a>
+        on <a href="#"><%= @show.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d") %></a>
         </span>
       </h2>
     </div>
