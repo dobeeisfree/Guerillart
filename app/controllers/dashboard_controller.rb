@@ -115,6 +115,8 @@ class DashboardController < ApplicationController
     @users = User.find(params[:user_id])
     @users.introduction = params[:introduction]
     @users.sns = params[:sns]
+    @users.image = params[:image]
+    @users.avatar = params[:avatar]
     
     if @users.save
     redirect_to :back 

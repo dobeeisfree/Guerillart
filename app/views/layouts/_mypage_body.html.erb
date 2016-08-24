@@ -27,7 +27,11 @@
 <!-- 아티스트 프로필 헤더 -->
 <div class="ProfileCanopy-header u-bgUserColor">
     <div class="ProfileCanopy-headerBg" style="margin-top:-20px">
+    <% if @users.image.url.nil? %> 
       <img alt="" src="https://pbs.twimg.com/profile_banners/74550725/1467017138/1500x500" height="350px" width="100%" >
+    <% else %>
+      <img alt="" src="<%= @users.image.url%>" height="350px" width="100%" >
+    <% end %>
     </div>
 
   <div class="AppContainer">
@@ -132,7 +136,7 @@
         <div id="op-comment-lists-<%= post.id %>">
           <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
           <p>
-            <span style="color:black; ><%= current_user.name %></span>
+            <span style="color:black;" ><%= current_user.name %></span>
             <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
             <textarea class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
             <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
