@@ -124,19 +124,18 @@
     <% @posts.reverse.each do |post| %>
     <!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
       <% if @users.id == post.user_id %>
-      <div class="panel panel-default">
         <!-- 아티스트가 글쓴 내용 -->
-        <div class="panel-heading">
+        <div class="jumbotron">
           <p>내용:<%= post.content %></p>
           <p><a id="op-comments-<%= post.id %>">댓글 <b><%= post.comments.size %></b></a></p>
         </div>
-        <div class="panel-body" id="op-comment-lists-<%= post.id %>">
+        <div id="op-comment-lists-<%= post.id %>">
           <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
           <p>
-            <span style="color:black"><%= current_user.name %></span>
+            <span style="color:black; ><%= current_user.name %></span>
             <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
             <textarea class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
-            <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button>
+            <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
           </p>
           <!-- 글쓴 내용에 달린 댓글 출력 -->
           <% unless post.comments.nil? %>
@@ -161,7 +160,6 @@
       <% end %>
       <!-- 댓글 출력 끝-->
       </div>
-    </div>
     <% end %>
   </div>
 </div>
