@@ -21,7 +21,55 @@
 				width: 100%;
 				height: 100%;
 			}
+			#wrapper{
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			#over_info{
+				background: rgba(112,112,112, 0.5) !important;
+				position:absolute; 
+				bottom: 0; 
+				left: 0;
+				width: 0;
+				height: 22%;
+				z-index: 99;
+				border-radius: 3px;
 
+			}
+				/* Start by setting display:none to make this hidden.
+			   Then we position it in relation to the viewport window
+			   with position:fixed. Width, height, top and left speak
+			   for themselves. Background we set to 80% white with
+			   our animation centered, and no-repeating */
+			.modal#load {
+			    display:    none;
+			    position:   fixed;
+			    z-index:    1000;
+			    top:        0;
+			    left:       0;
+			    height:     100%;
+			    width:      100%;
+			    background: rgba( 255, 255, 255, .2 ) 
+			                url('http://i.stack.imgur.com/FhHRx.gif') 
+			                50% 50% 
+			                no-repeat;
+			}
+			
+			/* When the body has the loading class, we turn
+			   the scrollbar off with overflow:hidden */
+			body.loading {
+			    overflow: hidden;   
+			}
+			
+			/* Anytime the body has the loading class, our
+			   modal element will be visible */
+			body.loading .modal#load {
+			    display: block;
+			}
+				
+				
+				
 			#control {
 			}
 
@@ -111,7 +159,14 @@
 	    </script> -->
 		
 		<script type="text/javascript">
-
+		
+			//loading modal 띄우기
+			$body = $("body");
+			$(document).on({
+			    ajaxStart: function() { $body.addClass("loading"); },
+			    ajaxStop: function() { $body.removeClass("loading"); }    
+			});
+			
 			var globalMap;
 			var globalMarker;
 			var globalGeocoder;
@@ -132,6 +187,7 @@
 			
 			var centerMarker;	//센터 표시 마커
 			
+			var isMobile;
 			// 맵 초기화
 			function initialize() {
 				var address = "<%=@location%>"
@@ -159,7 +215,7 @@
 						// alert("Geocode was not successful for the following reason: " + status);
 					// }
 				// });
-				
+				isMobile = detectBrowser();
 				
 				globalGeocoder = new google.maps.Geocoder();
 
@@ -227,9 +283,19 @@
 				
 				//지도의 빈 부분 클릭시
 				google.maps.event.addListener(globalMap, 'click', function() {
-					infowindow.close();
-					closedBubble.open();
-					closedBubble=null;
+					if(isMobile)
+					{
+						document.getElementById("over_info").style.width = '0%';
+						document.getElementById("over_artist").innerHTML =  "";
+					}
+					else
+					{
+						if(infowindow)
+							infowindow.close();
+						closedBubble.open();
+						closedBubble=null;
+					}
+					
 				});
 				
 				
@@ -267,6 +333,26 @@
 				    // setTimeout(fireIfLastEvent, 500);
 				// }
 				
+			}
+			
+			
+			//유저 디바이스 확인 함수
+			function detectBrowser() 
+			{
+				var useragent = navigator.userAgent;
+				var mapdiv = document.getElementById("map_canvas");
+				// var s_left = document.getElementById("s_left");
+				
+				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+				    // mapdiv.style.width = '100%';
+				    // mapdiv.style.height = '100%';
+				    document.getElementById("s_left").style.width = '100%';
+				    return true;
+				} else {
+			    	// mapdiv.style.width = '600px';
+			   		// mapdiv.style.height = '800px';
+			   		return false;
+			  	}
 			}
 			
 			
@@ -353,7 +439,8 @@
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 
 							//센터 마커 이동
-			        	 	centerMarker.setPosition(center);
+							//centerMarker.setMap(globalMap);
+			        	 	// centerMarker.setPosition(center);
 
 			        	 	document.getElementById("s_right").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
@@ -371,13 +458,13 @@
 							        maxWidth: 160,
 							        maxHeight: 50,
 							        backgroundColor: '#FFFF8F',
+							        //backgroundColor: 'transparent',
 							        borderRadius: 4,
 							        arrowSize: 10,
 							        borderWidth: 1,
 							        borderColor: '#000000',
 							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 							        hideCloseButton: true,	//닫기 버튼 숨기기
-							        arrowPosition: 49,
 							        // backgroundClassName: 'phoney',
 							        arrowStyle: 0	//화살표 모양 (0 : 가운데)
 						        });
@@ -388,21 +475,34 @@
 								(function(infoBubble2, i) {
 	                        		// add click event
 			                        google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-			                        	if (infowindow && closedBubble) {
-									        infowindow.close();
-									        closedBubble.open();
-									    }
-									    closedBubble = infoBubble2;
-									    infoBubble2.close();
-									    
-			                            infowindow = new google.maps.InfoWindow({
-			                            	content: "Hello, World!!" + data[i].creator.name + "<br />"+"hi"
-			                            });
-			                            infowindow.open(globalMap, infoBubble2);
+			                        	if(isMobile)
+			                            {
+			                            	// centerMarker.setMap(null);
+				                            document.getElementById("over_info").style.width = '100%';
+				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].show.genre+"</h1>";
+			                            }
+			                            else
+			                            {
+			                        	
+				                        	if (infowindow && closedBubble) 
+				                        	{
+										        infowindow.close();
+										        closedBubble.open();
+										    }
+										    closedBubble = infoBubble2;
+										    infoBubble2.close();
+										    
+				                            infowindow = new google.maps.InfoWindow({
+				                            	content: "Hello, World!!" + data[i].creator.name + "<br />"+"hi"
+				                            });
+				                            infowindow.open(globalMap, infoBubble2);
 			                            
-			                            // alert("Ooo..!"+i);
-			                            
-			                     	  });
+			                            }
+			                    		// document.getElementById("over_info").style.height = '20%';
+			                    	});
+			                     	  
+			                     	  
+			                     	  
 			                    })(infoBubble2, i);
 								
 								document.getElementById("s_right").innerHTML += "<h1>"+data[i].show.genre+"</h1> <br />";
@@ -676,7 +776,13 @@
 	<!-- <body onload="initialize(); setTimeout('updateMarkers()', 600);"> -->
 	<body onload="initialize()">
 		<div id="s_left">
-			<div id="map_canvas"></div>
+			<div id="wrapper">
+				<div id="map_canvas"></div>
+				<div id="over_info">
+					<div id="over_artist"></div>
+				</div>
+			</div>
+			<!-- <div id="map_canvas"></div> -->
 
 			<div id="control">
 				<dl>
@@ -751,6 +857,6 @@
 
 		<div id="s_right">
 		</div>
-
+		<div class="modal", id="load"><!-- Place at bottom of page --></div>
 	</body>
 </html>
