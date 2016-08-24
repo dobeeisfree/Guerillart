@@ -1,3 +1,29 @@
+<style>
+/* 퐐로워 */
+.artist-info-th {
+  margin-top: -180px;
+  margin-left: 356px;
+}
+
+/* 왼쪽 정보들 : 아티스트들의 정보 */
+.artist-profile-info {
+  color: #F5F5F5;
+  max-width: 385px;
+  margin-left: 100px;
+  float:left;
+}
+/* 정중앙, 아티스트의 글쓰기와 포스트들 */
+.post-by {
+  max-width: 450px;
+  margin-left: 480px;
+  margin-top: 40px;
+}
+/* 오른쪽 정보들 : 아티스트의 공연 */
+.this-artist-shows {
+  margin-top: 30px;
+}
+</style>
+
 <!-- 아티스트 프로필 헤더 -->
 <div class="ProfileCanopy-header u-bgUserColor">
     <div class="ProfileCanopy-headerBg" style="margin-top:-20px">
@@ -6,47 +32,25 @@
 
   <div class="AppContainer">
     <div class="ProfileCanopy-avatar" style="margin-top:-150px;">
-      <a class="ProfileAvatar-container u-block js-tooltip profile-picture"   data-resolved-url-large="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" data-url="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" target="_blank" data-original-title="Wonder Girls">
+      <a class="ProfileAvatar-container u-block js-tooltip profile-picture" data-resolved-url-large="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" data-url="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg" target="_blank"
+       data-original-title="<%= @users.artist_name %>-title">
     </div>
   </div>
 </div>
 
-<div class="container">
+<div class="container-fluid" style="margin-left:90px">
+  <!-- 아티스트의 프로필 사진 -->
   <img src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg"
-  alt="wondergirls" class="img-circle" style="box-shadow: 5px 10px 30px #888888;"
+  alt="<%= @users.artist_name %>" class="img-circle" style="box-shadow: 5px 5px 30px #888888;"
   width="300" height="300">
-</div>
-
-<div class="container">
-
-        <div class="col-md-7 user-details">
-
-            <div class="row overview">
-                <div class="col-md-4 user-pad text-center">
-                    <h3>Followers</h3>
-                    <h4><%= current_user.followers.length %></h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>Following</h3>
-                    <h4><%= current_user.followings.length %></h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>Show</h3>
-                    <h4>1</h4><!--TODO 아티스트가 등록한 공연의 개수-->
-                </div>
-            </div>
-        </div>
-      </div>
-
-<!-- 아티스트 프로필 -->
-<div class="container" style="color: #F5F5F5;">
-  <div class="row" >
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail" style="margin-top: 32px;margin-right: 37px;">
-        <div class="caption" style="text-align:center">
-        <p><h2><%= @users.artist_name %></h2></p>
-
-          <% if user_signed_in? && current_user.id != @users.id%>
+  <!-- 퐐로수, 공연등록 수-->
+  <div class="artist-info-th">
+    <div class="col-md-7 user-details">
+      <div class="row overview">
+        <div class="col-md-4 text-center">
+          <h3>Followers</h3>
+          <h4><%= @users.followers.length %></h4>
+          <% if user_signed_in? && current_user.id != @users.id %>
             <% if current_user.followings.include?(@users) %>
               <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
                 <button class="btn">팔로우 취소</button>
@@ -58,20 +62,25 @@
               <% end %>
             <% end %>
           <% end %>
-
-        <p>한줄소개 : <%= @users.introduction %></p>
-        <p>주 활동지역 : <%= @users.area %></p>
-        <p><%= @users.sns %></p>
-        <p>가입일:<%= @users.created_at %></p>
-
-        <% if current_user.artist_name == @users.artist_name %>
-          <% user = @users.artist_name %>
-          <div class="btn btn-default">
-            <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
-          </div>
-        <% end %>
-
         </div>
+        <div class="col-md-4 text-center">
+          <h3>Following</h3>
+          <h4><%= @users.followings.length %></h4>
+        </div>
+        <div class="col-md-4 text-center">
+          <h3>Shows</h3>
+          <% #seeds.rb 값을 보면 creator_id를 이미 넣어줘서 이미 공연이 등록됬다고 보면됨 %>
+          <h4><%= @users.creations.size %></h4>
+        </div>
+      </div>
+    </div>
+    <!-- 이 아티스트의 공연, 다가오는 공연과 마친 공연 -->
+    <div class="this-artist-shows">
+      <div>
+        <h4>다가오는 공연</h4>
+      </div>
+      <div>
+        <h4>끝마친 공연</h4>
       </div>
     </div>
   </div>
@@ -79,72 +88,88 @@
 
 
 
-<!-- 새 글 작성 폼시작 -->
-<% if @users.artist_name == current_user.artist_name %>
-<div class="container" style="color: #F5F5F5;">
-     <div class="row">
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-              <div class="caption">
-              <h4>새 글 작성하기</h4>
-              </div>
-             <%= form_tag '/dashboard/write_post' do %>
-               <textarea class="form-control" value="content" name="content" rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea>
-               <input type="submit" class="btn" value="확인">
-             <% end %>
-         </div>
-       </div>
+
+<!-- 아티스트 프로필, 왼쪽에 위치한다-->
+<div class="artist-profile-info">
+  <div class="thumbnail" style="margin-top: 40px; margin-right: 37px;">
+    <div class="caption" style="text-align: left">
+      <h2><%= @users.artist_name %></h2>
+      <p>
+        한줄소개 : <%= @users.introduction %></br>
+        주 활동지역 : <%= @users.area %></br>
+        sns :<%= @users.sns %></br>
+        가입일 :<%= @users.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d") %></br>
+      </p>
+      <% if current_user.artist_name == @users.artist_name %>
+        <% user = @users.artist_name %>
+        <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
+      <% end %>
     </div>
+  </div>
 </div>
-<% end %>
 
 
 
-<!-- 글 보여주기 -->
-<div class="container col-sm-4 posts_get">
-  <% @posts.reverse.each do |post| %>
-  <!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
-    <% if @users.id == post.user_id %>
-    <div class="panel panel-default">
-      <!-- 아티스트가 글쓴 내용 -->
-      <div class="panel-heading">
-        <p>내용:<%= post.content %></p>
-        <p><a id="op-comments-<%= post.id %>">댓글 <b><%= post.comments.size %></b></a></p>
+
+
+<!-- 정중앙에 트위터처럼 위치해야하는 엘리멘트들 -->
+<div class="post-by">
+  <!-- 새 글 작성 폼시작 -->
+  <% if @users.artist_name == current_user.artist_name %>
+    <div style="text-align : center; margin-bottom:10px">
+      <%= form_tag '/dashboard/write_post' do %>
+      <div class="form-group">
+        <textarea class="form-control" value="content" name="content" rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea>
       </div>
-      <div class="panel-body" style="display:none;" id="op-comment-lists-<%= post.id %>">
-        <!-- 현재 유저에게 보이는 댓글창 -->
-        <p>
-          <%= current_user.name %>
-           <input type="hidden" value="1" name="post_id">
-           <textarea class="form-control"name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
-           <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button><hr>
-        </p>
-        <!-- 글쓴 내용에 달린 댓글 출력 -->
-        <% unless post.comments.nil? %>
-          <% post.comments.each do |comment| %>
-          <div class="container" id="comments" style="max-width:900px">
-            <div style="max-width:700px">
-              <a class="pull-left" href="#" style="margin-right:10px">
+      <input type="submit" class="btn btn-primary" value="확인">
+      <% end %>
+    </div>
+  <% end %>
+  <!-- 글 보여주기 -->
+  <div class="posts_get">
+    <% @posts.reverse.each do |post| %>
+    <!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
+      <% if @users.id == post.user_id %>
+      <div class="panel panel-default">
+        <!-- 아티스트가 글쓴 내용 -->
+        <div class="panel-heading">
+          <p>내용:<%= post.content %></p>
+          <p><a id="op-comments-<%= post.id %>">댓글 <b><%= post.comments.size %></b></a></p>
+        </div>
+        <div class="panel-body" id="op-comment-lists-<%= post.id %>">
+          <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
+          <p>
+            <span style="color:black"><%= current_user.name %></span>
+            <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
+            <textarea class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
+            <button value="<%= post.id %>" type="submit" class="btn btn-default reply_submit">확인</button>
+          </p>
+          <!-- 글쓴 내용에 달린 댓글 출력 -->
+          <% unless post.comments.nil? %>
+            <% post.comments.each do |comment| %>
+            <div id="comments">
+              <a class="pull-left" href="#">
                 <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
               </a>
-              <div class="media-body" style="max-width:700px">
-                <h4 class="media-heading"><%= comment.user.name %>
-                  <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %></small>
+              <div class="media-body" style="padding-left:15px">
+                <h4 class="media-heading">
+                  <span style="color:black"><%= comment.user.name %></span>
+                  <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d %H:%M:%S") %></small>
                   <br>
                   <small style="color:black"><%= comment.content %></small>
                 </h4>
               </div>
             </div>
-          </div>
-          <hr>
-          <div id="reply_<%= post.id %>"></div>
+            <hr>
+            <div id="reply_<%= post.id %>"></div>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-    <!-- 댓글 출력 끝-->
+      <!-- 댓글 출력 끝-->
+      </div>
     </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
 
 
@@ -164,7 +189,22 @@ $(function() {
               post_id: post_id },
       success: function(data){
         console.log("리플이 작성되었습니다");
-        $( "#reply_" + post_id ).append( "<p>" + "댓글:" + post_content + "</p>" + "<h5>" + "작성자" + data[0].user.name + "날짜:" + data[0].cmt.created_at + "</h5>" );
+        $( "#reply_" + post_id ).append(
+            "<div id=" + "comments" + "style=" + "color:black" + ">"
+            + "<a class=" + "pull-left" + "href=" + "#" + "></a>"
+              + "<img class=" + "media-object dp img-circle" + "src=" + "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"             + "style=" + "width:50px; height:50px;" + ">"
+              + "<div class=" + "media-body" + "style=" + "padding-left:15px" + ">"
+              + "<h4 class=" + "media-heading" + ">"
+              + "<span style=" + "color:black" + ">"
+                + data[0].user.name
+              + "</span>"
+              + "<small> " + data[0].cmt.created_at + "</small>"
+              + "<br>"
+            + "<small style=" + "color:black" + ">"
+                + post_content
+            + "</small>"
+            + "</h4></div></div><hr>"
+          );
         $( "#content_" + post_id).val('');
       },
       error: function(){
@@ -175,5 +215,4 @@ $(function() {
    });
    // TODO 포스트마다의 댓글 펼치기 기능
 });
-
 </script>
