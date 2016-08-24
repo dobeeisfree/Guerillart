@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
