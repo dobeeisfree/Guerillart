@@ -5,6 +5,24 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+#
+ #유저정보
+User.create(name: "민효린", artist_name: "씨스타", genre: "pop", phone_number: 01022221111, area: "Seoul", introduction: "잘부탁드립니다", email: "sistar@sistar.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "박효신", artist_name: "박효신", genre: "RnB", phone_number: 01022221112, area: "Seoul", introduction: "잘부탁드립니다", email: "hyosin@hyosin.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "김범수", artist_name: "김범수", genre: "rap", phone_number: 01022221133, area: "Seoul", introduction: "잘부탁드립니다", email: "bumsoo@bumsoo.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "나얼", artist_name: "나얼", genre: "RNB", phone_number: 01022221114, area: "Seoul", introduction: "잘부탁드립니다", email: "naul@naul.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "씨잼", artist_name: "씨잼", genre: "rap", phone_number: 01022221115, area: "Seoul", introduction: "잘부탁드립니다", email: "cjam@cjam.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "산E", artist_name: "SANE", genre: "rap", phone_number: 01022221111, area: "Seoul", introduction: "잘부탁드립니다", email: "sane@sane.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "최성훈", artist_name: "최자", genre: "rap", phone_number: 01022221111, area: "Seoul", introduction: "잘부탁드립니다", email: "choiza@choiza.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "박휘성", artist_name: "휘성", genre: "pop", phone_number: 01022221111, area: "Seoul", introduction: "잘부탁드립니다", email: "hoosung@hoosung.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "Beyonce", artist_name: "비욘세", genre: "pop", phone_number: 01022221111, area: "NewYork", introduction: "잘부탁드립니다", email: "beyonce@beyonce.com", password: "topsecret", password_confirmation: "topsecret")
+User.create(name: "Jayz", artist_name: "제이지", genre: "pop", phone_number: 01022221111, area: "NewYork", introduction: "잘부탁드립니다", email: "jayz@jayz.com", password: "topsecret", password_confirmation: "topsecret")
+
+
+
+
+##
 show = Show.new
 show.genre = "balad"
 show.location_x = 37.49720818812354
