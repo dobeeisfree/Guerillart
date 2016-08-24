@@ -8,7 +8,7 @@
 /* 왼쪽 정보들 : 아티스트들의 정보 */
 .artist-profile-info {
   color: #F5F5F5;
-  max-width: 385px;
+  width: 355px;
   margin-left: 100px;
   float:left;
 }
@@ -50,18 +50,6 @@
         <div class="col-md-4 text-center">
           <h3>Followers</h3>
           <h4><%= @users.followers.length %></h4>
-          <% if user_signed_in? && current_user.id != @users.id %>
-            <% if current_user.followings.include?(@users) %>
-              <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
-                <button class="btn">팔로우 취소</button>
-              <% end %>
-            <% else %>
-              <%= form_tag follows_path, class: "right" do %>
-                <input type="hidden" name="followed_id" value="<%= @users.id %>" />
-                <button class="btn">팔로우</button>
-              <% end %>
-            <% end %>
-          <% end %>
         </div>
         <div class="col-md-4 text-center">
           <h3>Following</h3>
@@ -74,15 +62,6 @@
         </div>
       </div>
     </div>
-    <!-- 이 아티스트의 공연, 다가오는 공연과 마친 공연 -->
-    <div class="this-artist-shows">
-      <div>
-        <h4>다가오는 공연</h4>
-      </div>
-      <div>
-        <h4>끝마친 공연</h4>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -93,13 +72,28 @@
 <div class="artist-profile-info">
   <div class="thumbnail" style="margin-top: 40px; margin-right: 37px;">
     <div class="caption" style="text-align: left">
-      <h2><%= @users.artist_name %></h2>
+      <b style="font-size:3em"><%= @users.artist_name %></b>
       <p>
-        한줄소개 : <%= @users.introduction %></br>
-        주 활동지역 : <%= @users.area %></br>
-        sns :<%= @users.sns %></br>
-        가입일 :<%= @users.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d") %></br>
+        <%= @users.introduction %></br>
+        </br>
+        <span class="glyphicon glyphicon-map-marker"></span> <%= @users.area %></br>
+        <span class="glyphicon glyphicon-link"></span> <%= @users.sns %></br>
+        가입일 <%= @users.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d") %></br>
       </p>
+      <span>
+      <% if user_signed_in? && current_user.id != @users.id %>
+        <% if current_user.followings.include?(@users) %>
+          <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
+            <button class="btn btn-primary">팔로우 취소</button>
+          <% end %>
+        <% else %>
+          <%= form_tag follows_path, class: "right" do %>
+            <input type="hidden" name="followed_id" value="<%= @users.id %>" />
+            <button class="btn btn-primary">팔로우</button>
+          <% end %>
+        <% end %>
+      <% end %>
+      </span>
       <% if current_user.artist_name == @users.artist_name %>
         <% user = @users.artist_name %>
         <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
