@@ -26,3 +26,42 @@
 
 	</div>
 </div>
+<style>
+/* 배경 사진 */
+body {
+	background-image: url("/images/tower1.jpg");
+	background-size: 1400px;
+}
+/* 게릴라트 상단 */
+.carousel-caption {
+	margin-bottom:200px;
+}
+/* 지도 서치바 */
+#location {
+	color : white;
+	font-weight: bold;
+	font-size: 1em;
+	text-align: center;
+
+	border :none;
+	border-bottom: 2px solid #FFE300;
+	border-radius: 1px;
+
+  background: transparent;
+  outline: 0;
+}
+</style>
+<%= render :partial => "/layouts/header" %>
+
+<div class="ui container">
+	<form action="/search" method="GET">
+		<div class="carousel-caption">
+			<h1 style="font-size:7em">Guerillar Art</h1>
+			<div class="ui massive icon input">
+				<label for="location"></label>
+				<input type="text" id="location" name="location" placeholder="위치를 입력해주세요">
+				<i class="search icon"></i>
+			</div>
+		</div>
+	</form>
+</div>

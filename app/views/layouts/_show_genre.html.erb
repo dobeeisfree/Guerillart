@@ -1,65 +1,89 @@
-<div id="#<%= @current_genre %>"  class="clearfix grid">
-  <%
-    @shows.reverse.each do |show|
-    if show.genre == @current_genre || "모아보기" == @current_genre
-      # 모달에 값을 넘겨준다
-      @show = show
-  %>
-  <%= render partial: "/layouts/show_modal" %>
-
-    <figure class="effect-oscar wowload fadeInUp">
-      <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
-      <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
-      <figcaption>
-        <h2><%= show.title %></h2>
-        <p><%= show.location %><br>
-            <%= show.date  %><br>
-            <%= show.time %><br>
-        </p>
-        <p>
-          <a class="btn" data-toggle="modal" data-target="#upcomings-modal-<%= show.id %>">
-              <input type="hidden" name="show_id" value="<%= show.id %>">
-              More
-          </a>
-        </p>
-      </figcaption>
-    </figure>
+<style>
+/* 전체 장르목록을 감싸는 디브 */
+#show-genres {
+  margin-top: 60px;
+  margin-left: 105px;
+}
+.ui .card {
+  float :left;
+  margin : 15px 15px 15px 15px;
+}
+</style>
+<div class="ui container">
+    <div class="ui special cards" id="show-genres">
     <%
-    end
-  end
-%>
+        @shows.reverse.each do |show|
+        if show.genre == @current_genre || "모아보기" == @current_genre
+
+            @show = show # 모달에 값을 넘겨준다
+    %>
+      <%#= render partial: "/layouts/show_modal" %>
+      <div class="card">
+        <div class="blurring dimmable image">
+          <div class="ui inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui primary button">더보기</div>
+              </div>
+            </div>
+          </div>
+          <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+        </div>
+        <div class="content">
+          <a class="header"><%= show.title %>,
+            <% if show.creator.nil? %>
+            장범준</a>
+            <% else %>
+             <%= show.creator.artist_name %></a>
+            <% end %>
+          <div class="meta">
+            <span class="date"><%= show.location %></span>
+          </div>
+        </div>
+        <div class="extra content">
+          <span class="left floated like">
+            <i class="like icon"></i>
+            <%= show.likes.size %>
+          </span>
+          <span class="right floated"><%= show.date %></span>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+    </div>
 </div>
 
 <!-- 댓글 작성 시작 -->
-            <script>
-              $(function() {
-                $(".reply_submit").click(function(){
+<script>
+$(function() {
+  $('.special.cards .image').dimmer({
+    on: 'hover'
+  });
+  $(".reply_submit").click(function(){
 
-                  show_id = this.value;
-                  post_content = $("#comment_content_" + show_id).val();
- 
-                  $.ajax({
-                    method: "POST",
-                    url:  "/comments/create",
-                    data: { content: post_content, 
-                            show_id: show_id },
-                    success: function(data){
-                      alert("리플이 작성되었습니다");
-            
-                    
-                      $(".googol_" + show_id ).append('<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;"  />');
- 
-                      $( ".reply_" + show_id ).append( "<h4>" + data[0].user.name + "<small>" + data[0].cmt.created_at + "</small>"+ "<br/>"  + "<small style=color:black>" +  post_content + "</small>" + "</h4>"   );
-                      $( "#comment_content_" + show_id).val('');
-                    },
-                    error: function(){
-                      alert("에러에러에러에러에러다");
-                    }
-                  });
-  
-                 });
-               });
-            </script>
+    show_id = this.value;
+    post_content = $("#comment_content_" + show_id).val();
+
+    $.ajax({
+      method: "POST",
+      url:  "/comments/create",
+      data: { content: post_content,
+              show_id: show_id },
+      success: function(data){
+        alert("리플이 작성되었습니다");
+
+
+        $(".googol_" + show_id ).append('<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;"  />');
+
+        $( ".reply_" + show_id ).append( "<h4>" + data[0].user.name + "<small>" + data[0].cmt.created_at + "</small>"+ "<br/>"  + "<small style=color:black>" +  post_content + "</small>" + "</h4>"   );
+        $( "#comment_content_" + show_id).val('');
+      },
+      error: function(){
+        alert("에러에러에러에러에러다");
+      }
+    });
+
+   });
+});
+</script>
 <!-- 댓글작성  끝 -->
-
-
