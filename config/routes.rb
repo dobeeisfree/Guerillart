@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
-  get 'artists' => 'home#artists'
+  get '/artists' => 'home#artists'
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
   get 'shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
