@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'fog-aws'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'sunspot_rails'
