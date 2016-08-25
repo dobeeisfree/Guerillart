@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
+# semantic-ui
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+
+# amazon image upload
+gem "fog-aws"
 gem 'carrierwave'
 gem 'mini_magick'
+
+# solr
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
