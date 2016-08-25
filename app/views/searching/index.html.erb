@@ -188,12 +188,13 @@
 			var centerMarker;	//센터 표시 마커
 			
 			var isMobile;	//모바일이면 true
-			
+			var isDistOrder = 0; //거리순 정렬이면 1, default: 0 (인기순)
 			
 			// 맵 초기화
 			function initialize() 
 			{
-				var address = "<%=@location%>"
+				var address = "<%=@location%>";
+				isDistOrder = 1;
 				
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
 					// alert('검색할 주소를 입력하십시오.');
@@ -437,7 +438,7 @@
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/search?location="+"<%=@location%>",
-			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng()},
+			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng(), isDistOrder: isDistOrder },
 			        	dataType: 'json',
 			        	success: function(data){
 			        		 
@@ -487,6 +488,7 @@
 			                        	if(isMobile)
 			                            {
 			                            	// centerMarker.setMap(null);
+			                            	globalMap.setCenter(markerBubble.getPosition());
 				                            document.getElementById("over_info").style.width = '100%';
 				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].show.genre+"</h1>";
 			                            }
@@ -510,7 +512,7 @@
 			                    })(markerBubble, i);
 			                    
 								
-								document.getElementById("s_right").innerHTML += "<h1>"+data[i].show.genre+"</h1> <br />";
+								document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
 								
 			        	 	}
 			        	},
@@ -753,9 +755,23 @@
 				// 지도 중심좌표 이동
 				globalMap.setCenter(loc);
 			}
+			
+			
+			//정렬방법 바꾸기
+			function switchOrder()
+			{
+				if(isDistOrder == 1)
+					isDistOrder = 0;
+				else
+					isDistOrder = 1;
+					
+				updateMarkerBubbles();
+			}
+			
+			
 
 			
-			
+			//공연 시작 리스트
 			function setShowList(creations) 
 			{
 				var j_creations = JSON.parse(creations);
@@ -791,7 +807,7 @@
 						<strong>[Control]</strong>
 					</dt>
 					<dd>
-						기본좌표(x,y) : 37.50075507977441, 127.03690767288208
+						<input type="button" value="거리순/인기순" onClick="switchOrder();">
 					</dd>
 					<dd>
 						&nbsp;

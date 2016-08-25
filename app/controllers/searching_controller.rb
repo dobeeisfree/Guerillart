@@ -20,6 +20,8 @@ class SearchingController < ApplicationController
     center_lat = params[:ct_lat].to_f
     center_lng = params[:ct_lng].to_f
     
+    isDistOrder = params[:isDistOrder]
+    
     
 
     # i = 0
@@ -31,6 +33,11 @@ class SearchingController < ApplicationController
     puts Time.now
 
     @results = @search.results
+    
+    #인기순 정렬이라면
+    if isDistOrder.to_i == 0
+      @results.sort! { |a, b| a.creator.fan_count <=> b.creator.fan_count }.reverse!
+    end
 
     addedDist = []
     @results.each do |res|
@@ -43,7 +50,13 @@ class SearchingController < ApplicationController
     
     puts ""
     puts Time.now
-    addedDist.sort! { |a, b| a["dist"] <=> b["dist"]}
+    
+    #거리순 정렬이라면
+    if isDistOrder.to_i == 1
+      addedDist.sort! { |a, b| a["dist"] <=> b["dist"]}
+    end
+    
+    
     puts Time.now
     
     addedDist.each do |x|
