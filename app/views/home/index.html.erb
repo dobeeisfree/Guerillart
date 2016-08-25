@@ -1,28 +1,39 @@
-<div id="home">
-	<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">
+<style>
+/* 배경 사진 */
+body {
+	background-image: url("/images/tower1.jpg");
+	background-size: 1400px;
+}
+/* 게릴라트 상단 */
+.carousel-caption {
+	margin-bottom:200px;
+}
+/* 지도 서치바 */
+#location {
+	color : white;
+	font-weight: bold;
+	font-size: 1em;
+	text-align: center;
 
+	border :none;
+	border-bottom: 2px solid #FFE300;
+	border-radius: 1px;
 
-		<form action="/search" method="GET">
-			<div class="carousel-caption">
-				<div class="branding-text" style="margin-bottom:350px;">
-					<h1>Guerillar Art</h1>
-				</div>
-				<div class="input-group" style="margin-bottom:200px;">
-					<label class="sr-only" for="location"></label>
-					<div class="ui transparent massive input">
-						<input type="text" id="location" style="color:white" name="location" placeholder="위치를 입력해주세요">
-						<button type="submit" class="search icon">검색</button>
-					</div>
-				</div>
-			</div>
-		</form>
+  background: transparent;
+  outline: 0;
+}
+</style>
+<%= render :partial => "/layouts/header" %>
 
-		<div class="carousel-inner">
-			<div class="item active">
-				<img src="/images/tower1.jpg" alt="자동차">
+<div class="ui container">
+	<form action="/search" method="GET">
+		<div class="carousel-caption">
+			<h1 style="font-size:7em">Guerillar Art</h1>
+			<div class="ui massive icon input">
+				<label for="location"></label>
+				<input type="text" id="location" name="location" placeholder="위치를 입력해주세요">
+				<i class="search icon"></i>
 			</div>
 		</div>
-
-
-	</div>
+	</form>
 </div>
