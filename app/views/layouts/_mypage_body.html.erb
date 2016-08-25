@@ -8,7 +8,7 @@
 /* 왼쪽 정보들 : 아티스트들의 정보 */
 .artist-profile-info {
   color: #F5F5F5;
-  width: 355px;
+  width: 350px;
   margin-left: 100px;
   float:left;
 }
@@ -25,6 +25,8 @@
 </style>
 
 <!-- 아티스트 프로필 헤더 -->
+<div class="ProfileCanopy-header u-bgUserColor"  style="margin-top:70px">
+    <div class="ProfileCanopy-headerBg">
 <div class="ProfileCanopy-header u-bgUserColor">
     <div class="ProfileCanopy-headerBg" style="margin-top:-20px">
     <% if @users.image.url.nil? %> 
@@ -110,62 +112,83 @@
 
 
 
+
 <!-- 정중앙에 트위터처럼 위치해야하는 엘리멘트들 -->
 <div class="post-by">
+
+
   <!-- 새 글 작성 폼시작 -->
   <% if @users.artist_name == current_user.artist_name %>
-    <div style="text-align : center; margin-bottom:10px">
+    <div style="margin-bottom:10px">
       <%= form_tag '/dashboard/write_post' do %>
-      <div class="form-group">
-        <textarea class="form-control" value="content" name="content" rows="3" placeholder="무슨 생각을 하고 있어요?"></textarea>
-      </div>
-      <input type="submit" class="btn btn-primary" value="확인">
+        <div class="panel panel-default" style="width:450px; height:200px">
+          <div class="panel-body">
+            <textarea class="form-control counted" value="content" name="content" placeholder="무슨 생각을 하고 있어요?" rows="5" style="margin-bottom:10px;"></textarea>
+            <h6 class="pull-right" id="counter">320 characters remaining</h6>
+            <button class="btn btn-info" type="submit">글쓰기</button>
+          </div>
+        </div>
       <% end %>
     </div>
   <% end %>
-  <!-- 글 보여주기 -->
-  <div class="posts_get">
-    <% @posts.reverse.each do |post| %>
-    <!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
-      <% if @users.id == post.user_id %>
-        <!-- 아티스트가 글쓴 내용 -->
-        <div class="jumbotron">
-          <p>내용:<%= post.content %></p>
-          <p><a id="op-comments-<%= post.id %>">댓글 <b><%= post.comments.size %></b></a></p>
-        </div>
-        <div id="op-comment-lists-<%= post.id %>">
-          <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
-          <p>
-            <span style="color:black;" ><%= current_user.name %></span>
-            <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
-            <textarea class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요."></textarea>
-            <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
-          </p>
-          <!-- 글쓴 내용에 달린 댓글 출력 -->
-          <% unless post.comments.nil? %>
-            <% post.comments.each do |comment| %>
-            <div id="comments">
-              <a class="pull-left" href="#">
-                <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
-              </a>
-              <div class="media-body" style="padding-left:15px">
-                <h4 class="media-heading">
-                  <span style="color:black"><%= comment.user.name %></span>
-                  <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d %H:%M:%S") %></small>
-                  <br>
-                  <small style="color:black"><%= comment.content %></small>
-                </h4>
-              </div>
-            </div>
-            <hr>
-            <div id="reply_<%= post.id %>"></div>
-          <% end %>
-        <% end %>
-      <% end %>
-      <!-- 댓글 출력 끝-->
+
+    <% @posts.reverse.each do |post| %><!-- 글 보여주기 -->
+    <% if @users.id == post.user_id %><!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
+    <div class="posts_get thumbnail">
+      <!-- 아티스트가 글쓴 내용 -->
+      <div>
+        <a class="pull-left" href="#">
+          <img class="media-object dp img-circle" src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg"
+          alt="<%= @users.artist_name %>" style="width:70px; height:70px;">
+        </a>
+        <p><%= post.content %></p>
+        <p>
+          <a id="op-comments-<%= post.id %>">댓글
+          <b><%= post.comments.size %></b></a>
+        </p>
       </div>
-    <% end %>
-  </div>
+      <hr>
+      <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
+      <div class="show-comment-window">
+        <div class="col-lg-10">
+          <a class="pull-left" href="#" style="margin-right:10px">
+            <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:70px; height:70px;">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><%= current_user.name %>
+              <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
+            </h4>
+            <input class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요">
+          </div>
+        </div>
+        <div class="form-group">
+          <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
+        </div>
+      </div>
+      <hr>
+      <!-- 글쓴 내용에 달린 댓글 출력 -->
+      <% unless post.comments.nil? %>
+        <% post.comments.each do |comment| %>
+          <div id="comments">
+            <a class="pull-left" href="#">
+              <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
+            </a>
+            <div class="media-body" style="padding-left:15px">
+              <h4 class="media-heading">
+                <span style="color:black"><%= comment.user.name %></span>
+                <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d %H:%M:%S") %></small>
+                <br>
+                <small style="color:black"><%= comment.content %></small>
+              </h4>
+            </div>
+          </div>
+          <div id="reply_<%= post.id %>"></div>
+          <hr>
+        <% end %>
+      <% end %><!-- 끝 : 글쓴 내용에 달린 댓글 출력 -->
+    </div>
+    <% end %><!-- 끝 : 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
+  <% end %><!-- 끝 : 글 보여주기 -->
 </div>
 
 
@@ -199,7 +222,7 @@ $(function() {
             + "<small style=" + "color:black" + ">"
                 + post_content
             + "</small>"
-            + "</h4></div></div><hr>"
+            + "</h4></div></div>"
           );
         $( "#content_" + post_id).val('');
       },
