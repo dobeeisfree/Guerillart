@@ -2,7 +2,7 @@
 /* 배경 사진 */
 body {
 	background-image: url("/images/tower1.jpg");
-	background-size: 1400px;
+	background-size: 'auto';
 }
 /* 게릴라트 상단 */
 .carousel-caption {
@@ -23,7 +23,7 @@ body {
   outline: 0;
 }
 </style>
-<%= render :partial => "/layouts/header" %>
+<%= render :partial => "/layouts/header_home" %>
 
 <div class="ui container">
 	<form action="/search" method="GET">
