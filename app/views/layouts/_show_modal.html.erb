@@ -1,34 +1,80 @@
-<div class="modal fade" id="upcomings-modal-<%= @show.id %>">
-  <div class="modal-lg modal-dialog" role="document">
-    <div class="modal-content">
+<%#= render template: "home/view" %>
+<%#개별 뷰와 모달은 분리해서 만들겠습니다 %>
+<%#이 파일은 공연페이지의 모든 모달을 불러옵니다 %>
+<% @shows.each do |show| %>
+<% @current_url = "http://localhost:3000/shows/view/#{ show.id }" %>
+  <div class="ui modal <%= show.id %>">
+    <i class="close icon"></i>
+     <div class="header"><%= show.title %></div>
 
-      <%= render template: "home/view" %>
+    <%= show.location %>
+    <%= show.time %>
+    <div class="description">
+      <%= show.date %>
+      <%= show.playlist %>
+
+
+      <div class="btn-group">
+        <!-- 좋아요 = 꼭 보러갈래요, 로그인 한사람만 가능한 기능 -->
+        <% unless current_user.nil? %>
+          <% if current_user.is_like?(show) %>
+           <a href="/shows/<%= show.id %>/like" class="btn btn-default">
+             <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
+             <%= show.likes.size %>
+           </a>
+          <% else %>
+           <a href="/shows/<%= show.id %>/like" class="btn btn-default">
+             <span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"><br></span>
+             <%= show.likes.size %>
+           </a>
+          <% end %>
+        <% end %>
+        <!--트위터 -->
+        <a
+           id="popup-<%= show.id %>"
+           target="_blank"
+           class="btn btn-default twitter-share-button"
+           href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= show.title %>&url=<%= @current_url %>"
+           data-size="large">
+           <i class="twitter icon"></i>
+        </a>
+        <!-- 페이스북 -->
+        <a
+          target="_blank"
+          class="btn btn-default"
+          href="https://www.facebook.com/sharer/sharer.php?u=<%= @current_url %>">
+          <i class="facebook f icon"></i>
+        </a>
+        <!-- url 복사하기 -->
+        <button class="btn btn-default"
+          data-tooltip="링크를 복사하세요!" data-position="top left"
+          id="clipboard-url-<%= show.id %>" title="Copy!"
+          data-clipboard-text="<%= @current_url %>">
+          <i class="copy icon"></i>
+          <small id="msg-copied-<%= show.id %>"></small>
+        </button>
+      </div>
+
 
     </div>
   </div>
-</div>
 
+  <!-- 각 모달마다의 동작 과정-->
+  <script>
+    // 모달때문에 엘리멘트가 반복됨
+    // 즉 모달개수마다 함수가 존재해야만 하는 이런...이상함...
+    // 나중에 모달 형식을 바꾸어야할듯
 
-<!-- 나중에 js 파일로 저장-->
-<script>
+    // 트위터의 팝업
+    document.getElementById("popup-<%= show.id %>").onclick = function() {
+      return !window.open(this.href, "pop", "width=600, height=300");
+    }
+    // 클립보드 복사 기능
+    var clipboard = new Clipboard('.btn');
 
-  // 모달때문에 엘리멘트가 반복됨
-  // 즉 모달개수마다 함수가 존재해야만 하는 이런...이상함...
-  // 나중에 모달 형식을 바꾸어야할듯
+    document.getElementById("clipboard-url-<%= show.id %>").onclick = function() {
+      document.getElementById("msg-copied-<%= show.id %>").innerHTML = "<i>Copied!</i>";
+    }
 
-  // 트위터의 팝업
-  document.getElementById("popup-<%= @show.id %>").onclick = function() {
-    return !window.open(this.href, "pop", "width=600, height=300");
-  }
-  // 클립보드 복사 기능
-  var clipboard = new Clipboard('.btn');
-  $('[data-toggle="tooltip"]').tooltip();
-  document.getElementById("clipboard-url-<%= @show.id %>").onclick = function() {
-    document.getElementById("msg-copied-<%= @show.id %>").innerHTML = "Copied!";
-  }
-  // 댓글 버튼이 눌렀을 때 나오는 댓글창
-  document.getElementById("openComments-<%= @show.id %>").onclick = function() {
-    $("#open-comments-list-<%= @show.id %>").toggle();
-  }
-
-</script>
+  </script>
+<% end %>
