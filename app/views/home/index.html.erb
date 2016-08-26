@@ -1,40 +1,12 @@
-<div id="home">
-	<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">
-
-
-		<form action="/search" method="GET">
-			<div class="carousel-caption">
-				<div class="branding-text" style="margin-bottom:350px;">
-					<h1>Guerillar Art</h1>
-				</div>
-				<div class="input-group" style="margin-bottom:200px;">
-					<label class="sr-only" for="location"></label>
-					<div class="ui transparent massive input">
-						<input type="text" id="location" style="color:white" name="location" placeholder="위치를 입력해주세요">
-						<button type="submit" class="search icon">검색</button>
-					</div>
-				</div>
-			</div>
-		</form>
-
-		<div class="carousel-inner">
-			<div class="item active">
-				<img src="/images/tower1.jpg" alt="자동차">
-			</div>
-		</div>
-
-
-	</div>
-</div>
 <style>
 /* 배경 사진 */
 body {
 	background-image: url("/images/tower1.jpg");
-	background-size: 'auto';
+	background-size: 100%;
 }
 /* 게릴라트 상단 */
 .carousel-caption {
-	margin-bottom:200px;
+	margin-bottom : 180px;
 }
 /* 지도 서치바 */
 #location {
@@ -50,14 +22,22 @@ body {
   background: transparent;
   outline: 0;
 }
+/* 메인 글귀와 좀 떨어지게 하는 서치바 div */
+.show-search {
+	margin-top: 50px;
+}
+/* 스크롤바 없앰 */
+body {
+    overflow:hidden;
+}
 </style>
 <%= render :partial => "/layouts/header_home" %>
 
 <div class="ui container">
 	<form action="/search" method="GET">
 		<div class="carousel-caption">
-			<h1 style="font-size:7em">Guerillar Art</h1>
-			<div class="ui massive icon input">
+			<h1 style="font-size:7em; text-align:center">Guerillar Art</h1>
+			<div class="ui massive icon input show-search">
 				<label for="location"></label>
 				<input type="text" id="location" name="location" placeholder="위치를 입력해주세요">
 				<i class="search icon"></i>
