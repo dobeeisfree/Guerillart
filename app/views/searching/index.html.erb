@@ -313,15 +313,15 @@
 					// var NE = bounds.getNorthEast();
 					// var SW = bounds.getSouthWest();
 					// // updateMarkerBubbles();
-					// // removeAllMarkerBubbles(markers);
+					// // clearMarkerBubbles(markers);
 					// // scheduleDelayedCallback();
 				// });
 				
 				// 센터 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'center_changed', function() {
-					// // removeAllMarkerBubbles();
+					// // clearMarkerBubbles();
 					// // updateMarkerBubbles();
-					// // removeAllMarkerBubbles();
+					// // clearMarkerBubbles();
 					// // showMapPos();
 					// // showMapAddr();
 				// });
@@ -443,7 +443,7 @@
 			        	success: function(data){
 			        		 
 			        			//모든 infobubble 삭제
-			        		removeAllMarkerBubbles();
+			        		clearMarkerBubbles();
 			        		
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 
@@ -597,7 +597,7 @@
 			
 			
 			//markerBubble 모두 지우기
-			function removeAllMarkerBubbles()
+			function clearMarkerBubbles()
 			{
 				for (var j = 0; j < markerBubbleArray.length; j++) 
 				{
