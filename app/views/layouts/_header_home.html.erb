@@ -40,7 +40,7 @@ a.ui.item {
 }
 /* 네비바 글자들 */
 .ui.secondary.menu a.item, .ui.simple.dropdown {
-  color : rgba(255, 255, 255, 0.8);;
+  color : rgba(230, 230, 230, 0.6);;
   font-weight: bold;
 }
 /* 네비바 조정 */
@@ -174,7 +174,7 @@ a.ui.item {
 <script>
 // 모달 셋팅
 $('.ui.basic.modal')
-.modal('attach events', '.button', 'show')
+.modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
 .modal('setting', {
     detachable: false,
     allowMultiple: false,
@@ -185,7 +185,6 @@ $('.ui.basic.modal')
 // 모달 버튼
 document.getElementById('start_signin_modal').onclick = function() {
   $('.ui.basic.modal.signin').modal('show');
-  $('.ui.basic.modal.signup').modal('hide');
 }
 document.getElementById('start_signup_modal').onclick = function() {
   $('.ui.basic.modal.signup').modal('show');
