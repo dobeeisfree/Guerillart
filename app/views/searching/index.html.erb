@@ -599,11 +599,19 @@
 			//markerBubble 모두 지우기
 			function removeAllMarkerBubbles()
 			{
-				while(markerBubbleArray.length){
-			            markerBubbleArray.pop().setMap(null);
-		        }
+				for (var j = 0; j < markerBubbleArray.length; j++) 
+				{
+					// if(markerBubbleArray[j])
+					markerBubbleArray[j].setMap(null);
+				}
+				markerBubbleArray = [];
+				
+				// while(markerBubbleArray.length){
+			            // markerBubbleArray.pop().setMap(null);
+		        // }
 			}
 			
+
 			
 			
 			
