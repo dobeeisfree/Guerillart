@@ -1,0 +1,57 @@
+<style>
+.ui.subshow.menu {
+  margin-top: -15px;
+  background: #FAFAFA;
+  border-radius: 0;
+  border:none;
+}
+/* dropdown */
+.ui.button {
+  background: transparent;
+}
+.ui.sub.dropdown>.text {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+}
+div.ui.button.sub.dropdown {
+  text-align: center;
+}
+/* 전체 가운데 정렬 */
+.ui.button.sub.dropdown.genre, .ui.button.sub.dropdown.show {
+  margin : 0 auto;
+}
+.ui.subshow.container {
+  width: 300px;
+}
+</style>
+<div class="ui subshow menu">
+  <div class="ui subshow container">
+
+  <a class="header item">
+    인기순
+  </a>
+  <a class="header item">
+    나의아티스트 
+  </a>
+ <!-- 추후에 구현
+  <a class="item">
+    오늘의아티스트 
+  </a>
+  <a class="item">
+    금주의아티스트 
+  </a>
+  <a class="item">
+    이달의아티스트 
+  </a> -->
+
+  </div>
+</div>
+<script>
+$('.show.dropdown')
+  .dropdown();
+;
+$('.genre.dropdown')
+  .dropdown();
+;
+</script>
+

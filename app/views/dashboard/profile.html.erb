@@ -3,9 +3,11 @@
 
 
 
+
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, method: :put }) do |f| %>
 <div class="container">
-    <div class="ui vertically divided grid">
+    <div class="ui vertically divided grid" >
         <!-- 유저 프로필 -->
         <div class="ui card">
           <div class="image">
@@ -62,8 +64,8 @@
             </div>
          <button class="ui submit button" type="submit" name="commit"> 변경
          </button>
-        </div>
-        </div>
-      </div>
-      <% end %>  
+       </div>
+    </div>
+</div>
+<% end %>  
 
