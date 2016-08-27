@@ -23,7 +23,7 @@
   font-size: 3em;
 }
 input.g-form {
-	font-weight: bold;
+	font- weight: bold;
 	font-size: 1em;
 }
 .go-sign {
@@ -46,7 +46,31 @@ a.ui.item {
 .ui.secondary.menu {
   margin-top: 0px;
   /*box-shadow: 3px 1px 5px;*/
-  /* background: black; */
+  background: black;
+}
+/* 네비바 글자들 */
+.ui.secondary.menu a.item, .ui.simple.dropdown, .ui.dropdown>.text {
+  color : white;
+  font-weight: bold;
+}
+/* 서치바 */
+.ui.input input {
+  color : white;
+	font-weight: bold;
+	text-align: left;
+
+	border : none;
+  background: transparent;
+  outline: 0;
+}
+.ui.menu .item>.input input {
+  background: black;
+  color:white;
+}
+.ui[class*="left action"].input>.button,
+.ui[class*="left action"].input>.buttons>.button,
+.ui[class*="left action"].input>.dropdown {
+  background: transparent;
 }
 </style>
 
@@ -136,16 +160,16 @@ a.ui.item {
     <div class="ui icon input">
       <%= form_tag("/artist/search", method: "get") do %>
         <div class="ui right icon left action input">
-          <i class="search icon"></i>
-          <div class="ui basic floating dropdown button" id="go-dropdown">
-            <div class="text hi-dropdown" >아티스트</div>
-            <i class="dropdown icon"></i>
+          <i class="inverted search icon"></i>
+          <div class="ui button dropdown" id="go-dropdown">
+            <div class="text hi-dropdown">아티스트</div>
+            <i class="inverted dropdown icon"></i>
             <div class="ui simple dropdown menu" id="uidropdown">
               <div class="item" id="artist_search">아티스트</div>
               <div class="item" id="location_search">위치</div>
             </div>
           </div>
-          <input class="prompt"type="text"  placeholder="를 검색해보세요"name="artist_name" />
+          <input type="text"  placeholder="를 검색해보세요"name="artist_name" />
         </div>
 
       <% end %>
