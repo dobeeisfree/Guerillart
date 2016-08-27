@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<%= javascript_include_tag('infobubble.js') %>	<!--infobubble 사용-->
 		<style type="text/css">
 			html {
@@ -202,13 +203,14 @@
 			var centerMarker;	//센터 표시 마커
 			
 			var isMobile;	//모바일이면 true
-			var isDistOrder = 0; //거리순 정렬이면 1, default: 0 (인기순)
+			var isDistOrder; //거리순 정렬이면 1, default: 0 (인기순)
+			var mapZoom;    //디바이스에 따른 map의 Zoom 넘
 			
 			// 맵 초기화
 			function initialize() 
 			{
 				var address = "<%=@location%>";
-				isDistOrder = 1;
+				isDistOrder = 0;
 				
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
 					// alert('검색할 주소를 입력하십시오.');
@@ -238,7 +240,7 @@
 				globalGeocoder = new google.maps.Geocoder();
 
 				var myOptions = {
-					zoom : 17,
+					zoom : mapZoom,
 					// MyLocationEnabled : true,
 					//disableDoubleClickZoom:false,
 					// center : latlng,
@@ -364,12 +366,18 @@
 				var mapdiv = document.getElementById("map_canvas");
 				// var s_left = document.getElementById("s_left");
 				
-				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+				//모바일이라면
+				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) 
+				{
 				    // mapdiv.style.width = '100%';
 				    // mapdiv.style.height = '100%';
 				    document.getElementById("s_left").style.width = '100%';
 				    return true;
-				} else {
+				    
+				}
+				//모바일이 아니라면 
+				else 
+				{
 			    	// mapdiv.style.width = '600px';
 			   		// mapdiv.style.height = '800px';
 			   		return false;

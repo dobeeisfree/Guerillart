@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
+  
 
+  match "/users/sign_in" => redirect("/"), via: [:get]
+  
+  
   # devise_for :users, controllers: { sessions: 'users/sessions' }
   devise_for :users
 
@@ -34,6 +38,7 @@ Rails.application.routes.draw do
     # delete '/users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
 
+  
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
@@ -113,4 +118,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+  match '*path' => redirect('/'), via: [:get]
 end
