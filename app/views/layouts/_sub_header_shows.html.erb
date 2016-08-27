@@ -31,7 +31,7 @@ div.ui.button.sub.dropdown {
 
     <div class="ui button sub dropdown genre">
       <div class="text">장르별</div>
-      <i class="dropdown icon"></i>
+      <i class="genre dropdown icon"></i>
       <div class="ui simple dropdown menu">
         <%#= link_to "모아보기", choose: "모아보기" %>
         <div class="ui item">팝</div>
@@ -50,7 +50,7 @@ div.ui.button.sub.dropdown {
     <!-- 공연 -->
     <div class="ui button sub dropdown show">
       <div class="text">공연</div>
-      <i class="dropdown icon"></i>
+      <i class="show dropdown icon"></i>
       <div class="ui simple dropdown menu">
         <div class="ui item">실시간 공연</div>
         <div class="ui item">다가오는 공연</div>
@@ -61,7 +61,10 @@ div.ui.button.sub.dropdown {
   </div>
 </div>
 <script>
-$('.dropdown')
+$('.show.dropdown')
+  .dropdown();
+;
+$('.genre.dropdown')
   .dropdown();
 ;
 </script>

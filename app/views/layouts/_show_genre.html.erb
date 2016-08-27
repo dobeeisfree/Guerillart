@@ -8,6 +8,10 @@
   float :left;
   margin : 20px 20px 20px 20px;
 }
+/* 모달 위치 */
+.ui .modal {
+  margin-top: -300px;
+}
 </style>
 <%#이 파일은 장르 카드를 모두 보여줍니다%>
 <div class="ui container">
@@ -41,10 +45,8 @@
         </div>
       </div>
       <div class="extra content">
-        <span class="left floated like">
-          <i class="like icon"></i>
-          <%= show.likes.size %>
-        </span>
+        <i class="heart icon"></i>
+        <%= show.likes.size %>
         <span class="right floated"><%= show.date %></span>
       </div>
     </div><!-- card -->
@@ -61,6 +63,15 @@
 <script>
 $('.special.cards .image').dimmer({
   on: 'hover'
+});
+// 모달 셋팅
+$('.ui.basic.modal')
+.modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
+.modal('setting', {
+    detachable: false,
+    allowMultiple: false,
+    observeChanges: false,
+    blurring: true
 });
 </script>
 
