@@ -1,0 +1,70 @@
+<style>
+.ui.subshow.menu {
+  margin-top: -15px;
+  background: #FAFAFA;
+  border-radius: 0;
+  border:none;
+}
+/* dropdown */
+.ui.button {
+  background: transparent;
+}
+.ui.sub.dropdown>.text {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+}
+div.ui.button.sub.dropdown {
+  text-align: center;
+}
+/* 전체 가운데 정렬 */
+.ui.button.sub.dropdown.genre, .ui.button.sub.dropdown.show {
+  margin : 0 auto;
+}
+.ui.subshow.container {
+  width: 300px;
+}
+</style>
+<div class="ui subshow menu">
+  <div class="ui subshow container">
+
+    <%#= @current_genre %>
+
+    <div class="ui button sub dropdown genre">
+      <div class="text">장르별</div>
+      <i class="genre dropdown icon"></i>
+      <div class="ui simple dropdown menu">
+        <%#= link_to "모아보기", choose: "모아보기" %>
+        <div class="ui item">팝</div>
+        <div class="ui item">힙합/랩</div>
+        <div class="ui item">R&B/소울</div>
+        <div class="ui item">댄스</div>
+        <div class="ui item">일렉트로닉</div>
+        <div class="ui item">록</div>
+        <div class="ui item">재즈</div>
+        <div class="ui item">클래식</div>
+        <%# @names.each do |name| %>
+          <!--<div class="ui item show-genre-item"><%#= link_to "#{name}", controller: "home", action: "shows", choose: "#{name}" %></div>-->
+        <%# end %>
+      </div>
+    </div>
+    <!-- 공연 -->
+    <div class="ui button sub dropdown show">
+      <div class="text">공연</div>
+      <i class="show dropdown icon"></i>
+      <div class="ui simple dropdown menu">
+        <div class="ui item">실시간 공연</div>
+        <div class="ui item">다가오는 공연</div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<script>
+$('.show.dropdown')
+  .dropdown();
+;
+$('.genre.dropdown')
+  .dropdown();
+;
+</script>

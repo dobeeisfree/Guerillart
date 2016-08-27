@@ -1,184 +1,236 @@
+<style>
+/* 모달 조정 */
+.modal {
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+/* 로그인 */
+#signin-modal {
+  max-width: 450px;
+}
+/* 회원가입 */
+#signup-modal {
+  margin-top: -100px;
+}
+/* 모달의 폼 */
+.ui.form .field>label {
+  color: white;
+  font-weight: bold;
+}
+.ui.basic.modal>.header {
+  font-size: 3em;
+}
+input.g-form {
+	font- weight: bold;
+	font-size: 1em;
+}
+.go-sign {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+a.ui.item {
+  color : white;
+  font-weight : bold;
+}
+/* 로그인의 x 버튼 */
+.ui.basic.modal>.close {
+  padding-left:39px;
+}
+/* 네비바 글자들 */
+.ui.secondary.menu a.item, .ui.simple.dropdown {
+  color : black;
+}
+/* 네비바 조정 */
+.ui.secondary.menu {
+  margin-top: 0px;
+  /*box-shadow: 3px 1px 5px;*/
+  background: black;
+}
+/* 네비바 글자들 */
+.ui.secondary.menu a.item, .ui.simple.dropdown, .ui.dropdown>.text {
+  color : white;
+  font-weight: bold;
+}
+/* 서치바 */
+.ui.input input {
+  color : white;
+	font-weight: bold;
+	text-align: left;
 
-   
+	border : none;
+  background: transparent;
+  outline: 0;
+}
+.ui.menu .item>.input input {
+  background: black;
+  color:white;
+}
+.ui[class*="left action"].input>.button,
+.ui[class*="left action"].input>.buttons>.button,
+.ui[class*="left action"].input>.dropdown {
+  background: transparent;
+}
+</style>
 
 <!-- Start of Signin modal -->
-    <div class="ui modal" id="signin-modal">
-      <i class="close icon"></i>
-      <div class="header">
-        로그인 
+<div class="ui basic modal signin" id="signin-modal">
+  <i class="close icon"></i>
+  <div class="header">로그인</div>
+  <%= simple_form_for(:user, :url => session_path(resource_name)) do |f| %>
+  <div class="ui form">
+    <div class="field">
+      <label>Email</label>
+      <div class="ui left icon input">
+        <%= f.email_field :email, autofocus: true, class: "g-form", placeholder: "이메일을 입력해주세요." %>
+        <i class="user icon"></i>
       </div>
-      <%= simple_form_for(:user, :url => session_path(resource_name)) do |f| %>
-        <div class="ui two column middle aligned very relaxed stackable grid">
-          <div class="column">
-            <div class="ui form">
-              <div class="field">
-                <label>Email</label>
-                <div class="ui left icon input">
-                  <%= f.email_field :email, autofocus: true %>
-                  <i class="user icon"></i>
-                </div>
-              </div>
-
-              <div class="field">
-                <label>Password</label>
-                <div class="ui left icon input">
-                  <%= f.password_field :password, autocomplete: "off" %>
-                  <i class="lock icon"></i>
-                </div>
-              </div>
-              <button class="ui positive right primary button" type="submit" name="commit">
-              가입
-              </button>
-            </div>
-          </div>
-        </div>
-     <% end %>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="ui left icon input">
+        <%= f.password_field :password, autocomplete: "off", class: "g-form", placeholder: "비밀번호를 입력해주세요." %>
+        <i class="lock icon"></i>
+      </div>
+    </div>
+    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
   </div>
+  <% end %>
+</div>
+
 
 
 
 <!-- Start of Signup modal -->
-    <div class="ui modal " id="signup-modal">
-        <i class="close icon"></i>
-        <div class="header">
-          회원가입
-        </div>
-
-        <%= simple_form_for(:user, :url => registration_path(resource_name)) do |f| %>
-          <div class="ui two column middle aligned very relaxed stackable grid">
-            <div class="column">
-                <div class="ui form ">
-                  <div class="field">
-                    <label>E-mail</label>
-                      <div class="ui left icon input">
-                      <%= f.email_field :email, autofocus: true %>
-                      <i class="user icon"></i>
-                      </div>
-                  </div>
-                  <div class="field">
-                    <label>Name</label>
-                    <%= f.text_field :name, autofocus: true %>
-                  </div>
-                  <div class="field">
-                    <label>Password</label>
-                      <div class="ui left icon input">
-                      <% if @minimum_password_length %>
-                      <em>(<%= @minimum_password_length %> characters minimum)</em>
-                      <% end %>
-                      <br />
-                      <%= f.password_field :password, autocomplete: "off" %>
-                        <i class="lock icon"></i>
-                      </div>
-                  </div>
-                  <div class="field">
-                    <label>Password again</label>
-                      <div class="ui left icon input">
-                      <%= f.password_field :password_confirmation, autocomplete: "off" %>
-                        <i class="lock icon"></i>
-                      </div>
-                  </div>
+<div class="ui basic modal signup" id="signup-modal">
+  <i class="close icon"></i>
+  <div class="header">회원가입</div>
+    <%= simple_form_for(:user, :url => registration_path(resource_name)) do |f| %>
+      <div class="ui two column middle aligned very relaxed stackable grid">
+        <div class="column">
+          <div class="ui form">
+            <div class="field">
+              <label>E-mail</label>
+                <div class="ui left icon input">
+                <%= f.email_field :email, autofocus: true, class: "g-form" , placeholder: "이메일을 입력해주세요" %>
+                <i class="user icon"></i>
                 </div>
-
-            <div class="actions">
-              <div class="ui black deny button">
-                취소 
-              </div>
-              <button class="ui positive right primary button" type="submit" name="commit">
-              가입
-              </button>
+            </div>
+            <div class="field">
+              <label>Name</label>
+              <%= f.text_field :name, autofocus: true, class: "g-form", placeholder: "이름을 입력해주세요" %>
+            </div>
+            <div class="field">
+              <label>Password</label>
+                <div class="ui left icon input">
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %>
+                <br />
+                <%= f.password_field :password, autocomplete: "off", class: "g-form", placeholder: "비밀번호를 입력해주세요" %>
+                  <i class="lock icon"></i>
+                </div>
+            </div>
+            <div class="field">
+              <label>Password again</label>
+                <div class="ui left icon input">
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "g-form" , placeholder: "비밀번호를 한 번 더 입력해주세요" %>
+                  <i class="lock icon"></i>
+                </div>
             </div>
           </div>
-         </div>
-      <% end %>
-      <%= render "devise/shared/links" %>
-  </div>
-
-    <div class="ui secondary menu " > <!--Navbar start-->
-        <a class="item" href="/">GUERILLART</a>
-        <div class="item">
-          <div class="ui icon input">
-            <%= form_tag("/artist/search", method: "get") do %>
-            <!--  <div class="ui icon input">
-                <input class="prompt"type="text"  placeholder="당신 주위를 검색해보세요"name="artist_name" />
-                <i class="search link icon"></i>
-              </div> -->
-
-              <div class="ui right icon left action input">
-                <i class="search icon"></i>
-                <div class="ui basic floating dropdown button" id="go-dropdown">
-                  <div class="text hi-dropdown" >아티스트</div>
-                  <i class="dropdown icon"></i>
-                  <div class="ui simple dropdown menu" id="uidropdown">
-                    <div class="item" id="artist_search">아티스트</div>
-                    <div class="item" id="location_search">위치</div>
-                  </div>
-                </div>
-                <input class="prompt"type="text"  placeholder="를 검색해보세요"name="artist_name" />
-              </div>
-
-            <% end %>
+          <div class="go-sign">
+            <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
           </div>
+      </div>
+     </div>
+  <% end %>
+<%= render "devise/shared/links" %>
+</div>
+
+
+
+
+
+
+<div class="ui secondary menu "> <!--Navbar start-->
+  <a class="ui item" href="/">GUERILLART</a>
+  <div class="item">
+    <div class="ui icon input">
+      <%= form_tag("/artist/search", method: "get") do %>
+        <div class="ui right icon left action input">
+          <i class="inverted search icon"></i>
+          <div class="ui button dropdown" id="go-dropdown">
+            <div class="text hi-dropdown">아티스트</div>
+            <i class="inverted dropdown icon"></i>
+            <div class="ui simple dropdown menu" id="uidropdown">
+              <div class="item" id="artist_search">아티스트</div>
+              <div class="item" id="location_search">위치</div>
+            </div>
+          </div>
+          <input type="text"  placeholder="를 검색해보세요"name="artist_name" />
         </div>
 
-        <div class="right menu"> <!-- 오른쪽 Navbar -->
-           <a class="ui item" href="/shows">공연</a>
-           <a class="ui item" href="/artists">아티스트</a>
-
-           <%if user_signed_in?%>
-             <div class="ui right dropdown item">
-                <div class="ui simple dropdown">
-                    <div class="text"> <%= current_user.name%>님 </div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <a class="ui item" href="/dashboard/home">대쉬보드</a>
-                    <a class="ui item" href="/dashboard/guerillart">나의게릴라트</a>
-                    <a class="ui item" href="/dashboard/profile">계정관리</a>
-
-                    <% if current_user.artist_name? %>
-                    <% artist_name = current_user.artist_name %>
-                    <a class="ui item" href="/dashboard/write">공연등록</a>
-                    <div class="ui item">
-                    <%= link_to "#{artist_name}페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
-                    </div>
-                    <% end %>
-                    <a class="ui item" href="/users/sign_out" data-method="delete">로그아웃</a>
-                  </div>
-                </div>
-             </div>
-           <% else%>
-
-           <a class="ui item start_signup_modal">회원가입</a>
-           <a class="ui item start_signin_modal">로그인</a>
-           <% end %>
-        </div> <!-- 오른쪽 Navbar 끝 -->
-    </div>  <!-- Navbar 끝 -->
-
-<script>
-$(function() {
-  $('.start_signin_modal').click(function(){
-
-    $('#signin-modal').modal('show');
-  
-
-  });
-});
-</script>
-
-<script>
-$(function() {
-  $('.start_signup_modal').click(function(){
-
-    $('#signup-modal').modal('show'); 
-
-  });
-});
-</script>
-<script>
-  $(function(){
-      $("#go-dropdown").dropdown();
-  });
-</script>
-
-      </div>
+      <% end %>
     </div>
-    <!--회원가입 Modal 끝 -->
+  </div>
+  <div class="right menu"> <!-- 오른쪽 Navbar -->
+     <a class="ui item" href="/shows">공연</a>
+     <a class="ui item" href="/artists">아티스트</a>
+
+     <%if user_signed_in?%>
+       <div class="ui right dropdown item">
+          <div class="ui simple dropdown">
+              <div class="text"> <%= current_user.name%>님 </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="ui item" href="/dashboard/home">대쉬보드</a>
+              <a class="ui item" href="/dashboard/guerillart">나의게릴라트</a>
+              <a class="ui item" href="/dashboard/profile">계정관리</a>
+
+              <% if current_user.artist_name? %>
+              <% artist_name = current_user.artist_name %>
+              <a class="ui item" href="/dashboard/write">공연등록</a>
+              <div class="ui item">
+              <%= link_to "#{artist_name}페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
+              </div>
+              <% end %>
+              <a class="ui item" href="/users/sign_out" data-method="delete">로그아웃</a>
+            </div>
+          </div>
+       </div>
+     <% else%>
+
+     <a class="ui item" id="start_signup_modal">회원가입</a>
+     <a class="ui item" id="start_signin_modal">로그인</a>
+     <% end %>
+  </div> <!-- 오른쪽 Navbar 끝 -->
+</div>  <!-- Navbar 끝 -->
+
+
+
+
+
+
+<script>
+// 검색의 드롭다운
+$("#go-dropdown").dropdown();
+// 모달 셋팅
+$('.ui.basic.modal')
+.modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
+.modal('setting', {
+    detachable: false,
+    allowMultiple: false,
+    observeChanges: false,
+    blurring: true,
+    transition: 'vertical flip'
+});
+// 모달 버튼
+document.getElementById('start_signin_modal').onclick = function() {
+  $('.ui.basic.modal.signin').modal('show');
+}
+document.getElementById('start_signup_modal').onclick = function() {
+  $('.ui.basic.modal.signup').modal('show');
+}
+</script>
