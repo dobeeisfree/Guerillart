@@ -4,29 +4,18 @@
 <% @shows.each do |show| %>
 <% @current_url = "http://localhost:3000/shows/view/#{ show.id }" %>
   <div class="ui modal <%= show.id %>">
-
-      <div class="header"><%= show.title %></div>
-      <div class="image content">
-          <img class="image">
-          <div class="description">
-          <p></p>
-        </div>
-      </div>
-
-
-
-
-
     <i class="close icon"></i>
-     <div class="header"><%= show.title %></div>
-
-    <%= show.location %>
-    <%= show.time %>
-    <div class="description">
-      <%= show.date %>
-      <%= show.playlist %>
-
-
+    <div class="header"><%= show.title %></div>
+    <div class="image content">
+        <img class="image">
+        <div class="description">
+          <p><%= show.location %></p>
+          <p><%= show.time %></p>
+          <p><%= show.date %></p>
+          <p><%= show.playlist %></p>
+      </div>
+    </div>
+    <div class="content">
       <div class="btn-group">
         <!-- 좋아요 = 꼭 보러갈래요, 로그인 한사람만 가능한 기능 -->
         <% unless current_user.nil? %>
@@ -67,16 +56,9 @@
           <small id="msg-copied-<%= show.id %>"></small>
         </button>
       </div>
-
-
-
-
-
-
-
-
     </div>
-  </div>
+</div>
+
 
   <!-- 각 모달마다의 동작 과정-->
   <script>
