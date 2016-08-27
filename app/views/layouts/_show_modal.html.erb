@@ -4,6 +4,11 @@
 <% @shows.each do |show| %>
 <% @current_url = "http://localhost:3000/shows/view/#{ show.id }" %>
   <div class="ui modal <%= show.id %>">
+
+
+
+
+
     <i class="close icon"></i>
      <div class="header"><%= show.title %></div>
 
@@ -54,6 +59,12 @@
           <small id="msg-copied-<%= show.id %>"></small>
         </button>
       </div>
+
+
+
+
+
+
 
 
     </div>

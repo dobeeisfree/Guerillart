@@ -1,13 +1,15 @@
 <style>
-.ui.fixed.menu, .ui[class*="top fixed"].menu {
-  top:44px;
+.this_genre {
+  color : #1e70bf;
 }
+
 </style>
-<div class="ui top compact fixed menu">
+<div class="ui bottom fixed menu">
   <div class="ui container">
-    <div class="ui simple item">실시간 공연</div>
-    <div class="ui item"><b><%= @current_genre %></b></div>
-    <div class="ui simple dropdown item">장르별<i class="dropdown icon"></i>
+
+    <div class="ui item this_genre"><b><%= @current_genre %></b></div>
+
+    <div class="ui item scrolling dropdown">장르별<i class="dropdown icon"></i>
       <div class="menu">
         <div class="ui item">
           <%= link_to "모아보기", choose: "모아보기" %>
@@ -17,14 +19,19 @@
         <% end %>
       </div>
     </div>
-    <div class="ui item">
-      <div class="ui search">
-        <div class="ui transparent input">
-          <input class="prompt" type="text" placeholder="장르를 검색하세요">
-          <i class="search icon"></i>
-        </div>
-        <div class="results"></div>
-      </div>
+
+    <div class="ui toggle checkbox">
+      <input type="checkbox" name="public">
+      <label>실시간 공연</label> <!-- TODO 실시간 공연(현재 하고 있는 공연)과 다가오는 공연(날짜로 보았을 때) -->
     </div>
+
   </div>
 </div>
+<script>
+// 장르목록의 위치에 따라 드롭다운 방향을 위로 바꿈
+$('.scrolling.dropdown')
+  .dropdown({
+    direction: 'upward'
+  })
+;
+</script>

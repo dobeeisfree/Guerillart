@@ -45,7 +45,8 @@ a.ui.item {
 /* 네비바 조정 */
 .ui.secondary.menu {
   margin-top: 0px;
-  box-shadow: 3px 1px 5px;
+  /*box-shadow: 3px 1px 5px;*/
+  /* background: black; */
 }
 </style>
 
@@ -110,7 +111,7 @@ a.ui.item {
             <div class="field">
               <label>Password again</label>
                 <div class="ui left icon input">
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: "g-form" , placeholder: "비밀번호를 한번 더 입력해주세요" %>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "g-form" , placeholder: "비밀번호를 한 번 더 입력해주세요" %>
                   <i class="lock icon"></i>
                 </div>
             </div>
@@ -189,6 +190,8 @@ a.ui.item {
 
 
 <script>
+// 검색의 드롭다운
+$("#go-dropdown").dropdown();
 // 모달 셋팅
 $('.ui.basic.modal')
 .modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
@@ -202,11 +205,8 @@ $('.ui.basic.modal')
 // 모달 버튼
 document.getElementById('start_signin_modal').onclick = function() {
   $('.ui.basic.modal.signin').modal('show');
-  $('.ui.basic.modal.signup').modal('hide');
 }
 document.getElementById('start_signup_modal').onclick = function() {
   $('.ui.basic.modal.signup').modal('show');
 }
-// 검색의 드롭다운
-$("#go-dropdown").dropdown();
 </script>
