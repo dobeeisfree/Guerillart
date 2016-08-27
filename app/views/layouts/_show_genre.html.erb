@@ -1,89 +1,76 @@
 <style>
 /* 전체 장르목록을 감싸는 디브 */
 #show-genres {
-  margin-top: 60px;
-  margin-left: 105px;
+  margin-left: 100px;
 }
+/* 개별 카드 */
 .ui .card {
   float :left;
-  margin : 15px 15px 15px 15px;
+  margin : 20px 20px 20px 20px;
 }
 </style>
+<%#이 파일은 장르 카드를 모두 보여줍니다%>
 <div class="ui container">
-    <div class="ui special cards" id="show-genres">
-    <%
-        @shows.reverse.each do |show|
-        if show.genre == @current_genre || "모아보기" == @current_genre
-
-            @show = show # 모달에 값을 넘겨준다
-    %>
-      <%#= render partial: "/layouts/show_modal" %>
-      <div class="card">
-        <div class="blurring dimmable image">
-          <div class="ui inverted dimmer">
-            <div class="content">
-              <div class="center">
-                <div class="ui primary button">더보기</div>
-              </div>
+  <div class="ui special cards" id="show-genres">
+  <%
+      @shows.reverse.each do |show|
+      if show.genre == @current_genre || "모아보기" == @current_genre
+  %>
+    <div class="card">
+      <div class="blurring dimmable image">
+        <div class="ui inverted dimmer">
+          <div class="content">
+            <div class="center">
+              <div class="ui primary button" id="view-modal-<%= show.id %>">더보기</div>
             </div>
           </div>
-          <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
         </div>
-        <div class="content">
-          <a class="header"><%= show.title %>,
-            <% if show.creator.nil? %>
-            장범준</a>
-            <% else %>
-             <%= show.creator.artist_name %></a>
-            <% end %>
-          <div class="meta">
-            <span class="date"><%= show.location %></span>
-          </div>
+        <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+      </div>
+      <div class="content">
+        <a class="header"><%= show.title %></a>
+        <div class="meta">
+          <% if show.creator.nil? %>
+          <span class="date">장범준</span>
+          <% else %>
+          <span class="date"><% show.creator.artist_name %></span>
+          <% end %>
         </div>
-        <div class="extra content">
-          <span class="left floated like">
-            <i class="like icon"></i>
-            <%= show.likes.size %>
-          </span>
-          <span class="right floated"><%= show.date %></span>
+        <div class="description">
+          <%= show.location %>
         </div>
       </div>
-      <% end %>
+      <div class="extra content">
+        <span class="left floated like">
+          <i class="like icon"></i>
+          <%= show.likes.size %>
+        </span>
+        <span class="right floated"><%= show.date %></span>
+      </div>
+    </div><!-- card -->
     <% end %>
-    </div>
+  <% end %>
+  </div>
 </div>
 
-<!-- 댓글 작성 시작 -->
+
+
+<!-- Clipboard.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+<!-- 각 공연 당, 카드 이미지 호버 -->
 <script>
-$(function() {
-  $('.special.cards .image').dimmer({
-    on: 'hover'
-  });
-  $(".reply_submit").click(function(){
-
-    show_id = this.value;
-    post_content = $("#comment_content_" + show_id).val();
-
-    $.ajax({
-      method: "POST",
-      url:  "/comments/create",
-      data: { content: post_content,
-              show_id: show_id },
-      success: function(data){
-        alert("리플이 작성되었습니다");
-
-
-        $(".googol_" + show_id ).append('<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;"  />');
-
-        $( ".reply_" + show_id ).append( "<h4>" + data[0].user.name + "<small>" + data[0].cmt.created_at + "</small>"+ "<br/>"  + "<small style=color:black>" +  post_content + "</small>" + "</h4>"   );
-        $( "#comment_content_" + show_id).val('');
-      },
-      error: function(){
-        alert("에러에러에러에러에러다");
-      }
-    });
-
-   });
+$('.special.cards .image').dimmer({
+  on: 'hover'
 });
 </script>
-<!-- 댓글작성  끝 -->
+
+<!-- 각 모달마다 엘리멘트 동작-->
+<% @shows.each do |s| %>
+  <script>
+  document.getElementById('view-modal-<%= s.id %>').onclick = function() {
+    $('.ui.modal.<%= s.id %>').modal('show');
+  };
+  </script>
+<% end %>
+<!-- 모든 모달뷰 가져옴 -->
+<%= render partial: "/layouts/show_modal", object: @shows %>
