@@ -16,7 +16,8 @@ input#location {
 	color : white;
 	font-weight: bold;
 	font-size: 1em;
-	text-align: left;
+	text-align: center;
+
   
 
 	border :none;
@@ -43,6 +44,7 @@ body {
 <%#메인헤더 네비바를 랜더링%>
 <%= render :partial => "/layouts/header_home" %>
 
+<div class="ui centered grid">
 <div class="ui container home">
 	<form action="/search" method="GET">
 		<h1 id="brand-text">Guerillar Art</h1>
@@ -52,4 +54,5 @@ body {
 			<i class="search icon"></i>
 		</div>
 	</form>
+</div>
 </div>
