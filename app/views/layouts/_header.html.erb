@@ -77,23 +77,26 @@ a.ui.item {
 <!-- Start of Signin modal -->
 <div class="ui basic modal signin" id="signin-modal">
   <i class="close icon"></i>
-  <div class="header">로그인</div>
-  <%= simple_form_for(:user, :url => session_path(resource_name)) do |f| %>
+  <div class="header">로</div>
+  <%= form_for(resource, :as => resource_name, :html => {:id => 'login_form'}, :url => user_session_path, :remote => :true, :format => :json) do |f| %>
   <div class="ui form">
     <div class="field">
       <label>Email</label>
       <div class="ui left icon input">
-        <%= f.email_field :email, autofocus: true, class: "g-form", placeholder: "이메일을 입력해주세요." %>
+      	<%= f.email_field :email, :autofocus => true, :placeholder => "이메일을 입력해주세요.", :id => 'login_email' %>
         <i class="user icon"></i>
       </div>
     </div>
     <div class="field">
       <label>Password</label>
       <div class="ui left icon input">
-        <%= f.password_field :password, autocomplete: "off", class: "g-form", placeholder: "비밀번호를 입력해주세요." %>
+      	<%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요.", :id => 'login_password' %>
         <i class="lock icon"></i>
       </div>
     </div>
+    <% if devise_mapping.rememberable? -%>
+    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  	<% end -%>
     <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
   </div>
   <% end %>
@@ -195,7 +198,7 @@ a.ui.item {
 
               <a class="ui item" href="/artists/name/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
-              <a class="ui item" href="/users/sign_out" data-method="delete">로그아웃</a>
+              <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
             </div>
           </div>
        </div>

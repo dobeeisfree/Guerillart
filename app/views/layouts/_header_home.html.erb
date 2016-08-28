@@ -54,22 +54,25 @@ a.ui.item {
 <div class="ui basic modal signin" id="signin-modal">
   <i class="close icon"></i>
   <div class="header">로그인</div>
-  <%= simple_form_for(:user, :url => session_path(resource_name)) do |f| %>
+  <%= form_for(resource, :as => resource_name, :html => {:id => 'login_form'}, :url => user_session_path, :remote => :true, :format => :json) do |f| %>
   <div class="ui form">
     <div class="field">
       <label>Email</label>
       <div class="ui left icon input">
-        <%= f.email_field :email, autofocus: true, class: "g-form", placeholder: "이메일을 입력해주세요." %>
+      	<%= f.email_field :email, :autofocus => true, :placeholder => "이메일을 입력해주세요.", :id => 'login_email' %>
         <i class="user icon"></i>
       </div>
     </div>
     <div class="field">
       <label>Password</label>
       <div class="ui left icon input">
-        <%= f.password_field :password, autocomplete: "off", class: "g-form", placeholder: "비밀번호를 입력해주세요." %>
+      	<%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요.", :id => 'login_password' %>
         <i class="lock icon"></i>
       </div>
     </div>
+    <% if devise_mapping.rememberable? -%>
+    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  	<% end -%>
     <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
   </div>
   <% end %>
@@ -82,40 +85,47 @@ a.ui.item {
 <div class="ui basic modal signup" id="signup-modal">
   <i class="close icon"></i>
   <div class="header">회원가입</div>
-    <%= simple_form_for(:user, :url => registration_path(resource_name)) do |f| %>
+  	<%= form_for(resource, :as => resource_name, :html => {:id => 'register_form'}, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
       <div class="ui two column middle aligned very relaxed stackable grid">
         <div class="column">
           <div class="ui form">
             <div class="field">
               <label>E-mail</label>
                 <div class="ui left icon input">
-                <%= f.email_field :email, autofocus: true, class: "g-form" , placeholder: "이메일을 입력해주세요" %>
+            	<%= f.email_field :email, :placeholder => "이메일을 입력해주세요." %>
+            	<div class="error"><%= resource.errors[:email].first if resource.errors[:email].present? %></div>
                 <i class="user icon"></i>
                 </div>
             </div>
             <div class="field">
               <label>Name</label>
-              <%= f.text_field :name, autofocus: true, class: "g-form", placeholder: "이름을 입력해주세요" %>
+              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." %>
             </div>
             <div class="field">
               <label>Password</label>
                 <div class="ui left icon input">
-                <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-                <% end %>
-                <br />
-                <%= f.password_field :password, autocomplete: "off", class: "g-form", placeholder: "비밀번호를 입력해주세요" %>
+                <%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요.", :title => "6+ characters" %>
+    			<div class="error"><%= resource.errors[:password].first if resource.errors[:password].present? %></div>
                   <i class="lock icon"></i>
                 </div>
             </div>
             <div class="field">
               <label>Password again</label>
                 <div class="ui left icon input">
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: "g-form" , placeholder: "비밀번호를 한 번 더 입력해주세요" %>
-                  <i class="lock icon"></i>
+            		<%= f.password_field :password_confirmation, :placeholder => "confirm password" %>
+   					 <div class="error"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %></div>
+                	<i class="lock icon"></i>
                 </div>
             </div>
           </div>
+          
+          <div class="option_buttons">
+		    <div class="already_registered">
+		    	<%= link_to 'already registered?', '#', :class => 'already_registered', :id => 'already_registered', :view => 'login' %>
+		    </div>
+		  	<div class="clear"></div>
+		  </div>	
+          
           <div class="go-sign">
             <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
           </div>
@@ -152,7 +162,7 @@ a.ui.item {
               <a class="ui item" href="/dashboard/write">공연등록</a>
               <a class="ui item" href="/artists/name/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
-              <a class="ui item" href="/users/sign_out" data-method="delete">로그아웃</a>
+              <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
             </div>
           </div>
        </div>
