@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
     show.genre = params[:genre]
     show.location = params[:location]
     show.playlist = params[:playlist]
-    show.user_id = current_user.id
+    show.creator_id = current_user.id
     if show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/dashboard/guerillart"
@@ -95,7 +95,7 @@ class DashboardController < ApplicationController
     @post.user_id = current_user.id
 
     if  @post.save
-    redirect_to :back 
+    redirect_to :back
     else
     redirect_to :back
     end
@@ -110,14 +110,16 @@ class DashboardController < ApplicationController
    @users = User.find_by(artist_name: a )
    @posts = Post.all
   end
-  
+
   def mypage_edit_complete
     @users = User.find(params[:user_id])
     @users.introduction = params[:introduction]
     @users.sns = params[:sns]
-    
+    @users.image = params[:image]
+    @users.avatar = params[:avatar]
+
     if @users.save
-    redirect_to :back 
+    redirect_to :back
     else
     redirect_to :back
     end

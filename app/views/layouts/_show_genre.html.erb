@@ -1,65 +1,77 @@
-<div id="#<%= @current_genre %>"  class="clearfix grid">
+<style>
+/* 전체 장르목록을 감싸는 디브 */
+#show-genres {
+  margin-left: 100px;
+  margin-top: 10px;
+}
+/* 개별 카드 */
+.ui .card {
+  float :left;
+  margin : 20px 20px 20px 20px;
+}
+</style>
+<%#이 파일은 장르 카드를 모두 보여줍니다%>
+<div class="ui view container">
+  <div class="ui special cards" id="show-genres">
   <%
-    @shows.reverse.each do |show|
-    if show.genre == @current_genre || "모아보기" == @current_genre
-      # 모달에 값을 넘겨준다
-      @show = show
+      @shows.reverse.each do |show|
+      if show.genre == @current_genre || "모아보기" == @current_genre
   %>
-  <%= render partial: "/layouts/show_modal" %>
-
-    <figure class="effect-oscar wowload fadeInUp">
-      <!-- TODO 서버에 저장해놓은 사진으로 대체해야한다 -->
-      <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" alt="img01"/>
-      <figcaption>
-        <h2><%= show.title %></h2>
-        <p><%= show.location %><br>
-            <%= show.date  %><br>
-            <%= show.time %><br>
-        </p>
-        <p>
-          <a class="btn" data-toggle="modal" data-target="#upcomings-modal-<%= show.id %>">
-              <input type="hidden" name="show_id" value="<%= show.id %>">
-              More
-          </a>
-        </p>
-      </figcaption>
-    </figure>
-    <%
-    end
-  end
-%>
+    <div class="card">
+      <div class="blurring dimmable image">
+        <div class="ui inverted dimmer">
+          <div class="content">
+            <div class="center">
+              <div class="ui primary button" id="view-modal-<%= show.id %>">더보기</div>
+            </div>
+          </div>
+        </div>
+        <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+      </div>
+      <div class="content">
+        <a class="header"><%= show.title %></a>
+        <div class="meta">
+          <% if show.creator.nil? %>
+          <span class="date">장범준</span>
+          <% else %>
+          <span class="date"><%= show.creator.artist_name %></span>
+          <% end %>
+        </div>
+        <div class="description">
+          <%= show.location %>
+        </div>
+      </div>
+      <div class="extra content">
+        <i class="heart icon"></i>
+        <%= show.likes.size %>
+        <span class="right floated"><%= show.date %></span>
+      </div>
+    </div><!-- card -->
+    <% end %>
+  <% end %>
+  </div>
 </div>
 
-<!-- 댓글 작성 시작 -->
-            <script>
-              $(function() {
-                $(".reply_submit").click(function(){
-
-                  show_id = this.value;
-                  post_content = $("#comment_content_" + show_id).val();
- 
-                  $.ajax({
-                    method: "POST",
-                    url:  "/comments/create",
-                    data: { content: post_content, 
-                            show_id: show_id },
-                    success: function(data){
-                      alert("리플이 작성되었습니다");
-            
-                    
-                      $(".googol_" + show_id ).append('<img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;"  />');
- 
-                      $( ".reply_" + show_id ).append( "<h4>" + data[0].user.name + "<small>" + data[0].cmt.created_at + "</small>"+ "<br/>"  + "<small style=color:black>" +  post_content + "</small>" + "</h4>"   );
-                      $( "#comment_content_" + show_id).val('');
-                    },
-                    error: function(){
-                      alert("에러에러에러에러에러다");
-                    }
-                  });
-  
-                 });
-               });
-            </script>
-<!-- 댓글작성  끝 -->
 
 
+<!-- Clipboard.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+<!-- 각 공연 당, 카드 이미지 호버 -->
+<script>
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+// 모달 셋팅
+$('.ui.view.small.modal').modal('show');
+</script>
+
+<!-- 각 모달마다 엘리멘트 동작-->
+<% @shows.each do |s| %>
+  <script>
+  document.getElementById('view-modal-<%= s.id %>').onclick = function() {
+    $('.ui.small.view.modal.<%= s.id %>').modal('show');
+  };
+  </script>
+<% end %>
+<!-- 모든 모달뷰 가져옴 -->
+<%= render partial: "/layouts/show_modal" %>

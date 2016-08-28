@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'fog-aws'
+# amazon image upload
+gem "fog-aws"
 gem 'carrierwave'
 gem 'mini_magick'
+
+# solr
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 

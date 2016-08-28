@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
-  get 'artists' => 'home#artists'
+  get '/artists' => 'home#artists'
   get 'dashboard/:show_id/like' => 'likes#like_toggle'
   get 'shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
@@ -55,13 +55,13 @@ Rails.application.routes.draw do
   # get '/searching/getBounds' => 'searching#index'
 
 
-  get '/mypage/:user.artist_name' => 'home#mypage'
-  get '/mypage/:user.artist_name' => 'dashboard#mypage'
   get '/mypage_edit' => 'dashboard#mypage_edit'
   post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
   resources :follows, only: [:create, :destroy]
   get '/shows/view/:show_id' => 'home#view'
   get '/artist/search' => 'home#search'
+  get '/artists/name/:artist_name' => 'home#name'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

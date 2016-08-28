@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
 $(document).on('submit', '#login_form', function(e) {
             //do stuff here
             console.log("hi : "+ e);

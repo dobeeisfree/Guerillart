@@ -3,34 +3,19 @@
 	<head>
 		<title>Guerillart</title>
 		<%= stylesheet_link_tag    'application', media: 'all'%>
-		<%= stylesheet_link_tag    'bootstrap', media: 'all'%>
 		<%= javascript_include_tag 'application'%>
-		<!-- <%= stylesheet_link_tag    'application', media: 'all'  %> -->
-		<!-- <%= stylesheet_link_tag    'bootstrap', media: 'all' %> -->
-		<!-- <%= javascript_include_tag 'application'%> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+		<script src="/semantic/dist/semantic.min.js"></script>
 		<%= csrf_meta_tags %>
+		<%= favicon_link_tag 'favicon.ico' %>
 		<meta charset="UTF-8" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>Guerillart</title>
 
-		<link href="/css/main.css" rel="stylesheet">
 
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-		<link href="../../assets/bootstrap/css/guerillartcss.css" rel="stylesheet">
-
-		<link rel="stylesheet" href="../../assets/animate/animate.css" />
-		<link rel="stylesheet" href="../../assets/animate/set.css" />
-		<link rel="stylesheet" href="../../assets/gallery/blueimp-gallery.min.css">
-
-
-		<%= favicon_link_tag 'favicon.ico' %>
-		<link rel="stylesheet" href="../../assets/style.css">
 	</head>
 
 	<body>
-     <%= render :partial => "/layouts/header" %>
 		 <%= yield %>
 	</body>
 </html>

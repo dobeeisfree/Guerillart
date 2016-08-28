@@ -1,31 +1,48 @@
-<nav class="navbar navbar-default" style="margin-top:70px">
-  <div class="container-fluid">
-  <div class="collapse navbar-collapse container" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav" style="margin-left:25%; margin-right:25%">
-      <li>
-        <a href="/dashboard/home" method="get">대쉬보드</a>
-      </li>
-      <li>
-        <a href="/dashboard/guerillart" method="get">나의게릴라트</a>
-      </li>
-      <li class="dropdown">
-        <a href="/dashboard/profile" method="get">계정관리</a>
-      </li>
-    <% unless current_user.artist_name.nil? %>
+
+<style>
+.ui.subshow.menu {
+  margin-top: -15px;
+  background: #FAFAFA;
+  border-radius: 0;
+  border:none;
+}
+/* dropdown */
+.ui.sub.dropdown>.text {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+}
+div.ui.button.sub.dropdown {
+  text-align: center;
+}
+/* 전체 가운데 정렬 */
+.ui.button.sub.dropdown.genre, .ui.button.sub.dropdown.show {
+  margin : 0 auto;
+}
+.ui.subshow.container {
+  width: 300px;
+}
+</style>
+<div class="ui subshow menu">
+  <div class="ui subshow container">
+     <a class="header item" href="/dashboard/home" method="get">대쉬보드</a>
+     <a class="header item" href="/dashboard/guerillart" method="get">나의게릴라트</a>
+     <a class="header item" href="/dashboard/profile" method="get">계정관리</a>
+    <% if current_user.artist_name %>
       <% artist_name = current_user.artist_name %>
-      <li class="dropdown">
-        <a href="/dashboard/write" method="get">공연등록</a>
-      </li>
-      <li class="dropdown">
-      <%= link_to "#{artist_name} 페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
-      </li>
+        <a class="header item" href="/dashboard/write" method="get">공연등록</a>
+    <% else %>
+        <a class="header item" href="/dashboard/create_artist" method="get">아티스트 신청서</a>
     <% end %>
-    <% if current_user.artist_name.nil? %>
-      <li class="dropdown">
-        <a href="/dashboard/create_artist" method="get">아티스트 신청서</a>
-      </li>
-    <% end %>
-    </ul>
   </div>
-  </div>
-</nav>
+</div>
+
+<script>
+$('.show.dropdown')
+  .dropdown();
+;
+$('.genre.dropdown')
+  .dropdown();
+;
+</script>
+
+
