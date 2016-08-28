@@ -2,19 +2,16 @@
 /* 전체 장르목록을 감싸는 디브 */
 #show-genres {
   margin-left: 100px;
+  margin-top: 10px;
 }
 /* 개별 카드 */
 .ui .card {
   float :left;
   margin : 20px 20px 20px 20px;
 }
-/* 모달 위치 */
-.ui .modal {
-  margin-top: -300px;
-}
 </style>
 <%#이 파일은 장르 카드를 모두 보여줍니다%>
-<div class="ui container">
+<div class="ui view container">
   <div class="ui special cards" id="show-genres">
   <%
       @shows.reverse.each do |show|
@@ -37,7 +34,7 @@
           <% if show.creator.nil? %>
           <span class="date">장범준</span>
           <% else %>
-          <span class="date"><% show.creator.artist_name %></span>
+          <span class="date"><%= show.creator.artist_name %></span>
           <% end %>
         </div>
         <div class="description">
@@ -65,23 +62,16 @@ $('.special.cards .image').dimmer({
   on: 'hover'
 });
 // 모달 셋팅
-$('.ui.basic.modal')
-.modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
-.modal('setting', {
-    detachable: false,
-    allowMultiple: false,
-    observeChanges: false,
-    blurring: true
-});
+$('.ui.view.small.modal').modal('show');
 </script>
 
 <!-- 각 모달마다 엘리멘트 동작-->
 <% @shows.each do |s| %>
   <script>
   document.getElementById('view-modal-<%= s.id %>').onclick = function() {
-    $('.ui.modal.<%= s.id %>').modal('show');
+    $('.ui.small.view.modal.<%= s.id %>').modal('show');
   };
   </script>
 <% end %>
 <!-- 모든 모달뷰 가져옴 -->
-<%= render partial: "/layouts/show_modal", object: @shows %>
+<%= render partial: "/layouts/show_modal" %>
