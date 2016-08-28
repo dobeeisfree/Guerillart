@@ -14,4 +14,28 @@
 //= require jquery_ujs
 //= require_tree .
 
+$(document).on('submit', '#login_form', function(e) {
+            //do stuff here
+            console.log("hi : "+ e);
+            
+}).on('ajax:success', '#login_form', function(e, data, status, xhr) {
+        //do stuff here 
+        console.log("hi1 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
+        // console.log("hi1 : "+data);
+        // console.log("hi1 : ");
+}).on('ajax:error', '#login_form', function(e, data, status, xhr) {
+        //do stuff here
+        console.log("hi2");
+});
 
+
+$(document).on('submit', '#register_form', function(e){
+    //do stuff here
+    console.log("hi3");
+}).on('ajax:success', '#register_form', function(e, data, status, xhr) {
+    //do stuff here
+    console.log("hi4");
+}).on('ajax:error', '#register_form', function(e, data, status, xhr) {
+       //do stuff here
+       console.log("hi5");
+});
