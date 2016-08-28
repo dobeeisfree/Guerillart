@@ -1,27 +1,81 @@
+<style>
+.ui.card>.image>img, .ui.cards>.card>.image>img {
+    display: block;
+    width: 290px !important;
+    height: 290px !important;
+    border-radius: inherit;
+
+}
+.show-body {
+  background:#f4f4f4;
+}
+#show-genres {
+  margin-left: 100px;
+  margin-top: 10px;
+}
+/* 개별 카드 */
+.ui .card {
+  float :left;
+  margin : 20px 20px 20px 20px;
+}
+/* 아티스트 이미지 크기 */
+</style>
+<div class="show-body">
 <%= render :partial => "/layouts/header.html.erb"%>
 <%= render :partial => "/layouts/sub_header_artists" %>
 
-
-       <% user = User.all %>
-         <% user.each do |user| %>
-          <div class="container">
-            <div class="ui card" height="512" width"512">
-              <div class="image">
-                <% if user.avatar.url %>
-                <img src="<%= user.avatar.url %>">
-                <% else %>
-                <img src="/images/iu.jpg" >
-                <% end %>
+    <div class="ui view container">
+      <div class="ui special cards" id="show-genres">
+        <div class="ui cards">
         
-              </div>
-              <div class="content">
-              <a class="header" href="/artists/name/<%=user.artist_name%>"><%=user.artist_name%><input type="hidden" name="artist_name" value="artist_name"></a>
-                  <div class="description">
-                  <%=user.email%>
+        <% user = User.all %>
+         <% user.each do |user| %>
+          <% if user.artist_name %>
+          <% artist_name = user.artist_name %>
+            <div class="card">
+              <% if user.avatar.url %>  
+                <div class="blurring dimmable image">
+                  <div class="ui dimmer">
+                    <div class="content">
+                      <div class="center">
+                        <div class="ui inverted button">팔로잉</div>
+                      </div>
+                    </div>
                   </div>
+                  <img src="<%=user.avatar.url%>">
+                </div>
+              <% else %>
+                <div class="blurring dimmable image">
+                  <div class="ui dimmer">
+                    <div class="content">
+                      <div class="center">
+                        <div class="ui inverted button">팔로잉</div>
+                      </div>
+                    </div>
+                  </div>
+                  <img src="http://www.baedalnet.com/data/mw.cheditor/1402/c737496a1e90569ea8e24a8058a1b624_dSkWVsZntgKDtzpQEAG.jpg"> 
+                </div>
+              <% end %>
+              <div class="content"> 
+                <a class="header" href="/artists/name/<%=artist_name%>"><%=user.artist_name%><input type="hidden" name="artist_name" value="artist_name"></a>
+                <div class="meta">
+                  <a><%=user.genre%></a>
+                </div>
+                <div class="description">
+                 <%=user.introduction%> 
+                </div>
               </div>
-            </div><br>
-          </div>   
+            </div>
+          <% end %>
          <% end %>
 
+        </div>
+      </div>
+    </div>
+</div>
 
+<script>
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+</script>
