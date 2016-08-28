@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :users
   root 'home#index'
   get 'home/index' => 'home#index'
   get 'home/shows' =>'home#shows'
@@ -27,9 +26,9 @@ Rails.application.routes.draw do
 
   match "/users/sign_in" => redirect("/"), via: [:get]
   
-  
+  devise_for :users, :path => '', :controllers => {:sessions => 'users/sessions', :registrations => 'users/registrations'}, :path_names => { :sign_in => 'login', :password => 'forgot', :confirmation => 'confirm', :unlock => 'unblock', :registration => 'register', :sign_up => 'new', :sign_out => 'logout'}
   # devise_for :users, controllers: { sessions: 'users/sessions' }
-  devise_for :users
+  # devise_for :users
 
   # devise_for :users, :skip => [:sessions]
   # as :user do
