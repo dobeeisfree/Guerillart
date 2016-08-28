@@ -1,32 +1,114 @@
+<style>
+/* 모달 */
+.ui.view.modal {
+  margin-top: -300px;
+  text-align: center;
+}
+/* title */
+.ui.modal>.header:not(.ui)>p.header {
+  font-size: 1.5em;
+  margin-bottom: 1px;
+}
+.ui.small.modal>.header:not(.ui) {
+  text-align: left;
+}
+.ui.modal>.image.content {
+  background: #f2f2f2;
+}
+img.ui.small.circular.image {
+  width: 60px;
+  height: auto;
+  float:left;
+  margin-right: 10px;
+}
+.ui.fluid.image {
+  width: 400px;
+  float: left;
+}
+.ui.modal>.actions {
+  text-align: center;
+}
+.ui.modal>.description {
+  text-align: left;
+  float:right;
+  width: 310px;
+  margin-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+h3:first-child {
+  margin-top : 10px;
+}
+</style>
 <%#= render template: "home/view" %>
 <%#개별 뷰와 모달은 분리해서 만들겠습니다 %>
 <%#이 파일은 공연페이지의 모든 모달을 불러옵니다 %>
 <% @shows.each do |show| %>
 <% @current_url = "http://localhost:3000/shows/view/#{ show.id }" %>
-  <div class="ui modal <%= show.id %>">
+  <div class="ui view small modal <%= show.id %>">
     <i class="close icon"></i>
-    <div class="header"><%= show.title %></div>
-    <div class="image content">
-        <img class="image">
-        <div class="description">
-          <p><%= show.location %></p>
-          <p><%= show.time %></p>
-          <p><%= show.date %></p>
-          <p><%= show.playlist %></p>
+    <div class="header">
+      <a href="#"><!-- 공연작성자의 마이페이지로 이동 -->
+        <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
+      </a>
+      <p class="header"><%= show.title %></p>
+      <% if show.creator.nil?%>
+      <small><a target="_blank" href="/dashboard/mypage?artist_name=박효신">장범준</a></small>
+      <% else %>
+      <small><a target="_blank" href="/dashboard/mypage?artist_name=<%= show.creator.artist_name %>"><%= show.creator.artist_name %></a></small>
+      <% end %>
+      <small><%= show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일") %></small>
+    </div>
+
+    <div class="ui fluid image">
+      <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg">
+    </div>
+    <div class="description">
+      <div class="ui list">
+        <div class="item">
+          <h3>공연정보</h3>
+          <div class="content">
+            <%= show.content %>
+          </div>
+        </div>
+        <div class="item">
+          <i class="marker icon"></i>
+          <div class="content">
+            <%= show.location %>
+          </div>
+        </div>
+        <div class="item">
+          <i class="checked calendar icon"></i>
+          <div class="content">
+            <%= show.time %>, <%= show.date %>
+          </div>
+        </div>
+        <div class="item">
+          <i class="info icon"></i>
+          <div class="content">
+            <%= show.genre %>
+          </div>
+        </div>
+        <div class="item playlist">
+          <h3>플레이리스트</h3>
+          <div class="content">
+            <%= show.playlist %>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="content">
-      <div class="btn-group">
+
+      <div class="ui fluid basic buttons">
         <!-- 좋아요 = 꼭 보러갈래요, 로그인 한사람만 가능한 기능 -->
         <% unless current_user.nil? %>
           <% if current_user.is_like?(show) %>
-           <a href="/shows/<%= show.id %>/like" class="btn btn-default">
-             <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"><br></span>
+           <a href="/shows/<%= show.id %>/like" class="ui button">
+             <i class="heart icon"></i>
              <%= show.likes.size %>
            </a>
           <% else %>
-           <a href="/shows/<%= show.id %>/like" class="btn btn-default">
-             <span class="glyphicon glyphicon glyphicon-heart-empty" aria-hidden="true"><br></span>
+           <a href="/shows/<%= show.id %>/like" class="ui button">
+             <i class="empty heart icon"></i>
              <%= show.likes.size %>
            </a>
           <% end %>
@@ -35,7 +117,7 @@
         <a
            id="popup-<%= show.id %>"
            target="_blank"
-           class="btn btn-default twitter-share-button"
+           class="ui button twitter-share-button"
            href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= show.title %>&url=<%= @current_url %>"
            data-size="large">
            <i class="twitter icon"></i>
@@ -43,20 +125,20 @@
         <!-- 페이스북 -->
         <a
           target="_blank"
-          class="btn btn-default"
+          class="ui button"
           href="https://www.facebook.com/sharer/sharer.php?u=<%= @current_url %>">
           <i class="facebook f icon"></i>
         </a>
         <!-- url 복사하기 -->
-        <button class="btn btn-default"
-          data-tooltip="링크를 복사하세요!" data-position="top left"
-          id="clipboard-url-<%= show.id %>" title="Copy!"
+        <button class="ui button"
+          data-tooltip="링크를 복사하세요!" data-position="top center"
+          id="clipboard-url-<%= show.id %>"
           data-clipboard-text="<%= @current_url %>">
           <i class="copy icon"></i>
           <small id="msg-copied-<%= show.id %>"></small>
         </button>
       </div>
-    </div>
+</div>
 </div>
 
 
@@ -76,6 +158,5 @@
     document.getElementById("clipboard-url-<%= show.id %>").onclick = function() {
       document.getElementById("msg-copied-<%= show.id %>").innerHTML = "<i>Copied!</i>";
     }
-
   </script>
 <% end %>
