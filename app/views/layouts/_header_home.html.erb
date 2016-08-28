@@ -150,9 +150,7 @@ a.ui.item {
               <% if current_user.artist_name? %>
               <% artist_name = current_user.artist_name %>
               <a class="ui item" href="/dashboard/write">공연등록</a>
-              <div class="ui item">
-              <%= link_to "#{artist_name}페이지", controller: "dashboard", action:"mypage", artist_name: artist_name %>
-              </div>
+              <a class="ui item" href="/artists/name/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
               <a class="ui item" href="/users/sign_out" data-method="delete">로그아웃</a>
             </div>

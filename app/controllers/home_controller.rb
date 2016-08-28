@@ -41,16 +41,16 @@ class HomeController < ApplicationController
     @show = Show.find(params[:show_id])
   end
 
-  def mypage
-   a = params[:artist_name]
-   @users = User.find_by(artist_name: a )
-   @posts = Post.all
-  end
-
   def search 
     @res_artists = User.find_by_artist_name(params[:artist_name])
   end
         
+  def name
+    @users = User.find_by_artist_name(params[:artist_name])
+    @one_post = Post.find_by_user_id(@users.id)
+    @posts = Post.all
+    @followers = User.all
+  end
 
 
 end

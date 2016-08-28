@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
     show.genre = params[:genre]
     show.location = params[:location]
     show.playlist = params[:playlist]
-    show.user_id = current_user.id
+    show.creator_id = current_user.id 
     if show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/dashboard/guerillart"
