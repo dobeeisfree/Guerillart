@@ -81,7 +81,7 @@ a.ui.item {
 <!-- Start of Signin modal -->
 <div class="ui basic modal signin" id="signin-modal">
   <i class="close icon"></i>
-  <div class="header">로</div>
+  <div class="header">로그인</div>
   <%= form_for(resource, :as => resource_name, :html => {:id => 'login_form'}, :url => user_session_path, :remote => :true, :format => :json) do |f| %>
   <div class="ui form">
     <div class="field">
@@ -98,11 +98,14 @@ a.ui.item {
         <i class="lock icon"></i>
       </div>
     </div>
-    <% if devise_mapping.rememberable? -%>
-    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  	<% end -%>
-    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
+    <div class="field">
+	    <% if devise_mapping.rememberable? -%>
+	    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+	  	<% end -%>
+	    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
+    </div>
   </div>
+  <div class="footer" id="login_modal_footer"></div>
   <% end %>
 </div>
 
@@ -117,6 +120,10 @@ a.ui.item {
       <div class="ui two column middle aligned very relaxed stackable grid">
         <div class="column">
           <div class="ui form">
+          	<div class="field">
+              <label>Name</label>
+              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." %>
+            </div>
             <div class="field">
               <label>E-mail</label>
                 <div class="ui left icon input">
@@ -124,10 +131,6 @@ a.ui.item {
             	<div class="error"><%= resource.errors[:email].first if resource.errors[:email].present? %></div>
                 <i class="user icon"></i>
                 </div>
-            </div>
-            <div class="field">
-              <label>Name</label>
-              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." %>
             </div>
             <div class="field">
               <label>Password</label>
@@ -240,6 +243,12 @@ $('.ui.basic.modal')
     blurring: true,
     transition: 'vertical flip'
 });
+
+$('.ui.basic.modal.signin').on('hidden.bs.modal', function () {
+	$('.footer#login_modal_footer').html="";	
+    // do something…
+});
+
 // 모달 버튼
 document.getElementById('start_signin_modal').onclick = function() {
   $('.ui.basic.modal.signin').modal('show');

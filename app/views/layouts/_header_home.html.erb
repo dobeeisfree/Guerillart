@@ -81,12 +81,7 @@ a.ui.item {
 	    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
     </div>
   </div>
-  <div class="footer">
-  	<div class="ui error message">
-	    <div class="header">Action Forbidden</div>
-	    <p>You can only sign up for an account once with a given e-mail address.</p>
-  	</div>
-  </div>
+  <div class="footer" id="login_modal_footer"></div>
   <% end %>
 </div>
 
@@ -101,6 +96,10 @@ a.ui.item {
       <div class="ui two column middle aligned very relaxed stackable grid">
         <div class="column">
           <div class="ui form">
+          	<div class="field">
+              <label>Name</label>
+              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." %>
+            </div>
             <div class="field">
               <label>E-mail</label>
                 <div class="ui left icon input">
@@ -108,10 +107,6 @@ a.ui.item {
             	<div class="error"><%= resource.errors[:email].first if resource.errors[:email].present? %></div>
                 <i class="user icon"></i>
                 </div>
-            </div>
-            <div class="field">
-              <label>Name</label>
-              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." %>
             </div>
             <div class="field">
               <label>Password</label>
@@ -202,6 +197,29 @@ $('.ui.basic.modal')
     blurring: true,
     transition: 'vertical flip'
 });
+
+// $( '#signin-modal' )
+   // .on('hide', function() {
+       // console.log('hide');
+ // });
+
+$('.ui.basic.modal.signin').modal({
+        onHide: function(){
+            console.log('hidden');
+			$('.footer#login_modal_footer').html = "";
+        }
+});
+
+
+// $(document.body).on('hidden.bs.modal', function () {
+    // $('.footer#login_modal_footer').html = "";
+// });
+// $('.ui.basic.modal.signin').modal.on('hidden.bs.modal', function () {
+	// $('.footer#login_modal_footer').reset();	
+    // // do something…
+// });
+
+
 // 모달 버튼
 document.getElementById('start_signin_modal').onclick = function() {
   $('.ui.basic.modal.signin').modal('show');
