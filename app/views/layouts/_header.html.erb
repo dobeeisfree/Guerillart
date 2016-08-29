@@ -244,9 +244,11 @@ $('.ui.basic.modal')
     transition: 'vertical flip'
 });
 
-$('.ui.basic.modal.signin').on('hidden.bs.modal', function () {
-	$('.footer#login_modal_footer').html="";	
-    // do something…
+//로그인 모달 닫았을 시 에러메시지 삭제
+$('.ui.basic.modal.signin').modal({
+        onHide: function(){
+			$('.footer#login_modal_footer').html("");
+        }
 });
 
 // 모달 버튼

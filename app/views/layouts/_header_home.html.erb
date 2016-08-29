@@ -198,15 +198,11 @@ $('.ui.basic.modal')
     transition: 'vertical flip'
 });
 
-// $( '#signin-modal' )
-   // .on('hide', function() {
-       // console.log('hide');
- // });
 
+//로그인 모달 닫았을 시 에러메시지 삭제
 $('.ui.basic.modal.signin').modal({
         onHide: function(){
-            console.log('hidden');
-			$('.footer#login_modal_footer').html = "";
+			$('.footer#login_modal_footer').html("");
         }
 });
 
