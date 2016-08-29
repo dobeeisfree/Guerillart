@@ -45,7 +45,7 @@
 			   with position:fixed. Width, height, top and left speak
 			   for themselves. Background we set to 80% white with
 			   our animation centered, and no-repeating */
-			.modal#loadingModal {
+			/*.modal#loadingModal {
 			    display:    none;
 			    position:   fixed;
 			    z-index:    1000;
@@ -55,9 +55,9 @@
 			    width:      100%;
 			    background: rgba( 255, 255, 255, .2 ) 
 			                /*url('http://i.stack.imgur.com/FhHRx.gif') */
-			                50% 50% 
-			                no-repeat;
-			}
+			                /*50% 50% */
+			                /*no-repeat;*/
+			/*}*/
 			
 			/* When the body has the loading class, we turn
 			   the scrollbar off with overflow:hidden */
@@ -67,7 +67,7 @@
 			
 			/* Anytime the body has the loading class, our
 			   modal element will be visible */
-			body.loading .modal#loadingModal {
+			body.loading .ui.segment {
 			    display: block;
 			}
 				
@@ -179,12 +179,12 @@
 		
 		
 		
-			// //loading modal 띄우기
-			// $body = $("body");
-			// $(document).on({
-			    // ajaxStart: function() { $body.addClass("loading"); },
-			    // ajaxStop: function() { $body.removeClass("loading"); }    
-			// });
+			//loading modal 띄우기
+			$body = $("body");
+			$(document).on({
+			    ajaxStart: function() { $body.addClass("loading"); },
+			    ajaxStop: function() { $body.removeClass("loading"); }    
+			});
 			
 			var globalMap;
 			var globalMarker;
@@ -936,8 +936,13 @@
 			</div>
 	
 			<div id="s_right"></div>
-			
-			<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
 		</div>
+		<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
+			<div class="ui segment">
+			  <div class="ui active inverted dimmer">
+			    <div class="ui small text loader">Loading</div>
+			  </div>
+			  <p></p>
+			</div>
 	</body>
 </html>
