@@ -91,15 +91,15 @@ a.ui.item {
         <div class="column">
           <div class="ui form">
             <div class="field">
+              <label>Name</label>
+              <%= f.text_field :name, autofocus: true, class: "g-form", placeholder: "이름을 입력해주세요" %>
+            </div>
+            <div class="field">
               <label>E-mail</label>
                 <div class="ui left icon input">
                 <%= f.email_field :email, autofocus: true, class: "g-form" , placeholder: "이메일을 입력해주세요" %>
                 <i class="user icon"></i>
                 </div>
-            </div>
-            <div class="field">
-              <label>Name</label>
-              <%= f.text_field :name, autofocus: true, class: "g-form", placeholder: "이름을 입력해주세요" %>
             </div>
             <div class="field">
               <label>Password</label>
