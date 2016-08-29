@@ -76,6 +76,11 @@ a.ui.item {
 .ui[class*="left action"].input>.dropdown {
   background: transparent;
 }
+
+/* 이미 게릴라트 계정이 있나요? */
+div.option_buttons {
+  margin-top: 15px;
+}
 </style>
 
 <!-- Start of Signin modal -->
@@ -105,14 +110,14 @@ a.ui.item {
 	    </div>
 		<div class="clear"></div>
 	</div>
-    
+
   <div class="go-sign">
 	    <!-- <% if devise_mapping.rememberable? -%>
 	    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
 	  	<% end -%> -->
 	    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
   </div>
-  
+
   <div class="footer" id="login_modal_footer"></div>
   <% end %>
 </div>
@@ -157,20 +162,20 @@ a.ui.item {
                 </div>
             </div>
           </div>
-          
+
           <div class="option_buttons">
 		    <div class="already_registered">
 		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :class => 'already_registered', :id => 'already_registered', :view => 'login' %>
 		    </div>
 		  	<div class="clear"></div>
-		  </div>	
-          
+		  </div>
+
           <div class="go-sign">
             <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
           </div>
+          <div class="footer" id="signup_modal_footer"></div>
       </div>
      </div>
-     <div class="footer" id="signup_modal_footer"></div>
   <% end %>
 </div>
 
