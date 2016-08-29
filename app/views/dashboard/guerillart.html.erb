@@ -35,9 +35,10 @@
 
     <div class="ui guerillart special cards" id="show-genres">
     <%
-      @yourlikes = Like.find_by(user_id: current_user.id)
-      @shows.reverse.each do |show|
-        if @yourlikes.show_id == show.id
+      @yourlikes = Like.where(user_id: current_user.id)
+      @yourlikes.each do |liked_show|
+        @shows.reverse.each do |show|
+          if liked_show.show_id == show.id
     %>
       <div class="card">
         <div class="blurring dimmable image">
@@ -70,6 +71,7 @@
           </div>
         </div><!-- card -->
         <% end %>
+      <% end %>
       <% end %>
 
 
