@@ -54,7 +54,7 @@
 			    height:     100%;
 			    width:      100%;
 			    background: rgba( 255, 255, 255, .2 ) 
-			                url('http://i.stack.imgur.com/FhHRx.gif') 
+			                /*url('http://i.stack.imgur.com/FhHRx.gif') */
 			                50% 50% 
 			                no-repeat;
 			}
@@ -77,6 +77,10 @@
 
 			input {
 				font-size: 9pt;
+			}
+			div#s_all{
+				width: 100%;
+				height: 85%;
 			}
 
 			div#s_left {
@@ -141,10 +145,9 @@
 		        background: rgb(112,112,112) !important;
 	    	}
 		</style>
-		<!-- google map 사용 -->
+		<!-- google map 사용  &libraries=places-->
 		<script async defer
-	    	// src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
-	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI&libraries=places">
+	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
 	    </script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script> -->
 		
@@ -164,13 +167,13 @@
 		<script type="text/javascript">
 		
 			//자동완성
-			autocomplete = new google.maps.places.Autocomplete(
-		    	/** @type {!HTMLInputElement} */ (
-		    	document.getElementById('autocomplete')), {
-		    	// types: ['(cities)'],
-		    	// componentRestrictions: countryRestrict
-		    });
-			places = new google.maps.places.PlacesService(globalMap);
+			// autocomplete = new google.maps.places.Autocomplete(
+		    	// /** @type {!HTMLInputElement} */ (
+		    	// document.getElementById('autocomplete')), {
+		    	// // types: ['(cities)'],
+		    	// // componentRestrictions: countryRestrict
+		    // });
+			// places = new google.maps.places.PlacesService(globalMap);
 		
 		
 		
@@ -206,13 +209,15 @@
 			
 			var isMobile;	//모바일이면 true
 			var isDistOrder; //거리순 정렬이면 1, default: 0 (인기순)
-			var mapZoom;    //디바이스에 따른 map의 Zoom 넘
+			var mapZoom;    //디바이스에 따른 map의 Zoom 넘버
+			
 			
 			// 맵 초기화
 			function initialize() 
 			{
 				var address = "<%=@location%>";
 				isDistOrder = 0;
+				mapZoom = 17;
 				
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
 					// alert('검색할 주소를 입력하십시오.');
@@ -374,6 +379,7 @@
 				    // mapdiv.style.width = '100%';
 				    // mapdiv.style.height = '100%';
 				    document.getElementById("s_left").style.width = '100%';
+				    mapZoom = 16;
 				    return true;
 				    
 				}
@@ -481,7 +487,7 @@
 								//markerBubble 띄우기
 								markerBubble = new InfoBubble({
 							    	map: globalMap,
-							        content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;</div>',
+							        content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
 							        //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
 							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
 							        shadowStyle: 0,	//그림자 off
@@ -535,8 +541,8 @@
 			                    	});
 			                    })(markerBubble, i);
 			                    
-								
-								document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
+								if(!isMobile)
+									document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
 								
 			        	 	}
 			        	},
@@ -824,108 +830,110 @@
 
 	<!-- <body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);"> -->
 	<body onload="initialize()">
-		<div id="s_left">
-			<div id="wrapper">
-				<div id="map_canvas"></div>
-				<div id="over_info">
-					<div id="over_artist"></div>
+		<div id="s_all">
+			<div id="s_left">
+				<div id="wrapper">
+					<div id="map_canvas"></div>
+					<div id="over_info">
+						<div id="over_artist"></div>
+					</div>
 				</div>
-			</div>
-			<!-- <div id="map_canvas"></div> -->
-
-			<div id="control">
-				<dl>
-					<dt>
-						<strong>[Control]</strong>
-					</dt>
-					<dd>
-						<input type="button" value="거리순/인기순" onClick="switchOrder();">
-					</dd>
-					<dd>
-						&nbsp;
-					</dd>
-					<dd>
-						맵 주소 : <span id="txtAddress"></span>
-					</dd>
-					<dd>
-						맵X좌표:&nbsp;&nbsp;&nbsp;
-						<input type="text" id="centerX">
-					</dd>
-					<dd>
-						맵Y좌표:&nbsp;&nbsp;&nbsp;
-						<input type="text" id="centerY">
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
-						<input type="button" value="마크삭제" onClick="removeMark();">
-					</dd>
-					<dd>
-						<input type="button" value="마크좌표 보기" onClick="getMarkPos();">
-						<br>
-						<span style="margin-left: 80px;">마크X좌표:
-							<input type="text" id="markerX">
-						</span>
-						<br>
-						<span style="margin-left: 80px;">마크Y좌표:
-							<input type="text" id="markerY">
-						</span>
-					</dd>
-					<dd>
-						<input type="button" value="정보창 마크 찍기 - 파인드올" onClick="setInfoMark();">
-					</dd>
-					<dd>
-						<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
-						좌표(x,y): 37.5145937754918, 127.10662364959717
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
-						<input type="button" value="GeoCode" onClick="codeAddress()">
-					</dd>
-					
-					<% if user_signed_in? %>
-						<% if current_user.creations.find_by(status: 1).present? %>
-							<dd><input type="button" value="공연종료" onClick="finishShow();"></dd>
-						<% else %>
-							<% @creations = current_user.creations.where(status: 0) %>
-							<dd><input type="button" value="공연시작" onClick="setShowList('<%=@creations.to_json%>');"></dd>
-						<% end %>
-						
-						<div id=showList></div>
-							
-					<% else %>
+				<!-- <div id="map_canvas"></div> -->
+	
+				<div id="control">
+					<dl>
 						<dt>
-							<strong>[Not Signed In]</strong>
+							<strong>[Control]</strong>
 						</dt>
-					<%end%>
-					
-					<dd><hr/></dd>
-					<input id="autocomplete" type="text" size="50">
-					
-					</td>
+						<dd>
+							<input type="button" value="거리순/인기순" onClick="switchOrder();">
+						</dd>
+						<dd>
+							&nbsp;
+						</dd>
+						<dd>
+							맵 주소 : <span id="txtAddress"></span>
+						</dd>
+						<dd>
+							맵X좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerX">
+						</dd>
+						<dd>
+							맵Y좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerY">
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
+							<input type="button" value="마크삭제" onClick="removeMark();">
+						</dd>
+						<dd>
+							<input type="button" value="마크좌표 보기" onClick="getMarkPos();">
+							<br>
+							<span style="margin-left: 80px;">마크X좌표:
+								<input type="text" id="markerX">
+							</span>
+							<br>
+							<span style="margin-left: 80px;">마크Y좌표:
+								<input type="text" id="markerY">
+							</span>
+						</dd>
+						<dd>
+							<input type="button" value="정보창 마크 찍기 - 파인드올" onClick="setInfoMark();">
+						</dd>
+						<dd>
+							<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
+							좌표(x,y): 37.5145937754918, 127.10662364959717
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
+							<input type="button" value="GeoCode" onClick="codeAddress()">
+						</dd>
+						
+						<% if user_signed_in? %>
+							<% if current_user.creations.find_by(status: 1).present? %>
+								<dd><input type="button" value="공연종료" onClick="finishShow();"></dd>
+							<% else %>
+								<% @creations = current_user.creations.where(status: 0) %>
+								<dd><input type="button" value="공연시작" onClick="setShowList('<%=@creations.to_json%>');"></dd>
+							<% end %>
+							
+							<div id=showList></div>
+								
+						<% else %>
+							<dt>
+								<strong>[Not Signed In]</strong>
+							</dt>
+						<%end%>
+						
+						<dd><hr/></dd>
+						<input id="autocomplete" type="text" size="50">
+						
+						</td>
+				</div>
+	
 			</div>
-
+	
+			<div id="s_right"></div>
+			
+			<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
 		</div>
-
-		<div id="s_right"></div>
-		
-		<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
 	</body>
 </html>
