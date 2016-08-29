@@ -1,0 +1,37 @@
+<style>
+.ui.guerillart.tab {
+  display: inherit;
+  margin-top: 40px;
+}
+.ui.guerillart.cards {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+</style>
+<div class="ui guerillart tab">
+  <% @followed.each do |f| %>
+  <%# @followed는 현재 유저 아이디가 퐐로워 아이디로 등록한, 모든 퐐로잉을 가져옴%>
+    <% @artists_you_following = User.where(id: f.followed.id) %>
+      <% @artists_you_following.each do |a| %>
+           <div class="four wide column">
+             <div class="ui guerillart cards">
+               <div class="card">
+                 <div class="content">
+                   <img class="right floated mini ui image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+                   <div class="header"><%= a.artist_name %></div>
+                   <div class="meta"><%= a.email %></div>
+                   <div class="description">since:<%= a.created_at %></div>
+                 </div>
+                 <div class="extra content">
+                   <div class="ui two buttons">
+                     <div class="ui basic green button">메세지</div>
+                     <div class="ui basic red button">차단</div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+      <% end %>
+    <% end %>
+</div>

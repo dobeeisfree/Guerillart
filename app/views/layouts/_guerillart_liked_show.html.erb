@@ -1,0 +1,41 @@
+<%#나의 게릴라트 페이지의 , 찜한 공연 %>
+    <div class="ui guerillart special cards" id="show-genres">
+    <%
+      @yourlikes.each do |liked_show|
+        @shows.reverse.each do |show|
+          if liked_show.show_id == show.id
+    %>
+      <div class="card">
+        <div class="blurring dimmable image">
+          <div class="ui inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <%= link_to "더보기", {controller: "home", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
+              </div>
+            </div>
+          </div>
+          <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+        </div>
+        <div class="content">
+          <a class="header"><%= show.title %></a>
+          <div class="meta">
+            <% if show.creator.nil? %>
+            <span class="date">장범준</span>
+            <% else %>
+            <span class="date"><%= show.creator.artist_name %></span>
+            <% end %>
+          </div>
+          <div class="description">
+            <%= show.location %>
+          </div>
+        </div>
+        <div class="extra content">
+            <i class="heart icon"></i>
+            <%= show.likes.size %>
+            <span class="right floated"><%= show.date %></span>
+          </div>
+        </div><!-- card -->
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
