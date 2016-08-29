@@ -13,10 +13,8 @@ class HomeController < ApplicationController
   end
 
   def artists
-
-   @artist_name = params[:artist_name]
-   @users = User.find_by(artist_name: "@artist_name")
-
+    @artist_name = params[:artist_name]
+    @users = User.find_by(artist_name: @artist_name)
   end
 
   def shows
@@ -40,7 +38,7 @@ class HomeController < ApplicationController
     @show = Show.find(params[:show_id])
   end
 
-  def search 
+  def search
     @user = User.find_by_artist_name(params[:artist_name])
   end
 

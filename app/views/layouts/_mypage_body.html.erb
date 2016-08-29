@@ -22,7 +22,7 @@
   margin: 0 auto;
   display:flex;
   justify-content:center;
-  align-items:center;  
+  align-items:center;
 }
 /* 퐐로워 */
 .artist-info-th {
@@ -56,6 +56,10 @@
 .ui.cards {
   margin: 0 auto;
 }
+/* 아티스트의  공연정보들 */
+.ui.artists-show.special.cards {
+  margin-left: 30px;
+}
 </style>
 
 
@@ -64,7 +68,7 @@
         <!-- 아티스트 프로필 헤더 -->
         <div class="ProfileCanopy-header u-bgUserColor">
             <div class="ProfileCanopy-headerBg" style="margin-top:-15px">
-            <% if @users.image.url.nil? %> 
+            <% if @users.image.url.nil? %>
               <img  src="https://www.beatlesbible.com/wp/media/1400x400-history_01.jpg" height="350px" width="100%" >
             <% else %>
               <img  src="<%= @users.image.url%>" height="350px" width="100%" >
@@ -120,7 +124,7 @@
                       <div class="content">
                         <div class="summary">
                          <i class="marker icon"></i>
-                         <%= @users.area %> 
+                         <%= @users.area %>
                         </div>
                       </div>
                     </div>
@@ -244,7 +248,7 @@
         </div>
 
            <!-- 공간을 띄우기 위한 것 -->
-           <div class="ui grid container"> 
+           <div class="ui grid container">
              <div class="four wide column"></div>
              <div class="four wide column"></div>
              <div class="four wide column"></div>
@@ -257,7 +261,7 @@
 
 
            <!-- 가수의 팔로잉  시작 -->
-           <div class="ui tab" data-tab="following"> 
+           <div class="ui tab" data-tab="following">
             <div class="ui grid container ">
              <% follow = Follow.all %>
              <% follow.each do |f| %>
@@ -295,7 +299,7 @@
 
 
          <!-- 팔로워들 정보 보여주기 시작-->
-         <div class="ui tab" data-tab="follower"> 
+         <div class="ui tab" data-tab="follower">
           <div class="ui grid container ">
            <% follow = Follow.all %>
            <% follow.each do |f| %>
@@ -334,13 +338,51 @@
 
 
         <div class="ui tab" data-tab="collabo">
-          <h1> 커밍순~!!! </h1>   
+          <h1> 커밍순~!!! </h1>
           <!-- 콜라보는 공연정보가 와야한다Tab Content !-->
         </div>
 
 
         <div class="ui tab" data-tab="show">
-          <!-- Tab Content !-->
+
+          <div class="ui artists-show special cards">
+          <% unless @users.creations.nil?  %>
+          <% @users.creations.each do |show| %>
+            <div class="card">
+              <div class="blurring dimmable image">
+                <div class="ui inverted dimmer">
+                  <div class="content">
+                    <div class="center">
+                      <%= link_to "더보기", {controller: "home", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
+                    </div>
+                  </div>
+                </div>
+                <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+              </div>
+              <div class="content">
+                <a class="header"><%= show.title %></a>
+                <div class="meta">
+                  <% if show.creator.nil? %>
+                  <span class="date">장범준</span>
+                  <% else %>
+                  <span class="date"><%= show.creator.artist_name %></span>
+                  <% end %>
+                </div>
+                <div class="description">
+                  <%= show.location %>
+                </div>
+              </div>
+              <div class="extra content">
+                  <i class="heart icon"></i>
+                  <%= show.likes.size %>
+                  <span class="right floated"><%= show.date %></span>
+                </div>
+              </div><!-- card -->
+            <% end %>
+            <% end %>
+          </div>
+
+
         </div>
 
 
@@ -381,4 +423,8 @@ $(function() {
 </script>
 <script>
 $('.tabular.menu .item').tab();
+<!-- 각 공연 당, 카드 이미지 호버 -->
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
 </script>
