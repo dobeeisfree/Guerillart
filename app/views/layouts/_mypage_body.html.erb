@@ -1,4 +1,8 @@
 <style>
+/* tabulr menu cursor*/
+.ui.tabular.menu .item:hover {
+ cursor: pointer;
+}
 /* ui tabular menu */
 .ui.tabular.menu .active.item {
  border-top-width: initial;
@@ -16,6 +20,11 @@
 }
 
 /* 왼쪽 정보들 : 아티스트들의 정보 */
+.profile.container {
+ margin-top: 30px;
+}
+
+
 .artist-profile-info {
   color: #F5F5F5;
   width: 350px;
@@ -26,7 +35,7 @@
 .post-by {
   max-width: 450px;
   margin-left: 480px;
-  margin-top: 40px;
+  margin-top: -238px ;
 }
 /* 오른쪽 정보들 : 아티스트의 공연 */
 .this-artist-shows {
@@ -38,11 +47,14 @@
 }
 </style>
 
+
+
+
         <!-- 아티스트 프로필 헤더 -->
         <div class="ProfileCanopy-header u-bgUserColor">
             <div class="ProfileCanopy-headerBg" style="margin-top:-15px">
             <% if @users.image.url.nil? %> 
-              <img  src="http://wallpapercave.com/wp/zhOxefe.jpg" height="350px" width="100%" >
+              <img  src="https://www.beatlesbible.com/wp/media/1400x400-history_01.jpg" height="350px" width="100%" >
             <% else %>
               <img  src="<%= @users.image.url%>" height="350px" width="100%" >
             <% end %>
@@ -59,39 +71,87 @@
         </div>
 
         <div class="active ui tab" data-tab="post">
+
+
             <!-- 아티스트 프로필, 왼쪽에 위치한다-->
-            <div class="artist-profile-info">
-              <div class="thumbnail" style="margin-top: 40px; margin-right: 37px;">
-                <div class="caption" style="text-align: left">
-                  <b style="font-size:3em"><%= @users.artist_name %></b>
-                  <p>
-                    <%= @users.introduction %></br>
-                    </br>
-                    <span class="glyphicon glyphicon-map-marker"></span> <%= @users.area %></br>
-                    <span class="glyphicon glyphicon-link"></span> <%= @users.sns %></br>
-                    가입일 <%= @users.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d") %></br>
-                  </p>
-                  <span>
-                  <% if user_signed_in? && current_user.id != @users.id %>
-                    <% if current_user.followings.include?(@users) %>
-                      <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
-                        <button class="btn btn-primary">팔로우 취소</button>
-                      <% end %>
-                    <% else %>
-                      <%= form_tag follows_path, class: "right" do %>
-                        <input type="hidden" name="followed_id" value="<%= @users.id %>" />
-                        <button class="btn btn-primary">팔로우</button>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                  </span>
-                  <% if current_user.artist_name == @users.artist_name %>
-                    <% user = @users.artist_name %>
-                    <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
-                  <% end %>
+    <div class="profile container fluid">
+      <div class="ui left aligned card">
+        <div class="content">
+          <div class="header">
+          <i class="users icon"></i>
+            <%= @users.artist_name %>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ui small feed">
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                 <i class="marker icon"></i>
+                 <%= @users.area %> 
                 </div>
               </div>
             </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <i class="mail icon"></i>
+                  <%= @users.email %></br>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <i class="linkify icon"></i>
+                  <%= @users.sns %></br>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                <i class="comment outline icon"></i>
+                  <%= @users.introduction %></br>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                <i class="tags icon"></i>
+                  <%= @users.genre %></br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+          <% if user_signed_in? && current_user.id != @users.id %>
+            <% if current_user.followings.include?(@users) %>
+              <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
+                <button class="btn btn-primary">팔로우 취소</button>
+              <% end %>
+            <% else %>
+              <%= form_tag follows_path, class: "right" do %>
+                <input type="hidden" name="followed_id" value="<%= @users.id %>" />
+                <button class="btn btn-primary">팔로우</button>
+              <% end %>
+            <% end %>
+          <% end %>
+          </span>
+          <% if current_user.artist_name == @users.artist_name %>
+            <% user = @users.artist_name %>
+            <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
 
           <!-- 정중앙에 트위터처럼 위치해야하는 엘리멘트들 -->
           <div class="post-by">
@@ -114,10 +174,6 @@
               <div class="posts_get thumbnail">
                 <!-- 아티스트가 글쓴 내용 -->
                 <div>
-                  <a class="pull-left" href="#">
-                    <img class="media-object dp img-circle" src="https://pbs.twimg.com/profile_images/747350188763668481/nZ_JFwxj.jpg"
-                    alt="<%= @users.artist_name %>" style="width:70px; height:70px;">
-                  </a>
                   <p><%= post.content %></p>
                   <p>
                     <a id="op-comments-<%= post.id %>">댓글
@@ -126,22 +182,32 @@
                 </div>
                 <hr>
                 <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
-                <div class="show-comment-window">
-                  <div class="col-lg-10">
-                    <a class="pull-left" href="#" style="margin-right:10px">
-                      <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:70px; height:70px;">
+                <div class="ui comments">
+                  <div class="comment">
+                    <a class="avatar">
+                      <img src="/images/avatar/small/joe.jpg">
                     </a>
-                    <div class="media-body">
-                      <h4 class="media-heading"><%= current_user.name %>
-                        <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
-                      </h4>
-                      <input class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요">
+                    <div class="content">
+                      <a class="author"><%=current_user.name%></a>
+                      <div class="metadata">
+                      </div>
+                      <div class="text">
+                        <p> </p>
+                      </div>
+                      <div class="actions">
+                        <a class="reply">Reply</a>
+                      </div>
                     </div>
                   </div>
+                 </div>
+
+
+                    <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
+                  </h4>
+                  <input class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요">
                   <div class="form-group">
                     <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
                   </div>
-                </div>
                 <hr>
                 <!-- 글쓴 내용에 달린 댓글 출력 -->
                 <% unless post.comments.nil? %>
@@ -180,21 +246,27 @@
   <div class="four wide column"></div>
 </div>
 
-          <div class="ui tab" data-tab="following"> <!-- 팔로잉 정보 시작-->
+
+           <!-- 가수의 팔로잉  시작 -->
+           <div class="ui tab" data-tab="following"> 
             <div class="ui grid container ">
+             <% follow = Follow.all %>
+             <% follow.each do |f| %>
+               <% if f.follower_id == @users.id %>
+               <% my_star = User.find_by(id: f.followed_id) %>
                     <div class="four wide column">
                       <div class="ui cards">
                         <div class="card">
                           <div class="content">
                             <img class="right floated mini ui image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
                             <div class="header">
-                              Francesca
+                              <%= my_star.artist_name %>
                             </div>
                             <div class="meta">
-                              Friends of Veronika
+                              <%= my_star.genre%>
                             </div>
                             <div class="description">
-                              Elliot requested permission to view your contact details
+                              <%= my_star.introduction%>
                             </div>
                           </div>
                           <div class="extra content">
@@ -206,40 +278,50 @@
                         </div>
                       </div>
                     </div>
-            </div>
-                <!-- Tab Content !-->
+              <% end %>
+             <% end %>
+           </div>
           </div>
+          <!-- 가수의 팔로잉 종료 !-->
 
 
-        <div class="ui tab" data-tab="follower">
-            <div class="ui grid container ">
-                <div class="four wide column">
-                  <div class="ui cards">
-                    <div class="card">
-                      <div class="content">
-                        <img class="right floated mini ui image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-                        <div class="header">
-                          Francesca
-                        </div>
-                        <div class="meta">
-                          Friends of Veronika
-                        </div>
-                        <div class="description">
-                          Elliot requested permission to view your contact details
-                        </div>
-                      </div>
-                      <div class="extra content">
-                        <div class="ui two buttons">
-                          <div class="ui basic green button">메세지</div>
-                          <div class="ui basic red button">차단</div>
+         <!-- 팔로워들 정보 보여주기 시작-->
+         <div class="ui tab" data-tab="follower"> 
+          <div class="ui grid container ">
+           <% follow = Follow.all %>
+           <% follow.each do |f| %>
+             <% if f.followed_id == @users.id %>
+               <% fan = User.find_by(id: f.follower_id) %>
+                    <div class="four wide column">
+                      <div class="ui cards">
+                        <div class="card">
+                          <div class="content">
+                            <img class="right floated mini ui image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+                            <div class="header">
+                              <%= fan.name %>
+                            </div>
+                            <div class="meta">
+                              <%= fan.email%>
+                            </div>
+                            <div class="description">
+                              since:<%= fan.created_at%>
+                            </div>
+                          </div>
+                          <div class="extra content">
+                            <div class="ui two buttons">
+                              <div class="ui basic green button">메세지</div>
+                              <div class="ui basic red button">차단</div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-            </div>
-          <!-- Tab Content !-->
-        </div>
+               <% end %>
+             <% end %>
+           </div>
+         </div>
+         <!-- 팔로워들 정보보여주기 종료 -->
+
 
 
         <div class="ui tab" data-tab="collabo">

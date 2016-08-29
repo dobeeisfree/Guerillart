@@ -49,7 +49,21 @@
                   <div class="ui dimmer">
                     <div class="content">
                       <div class="center">
-                        <div class="ui inverted button">팔로잉</div>
+
+                      <% @users = user %>
+                      <% if user_signed_in? && current_user.id != @users.id %>
+                        <% if current_user.followings.include?(@users) %>
+                          <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
+                            <button class="ui inverted button">팔로우 취소</button>
+                          <% end %>
+                        <% else %>
+                          <%= form_tag follows_path, class: "right" do %>
+                            <input type="hidden" name="followed_id" value="<%= @users.id %>" />
+                            <button class="ui inverted button">팔로우</button>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+
                       </div>
                     </div>
                   </div>
