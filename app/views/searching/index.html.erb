@@ -323,8 +323,12 @@
 					{
 						if(infowindow)
 							infowindow.close();
-						closedMarkerBubble.open();
-						closedMarkerBubble=null;
+						if(closedmarkerBubble)
+						{
+							closedMarkerBubble.open();
+							closedMarkerBubble=null;
+							
+						}
 					}
 				});
 				

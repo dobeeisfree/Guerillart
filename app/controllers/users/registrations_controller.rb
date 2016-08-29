@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
 
-  before_filter :configure_permitted_parameters
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   prepend_view_path 'app/views/devise'
 
@@ -84,10 +84,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Custom Fields
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:first_name, :last_name,
-        :email, :password, :password_confirmation)
-    end
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 
   def update_needs_confirmation?(resource, previous)
