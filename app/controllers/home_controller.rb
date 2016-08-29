@@ -39,7 +39,15 @@ class HomeController < ApplicationController
   end
 
   def search
-    @user = User.find_by_artist_name(params[:artist_name])
+    @choices = params[:a_search]
+
+    if @choices == "0"
+      @user = User.find_by_artist_name(params[:artist_name])
+    elsif @choices == "1"
+      
+      redirect_to controller: 'searching', action: 'index', location: params[:artist_name]
+    end
+
   end
 
   def name
