@@ -1,4 +1,11 @@
 <style>
+.comment-style {
+ margin: 15px;
+}
+/* 댓글창 양옆띄우기 */
+.ui.comments .comment:first-child {
+ margin: 15px;
+}
 /* tabulr menu cursor*/
 .ui.tabular.menu .item:hover {
  cursor: pointer;
@@ -70,83 +77,80 @@
           <div class="item" data-tab="show">공연들</div>
         </div>
 
-        <div class="active ui tab" data-tab="post">
 
 
+
+
+
+
+
+        <div class="active ui tab" data-tab="post"> <!-- post tab이고 default tab -->
             <!-- 아티스트 프로필, 왼쪽에 위치한다-->
-    <div class="profile container fluid">
-      <div class="ui left aligned card">
-        <div class="content">
-          <div class="header">
-          <i class="users icon"></i>
-            <%= @users.artist_name %>
-          </div>
-        </div>
-        <div class="content">
-          <div class="ui small feed">
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                 <i class="marker icon"></i>
-                 <%= @users.area %> 
+            <div class="profile container fluid">  <!-- profile contianer fluid 시작  -->
+              <div class="ui left aligned card">
+                <div class="content">
+                  <div class="header">
+                  <i class="users icon"></i>
+                    <%= @users.artist_name %>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="ui small feed">
+                    <div class="event">
+                      <div class="content">
+                        <div class="summary">
+                          <i class="linkify icon"></i>
+                          <%= @users.sns %></br>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="event">
+                      <div class="content">
+                        <div class="summary">
+                        <i class="tags icon"></i>
+                          <%= @users.genre %></br>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="event">
+                      <div class="content">
+                        <div class="summary">
+                         <i class="marker icon"></i>
+                         <%= @users.area %> 
+                        </div>
+                      </div>
+                    </div>
+                    <div class="event">
+                      <div class="content">
+                        <div class="summary">
+                        <i class="comments icon"></i>
+                          <%= @users.introduction %></br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="extra content">
+                  <% if user_signed_in? && current_user.id != @users.id %>
+                    <% if current_user.followings.include?(@users) %>
+                      <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
+                        <button class="btn btn-primary">팔로우 취소</button>
+                      <% end %>
+                    <% else %>
+                      <%= form_tag follows_path, class: "right" do %>
+                        <input type="hidden" name="followed_id" value="<%= @users.id %>" />
+                        <button class="btn btn-primary">팔로우</button>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  </span>
+                  <% if current_user.artist_name == @users.artist_name %>
+                    <% user = @users.artist_name %>
+                    <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
+                  <% end %>
                 </div>
               </div>
-            </div>
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                  <i class="mail icon"></i>
-                  <%= @users.email %></br>
-                </div>
-              </div>
-            </div>
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                  <i class="linkify icon"></i>
-                  <%= @users.sns %></br>
-                </div>
-              </div>
-            </div>
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                <i class="comment outline icon"></i>
-                  <%= @users.introduction %></br>
-                </div>
-              </div>
-            </div>
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                <i class="tags icon"></i>
-                  <%= @users.genre %></br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="extra content">
-          <% if user_signed_in? && current_user.id != @users.id %>
-            <% if current_user.followings.include?(@users) %>
-              <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
-                <button class="btn btn-primary">팔로우 취소</button>
-              <% end %>
-            <% else %>
-              <%= form_tag follows_path, class: "right" do %>
-                <input type="hidden" name="followed_id" value="<%= @users.id %>" />
-                <button class="btn btn-primary">팔로우</button>
-              <% end %>
-            <% end %>
-          <% end %>
-          </span>
-          <% if current_user.artist_name == @users.artist_name %>
-            <% user = @users.artist_name %>
-            <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+            </div> <!-- container fluid 끝 -->
 
 
 
@@ -169,82 +173,83 @@
                 <% end %>
               </div>
             <% end %>
+
+
+
               <% @posts.reverse.each do |post| %><!-- 글 보여주기 -->
-              <% if @users.id == post.user_id %><!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
-              <div class="posts_get thumbnail">
-                <!-- 아티스트가 글쓴 내용 -->
-                <div>
-                  <p><%= post.content %></p>
-                  <p>
-                    <a id="op-comments-<%= post.id %>">댓글
-                    <b><%= post.comments.size %></b></a>
-                  </p>
-                </div>
-                <hr>
-                <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
-                <div class="ui comments">
-                  <div class="comment">
-                    <a class="avatar">
-                      <img src="/images/avatar/small/joe.jpg">
-                    </a>
-                    <div class="content">
-                      <a class="author"><%=current_user.name%></a>
-                      <div class="metadata">
-                      </div>
-                      <div class="text">
-                        <p> </p>
-                      </div>
-                      <div class="actions">
-                        <a class="reply">Reply</a>
-                      </div>
-                    </div>
-                  </div>
-                 </div>
+                <% if @users.id == post.user_id %><!-- 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
+                  <div class="posts_get thumbnail">
 
-
-                    <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
-                  </h4>
-                  <input class="form-control" name="content" rows="1" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요">
-                  <div class="form-group">
-                    <button value="<%= post.id %>" type="submit" class="btn btn-primary reply_submit">확인</button>
-                  </div>
-                <hr>
-                <!-- 글쓴 내용에 달린 댓글 출력 -->
-                <% unless post.comments.nil? %>
-                  <% post.comments.each do |comment| %>
-                    <div id="comments">
-                      <a class="pull-left" href="#">
-                        <img class="media-object dp img-circle" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width:50px; height:50px;">
-                      </a>
-                      <div class="media-body" style="padding-left:15px">
-                        <h4 class="media-heading">
-                          <span style="color:black"><%= comment.user.name %></span>
-                          <small><%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d %H:%M:%S") %></small>
-                          <br>
-                          <small style="color:black"><%= comment.content %></small>
-                        </h4>
+                    <!-- 아티스트가 글쓴 내용 -->
+                    <div class="ui comments">
+                      <div class="comment">
+                        <a class="avatar">
+                          <img src="http://semantic-ui.com/images/avatar/small/elliot.jpg">
+                        </a>
+                        <div class="content">
+                          <a class="author"><%=@users.name%></a>
+                          <div class="metadata">
+                            <%= post.created_at%>
+                          </div>
+                          <div class="text">
+                      <p><%= post.content %></p>
+                          </div>
+                        </div>
                       </div>
+                     </div>
+                    <div>
+                        <a class="comment-style"id="op-comments-<%= post.id %>">댓글
+                        <b><%= post.comments.size %></b></a>
                     </div>
-                    <div id="reply_<%= post.id %>"></div>
                     <hr>
-                  <% end %>
-                <% end %><!-- 끝 : 글쓴 내용에 달린 댓글 출력 -->
-              </div>
-              <% end %><!-- 끝 : 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
-            <% end %><!-- 끝 : 글 보여주기 -->
-          </div>
-          <!--  Content !-->
+
+                    <!-- 현재 유저에게 보이는 댓글창 style="display:none;" -->
+                    <input type="hidden" value="<%= post.id %>" name="<%= post.id %>">
+                    <div class="ui fluid input">
+                    <input class="item" name="content" rows="2" id="content_<%= post.id %>" placeholder="댓글 내용을 입력하세요">
+                    </div>
+                    <button value="<%= post.id %>" type="submit" class="ui fluid button reply_submit">작성하기</button>
+
+                    <!-- 글쓴 내용에 달린 댓글 출력 -->
+                    <% unless post.comments.nil? %>
+                      <% post.comments.each do |comment| %>
+                        <div class="ui comments">
+                          <div class="comment">
+                              <a class="avatar">
+                                <img src="http://semantic-ui.com/images/avatar/small/elliot.jpg">
+                              </a>
+                              <div class="content">
+                                <a class="author"><%= comment.user.name %></a>
+                                <div class="metadata">
+                                 <%= comment.created_at.in_time_zone("Asia/Seoul").strftime("%Y-%m-%d %H:%M:%S") %>
+                                </div>
+                                <div class="text">
+                                  <p><%= comment.content %></p>
+                                </div>
+                              </div>
+                          </div>
+                         </div>
+                        <div id="reply_<%= post.id %>"></div>
+                      <% end %>
+                    <% end %><!-- 끝 : 글쓴 내용에 달린 댓글 출력 -->
+
+                  </div>
+               <% end %><!-- 끝 : 현 아티스트페이지의 아티스트가 쓴 글만 보인다 -->
+             <% end %><!-- 끝 : 글 보여주기 -->
+          </div><!--  Content !-->
         </div>
-<div class="ui grid container">
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-  <div class="four wide column"></div>
-</div>
+
+           <!-- 공간을 띄우기 위한 것 -->
+           <div class="ui grid container"> 
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+             <div class="four wide column"></div>
+           </div>
 
 
            <!-- 가수의 팔로잉  시작 -->
@@ -336,16 +341,6 @@
 
 
 
-<div class="container-fluid">
-  <!-- 퐐로수, 공연등록 수-->
-  <div class="artist-info-th">
-    <div class="col-md-7 user-details">
-      <div class="row overview">
-      </div>
-    </div>
-  </div>
-</div>
-
 
 
 
@@ -369,23 +364,6 @@ $(function() {
               post_id: post_id },
       success: function(data){
         console.log("리플이 작성되었습니다");
-        $( "#reply_" + post_id ).append(
-            "<div id=" + "comments" + "style=" + "color:black" + ">"
-            + "<a class=" + "pull-left" + "href=" + "#" + "></a>"
-              + "<img class=" + "media-object dp img-circle" + "src=" + "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"             + "style=" + "width:50px; height:50px;" + ">"
-              + "<div class=" + "media-body" + "style=" + "padding-left:15px" + ">"
-              + "<h4 class=" + "media-heading" + ">"
-              + "<span style=" + "color:black" + ">"
-                + data[0].user.name
-              + "</span>"
-              + "<small> " + data[0].cmt.created_at + "</small>"
-              + "<br>"
-            + "<small style=" + "color:black" + ">"
-                + post_content
-            + "</small>"
-            + "</h4></div></div>"
-          );
-        $( "#content_" + post_id).val('');
       },
       error: function(){
         console.log("에러에러에러에러에러다");

@@ -65,13 +65,6 @@ class DashboardController < ApplicationController
     flash[:alert] = "삭제되었습니다."
   end
 
-  def mypage
-   a = params[:artist_name]
-   @users = User.find_by(artist_name: a )
-   @one_post = Post.find_by(user_id: @users.id)
-   @posts = Post.all
-  end
-
   def create
 
     if current_user.artist_name.nil?
