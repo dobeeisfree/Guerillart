@@ -40,37 +40,6 @@
 				border-radius: 3px;
 
 			}
-				/* Start by setting display:none to make this hidden.
-			   Then we position it in relation to the viewport window
-			   with position:fixed. Width, height, top and left speak
-			   for themselves. Background we set to 80% white with
-			   our animation centered, and no-repeating */
-			.modal#loadingModal {
-			    display:    none;
-			    position:   fixed;
-			    z-index:    1000;
-			    top:        0;
-			    left:       0;
-			    height:     100%;
-			    width:      100%;
-			    background: rgba( 255, 255, 255, .2 ) 
-			                /*url('http://i.stack.imgur.com/FhHRx.gif') */
-			                50% 50% 
-			                no-repeat;
-			}
-			
-			/* When the body has the loading class, we turn
-			   the scrollbar off with overflow:hidden */
-			body.loading {
-			    overflow: hidden;   
-			}
-			
-			/* Anytime the body has the loading class, our
-			   modal element will be visible */
-			body.loading .modal#loadingModal {
-			    display: block;
-			}
-				
 				
 			#control {
 			}
@@ -94,7 +63,7 @@
 				overflow-y:scroll;
 				float: left;
 			}
-			.gm-style-iw + div {display: none;}	//infowindow x 버튼 삭제
+			.gm-style-iw + div {display: none;}	/*infowindow x 버튼 삭제*/
 			
 			#styles, #add-tab {
 		    	float: left;
@@ -178,13 +147,12 @@
 		
 		
 		
-		
-			// //loading modal 띄우기
-			// $body = $("body");
-			// $(document).on({
-			    // ajaxStart: function() { $body.addClass("loading"); },
-			    // ajaxStop: function() { $body.removeClass("loading"); }    
-			// });
+			//loader 띄우기
+			$(document).on({
+			    ajaxStart: function() { $('.segment').dimmer('hide');},
+			    ajaxStop: function() { $('.segment').dimmer('hide');}    
+			});
+			
 			
 			var globalMap;
 			var globalMarker;
@@ -317,7 +285,7 @@
 					if(isMobile)
 					{
 						document.getElementById("over_info").style.width = '0%';
-						document.getElementById("over_artist").innerHTML =  "";
+						document.getElementById("over_info").innerHTML =  "";
 					}
 					else
 					{
@@ -485,7 +453,7 @@
 							//centerMarker.setMap(globalMap);
 			        	 	// centerMarker.setPosition(center);
 
-			        	 	document.getElementById("s_right").innerHTML="";
+			        	 	document.getElementById("right_list").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
 			        	 	{
 								//markerBubble 띄우기
@@ -524,7 +492,15 @@
 			                            	// centerMarker.setMap(null);
 			                            	globalMap.setCenter(markerBubble.getPosition());
 				                            document.getElementById("over_info").style.width = '100%';
-				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].show.genre+"</h1>";
+				                            document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
+									    +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
+									    +'<div class="content" style="width: 50%; float: left;">'
+									    	+'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].show.title+'</div>'
+									    	+'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
+									    	+'<div class="footer">'
+									      		+'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].show.genre+'</div>'
+									      		+'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
+								      		+'</div></div></div>;'
 			                            }
 			                            else
 			                            {
@@ -546,7 +522,17 @@
 			                    })(markerBubble, i);
 			                    
 								if(!isMobile)
-									document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
+								{
+									document.getElementById("right_list").innerHTML+='<div class="item" style="height: 20%;">'
+									    +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">'
+									    +'<div class="content" style="width: 76%;">'
+									    	+'<div class="header" style="font-weight: bold;">'+data[i].show.title+'</div>'
+									    	+'<div class="body">'+data[i].creator.artist_name+'</div>'
+									    	+'<div class="footer">'
+									      		+'<div id="f_left" style="float: left; width: 66%;">'+data[i].show.genre+'</div>'
+									      		+'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
+								      		+'</div></div></div>;'
+								}	
 								
 			        	 	}
 			        	},
@@ -832,14 +818,14 @@
 
 	</head>
 
-	<!-- <body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);"> -->
-	<body onload="initialize()">
+	<!--<body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);">-->
+	 <body onload="initialize()"> 
 		<div id="s_all">
 			<div id="s_left">
 				<div id="wrapper">
 					<div id="map_canvas"></div>
 					<div id="over_info">
-						<div id="over_artist"></div>
+						<!--<div id="over_artist"></div>-->
 					</div>
 				</div>
 				<!-- <div id="map_canvas"></div> -->
@@ -935,9 +921,28 @@
 	
 			</div>
 	
-			<div id="s_right"></div>
+			<div id="s_right">
+				<div class="ui selection list" id="right_list">
+					
+					<!--<div class="item" style="height: 20%;">-->
+					<!--    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">-->
+					<!--    <div class="content" style="width: 76%;">-->
+					<!--    	<div class="header" style="font-weight: bold;">Helen</div>-->
+					<!--    	<div class="body">hi</div>-->
+					<!--    	<div class="footer">-->
+					<!--      		<div id="f_left" style="float: left;">장르</div>-->
+					<!--      		<div id="f_right" style="float: right;">32</div>-->
+				 <!--     		</div>-->
+			  <!--    		</div>-->
+			  <!--  	</div>-->
+			    	
+	  			</div>
+	  		</div>
+				
 			
-			<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
+ 
+			
 		</div>
+		
 	</body>
 </html>
