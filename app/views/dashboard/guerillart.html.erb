@@ -8,6 +8,9 @@
 #show-genres {
   margin-top: 30px;
 }
+.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column {
+  width: 70%;
+}
 #guerillart-menu {
   width: 300px;
 }
@@ -18,11 +21,11 @@
     <div class="ui guerillart vertical menu">
       <a class="item" id="inbox-show">
         내가 본 공연
-        <div class="ui label">1</div>
+      <div class="ui label"><i>커밍쑨</i></div>
       </a>
       <a class="active teal item" id="liked-show">
         찜한 공연
-        <div class="ui teal left pointing label">51</div>
+        <div class="ui teal left pointing label"><%= @yourlikes.size %></div>
       </a>
       <a class="item" id="followed-artist">
         아티스트
@@ -35,7 +38,6 @@
 
     <div class="ui guerillart special cards" id="show-genres">
     <%
-      @yourlikes = Like.where(user_id: current_user.id)
       @yourlikes.each do |liked_show|
         @shows.reverse.each do |show|
           if liked_show.show_id == show.id
@@ -45,7 +47,7 @@
           <div class="ui inverted dimmer">
             <div class="content">
               <div class="center">
-                <div class="ui primary button" id="view-modal-<%= show.id %>">더보기</div>
+                <%= link_to "더보기", {controller: "home", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
               </div>
             </div>
           </div>
@@ -72,8 +74,14 @@
         </div><!-- card -->
         <% end %>
       <% end %>
-      <% end %>
+    <% end %>
 
 
   </div>
 </div>
+<!-- 각 공연 당, 카드 이미지 호버 -->
+<script>
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+</script>

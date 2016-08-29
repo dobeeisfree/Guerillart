@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
 
   def guerillart
     @shows = Show.all
+    @yourlikes = Like.where(user_id: current_user.id)
   end
 
   def profile
