@@ -38,6 +38,10 @@ a.ui.item {
 .ui.basic.modal>.close {
   padding-left:39px;
 }
+/* 회원가입의 x 버튼 */
+#signup-close {
+  padding-right: 472px !important;
+}
 /* 네비바 글자들 */
 .ui.secondary.menu a.item, .ui.simple.dropdown {
   color : black;
@@ -104,7 +108,7 @@ a.ui.item {
 
 <!-- Start of Signup modal -->
 <div class="ui basic modal signup" id="signup-modal">
-  <i class="close icon"></i>
+  <i class="close icon" id="signup-close"></i>
   <div class="header">회원가입</div>
     <%= simple_form_for(:user, :url => registration_path(resource_name)) do |f| %>
       <div class="ui two column middle aligned very relaxed stackable grid">
