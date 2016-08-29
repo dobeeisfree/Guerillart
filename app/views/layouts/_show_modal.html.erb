@@ -74,7 +74,11 @@ h3:first-child {
         <div class="item">
           <i class="marker icon"></i>
           <div class="content">
+            <% if show.location.nil? %>
+            <%= show.location_x %>, <%= show.location_y %>
+            <% else %>
             <%= show.location %>
+            <% end %>
           </div>
         </div>
         <div class="item">

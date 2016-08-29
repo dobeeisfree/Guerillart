@@ -1,7 +1,7 @@
 <p><%= flash[:alert] %></p>
 <%= render :partial => "/layouts/header" %>
 <%= render :partial => "/layouts/header_dashboard" %>
-<style>  
+<style>
 .ui.writeshow.form .field>label {
   color: black;
 }
@@ -9,20 +9,28 @@
 background: black !important;
 margin-top: -14px;
 }
+.form-group {
+  padding-top: 30px;
+  padding-bottom: 70px;
+}
 </style>
 
 
 <div class="form-group" style="margin: 0cm 6cm 0cm 6cm;">
-<h2>게릴라트하기</h2>
-
-    <div class="ui writeshow form">
+    <div class="ui attached message">
+      <div class="header">
+      게릴라트하기!
+      </div>
+      <p>아래의 양식을 작성하여 공연을 알리세요!</p>
+    </div>
+    <div class="ui writeshow form attached fluid segment">
     <%= form_tag "write_complete" do %>
-      <div class="field">
+      <div class="required field">
         <label>공연 타이틀</label>
         <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
       </div>
 
-      <div class="field">
+      <div class="required field">
         <label>날짜/시간</label>
         <div class="ui calendar" id="date-time">
         <div class="ui input left icon">
@@ -32,11 +40,11 @@ margin-top: -14px;
         </div>
       </div>
 
-      <div class="field">
+      <div class="required field">
         <label>Play List</label>
         <input type="text" name="playlist"class="form-control" id="6inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
       </div>
-      <div class="field">
+      <div class="required field">
         <label>공연 소개</label>
         <textarea class="form-control" name="show_content"rows="5" id="comment" placeholder="공연은 어떤 식으로 진행되나요?"></textarea>
       </div>
@@ -94,24 +102,22 @@ margin-top: -14px;
       </div>
 
 
-      <div class="field">
+      <div class="required field">
         <label>장소</label>
         <input type="text" class="form-control" name="location" placeholder="공연장소를 선택주세요" required>
       </div>
 
-      <div class="field">
+      <div class="required field">
         <div class="ui checkbox" >
-          <input type="checkbox" tabindex="0" class="hidden"> 
+          <input type="checkbox" tabindex="0" class="hidden">
           <label>I agree to the Terms and Conditions</label>
         </div>
       </div>
 
-      <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="등록하기">
-      </div>
 
+      <input type="submit" class="ui fluid blue submit button" id="go-Guerillart" value="등록하기">
     <% end %>
-</div>
+  </div>
 </div>
 
 
@@ -124,6 +130,7 @@ $('.ui.checkbox').checkbox();
 <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
-<script> 
+<script>
 $('#date-time').calendar();
-</script> 
+$('body').css("background", "#f2f2f2");
+</script>
