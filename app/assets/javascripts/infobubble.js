@@ -1575,7 +1575,8 @@ InfoBubble.prototype.getElementSize_ = function(element, opt_maxWidth,
     sizer.appendChild(element.cloneNode(true));
   }
 
-  document.body.appendChild(sizer);
+  // document.body.appendChild(sizer);
+  this.map.getDiv().appendChild(sizer);	//patch
   var size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
 
   // If the width is bigger than the max width then set the width and size again
@@ -1591,7 +1592,8 @@ InfoBubble.prototype.getElementSize_ = function(element, opt_maxWidth,
     size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
   }
 
-  document.body.removeChild(sizer);
+  // document.body.removeChild(sizer);
+  this.map.getDiv().removeChild(sizer);	//patch
   delete sizer;
   return size;
 };

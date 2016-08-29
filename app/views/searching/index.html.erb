@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<%= javascript_include_tag('infobubble.js') %>	<!--infobubble 사용-->
 		<style type="text/css">
 			html {
 				height: 100%
@@ -22,12 +24,63 @@
 				width: 100%;
 				height: 100%;
 			}
+			#wrapper{
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			#over_info{
+				background: rgba(112,112,112, 0.5) !important;
+				position:absolute; 
+				bottom: 0; 
+				left: 0;
+				width: 0;
+				height: 22%;
+				z-index: 99;
+				border-radius: 3px;
 
+			}
+				/* Start by setting display:none to make this hidden.
+			   Then we position it in relation to the viewport window
+			   with position:fixed. Width, height, top and left speak
+			   for themselves. Background we set to 80% white with
+			   our animation centered, and no-repeating */
+			/*.modal#loadingModal {
+			    display:    none;
+			    position:   fixed;
+			    z-index:    1000;
+			    top:        0;
+			    left:       0;
+			    height:     100%;
+			    width:      100%;
+			    background: rgba( 255, 255, 255, .2 ) 
+			                /*url('http://i.stack.imgur.com/FhHRx.gif') */
+			                /*50% 50% */
+			                /*no-repeat;*/
+			/*}*/
+			
+			/* When the body has the loading class, we turn
+			   the scrollbar off with overflow:hidden */
+			body.loading {
+			    overflow: hidden;   
+			}
+			
+			/* Anytime the body has the loading class, our
+			   modal element will be visible */
+			body.loading .ui.segment {
+			    display: block;
+			}
+				
+				
 			#control {
 			}
 
 			input {
 				font-size: 9pt;
+			}
+			div#s_all{
+				width: 100%;
+				height: 85%;
 			}
 
 			div#s_left {
@@ -54,8 +107,23 @@
 	        	width: 130px;
 	      	}
 	        .phoney {
+	        	overflow: hidden !important; 
+  				 /*line-height: 1.4;*/
+  				 white-space: nowrap;
+	        	/*line-height: 25px;*/
+	        	/*width: auto !important; */
+	        	min-width: 20;
+	        	min-height: 23;
+	        	max-width: 160;
+	        	max-height: 50;
+	        	font-weight: bold;
 	        	text-align: center;
-	        	/*margin-top: 10px;*/
+	        	/*text-overflow: ellipsis; */
+	        	white-space: nowrap; 
+	        	/*overflow: hidden;*/
+	        	font-size: 16px;
+	        	/*background: rgb(112,112,112) !important;*/
+	        	margin-top: 2px;
 	        	/*background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));*/
 	        	/*background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);*/
 	      	}
@@ -77,14 +145,14 @@
 		        background: rgb(112,112,112) !important;
 	    	}
 		</style>
-		<!-- google map 사용 -->
+		<!-- google map 사용  &libraries=places-->
 		<script async defer
 	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
 	    </script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script> -->
 		
 		<!--infobubble 사용-->
-		<script type="text/javascript" src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script>
+		<!-- <script type="text/javascript" src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script> -->
 		<!-- <script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script> -->
 		
 		<!-- <script>
@@ -97,7 +165,27 @@
 	    </script> -->
 		
 		<script type="text/javascript">
-
+		
+			//자동완성
+			// autocomplete = new google.maps.places.Autocomplete(
+		    	// /** @type {!HTMLInputElement} */ (
+		    	// document.getElementById('autocomplete')), {
+		    	// // types: ['(cities)'],
+		    	// // componentRestrictions: countryRestrict
+		    // });
+			// places = new google.maps.places.PlacesService(globalMap);
+		
+		
+		
+		
+		
+			//loading modal 띄우기
+			$body = $("body");
+			$(document).on({
+			    ajaxStart: function() { $body.addClass("loading"); },
+			    ajaxStop: function() { $body.removeClass("loading"); }    
+			});
+			
 			var globalMap;
 			var globalMarker;
 			var globalGeocoder;
@@ -105,22 +193,31 @@
 			var markers = [];
 			var infowindow = null;
 			
+			var markerBubbleArray = [];
+			var markerBubble;
+			
 			var infoBubbleArray = [];
-			var infoBubble2;
+			var infoBubble;
 			
 			var bounds;
 			var ne, sw;
-			
 			var ne_lat, ne_lng, sw_lat, sw_lng;
 			
 			var i;
-			var closedBubble;
-			
+			var closedMarkerBubble;	//숨은 마커버블
 			var centerMarker;	//센터 표시 마커
 			
+			var isMobile;	//모바일이면 true
+			var isDistOrder; //거리순 정렬이면 1, default: 0 (인기순)
+			var mapZoom;    //디바이스에 따른 map의 Zoom 넘버
+			
+			
 			// 맵 초기화
-			function initialize() {
-				var address = "<%=@location%>"
+			function initialize() 
+			{
+				var address = "<%=@location%>";
+				isDistOrder = 0;
+				mapZoom = 17;
 				
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
 					// alert('검색할 주소를 입력하십시오.');
@@ -145,12 +242,12 @@
 						// alert("Geocode was not successful for the following reason: " + status);
 					// }
 				// });
-				
+				isMobile = detectBrowser();
 				
 				globalGeocoder = new google.maps.Geocoder();
 
 				var myOptions = {
-					zoom : 17,
+					zoom : mapZoom,
 					// MyLocationEnabled : true,
 					//disableDoubleClickZoom:false,
 					// center : latlng,
@@ -173,11 +270,11 @@
 
 				globalMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 								
-				
 				globalGeocoder.geocode({
 					'address' : address
 				}, function(results, status) {
-					if (status == google.maps.GeocoderStatus.OK) {
+					if (status == google.maps.GeocoderStatus.OK) 
+					{
 						globalMap.setCenter(results[0].geometry.location);
 
 						centerMarker = new google.maps.Marker({
@@ -185,54 +282,76 @@
 							position : results[0].geometry.location,
 							draggable : false
 						});
-					} else {
+					} 
+					else 
+					{
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
 				
-				
+				//gps버튼 추가
 				addYourLocationButton(globalMap, centerMarker);
 				
-
+				//맵 로딩 완료후 한번만 실행할 함수
+				google.maps.event.addListenerOnce(globalMap, 'idle', function(){
+					updateMarkerBubbles();
+    			});
+				
+				// 드래그 끝났을 때 이벤트 추가
+				google.maps.event.addListener(globalMap, 'dragend', function() {
+					$(function(){
+						updateMarkerBubbles();
+					});
+				});
+				
+				// 줌 변경시 이벤트 추가
+				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
+					$(function(){
+						updateMarkerBubbles();
+					});
+				});
+				
+				//지도의 빈 부분 클릭시
+				google.maps.event.addListener(globalMap, 'click', function() 
+				{
+					if(isMobile)
+					{
+						document.getElementById("over_info").style.width = '0%';
+						document.getElementById("over_artist").innerHTML =  "";
+					}
+					else
+					{
+						if(infowindow)
+							infowindow.close();
+						if(closedmarkerBubble)
+						{
+							closedMarkerBubble.open();
+							closedMarkerBubble=null;
+							
+						}
+					}
+				});
+				
+				
+				
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					// var bounds = globalMap.getBounds();
 					// var NE = bounds.getNorthEast();
 					// var SW = bounds.getSouthWest();
-					// // updateMarkers();
-					// // removeAllMarkers(markers);
+					// // updateMarkerBubbles();
+					// // clearMarkerBubbles(markers);
 					// // scheduleDelayedCallback();
 				// });
 				
-				
-				//맵 로딩 완료후 실행할 함수 (정확히 언제 실행되는지 말 모르겠음)
-				// google.maps.event.addListenerOnce(globalMap, 'idle', function(){
-    			// });
-				
 				// 센터 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'center_changed', function() {
-					// // removeAllMarkers();
-					// // updateMarkers();
-					// // removeAllMarkers();
+					// // clearMarkerBubbles();
+					// // updateMarkerBubbles();
+					// // clearMarkerBubbles();
 					// // showMapPos();
 					// // showMapAddr();
 				// });
-				
-				
-				// 드래그 끝났을 때 이벤트 추가
-				google.maps.event.addListener(globalMap, 'dragend', function() {
-					removeAllMarkers();
-					updateMarkers();
-				});
-				
-				// 줌 변경시 이벤트 추가
-				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
-					removeAllMarkers();
-					updateMarkers();
-					// showMapPos();
-					// showMapAddr();
-				});
-				
 				
 				// 갱신 딜레이
 				// function fireIfLastEvent()
@@ -247,15 +366,35 @@
 				    // lastEvent = new Date();
 				    // setTimeout(fireIfLastEvent, 500);
 				// }
-
-
-				// google.maps.event.addListener(globalMap, 'click', function(event) {// 지도클릭시 마커이동
-					// moveMarker(event.latLng);
-				// });
 				
-		        
 			}
 			
+			
+			//유저 디바이스 확인 함수
+			function detectBrowser() 
+			{
+				var useragent = navigator.userAgent;
+				var mapdiv = document.getElementById("map_canvas");
+				// var s_left = document.getElementById("s_left");
+				
+				//모바일이라면
+				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) 
+				{
+				    // mapdiv.style.width = '100%';
+				    // mapdiv.style.height = '100%';
+				    document.getElementById("s_left").style.width = '100%';
+				    mapZoom = 16;
+				    return true;
+				    
+				}
+				//모바일이 아니라면 
+				else 
+				{
+			    	// mapdiv.style.width = '600px';
+			   		// mapdiv.style.height = '800px';
+			   		return false;
+			  	}
+			}
 			
 			//gps버튼 추가 함수
 			function addYourLocationButton (map, marker) 
@@ -290,8 +429,9 @@
 			        secondChild.style['background-position'] = '0 0';
 			    });
 			
-			    firstChild.addEventListener('click', function () {
-			
+			    //gps 클릭시
+			    firstChild.addEventListener('click', function () 
+			    {
 			        if (navigator.geolocation) 
 			        {
 				    	navigator.geolocation.getCurrentPosition(function (position) 
@@ -299,9 +439,8 @@
 				            globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 				           	
 				           	(function(){
-					        	removeAllMarkers();
-								updateMarkers();
-			            		// alert("hi");
+				           		centerMarker.setPosition(globalMap.getCenter());
+								updateMarkerBubbles();
 				            })();
 				    	});
 				    } 
@@ -317,8 +456,8 @@
 			}
 			
 			
-			
-			function updateMarkers()
+			//마커 버블 업데이트
+			function updateMarkerBubbles()
 			{
 				
 				bounds = globalMap.getBounds();
@@ -327,89 +466,95 @@
 				ne = bounds.getNorthEast();
 				sw = bounds.getSouthWest();
 				
-				// ne_lat = ne.lat();
-				// ne_lng = ne.lng();
-				// sw_lat = sw.lat();
-				// sw_lng = sw.lng();
-				
-				
 				//bounds와 center 좌표 searching#getBounds controller에 보내기
-        //아래338줄처럼 하면 바로 콜    
-			   	$(document).ready(function(){
-			        // $("#neLat").val(ne_lat);
+			   	$(document).ready(function()
+			   	{
 			       	$.ajax({
 			        	method: "POST",
 			        	url: "/search?location="+"<%=@location%>",
-			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng()},
-			        	// data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng()},
+			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng(), isDistOrder: isDistOrder },
 			        	dataType: 'json',
-			        	success: function(data){ 
+			        	success: function(data){
+			        		 
+			        			//모든 infobubble 삭제
+			        		clearMarkerBubbles();
 			        		
-			        		//alert(""+"<%=@results%>"+"<%=Time.now%>");
 			        	 	// alert("^^ "+JSON.stringify(data));
 			        	 
 							//센터 마커 이동
-			        	 	centerMarker.setPosition(center);
+							//centerMarker.setMap(globalMap);
+			        	 	// centerMarker.setPosition(center);
 
 			        	 	document.getElementById("s_right").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
 			        	 	{
-								//infoBubble 띄우기
-								infoBubble2 = new InfoBubble({
+								//markerBubble 띄우기
+								markerBubble = new InfoBubble({
 							    	map: globalMap,
-							        content: data[i].show.genre,
+							        content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
+							        //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
 							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
-							        minWidth: 5,
+							        minWidth: 20,
+							        minHeight: 23,
+							        maxWidth: 160,
+							        maxHeight: 50,
 							        backgroundColor: '#FFFF8F',
+							        //backgroundColor: 'transparent',
 							        borderRadius: 4,
 							        arrowSize: 10,
 							        borderWidth: 1,
 							        borderColor: '#000000',
 							        disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
 							        hideCloseButton: true,	//닫기 버튼 숨기기
-							        arrowPosition: 30,
-							        backgroundClassName: 'phoney',
-							        arrowStyle: 2	//화살표 모양 (0 : 가운데)
+							        // backgroundClassName: 'phoney',
+							        arrowStyle: 0	//화살표 모양 (0 : 가운데)
 						        });
-						        infoBubble2.open();
-						        infoBubbleArray.push(infoBubble2);
+						        markerBubble.open();
+						        markerBubbleArray.push(markerBubble);
 							
-								//infoBubble2 클릭시 infowindow 팝업 
-								(function(infoBubble2, i) {
-	                        		// add click event
-			                        google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-			                        	if (infowindow && closedBubble) {
-									        infowindow.close();
-									        closedBubble.open();
-									    }
-									    closedBubble = infoBubble2;
-									    infoBubble2.close();
-									    
-			                            infowindow = new google.maps.InfoWindow({
-			                            	content: "Hello, World!!" + data[i].creator.name + "<br />"+"hi"
-			                            });
-			                            infowindow.open(globalMap, infoBubble2);
-			                            
-			                            // alert("Ooo..!"+i);
-			                            
-			                     	  });
-			                    })(infoBubble2, i);
-								
-								document.getElementById("s_right").innerHTML += "<h1>"+data[i].show.genre+"</h1> <br />";
+								//markerBubble 클릭시 infowindow 팝업 
+								(function(markerBubble, i) 
+								{
+			                        google.maps.event.addDomListener(markerBubble.bubble_, 'click', function() 
+			                        {
+			                        	if(isMobile)
+			                            {
+			                            	// centerMarker.setMap(null);
+			                            	globalMap.setCenter(markerBubble.getPosition());
+				                            document.getElementById("over_info").style.width = '100%';
+				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].show.genre+"</h1>";
+			                            }
+			                            else
+			                            {
+				                        	if (infowindow && closedMarkerBubble) 
+				                        	{
+										        infowindow.close();
+										        closedMarkerBubble.open();
+										    }
+										    closedMarkerBubble = markerBubble;
+										    markerBubble.close();
+										    
+				                            infowindow = new google.maps.InfoWindow({
+				                            	content: "Hello, World!!" + data[i].creator.artist_name + "<br />"+"hi"
+				                            });
+				                            infowindow.open(globalMap, markerBubble);
+			                            }
+			                    		// document.getElementById("over_info").style.height = '20%';
+			                    	});
+			                    })(markerBubble, i);
+			                    
+								if(!isMobile)
+									document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
 								
 			        	 	}
-			        	 	
 			        	},
-			        	error: function(data){
-			        		alert("load failed T^T");
+			        	error: function()
+			        	{
+			        		alert("Sorry, load failed T^T");
 			        	}
-			        	// comlete: function(data){
-							// alert("T^T "+data);
-						// }
 			        })
-			        
 			   	});
 			   	
 			   	
@@ -418,18 +563,11 @@
 				// alert(""+"<%=@neLat%>");
 				
 				
-				
-				// i = 0;				
-				// <% @show_all.each do |show| %>
 // 				
-					// if ( "<%=show.location_x %>" < ne_lat && "<%=show.location_x%>" > sw_lat && "<%=show.location_y%>" > sw_lng && "<%=show.location_y%>" < ne_lng )
-					// {
 // 						
 						// //infoBubble 띄우기
-						// infoBubble2 = new InfoBubble({
+						// markerBubble = new InfoBubble({
 					    	// map: globalMap,
-					        // content: "<%=show.genre%>",
-					        // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
 					        // shadowStyle: 0,	//그림자 off
 					        // padding: 0,
 					        // minWidth: 5,
@@ -444,12 +582,11 @@
 					        // // backgroundClassName: 'phoney',
 					        // arrowStyle: 2	//화살표 모양 (0 : 가운데)
 				        // });
-				        // infoBubble2.open();
-				        // infoBubbleArray.push(infoBubble2);
+				        // markerBubble.open();
+				        // markerBubbleArray.push(markerBubble);
 // 					
 						// //infoBubble 클릭 리스너
-						// google.maps.event.addDomListener(infoBubble2.bubble_, 'click', function() {
-					    	// alert("Ooo..!"+"<%=show.genre%>");
+						// google.maps.event.addDomListener(markerBubble.bubble_, 'click', function() {
 						// });
 // 						
 // 						
@@ -458,12 +595,11 @@
 						// //marker 띄우기
 						// // globalMarker = new google.maps.Marker({
 							// // map : globalMap,
-							// // position : new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
 							// // draggable : false,
 // // 							
 							// // icon: new google.maps.MarkerImage(
 						    	// // // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
-						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|"+"<%=show.genre%>",
+						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|",
 						    	// // null, null, null)
 							// // //label : "hi"
 						// // });
@@ -477,7 +613,6 @@
 							        // // infowindow.close();
 							    // // }
 	                            // // infowindow = new google.maps.InfoWindow({
-	                                // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
 	                            // // });
 	                            // // infowindow.open(globalMap, globalMarker);
 // // 	                            
@@ -491,40 +626,34 @@
 						// // globalinfoWindow = new google.maps.InfoWindow({
 							// // clickable : true,
 							// // map : globalMap,
-							// // position: new google.maps.LatLng("<%=show.location_x%>", "<%=show.location_y%>"),
-                            // // content: "Hello, World!!" + i + " <%=show.genre%>"+ "<br />"+"hi"
-                        // // });
-// 	                            
-// 
-// 						
-// 						
-						// i++;
 					// }//if end
-				// <% end %>				
-			}//updateMarkers end
+			}//updateMarkerBubbles end
 			
 			
-			//마커 모두 지우기
-			function removeAllMarkers(){
-				while(infoBubbleArray.length){
-			            infoBubbleArray.pop().setMap(null);
-		        }
+			//markerBubble 모두 지우기
+			function clearMarkerBubbles()
+			{
+				for (var j = 0; j < markerBubbleArray.length; j++) 
+				{
+					// if(markerBubbleArray[j])
+					markerBubbleArray[j].setMap(null);
+				}
+				markerBubbleArray = [];
 				
-				// while(markers.length){
-			            // markers.pop().setMap(null);
-			        // }
-			    // markers = [];    
+				// while(markerBubbleArray.length){
+			            // markerBubbleArray.pop().setMap(null);
+		        // }
 			}
 			
-			
-			
+
 			
 			
 			
 			
 			
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
-			function showMapPos() {
+			function showMapPos() 
+			{
 				var pos = globalMap.getCenter();
 
 				//alert(pos.lat()+"/"+pos.lng());
@@ -668,109 +797,152 @@
 				// 지도 중심좌표 이동
 				globalMap.setCenter(loc);
 			}
-
-			// 지도 위의 마크 모두 삭제 - Refresh 말고 방법 없을까?
-			function clearMark() {
-				var loc = globalMap.getCenter();
-				// 현재의 지도의 위치를 가져온다.
-
-				globalMap = null;
-				globalMarker = null;
-				globalGeocoder = null;
-
-				// initialize(loc.lat(), loc.lng());
+			
+			
+			//정렬방법 바꾸기
+			function switchOrder()
+			{
+				if(isDistOrder == 1)
+					isDistOrder = 0;
+				else
+					isDistOrder = 1;
+					
+				updateMarkerBubbles();
 			}
+			
+			
 
-			// 지도 클릭시 마커 이동
-			function moveMarker(loc) {
-				//alert(loc);
-				globalMarker.setPosition(loc);
+			
+			//공연 시작 리스트
+			function setShowList(creations) 
+			{
+				var j_creations = JSON.parse(creations);
+				var showList = document.getElementById("showList");
+				
+				for(var i = 0; i < j_creations.length; i++)
+					showList.innerHTML += "<h1>" + j_creations[i].genre + "</h1> <br />";
 			}
+			function finishShow()
+			{
+				alert("Show finished");
+			}
+			
+			
 		</script>
 
 	</head>
 
-	<body onload="initialize(); setTimeout('updateMarkers()', 600);">
-	<!-- <body onload="initialize()"> -->
-		<div id="s_left">
-			<div id="map_canvas"></div>
-
-			<div id="control">
-				<dl>
-					<dt>
-						<strong>[Control]</strong>
-					</dt>
-					<dd>
-						기본좌표(x,y) : 37.50075507977441, 127.03690767288208
-					</dd>
-					<dd>
-						&nbsp;
-					</dd>
-					<dd>
-						맵 주소 : <span id="txtAddress"></span>
-					</dd>
-					<dd>
-						맵X좌표:&nbsp;&nbsp;&nbsp;
-						<input type="text" id="centerX">
-					</dd>
-					<dd>
-						맵Y좌표:&nbsp;&nbsp;&nbsp;
-						<input type="text" id="centerY">
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
-						<input type="button" value="마크삭제" onClick="removeMark();">
-					</dd>
-					<dd>
-						<input type="button" value="마크좌표 보기" onClick="getMarkPos();">
-						<br>
-						<span style="margin-left: 80px;">마크X좌표:
-							<input type="text" id="markerX">
-						</span>
-						<br>
-						<span style="margin-left: 80px;">마크Y좌표:
-							<input type="text" id="markerY">
-						</span>
-					</dd>
-					<dd>
-						<input type="button" value="정보창 마크 찍기 - 파인드올" onClick="setInfoMark();">
-					</dd>
-					<dd>
-						<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
-						좌표(x,y): 37.5145937754918, 127.10662364959717
-					</dd>
-
-					<dd>
-						<hr/>
-					</dd>
-
-					<dd>
-						<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
-						<input type="button" value="GeoCode" onClick="codeAddress()">
-					</dd>
-					</td>
+	<!-- <body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);"> -->
+	<body onload="initialize()">
+		<div id="s_all">
+			<div id="s_left">
+				<div id="wrapper">
+					<div id="map_canvas"></div>
+					<div id="over_info">
+						<div id="over_artist"></div>
+					</div>
+				</div>
+				<!-- <div id="map_canvas"></div> -->
+	
+				<div id="control">
+					<dl>
+						<dt>
+							<strong>[Control]</strong>
+						</dt>
+						<dd>
+							<input type="button" value="거리순/인기순" onClick="switchOrder();">
+						</dd>
+						<dd>
+							&nbsp;
+						</dd>
+						<dd>
+							맵 주소 : <span id="txtAddress"></span>
+						</dd>
+						<dd>
+							맵X좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerX">
+						</dd>
+						<dd>
+							맵Y좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerY">
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
+							<input type="button" value="마크삭제" onClick="removeMark();">
+						</dd>
+						<dd>
+							<input type="button" value="마크좌표 보기" onClick="getMarkPos();">
+							<br>
+							<span style="margin-left: 80px;">마크X좌표:
+								<input type="text" id="markerX">
+							</span>
+							<br>
+							<span style="margin-left: 80px;">마크Y좌표:
+								<input type="text" id="markerY">
+							</span>
+						</dd>
+						<dd>
+							<input type="button" value="정보창 마크 찍기 - 파인드올" onClick="setInfoMark();">
+						</dd>
+						<dd>
+							<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
+							좌표(x,y): 37.5145937754918, 127.10662364959717
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
+							<input type="button" value="GeoCode" onClick="codeAddress()">
+						</dd>
+						
+						<% if user_signed_in? %>
+							<% if current_user.creations.find_by(status: 1).present? %>
+								<dd><input type="button" value="공연종료" onClick="finishShow();"></dd>
+							<% else %>
+								<% @creations = current_user.creations.where(status: 0) %>
+								<dd><input type="button" value="공연시작" onClick="setShowList('<%=@creations.to_json%>');"></dd>
+							<% end %>
+							
+							<div id=showList></div>
+								
+						<% else %>
+							<dt>
+								<strong>[Not Signed In]</strong>
+							</dt>
+						<%end%>
+						
+						<dd><hr/></dd>
+						<input id="autocomplete" type="text" size="50">
+						
+						</td>
+				</div>
+	
 			</div>
-
+	
+			<div id="s_right"></div>
 		</div>
-
-		<div id="s_right">
-			<!-- <% @show_all.each do |show| %>
-				<h1><%=show.genre%></h1></br>
-			<%end%> -->
-		</div>
-
+		<div class="modal", id="loadingModal"><!-- Place at bottom of page --></div>
+			<div class="ui segment">
+			  <div class="ui active inverted dimmer">
+			    <div class="ui small text loader">Loading</div>
+			  </div>
+			  <p></p>
+			</div>
 	</body>
 </html>

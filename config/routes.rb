@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :users
   root 'home#index'
   get 'home/index' => 'home#index'
   get 'home/shows' =>'home#shows'
@@ -23,17 +22,21 @@ Rails.application.routes.draw do
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   get 'searching/index'
+  
 
+  match "/users/sign_in" => redirect("/"), via: [:get]
+  
+  devise_for :users, :path => '', :controllers => {:sessions => 'users/sessions', :registrations => 'users/registrations'}, :path_names => { :sign_in => 'login', :password => 'forgot', :confirmation => 'confirm', :unlock => 'unblock', :registration => 'register', :sign_up => 'new', :sign_out => 'logout'}
   # devise_for :users, controllers: { sessions: 'users/sessions' }
-  # devise_for :users
 
-  devise_for :users, :skip => [:sessions]
-  as :user do
-    get '/users/sign_in' => 'devise/sessions#new', :as => :new_user_session
-    post '/users/sign_in' => 'devise/sessions#create', :as => :user_session
-    delete '/users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
-  end
+  # devise_for :users, :skip => [:sessions]
+  # as :user do
+    # get '/users/sign_in' => 'devise/sessions#new', :as => :new_user_session
+    # post '/users/sign_in' => 'devise/sessions#create', :as => :user_session
+    # delete '/users/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
+  # end
 
+  
   get "/search" => 'searching#index'
   get 'mypage' => 'dashboard#mypage'
   get 'shows' =>'home#shows'
@@ -113,4 +116,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+  match '*path' => redirect('/'), via: [:get]
 end
