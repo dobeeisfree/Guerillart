@@ -36,14 +36,14 @@ h4:first-child {
 <div class="view-body">
 <div class="ui view container">
   <div class="ui header">
-    <a target="_blank" href="/dashboard/mypage?artist_name=박효신"><!-- 공연작성자의 마이페이지로 이동 -->
+    <a target="_blank" href="/artists/name/박효신"><!-- 공연작성자의 마이페이지로 이동 -->
       <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
     </a>
     <p class="header"><%= @show.title %></p>
     <% if @show.creator.nil?%>
-    <span>by  <a target="_blank" href="/dashboard/mypage?artist_name=박효신">장범준</a></span>
+    <span>by  <a target="_blank" href="/artists/name/박효신">장범준</a></span>
     <% else %>
-    <span>by  <a target="_blank" href="/dashboard/mypage?artist_name=<%= @show.creator.artist_name %>"><%= @show.creator.artist_name %></a></span>
+    <span>by  <a target="_blank" href="/artists/name/<%= @show.creator.artist_name %>"><%= @show.creator.artist_name %></a></span>
     <% end %>
     <small><%= @show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일") %></small>
   </div>
