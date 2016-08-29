@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   mount_uploader :avatar, AvatarUploader
-  mount_uploader :image, BannerImageUploader  
+  mount_uploader :image, BannerImageUploader
 
 
   has_many :registers
