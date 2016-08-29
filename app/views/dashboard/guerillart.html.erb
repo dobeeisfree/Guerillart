@@ -1,50 +1,79 @@
 <%= render :partial => "/layouts/header" %>
 <%= render :partial => "/layouts/header_dashboard" %>
+<style>
+.ui.vertical.menu.guerillart {
+  margin-left: 40px;
+  margin-top: 40px;
+}
+#show-genres {
+  margin-top: 30px;
+}
+#guerillart-menu {
+  width: 300px;
+}
+</style>
 
-<div class="container" style="margin-left: 550px">
-        <p><%= flash[:alert] %></p>
+<div class="ui two column grid">
+  <div class="column" id="guerillart-menu">
+    <div class="ui guerillart vertical menu">
+      <a class="item" id="inbox-show">
+        내가 본 공연
+        <div class="ui label">1</div>
+      </a>
+      <a class="active teal item" id="liked-show">
+        찜한 공연
+        <div class="ui teal left pointing label">51</div>
+      </a>
+      <a class="item" id="followed-artist">
+        아티스트
+        <div class="ui label">1</div>
+      </a>
+    </div>
+  </div>
+  <div class="column">
+    <!-- 메뉴에서 선택한 페이지, 제이쿼리로 append -->
 
-        <% @shows.reverse.each do |show| %>
-          <div class="row">
-              <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-            <!--      <img src="..." alt="..."> -->
-                  <div class="caption">
-                  <h3>제목:<%= show.title %></h3> 
-                  <p>장소:<%= show.location %></p>
-                  <p>시간:<%= show.time %></p>
-                  <p>장르:<%= show.genre %></p>
-                  <p>플레이리스트:<%= show.playlist %></p>
-                  <p>소개글:<%= show.content %></p>
-                  <%= show.likes.size %> 명이 좋아합니다.
-                  <% if current_user.is_like?(show) %>
-                   <a href="/dashboard/<%= show.id %>/like">좋아요 취소</a> 
-                  <% else %>
-                   <a href="/dashboard/<%= show.id %>/like">좋아요</a> 
-                  <% end %>
-  </form>   
-                  <% unless show.comments.nil?%>
-                      <% show.comments.each do |comment| %> 
-                        <p>제목<%= comment.user.name %></p>
-                        <p>날짜:<%= comment.created_at %></p>
-                        <p>내용<%= comment.content %></p>
-                      <% end %>
-                  <% end %>
-   
-                  <%= form_tag comments_path do %>
-                      <input type="hidden" name="show_id" value="<%= show.id %>">
-                      <p><%= current_user.name %> <input type="text" name="content" placeholder="댓글 내용을 입력하세요."> <input type="submit" value="확인"></p>
-                  <% end %>
-
-                    <% if current_user.id == show.creator_id %>
-                      <a href="/edit/<%= show.id %>">[수정]</a>
-                      <a href="/delete_complete/<%= show.id %>">[삭제]</a>
-                    <% end %>
-                  </div>
-                </div>
+    <div class="ui guerillart special cards" id="show-genres">
+    <%
+      @yourlikes = Like.where(user_id: current_user.id)
+      @yourlikes.each do |liked_show|
+        @shows.reverse.each do |show|
+          if liked_show.show_id == show.id
+    %>
+      <div class="card">
+        <div class="blurring dimmable image">
+          <div class="ui inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui primary button" id="view-modal-<%= show.id %>">더보기</div>
               </div>
             </div>
+          </div>
+          <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+        </div>
+        <div class="content">
+          <a class="header"><%= show.title %></a>
+          <div class="meta">
+            <% if show.creator.nil? %>
+            <span class="date">장범준</span>
+            <% else %>
+            <span class="date"><%= show.creator.artist_name %></span>
+            <% end %>
+          </div>
+          <div class="description">
+            <%= show.location %>
+          </div>
+        </div>
+        <div class="extra content">
+            <i class="heart icon"></i>
+            <%= show.likes.size %>
+            <span class="right floated"><%= show.date %></span>
+          </div>
+        </div><!-- card -->
         <% end %>
+      <% end %>
+      <% end %>
+
+
+  </div>
 </div>
-
-

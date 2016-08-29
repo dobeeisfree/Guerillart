@@ -1,6 +1,6 @@
 <style>
 .show-body {
-  background:#f4f4f4;
+  padding-bottom: 30px;
 }
 </style>
 <div class="show-body">
@@ -34,5 +34,8 @@ window.onload = function() {
       source: content //검색을 하면 이곳에서 source를 기반으로 자동인식을 한다.
     })
   ;
+
+  // 빈공간이 생기기 때문에, 공연정보페이지의 바디태그만 색깔 지정
+  $('body').css("background", "#f4f4f4");
 }
 </script>

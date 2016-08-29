@@ -21,30 +21,29 @@ class HomeController < ApplicationController
 
   def shows
     @shows = Show.all
+    @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
 
-    # @names는 장르의 중복값을 제거한 배열
-    @names = Array.new
-    @shows.each do |s|
-      unless @names.include? s.genre
-        @names << s.genre
-      end
+    # 분류를 위한 파람즈
+    @current_genre = params[:choose]
+    if @current_genre.nil?
+      @current_genre = "모아보기" # 디폴트로 모아보기
     end
 
-    @current_genre = params[:choose]
-    # 디폴트로 모아보기
-    if @current_genre.nil?
-      @current_genre = "모아보기"
+    # 시간에 따른 공연 분류
+    @select_show = params[:select_show]
+    if @select_show.nil?
+      @select_show = "다가오는 공연" # 디폴트로 다가오는 공연
     end
 	end
-  
+
   def view
     @show = Show.find(params[:show_id])
   end
 
   def search 
-    @res_artists = User.find_by_artist_name(params[:artist_name])
+    @user = User.find_by_artist_name(params[:artist_name])
   end
-        
+
   def name
     @users = User.find_by_artist_name(params[:artist_name])
     @one_post = Post.find_by_user_id(@users.id)

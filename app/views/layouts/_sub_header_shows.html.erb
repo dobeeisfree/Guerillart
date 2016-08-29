@@ -27,36 +27,39 @@ div.ui.button.sub.dropdown {
 <div class="ui subshow menu">
   <div class="ui subshow container">
 
-    <%#= @current_genre %>
-
     <div class="ui button sub genre dropdown genre">
+      <% if @current_genre.nil? %>
       <div class="text">장르별</div>
+      <% else %>
+      <div class="text"><%= @current_genre %></div>
+      <% end %>
       <i class="dropdown icon"></i>
       <div class="ui simple dropdown menu">
-        <%#= link_to "모아보기", choose: "모아보기" %>
-        <div class="ui item">팝</div>
-        <div class="ui item">힙합/랩</div>
-        <div class="ui item">R&B/소울</div>
-        <div class="ui item">댄스</div>
-        <div class="ui item">일렉트로닉</div>
-        <div class="ui item">록</div>
-        <div class="ui item">재즈</div>
-        <div class="ui item">클래식</div>
-        <%# @names.each do |name| %>
-          <!--<div class="ui item show-genre-item"><%#= link_to "#{name}", controller: "home", action: "shows", choose: "#{name}" %></div>-->
-        <%# end %>
+        <div class="ui item"><%= link_to "모아보기", choose: "모아보기" %></div>
+        <% @names.each do |name| %>
+          <div class="ui item show-genre-item">
+            <%= link_to "#{name}", controller: "home", action: "shows", choose: "#{name}" %>
+          </div>
+        <% end %>
       </div>
     </div>
     <!-- 공연 -->
     <div class="ui button sub show dropdown show">
+      <% if @select_show.nil? %>
       <div class="text">공연</div>
+      <% else %>
+      <div class="text"><%= @select_show %></div>
+      <% end %>
       <i class="dropdown icon"></i>
       <div class="ui simple dropdown menu">
-        <div class="ui item">실시간 공연</div>
-        <div class="ui item">다가오는 공연</div>
+        <div class="ui item">
+          <%= link_to "실시간 공연", controller: "home", action: "shows", select_show: "실시간 공연" %>
+        </div>
+        <div class="ui item">
+          <%= link_to "다가오는 공연", controller: "home", action: "shows", select_show: "다가오는 공연" %>
+        </div>
       </div>
     </div>
-
 
   </div>
 </div>

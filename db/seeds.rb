@@ -20,11 +20,19 @@ User.create(name: "Beyonce", artist_name: "비욘세", genre: "pop", phone_numbe
 User.create(name: "Jayz", artist_name: "제이지", genre: "pop", phone_number: 01022221111, area: "NewYork", introduction: "잘부탁드립니다", email: "jayz@jayz.com", password: "topsecret", password_confirmation: "topsecret", fan_count: 119)
 
 
+#공연 정보에서 쓰임
+c = ["왜 벌써가", "링마이벨", "눈의꽃", "야생화", "보고싶다", "하루", "바람기억", "가지마가지마", "독","비행소년","쌈디디스곡"]
+g = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+
 
 
 ##
 show = Show.new
-show.genre = "balad"
+show.genre = "힙합/랩"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.49720818812354
 show.location_y = 126.95616475134287
 show.creator_id = 1
@@ -32,7 +40,11 @@ show.status = 1
 show.save #학교 운동장
 
 show = Show.new
-show.genre = "jazz"
+show.genre = "재즈"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.53195287306739
 show.location_y = 127.1480328738189
 show.creator_id = 1
@@ -56,7 +68,11 @@ show.status = 0
 show.save #공연 예정
 
 show = Show.new
-show.genre = "rock"
+show.genre = "팝"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.519695589572116
 show.location_y = 127.04732480000007
 show.creator_id = 3
@@ -64,7 +80,11 @@ show.status = 1
 show.save #상
 
 show = Show.new
-show.genre = "dance"
+show.genre = "랩"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.5172363
 show.location_y = 127.05362262676704
 show.creator_id = 4
@@ -72,7 +92,11 @@ show.status = 1
 show.save #우
 
 show = Show.new
-show.genre = "hiphop"
+show.genre = "록"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.519695589572116
 show.location_y = 127.05362262676704
 show.creator_id = 5
@@ -80,7 +104,11 @@ show.status = 1
 show.save #우상
 
 show = Show.new
-show.genre = "juggle"
+show.genre = "클래식"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.5172363
 show.location_y = 127.04732480000007
 show.creator_id = 6
@@ -88,7 +116,11 @@ show.status = 0
 show.save #중
 
 show = Show.new
-show.genre = "magic"
+show.genre = "일렉트로닉"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.5172363
 show.location_y = 127.04732480000007 - 0.0063
 show.creator_id = 7
@@ -96,7 +128,11 @@ show.status = 1
 show.save #좌
 
 show = Show.new
-show.genre = "comedy"
+show.genre = "댄스"
+show.title = g.sample
+show.time = Time.now.strftime("%I:%M:%S")
+show.date = Time.now.strftime("%F")
+show.playlist = "True Colors"
 show.location_x = 37.5172363 - 0.00246
 show.location_y = 127.04732480000007
 show.creator_id = 8
@@ -104,8 +140,6 @@ show.status = 1
 show.save #하
 
 
-c = ["왜 벌써가", "링마이벨", "눈의꽃", "야생화", "보고싶다", "하루", "바람기억", "가지마가지마", "독","비행소년","쌈디디스곡"]
-g = ["힙합", "하우스", "발라드", "인디음악", "락", "팝", "댄스"]
 i = 9
 
 # 공연 정보 생성
