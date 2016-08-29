@@ -40,8 +40,8 @@ class HomeController < ApplicationController
     @show = Show.find(params[:show_id])
   end
 
-  def search
-    @res_artists = User.find_by_artist_name(params[:artist_name])
+  def search 
+    @user = User.find_by_artist_name(params[:artist_name])
   end
 
   def name
