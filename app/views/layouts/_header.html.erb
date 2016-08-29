@@ -165,17 +165,19 @@ a.ui.item {
       <%= form_tag("/artist/search", method: "get") do %>
         <div class="ui right icon left action input">
           <i class="inverted search icon"></i>
-          <div class="ui button dropdown" id="go-dropdown">
-            <div class="text hi-dropdown">아티스트</div>
+
+          <div class="ui selection button dropdown" id="go-dropdown">
+            <input type="hidden" name="a_search">
+            <div class="text hi-dropdown" data-value="0">선택</div>
             <i class="inverted dropdown icon"></i>
             <div class="ui simple dropdown menu" id="uidropdown">
-              <div class="item" id="artist_search">아티스트</div>
-              <div class="item" id="location_search">위치</div>
+              <div class="item" data-value="0" id="artist_search">아티스트</div>
+              <div class="item" data-value="1" id="location_search">위치</div>
             </div>
           </div>
-          <input type="text"  placeholder="를 검색해보세요"name="artist_name" />
-        </div>
 
+          <input type="text" placeholder="를 검색해보세요" name="artist_name" />
+        </div>
       <% end %>
     </div>
   </div>
