@@ -48,14 +48,20 @@ h3:first-child {
   <div class="ui view small modal <%= show.id %>">
     <i class="close icon"></i>
     <div class="header">
-      <a href="#"><!-- 공연작성자의 마이페이지로 이동 -->
+      <% if show.creator.nil? %>
+      <a href="/artists/name/박효신" target="_blank"><!-- 공연작성자의 마이페이지로 이동 -->
         <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
       </a>
-      <p class="header"><%= show.title %></p>
-      <% if show.creator.nil?%>
-      <small><a target="_blank" href="/dashboard/mypage?artist_name=박효신">장범준</a></small>
       <% else %>
-      <small><a target="_blank" href="/dashboard/mypage?artist_name=<%= show.creator.artist_name %>"><%= show.creator.artist_name %></a></small>
+      <a href="/artists/name/<%= show.creator.artist_name %>" target="_blank"><!-- 공연작성자의 마이페이지로 이동 -->
+        <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
+      </a>
+      <% end %>
+      <p class="header"><%= show.title %></p>
+      <% if show.creator.nil? %>
+      <small><a target="_blank" href="/artists/name/박효신">장범준</a></small>
+      <% else %>
+      <small><a target="_blank" href="/artists/name/<%= show.creator.artist_name %>"><%= show.creator.artist_name %></a></small>
       <% end %>
       <small><%= show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일") %></small>
     </div>
@@ -84,7 +90,7 @@ h3:first-child {
         <div class="item">
           <i class="checked calendar icon"></i>
           <div class="content">
-            <%= show.time %>, <%= show.date %>
+            <%= show.time %>
           </div>
         </div>
         <div class="item">
@@ -145,7 +151,8 @@ h3:first-child {
 </div>
 </div>
 
-
+  <!-- Clipboard.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
   <!-- 각 모달마다의 동작 과정-->
   <script>
     // 모달때문에 엘리멘트가 반복됨

@@ -7,6 +7,10 @@ class DashboardController < ApplicationController
 
   def guerillart
     @shows = Show.all
+    # 메뉴 분류를 위한 변수
+    @yourlikes = Like.where(user_id: current_user.id)
+    @menu = params[:menu]
+    @followed = Follow.where(follower_id: current_user.id)
   end
 
   def profile
@@ -59,13 +63,6 @@ class DashboardController < ApplicationController
     @one_show.destroy
     redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
-  end
-
-  def mypage
-   a = params[:artist_name]
-   @users = User.find_by(artist_name: a )
-   @one_post = Post.find_by(user_id: @users.id)
-   @posts = Post.all
   end
 
   def create
