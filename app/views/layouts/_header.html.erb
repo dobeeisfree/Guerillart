@@ -6,14 +6,6 @@
     -webkit-overflow-scrolling: touch;
     outline: 0;
 }
-/* 로그인 */
-#signin-modal {
-  max-width: 450px;
-}
-/* 회원가입 */
-#signup-modal {
-  margin-top: -100px;
-}
 /* 모달의 폼 */
 .ui.form .field>label {
   color: white;
@@ -33,14 +25,6 @@ input.g-form {
 a.ui.item {
   color : white;
   font-weight : bold;
-}
-/* 로그인의 x 버튼 */
-.ui.basic.modal>.close {
-  padding-left:39px;
-}
-/* 회원가입의 x 버튼 */
-#signup-close {
-  padding-right: 472px !important;
 }
 /* 네비바 글자들 */
 .ui.secondary.menu a.item, .ui.simple.dropdown {
@@ -83,106 +67,8 @@ div.option_buttons {
 }
 </style>
 
-<!-- Start of Signin modal -->
-<div class="ui basic modal signin" id="signin-modal">
-  <i class="close icon"></i>
-  <div class="header">로그인</div>
-  <%= form_for(resource, :as => resource_name, :html => {:id => 'login_form'}, :url => user_session_path, :remote => :true, :format => :json) do |f| %>
-  <div class="ui form">
-    <div class="field">
-      <label>Email</label>
-      <div class="ui left icon input">
-      	<%= f.email_field :email, :autofocus => true, :placeholder => "이메일을 입력해주세요.", :id => 'login_email' %>
-        <i class="user icon"></i>
-      </div>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <div class="ui left icon input">
-      	<%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요.", :id => 'login_password' %>
-        <i class="lock icon"></i>
-      </div>
-    </div>
-  </div>
-    <div class="option_buttons">
-		<div class="not_registered">
-	    	<%= link_to '게릴라트 계정이 없나요?', '#', :class => 'not_registered', :id => 'not_registered', :view => 'signup' %>
-	    </div>
-		<div class="clear"></div>
-	</div>
-
-  <div class="go-sign">
-	    <!-- <% if devise_mapping.rememberable? -%>
-	    	<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-	  	<% end -%> -->
-	    <%= f.submit "로그인", type: "submit", name: "commit", class: "fluid ui inverted green button" %>
-  </div>
-
-  <div class="footer" id="login_modal_footer"></div>
-  <% end %>
-</div>
-
-
-
-
-<!-- Start of Signup modal -->
-<div class="ui basic modal signup" id="signup-modal">
-  <i class="close icon" id="signup-close"></i>
-  <div class="header">회원가입</div>
-  	<%= form_for(resource, :as => resource_name, :html => {:id => 'register_form'}, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
-      <div class="ui two column middle aligned very relaxed stackable grid">
-        <div class="column">
-          <div class="ui form">
-          	<div class="field">
-              <label>Name</label>
-              <%= f.text_field :name, :placeholder => "이름을 입력해주세요." , :id => 'signup_name' %>
-            </div>
-            <div class="field">
-              <label>E-mail</label>
-                <div class="ui left icon input">
-            	<%= f.email_field :email, :placeholder => "이메일을 입력해주세요." , :id => 'signup_email'%>
-            	<div class="error"><%= resource.errors[:email].first if resource.errors[:email].present? %></div>
-                <i class="user icon"></i>
-                </div>
-            </div>
-            <div class="field">
-              <label>Password</label>
-                <div class="ui left icon input">
-                <%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요.", :title => "6+ characters" , :id => 'signup_password'%>
-    			<div class="error"><%= resource.errors[:password].first if resource.errors[:password].present? %></div>
-                  <i class="lock icon"></i>
-                </div>
-            </div>
-            <div class="field">
-              <label>Password again</label>
-                <div class="ui left icon input">
-            		<%= f.password_field :password_confirmation, :placeholder => "confirm password" , :id => 'signup_confirm_password'%>
-   					 <div class="error"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %></div>
-                	<i class="lock icon"></i>
-                </div>
-            </div>
-          </div>
-
-          <div class="option_buttons">
-		    <div class="already_registered">
-		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :class => 'already_registered', :id => 'already_registered', :view => 'login' %>
-		    </div>
-		  	<div class="clear"></div>
-		  </div>
-
-          <div class="go-sign">
-            <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
-          </div>
-          <div class="footer" id="signup_modal_footer"></div>
-      </div>
-     </div>
-  <% end %>
-</div>
-
-
-
-
-
+<%= render :partial => "/devise/sessions/new" %>
+<%= render :partial => "/devise/registrations/new" %>
 
 
 <div class="ui secondary menu "> <!--Navbar start-->
@@ -194,13 +80,13 @@ div.option_buttons {
           <i class="inverted search icon"></i>
 
           <div class="ui selection button dropdown" id="go-dropdown">
-            <input type="hidden" name="a_search">
+          	<input type="hidden" name="a_search">
             <div class="text hi-dropdown" data-value="0">선택</div>
             <i class="inverted dropdown icon"></i>
             <div class="ui simple dropdown menu" id="uidropdown">
-              <div class="item" data-value="0" id="artist_search">아티스트</div>
-              <div class="item" data-value="1" id="location_search">위치</div>
-            </div>
+           		<div class="item" data-value="0" id="artist_search">아티스트</div>
+            	<div class="item" data-value="1" id="location_search">위치</div>
+          	</div>
           </div>
 
           <input type="text" placeholder="를 검색해보세요" name="artist_name" />
@@ -242,7 +128,6 @@ div.option_buttons {
 
 
 
-
 <script>
 // 검색의 드롭다운
 $("#go-dropdown").dropdown();
@@ -256,25 +141,6 @@ $('.ui.basic.modal')
     blurring: true,
     transition: 'vertical flip'
 });
-
-//로그인 모달 닫았을 시 모달 초기화
-$('.ui.basic.modal.signin').modal({
-    onHide: function(){
-		$('.footer#login_modal_footer').html("");
-		$('#login_password').val('');
-    }
-});
-
-
-//회원가입 모달 닫았을 시 모달 초기화
-$('.ui.basic.modal.signup').modal({
-    onHide: function(){
-		$('.footer#signup_modal_footer').html("");
-		$('#signup_password').val('');
-		$('#signup_confirm_password').val('');
-    }
-});
-
 
 // 모달 버튼
 document.getElementById('start_signin_modal').onclick = function() {

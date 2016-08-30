@@ -21,13 +21,9 @@ Rails.application.routes.draw do
   get 'edit/:show_id' => 'dashboard#edit'
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
-  get 'searching/index'
   
-
-  match "/users/sign_in" => redirect("/"), via: [:get]
-  
+  # match "/users/sign_in" => redirect("/"), via: [:get]
   devise_for :users, :path => '', :controllers => {:sessions => 'users/sessions', :registrations => 'users/registrations'}, :path_names => { :sign_in => 'login', :password => 'forgot', :confirmation => 'confirm', :unlock => 'unblock', :registration => 'register', :sign_up => 'new', :sign_out => 'logout'}
-  # devise_for :users, controllers: { sessions: 'users/sessions' }
 
   # devise_for :users, :skip => [:sessions]
   # as :user do
