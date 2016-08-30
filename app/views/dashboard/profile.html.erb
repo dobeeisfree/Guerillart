@@ -17,7 +17,7 @@ margin-right: auto !important;
 <div class="container">
   <h2 class="ui dividing header">계정 관리</h2>
   <div class="container" style="margin-bottom: 50px;">
-      <%=form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, method: :put }) do |f| %>
+  	<%= form_for(resource, :as => resource_name, :html => { multipart: true, method: :put, id: 'register_edit' }, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
           <div class="ui centered card">
             <div class="image">
              <% if current_user.avatar.url %>
