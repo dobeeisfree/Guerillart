@@ -45,9 +45,9 @@ Rails.application.routes.draw do
   get 'shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
   post '/comments/create' => 'comments#create'
-  
+
   get '/mypage/:post_id' => 'dashboard#mypage'
-  
+
   post '/search' => 'searching#getBounds'
   # post '/searching/getBounds' => 'searching#getBounds'
   # post '/searching/getBounds'
@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get '/shows/view/:show_id' => 'home#view'
   get '/artist/search' => 'home#search'
   get '/artists/name/:artist_name' => 'home#name'
-  
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
