@@ -62,7 +62,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # respond_with resource
       
       respond_to do |format|
-        format.json { render :json => resource.errors, :status => :unprocessable_entity , :error => I18n.t("devise.failure.#{env['warden'].message.to_s}")}
+        # format.json { render :json => resource.errors, :status => :unprocessable_entity , :error => I18n.t("devise.failure.#{env['warden'].message.to_s}")}
+        format.json { render :json => resource.errors, :status => :unprocessable_entity }
         format.html { respond_with resource }
       end
       
@@ -91,8 +92,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Custom Fields
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar])
   end
 
   def update_needs_confirmation?(resource, previous)

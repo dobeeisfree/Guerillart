@@ -27,7 +27,6 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     puts "testing : 0"
-    puts Time.now
     
     self.resource = warden.authenticate!(auth_options)
     puts "testing : 1"
@@ -56,11 +55,11 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  def failure   
-    puts "failure"
-    warden.custom_failure!
-    render json: { success: false, error: I18n.t("devise.failure.#{env['warden'].message.to_s}") }, status: 401
-  end
+  # def failure   
+    # puts "failure"
+    # warden.custom_failure!
+    # render json: { success: false, error: I18n.t("devise.failure.#{env['warden'].message.to_s}") }, status: 401
+  # end
 
   protected
 

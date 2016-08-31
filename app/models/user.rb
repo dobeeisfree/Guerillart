@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  validates :name, length: { in: 2..12 }
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :image, BannerImageUploader

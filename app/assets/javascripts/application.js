@@ -51,8 +51,17 @@ $(document).on('submit', '#register_form', function(e){
     window.location.reload(true);	//새로고침
 }).on('ajax:error', '#register_form', function(e, data, status, xhr) {		//회원가입 실패 시
 	//do stuff here
-	console.log("hi5 ? : " + JSON.stringify(data));
+	// console.log("hi5 ? : " + JSON.stringify(data));
 	
+    errors = JSON && JSON.parse(data.responseText) || $.parseJSON(data.responseText);
+	
+	// console.log("hiㅁ ? : " + data.resopnseText['email']);
+	// console.log("hiㅁ ? : " + JSON.stringify(data.resopnseText['email']));
+	// console.log("hi5 ? : " + JSON.stringify(errors[email]));
+	console.log("hi5 n : " + errors['name']);
+	console.log("hi5 e : " + errors['email']);
+	console.log("hi5 p : " + errors['password']);
+	// console.log("hi5 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
 	//오류메시지 출력
 	$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>' + data.responseText + '</p></div>');
 	
@@ -76,8 +85,11 @@ $(document).on('submit', '#register_edit', function(e) {
     
 }).on('ajax:error', '#register_edit', function(e, data, status, xhr) {		
     //do stuff here
-    console.log("hi9 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
-    console.log(""+data.responseText);
+    // console.log("hi9 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
+    errors = JSON && JSON.parse(data.responseText) || $.parseJSON(data.responseText);
+    console.log("hi9 n : " + errors['name']);
+    console.log("hi9 e : " + errors['email']);
+	console.log("hi9 p : " + errors['password']);
     
     
     
