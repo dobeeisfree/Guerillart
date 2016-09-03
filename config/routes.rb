@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
   
   get '/login' => redirect('/')
+  get '/register/new' => redirect('/')
+  get '/register/edit' => redirect('/')
+  get '/forgot/new' => redirect('/')
+  
   # match "/users/sign_in" => redirect("/"), via: [:get]
   devise_for :users, :path => '', :controllers => {:sessions => 'users/sessions', :registrations => 'users/registrations'}, :path_names => { :sign_in => 'login', :password => 'forgot', :confirmation => 'confirm', :unlock => 'unblock', :registration => 'register', :sign_up => 'new', :sign_out => 'logout'}
 

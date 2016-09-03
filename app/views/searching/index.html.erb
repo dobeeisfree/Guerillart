@@ -19,6 +19,9 @@
 			/*div {
 				float: left;
 			}*/
+			.ui.secondary.menu{
+				margin-bottom: 0px;
+			}
 
 			#map_canvas {
 				width: 100%;
@@ -49,9 +52,11 @@
 			}
 			div#s_all{
 				width: 100%;
-				height: 85%;
+				height: 92%;
+				padding: 0px;
+				margin-top: 0px;
+				margin-bottom: 0px;
 			}
-
 			div#s_left {
 				width: 66%;
 				height: 100%;
@@ -463,7 +468,7 @@
 							    	map: globalMap,
 							        content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
 							        //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
-							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
+							        position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
 							        minWidth: 20,
@@ -494,14 +499,14 @@
 			                            	// centerMarker.setMap(null);
 			                            	globalMap.setCenter(markerBubble.getPosition());
 				                            document.getElementById("over_info").style.width = '100%';
-				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].show.genre+"</h1>";
+				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].genre+"</h1>";
 				                             // document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
 									    // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
 									    // +'<div class="content" style="width: 50%; float: left;">'
-									    	// +'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].show.title+'</div>'
+									    	// +'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].title+'</div>'
 									    	// +'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
 									    	// +'<div class="footer">'
-									      		// +'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].show.genre+'</div>'
+									      		// +'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].genre+'</div>'
 									      		// +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
 								      		// +'</div></div></div>;'
 			                            }
@@ -530,10 +535,10 @@
 									// document.getElementById("right_list").innerHTML+='<div class="item" style="height: 20%;">'
 									    // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">'
 									    // +'<div class="content" style="width: 76%;">'
-									    	// +'<div class="header" style="font-weight: bold;">'+data[i].show.title+'</div>'
+									    	// +'<div class="header" style="font-weight: bold;">'+data[i].title+'</div>'
 									    	// +'<div class="body">'+data[i].creator.artist_name+'</div>'
 									    	// +'<div class="footer">'
-									      		// +'<div id="f_left" style="float: left; width: 66%;">'+data[i].show.genre+'</div>'
+									      		// +'<div id="f_left" style="float: left; width: 66%;">'+data[i].genre+'</div>'
 									      		// +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
 								      		// +'</div></div></div>;'
 									

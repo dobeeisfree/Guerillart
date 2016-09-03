@@ -21,53 +21,27 @@ class SearchingController < ApplicationController
 
     isDistOrder = params[:isDistOrder]
 
-
-
-
-    # i = 0
-    # @search.results.each do |x|
-      # @resa.push({ id: x.id, dist: i })
-      # i+=1
-    # end
-
-    puts Time.now
-
     @results = @search.results
-
+    
     #인기순 정렬이라면
     if isDistOrder.to_i == 0
       @results.sort! { |a, b| a.creator.fan_count <=> b.creator.fan_count }.reverse!
+      
+    #거리순 정렬이라면  
+    else 
+      @results.each do |res|
+        res.dist = Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2)
+      end
+      
+      @results.sort! { |a, b| a.dist <=> b.dist }
     end
 
-    addedDist = []
-    @results.each do |res|
-      addedDist.push({"show"=>res, "creator"=>res.creator, "dist"=>Math.sqrt((res.location_x-center_lat)**2+(res.location_y-center_lng)**2)})
-    end
-
-    addedDist.each do |x|
-      puts x
-    end
-
-    puts ""
-    puts Time.now
-
-    #거리순 정렬이라면
-    if isDistOrder.to_i == 1
-      addedDist.sort! { |a, b| a["dist"] <=> b["dist"]}
-    end
-
-
-    puts Time.now
-
-    addedDist.each do |x|
-      puts x["dist"]
-    end
-
-    # render json: @results
-    render json: addedDist
-
-    #render :json => {'results' => results}
-    # redirect_to :back
-
+    render :json => @results.to_json(:include => :creator)
+    
+    # render :json => @results.to_json(:include => :creator { :only => :artist_name } )
+    # respond_to do |format|
+        # format.json  { render :json => @results.to_json(:include => :creator )}
+      # end
+    # render json: showArr
   end
 end
