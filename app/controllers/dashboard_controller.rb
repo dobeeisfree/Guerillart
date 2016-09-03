@@ -66,9 +66,8 @@ class DashboardController < ApplicationController
   end
 
   def create
-
     if current_user.artist_name.nil?
-
+      
       current_user.artist_name = params[:name]
       current_user.genre = params[:genre]
       current_user.phone_number = params[:phone_number]
@@ -84,6 +83,11 @@ class DashboardController < ApplicationController
   end
 
   def create_artist
+    #이미 아티스트라면 dashboard/home으로 이동
+    if current_user.artist_name.present?
+      redirect_to '/dashboard/home'
+    end
+    
   end
 
   def write_post
