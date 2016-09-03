@@ -60,10 +60,30 @@ $(document).on('submit', '#register_form', function(e){
 	// console.log("hi5 ? : " + JSON.stringify(errors[email]));
 	console.log("hi5 n : " + errors['name']);
 	console.log("hi5 e : " + errors['email']);
-	console.log("hi5 p : " + errors['password']);
+	console.log("hi5 pc : " + errors['password']);
+	
+	if(errors['name'])
+	{
+		$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>Name&nbsp;' + errors['name'] + '</p></div>');
+	}
+	else if(errors['email'])
+	{
+		$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>Email&nbsp;' + errors['email'] + '</p></div>');
+	}
+	else if(errors['password'])
+	{
+		$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>Password&nbsp;' + errors['password'] + '</p></div>');
+	}
+	else
+	{
+		$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>비밀번호가 일치하지 않습니다.</p></div>');
+	}
+	
+	
 	// console.log("hi5 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
+	
 	//오류메시지 출력
-	$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>' + data.responseText + '</p></div>');
+	//$('.footer#signup_modal_footer').html('<div class="ui error message"><div class="header" id="signup_error_msg">회원가입 실패</div><p>' + data.responseText + '</p></div>');
 	
 	//오류 메시지들 
 	//hi5 ? : {"readyState":4,"responseText":"{\"password\":[\"is too short (minimum is 6 characters)\"]}","responseJSON":{"password":["is too short (minimum is 6 characters)"]},"status":422,"statusText":"Unprocessable Entity "}
@@ -79,17 +99,41 @@ $(document).on('submit', '#register_edit', function(e) {
     //do stuff here 
     console.log("hi8 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
     
-    
+    alert("수정되었습니다.");
     window.location.reload(true);	//새로고침
+    
     console.log("hi1 : "+data);
+    
+    
+    
     
 }).on('ajax:error', '#register_edit', function(e, data, status, xhr) {		
     //do stuff here
     // console.log("hi9 : " +JSON.stringify(data) + ", @@@ "+JSON.stringify(status)+ ", @@@ "+ JSON.stringify(xhr));
     errors = JSON && JSON.parse(data.responseText) || $.parseJSON(data.responseText);
+    console.log("hi9 all : " + data.responseText);
+    
     console.log("hi9 n : " + errors['name']);
-    console.log("hi9 e : " + errors['email']);
+	console.log("hi9 cp : " + errors['current_password']);
 	console.log("hi9 p : " + errors['password']);
+    console.log("hi9 pc : " + errors['password_confirmation']);
+    
+    if(errors['name'])
+	{
+		alert('Name '+errors['name']);
+	}
+	else if(errors['current_password'])
+	{
+		alert('Current password ' + errors['current_password']);
+	}
+	else if(errors['password'])
+	{
+		alert('Password '+errors['password']);
+	}
+	else
+	{
+		alert('Password confirmation ' + errors['password_confirmation']);
+	}
     
     
     
