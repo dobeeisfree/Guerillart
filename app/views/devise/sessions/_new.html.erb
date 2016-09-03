@@ -55,7 +55,14 @@
 	//로그인 모달에서 회원가입 모달로 이동
 	$('#not_registered').click(function(event){
 		$('.ui.basic.modal.signin').modal('hide');
-		$('.ui.basic.modal.signup').modal('show');
+		setTimeout(function(){ $('.ui.basic.modal.signup').modal('show'), 100})
+	});
+	
+	//로그인 모달에서 비밀번호 찾기 모달로 이동
+	$('#forgot_password').click(function(event){
+		$('.ui.basic.modal.signin').modal('hide');
+		setTimeout(function(){ $('.ui.basic.modal.forgot').modal('show'), 100})
+		// $('.ui.basic.modal.forgot').modal('show');
 	});
 
 	//로그인 모달 닫았을 시 모달 초기화

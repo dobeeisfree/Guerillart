@@ -1,0 +1,43 @@
+<style>
+	/* 비밀번호찾기 */
+	#forgot_pswd-modal {
+	  max-width: 450px;
+	}
+	/* 비밀번호 찾기 x 버튼 */
+	.ui.basic.modal>.close {
+	  padding-left:39px;
+	}
+</style>
+
+<!-- Start of forgot modal -->
+<div class="ui basic modal forgot" id="forgot_pswd-modal">
+  <i class="close icon"></i>
+  <div class="header">비밀번호를 찾기</div>
+  <%= form_for(resource, :as => resource_name, :html => { method: :put, id: 'forgot_form'}, :url => password_path(resource_name), :remote => :true, :format => :json) do |f| %>
+  <div class="ui form">
+    <div class="field">
+      <label>Email</label>
+      <div class="ui left icon input">
+      	<%= f.email_field :email, :autofocus => true, :placeholder => "이메일을 입력해주세요.", :id => 'forgot_email' %>
+        <i class="user icon"></i>
+      </div>
+    </div>
+  </div>
+  <div class="go-sign">
+    <%= f.submit "메일 전송", class: "fluid ui inverted red button"%>
+  </div>
+
+  <div class="footer" id="forgot_modal_footer"></div>
+  <% end %>
+</div>
+
+<script>
+	//비밀번호 찾기 모달 닫았을 시
+	$('.ui.basic.modal.forgot').modal({
+	    onHide: function(){
+	    	//setTimeout(function(){ $('.ui.basic.modal.signin').modal('show'), 250})
+	    }
+	});
+</script>
+
+
