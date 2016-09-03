@@ -33,7 +33,8 @@
   </div>
     <div class="option_buttons">
 		<div class="not_registered">
-	    <%= link_to '게릴라트 계정이 없나요?', '#', :class => 'not_registered', :id => 'not_registered', :view => 'signup' %>
+		|	<%= link_to '게릴라트 계정이 없나요?', '#', :id => 'not_registered'%>		|
+		<%= link_to '비밀번호를 잊어버리셨나요?', '#', :id => 'forgot_password'%>	|
 	  </div>
 		<div class="clear"></div>
 	</div>
@@ -51,6 +52,12 @@
 
 
 <script>
+	//로그인 모달에서 회원가입 모달로 이동
+	$('#not_registered').click(function(event){
+		$('.ui.basic.modal.signin').modal('hide');
+		$('.ui.basic.modal.signup').modal('show');
+	});
+
 	//로그인 모달 닫았을 시 모달 초기화
 	$('.ui.basic.modal.signin').modal({
 	    onHide: function(){

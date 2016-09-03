@@ -47,7 +47,7 @@
 
           <div class="option_buttons">
 		    <div class="already_registered">
-		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :class => 'already_registered', :id => 'already_registered', :view => 'login' %>
+		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :id => 'already_registered'%>	
 		    </div>
 		  	<div class="clear"></div>
 		  </div>
@@ -62,6 +62,12 @@
 </div>
 
 <script>
+	//회원가입 모달에서 로그인 모달로 이동
+	$('#already_registered').click(function(event){
+		$('.ui.basic.modal.signup').modal('hide');
+		$('.ui.basic.modal.signin').modal('show');
+	});
+
 	//회원가입 모달 닫았을 시 모달 초기화
 	$('.ui.basic.modal.signup').modal({
 	    onHide: function(){
