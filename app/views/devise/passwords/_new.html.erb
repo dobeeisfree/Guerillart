@@ -8,7 +8,7 @@
 <!-- Start of forgot modal -->
 <div class="ui basic modal forgot" id="forgot_pswd-modal">
   <i class="close icon"></i>
-  <div class="header">비밀번호를 찾기</div>
+  <div class="header">비밀번호 찾기</div>
   <%= form_for(resource, :as => resource_name, :html => { method: :put, id: 'forgot_form'}, :url => password_path(resource_name), :remote => :true, :format => :json) do |f| %>
   <div class="ui form">
     <div class="field">

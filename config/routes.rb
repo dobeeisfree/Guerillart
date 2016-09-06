@@ -1,23 +1,46 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get 'home/index' => 'home#index'
-  get 'home/shows' =>'home#shows'
-  get 'home/artists' => 'home#artists'
+  # get 'home/index' => 'home#index'
+  # get 'home/shows' =>'home#shows'
+  # get 'home/artists' => 'home#artists'
 
-  get 'dashboard/home' => 'dashboard#home'
-  get 'dashboard/guerillart' => 'dashboard#guerillart'
-  get 'dashboard/profile' => 'dashboard#profile'
-  get 'dashboard/mypage' => 'dashboard#mypage'
-  get 'dashboard/create_artist' => 'dashboard#create_artist'
-  get 'dashboard/write' => 'dashboard#write'
-  post 'dashboard/write_complete' => 'dashboard#write_complete'
-  post 'dashboard/create' => 'dashboard#create'
-  post 'dashboard/write_post' => 'dashboard#write_post'
+  get '/dashboard' => redirect('/dashboard/home')
+  get '/dashboard/home' => 'dashboard#home'
+  get '/dashboard/guerillart' => 'dashboard#guerillart'
+  get '/dashboard/profile' => 'dashboard#profile'
+  get '/dashboard/mypage' => 'dashboard#mypage'
+  get '/dashboard/create_artist' => 'dashboard#create_artist'
+  # get '/dashboard/write' => 'dashboard#write'
+  # post '/dashboard/write_complete' => 'dashboard#write_complete'
+  
+  
+  get '/shows' => 'shows#index'
+  get '/shows/new' => 'shows#new'
+  post '/shows' => 'shows#create'
+  get '/shows/:show_id/edit' => 'shows#edit'
+  put '/shows/:show_id' => 'shows#update'
+  delete 'shows/:show_id' => 'shows#destroy'
+  
+  
+  get '/artists' => 'artist#index'
+  get '/artists/new' => 'artist#new'
+  post '/artists' => 'artists#create'  
+  get '/artists/:artist_name' => 'artists#page'
+  get '/artists/:artist_name/edit' => 'artists#edit'
+  post '/artists/:artist_name' => 'artists#update'
+  
+  
+  
+  get '/artists/search' => 'artists#search'
+  
+  
+  
+ 
+  post '/dashboard/create' => 'dashboard#create'
+  post '/dashboard/write_post' => 'dashboard#write_post'
   get '/dashboard/create' => 'dashboard#create'
-
-  post 'dashboard/create' => 'dashboard#create'
-
-  post 'write_complete' => 'dashboard#write_complete'
+  post '/dashboard/create' => 'dashboard#create'
+  
   get 'edit/:show_id' => 'dashboard#edit'
   post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
   get '/delete_complete/:show_id' => 'dashboard#delete_complete'
@@ -39,15 +62,16 @@ Rails.application.routes.draw do
 
   
   get "/search" => 'searching#index'
-  get 'mypage' => 'dashboard#mypage'
-  get 'shows' =>'home#shows'
+  # get 'mypage' => 'dashboard#mypage'
+  
   get '/artists' => 'home#artists'
-  get 'dashboard/:show_id/like' => 'likes#like_toggle'
-  get 'shows/:show_id/like' => 'likes#like_toggle'
+  
+  get '/dashboard/:show_id/like' => 'likes#like_toggle'
+  get '/shows/:show_id/like' => 'likes#like_toggle'
   resources :comments, only: [:create, :destroy]
   post '/comments/create' => 'comments#create'
 
-  get '/mypage/:post_id' => 'dashboard#mypage'
+  get '/dashboard/mypage/:post_id' => 'dashboard#mypage'
 
   post '/search' => 'searching#getBounds'
   # post '/searching/getBounds' => 'searching#getBounds'
@@ -57,7 +81,7 @@ Rails.application.routes.draw do
 
 
   get '/mypage_edit' => 'dashboard#mypage_edit'
-  post 'mypage_edit_complete' => 'dashboard#mypage_edit_complete'
+  post '/mypage_edit_complete' => 'dashboard#mypage_edit_complete'
   resources :follows, only: [:create, :destroy]
   get '/shows/view/:show_id' => 'home#view'
   get '/artist/search' => 'home#search'

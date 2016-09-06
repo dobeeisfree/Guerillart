@@ -15,7 +15,7 @@
   font-size: 3em;
 }
 input.g-form {
-	font- weight: bold;
+	font-weight: bold;
 	font-size: 1em;
 }
 .go-sign {
@@ -67,6 +67,7 @@ div.option_buttons {
 }
 </style>
 
+<!-- 로그인, 회원가입, 비번찾기 모달 -->
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
@@ -111,7 +112,7 @@ div.option_buttons {
 
               <% if current_user.artist_name? %>
               <% artist_name = current_user.artist_name %>
-              <a class="ui item" href="/dashboard/write">공연등록</a>
+              <a class="ui item" href="/shows/new">공연등록</a>
 
               <a class="ui item" href="/artists/name/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>

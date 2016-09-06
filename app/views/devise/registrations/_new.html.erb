@@ -23,7 +23,7 @@
               <%= f.text_field :name, :placeholder => "이름을 입력해주세요. (2자리 이상 12자리 이하)" , :id => 'signup_name' %>
             </div>
             <div class="field">
-              <label>E-mail</label>
+              <label>Email</label>
                 <div class="ui left icon input">
 	            	<%= f.email_field :email, :placeholder => "이메일을 입력해주세요." , :id => 'signup_email'%>
 	                <i class="user icon"></i>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="field">
-              <label>Password again</label>
+              <label>Confirm Password</label>
                 <div class="ui left icon input">
             		<%= f.password_field :password_confirmation, :placeholder => "비밀번호를 다시 입력해주세요. (6자리 이상)" , :id => 'signup_confirm_password'%>
                 	<i class="lock icon"></i>
