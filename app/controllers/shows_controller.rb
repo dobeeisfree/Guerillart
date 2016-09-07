@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  before_action :authenticate_user!, :only => [ :new, :create, :edit, :update, :destroy ]
   
   def index
     @shows = Show.all
@@ -86,6 +87,9 @@ class ShowsController < ApplicationController
     redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
   end
-  
+
+  def view
+    @show = Show.find(params[:show_id])
+  end
   
 end

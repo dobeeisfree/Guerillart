@@ -77,7 +77,7 @@ div.option_buttons {
   <a class="ui item" href="/">GUERILLART</a>
   <div class="item">
     <div class="ui icon input">
-      <%= form_tag("/artist/search", method: "get") do %>
+      <%= form_tag("/search/select", method: "post") do %>
         <div class="ui right icon left action input">
           <i class="inverted search icon"></i>
 
@@ -114,7 +114,7 @@ div.option_buttons {
               <% artist_name = current_user.artist_name %>
               <a class="ui item" href="/shows/new">공연등록</a>
 
-              <a class="ui item" href="/artists/name/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
+              <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
               <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
             </div>

@@ -65,30 +65,30 @@ class DashboardController < ApplicationController
     # flash[:alert] = "삭제되었습니다."
   # end
 
-  def create
-    if current_user.artist_name.nil?
-      
-      current_user.artist_name = params[:name]
-      current_user.genre = params[:genre]
-      current_user.phone_number = params[:phone_number]
-      current_user.area = params[:area]
-      current_user.sns = params[:sns]
-      current_user.introduction = params[:introduction]
-      current_user.save
-      redirect_to '/dashboard/home'
-    else
-      flash[:alert]= "you already have one"
-      redirect_to '/dashboard/home'
-    end
-  end
+  # def create
+    # if current_user.artist_name.nil?
+#       
+      # current_user.artist_name = params[:name]
+      # current_user.genre = params[:genre]
+      # current_user.phone_number = params[:phone_number]
+      # current_user.area = params[:area]
+      # current_user.sns = params[:sns]
+      # current_user.introduction = params[:introduction]
+      # current_user.save
+      # redirect_to '/dashboard/home'
+    # else
+      # flash[:alert]= "you already have one"
+      # redirect_to '/dashboard/home'
+    # end
+  # end
 
-  def create_artist
-    #이미 아티스트라면 dashboard/home으로 이동
-    if current_user.artist_name.present?
-      redirect_to '/dashboard/home'
-    end
-    
-  end
+  # def create_artist
+    # #이미 아티스트라면 dashboard/home으로 이동
+    # if current_user.artist_name.present?
+      # redirect_to '/dashboard/home'
+    # end
+#     
+  # end
 
   def write_post
     @post = Post.new
@@ -106,25 +106,25 @@ class DashboardController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def mypage_edit
-   a = params[:artist_name]
-   @users = User.find_by(artist_name: a )
-   @posts = Post.all
-  end
+  # def mypage_edit
+   # a = params[:artist_name]
+   # @users = User.find_by(artist_name: a )
+   # @posts = Post.all
+  # end
 
-  def mypage_edit_complete
-    @users = User.find(params[:user_id])
-    @users.introduction = params[:introduction]
-    @users.sns = params[:sns]
-    @users.image = params[:image]
-    @users.avatar = params[:avatar]
-
-    if @users.save
-    redirect_to :back
-    else
-    redirect_to :back
-    end
-  end
+  # def mypage_edit_complete
+    # @users = User.find(params[:user_id])
+    # @users.introduction = params[:introduction]
+    # @users.sns = params[:sns]
+    # @users.image = params[:image]
+    # @users.avatar = params[:avatar]
+# 
+    # if @users.save
+    # redirect_to :back
+    # else
+    # redirect_to :back
+    # end
+  # end
 =begin
   private
 

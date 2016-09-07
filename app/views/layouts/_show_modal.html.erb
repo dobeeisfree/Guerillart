@@ -44,7 +44,7 @@ h3:first-child {
 <%#개별 뷰와 모달은 분리해서 만들겠습니다 %>
 <%#이 파일은 공연페이지의 모든 모달을 불러옵니다 %>
 <% @shows.each do |show| %>
-<% @current_url = "http://localhost:3000/shows/view/#{ show.id }" %>
+<% @current_url = "http://localhost:3000/shows/#{ show.id }" %>
   <div class="ui view small modal <%= show.id %>">
     <i class="close icon"></i>
     <div class="header">
@@ -155,6 +155,7 @@ h3:first-child {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
   <!-- 각 모달마다의 동작 과정-->
   <script>
+  
     // 모달때문에 엘리멘트가 반복됨
     // 즉 모달개수마다 함수가 존재해야만 하는 이런...이상함...
     // 나중에 모달 형식을 바꾸어야할듯

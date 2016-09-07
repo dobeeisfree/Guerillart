@@ -1,56 +1,56 @@
 Rails.application.routes.draw do
   root 'home#index'
-  # get 'home/index' => 'home#index'
-  # get 'home/shows' =>'home#shows'
-  # get 'home/artists' => 'home#artists'
-
+  
+  resources :follows, only: [:create, :destroy]
+  
   get '/dashboard' => redirect('/dashboard/home')
   get '/dashboard/home' => 'dashboard#home'
   get '/dashboard/guerillart' => 'dashboard#guerillart'
   get '/dashboard/profile' => 'dashboard#profile'
-  get '/dashboard/mypage' => 'dashboard#mypage'
-  get '/dashboard/create_artist' => 'dashboard#create_artist'
-  # get '/dashboard/write' => 'dashboard#write'
-  # post '/dashboard/write_complete' => 'dashboard#write_complete'
+  
+  get '/dashboard/:show_id/like' => 'likes#like_toggle'
   
   
   get '/shows' => 'shows#index'
   get '/shows/new' => 'shows#new'
   post '/shows' => 'shows#create'
   get '/shows/:show_id/edit' => 'shows#edit'
+  get '/shows/:show_id' => 'shows#view'
   put '/shows/:show_id' => 'shows#update'
   delete 'shows/:show_id' => 'shows#destroy'
   
+  get '/shows/:show_id/like' => 'likes#like_toggle'
   
-  get '/artists' => 'artist#index'
-  get '/artists/new' => 'artist#new'
+  
+  get '/artists' => 'artists#index'
+  get '/artists/new' => 'artists#new'
   post '/artists' => 'artists#create'  
+  get '/artists/search' => 'artists#search'
   get '/artists/:artist_name' => 'artists#page'
   get '/artists/:artist_name/edit' => 'artists#edit'
   post '/artists/:artist_name' => 'artists#update'
   
   
   
-  get '/artists/search' => 'artists#search'
-  
-  
-  
- 
-  post '/dashboard/create' => 'dashboard#create'
   post '/dashboard/write_post' => 'dashboard#write_post'
-  get '/dashboard/create' => 'dashboard#create'
-  post '/dashboard/create' => 'dashboard#create'
   
-  get 'edit/:show_id' => 'dashboard#edit'
-  post '/edit_complete/:show_id'=> 'dashboard#edit_complete'
-  get '/delete_complete/:show_id' => 'dashboard#delete_complete'
+  
+  
+  
+  
+  resources :comments, only: [:create, :destroy]
+  post '/comments/create' => 'comments#create'
+  
+  get '/search' => 'searching#index'
+  post '/search' => 'searching#getBounds'
+  post '/search/select' => 'searching#select'
+  
   
   get '/login' => redirect('/')
   get '/register/new' => redirect('/')
   get '/register/edit' => redirect('/')
   get '/forgot/new' => redirect('/')
   
-  # match "/users/sign_in" => redirect("/"), via: [:get]
   devise_for :users, :path => '', :controllers => {:sessions => 'users/sessions', :registrations => 'users/registrations'}, :path_names => { :sign_in => 'login', :password => 'forgot', :confirmation => 'confirm', :unlock => 'unblock', :registration => 'register', :sign_up => 'new', :sign_out => 'logout'}
 
   # devise_for :users, :skip => [:sessions]
@@ -61,31 +61,22 @@ Rails.application.routes.draw do
   # end
 
   
-  get "/search" => 'searching#index'
+
+
   # get 'mypage' => 'dashboard#mypage'
   
-  get '/artists' => 'home#artists'
   
-  get '/dashboard/:show_id/like' => 'likes#like_toggle'
-  get '/shows/:show_id/like' => 'likes#like_toggle'
-  resources :comments, only: [:create, :destroy]
-  post '/comments/create' => 'comments#create'
+  
+  
 
-  get '/dashboard/mypage/:post_id' => 'dashboard#mypage'
+  # get '/dashboard/mypage/:post_id' => 'dashboard#mypage'
 
-  post '/search' => 'searching#getBounds'
-  # post '/searching/getBounds' => 'searching#getBounds'
-  # post '/searching/getBounds'
-  # post '/searching/index' => 'searching#getBounds'
-  # get '/searching/getBounds' => 'searching#index'
+  
 
-
-  get '/mypage_edit' => 'dashboard#mypage_edit'
-  post '/mypage_edit_complete' => 'dashboard#mypage_edit_complete'
-  resources :follows, only: [:create, :destroy]
-  get '/shows/view/:show_id' => 'home#view'
-  get '/artist/search' => 'home#search'
-  get '/artists/name/:artist_name' => 'home#name'
+  # get '/mypage_edit' => 'dashboard#mypage_edit'
+  # post '/mypage_edit_complete' => 'dashboard#mypage_edit_complete'
+  
+  # get '/shows/view/:show_id' => 'home#view'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
