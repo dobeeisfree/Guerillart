@@ -1,12 +1,13 @@
 <style>
 	/* 회원가입 */
 	#signup-modal {
+	  max-width: 450px;
 	  margin-top: -100px;
 	}
 	
 	/* 회원가입의 x 버튼 */
 	#signup-close {
-	  padding-right: 472px !important;
+	  padding-left: 20%;
 	}
 </style>
 
@@ -15,8 +16,6 @@
   <i class="close icon" id="signup-close"></i>
   <div class="header">회원가입</div>
   	<%= form_for(resource, :as => resource_name, :html => {:id => 'register_form'}, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
-      <div class="ui two column middle aligned very relaxed stackable grid">
-        <div class="column">
           <div class="ui form">
           	<div class="field">
               <label>Name</label>
@@ -56,8 +55,6 @@
             <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
           </div>
           <div class="footer" id="signup_modal_footer"></div>
-      </div>
-     </div>
   <% end %>
 </div>
 

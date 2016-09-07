@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '/artists/search' => 'artists#search'
   get '/artists/:artist_name' => 'artists#page'
   get '/artists/:artist_name/edit' => 'artists#edit'
-  post '/artists/:artist_name' => 'artists#update'
+  put '/artists/:artist_name' => 'artists#update'
   
   
   
