@@ -19,6 +19,9 @@
 			/*div {
 				float: left;
 			}*/
+			.ui.secondary.menu{
+				margin-bottom: 0px;
+			}
 
 			#map_canvas {
 				width: 100%;
@@ -49,9 +52,11 @@
 			}
 			div#s_all{
 				width: 100%;
-				height: 85%;
+				height: 92%;
+				padding: 0px;
+				margin-top: 0px;
+				margin-bottom: 0px;
 			}
-
 			div#s_left {
 				width: 66%;
 				height: 100%;
@@ -147,6 +152,11 @@
 		
 		
 		
+			//loader 띄우기
+			$(document).on({
+				ajaxStart: function() { $('.ui.segment').dimmer('show');},
+			    ajaxStop: function() { $('.ui.segment').dimmer('hide');}    
+			});
 			
 			
 			var globalMap;
@@ -280,6 +290,7 @@
 					if(isMobile)
 					{
 						document.getElementById("over_info").style.width = '0%';
+						// document.getElementById("over_artist").innerHTML =  "";
 						document.getElementById("over_info").innerHTML =  "";
 					}
 					else
@@ -448,7 +459,8 @@
 							//centerMarker.setMap(globalMap);
 			        	 	// centerMarker.setPosition(center);
 
-			        	 	document.getElementById("right_list").innerHTML="";
+			        	 	document.getElementById("s_right").innerHTML="";
+			        	 	// document.getElementById("right_list").innerHTML="";
 			        	 	for (var i = 0; i < data.length; i++) 
 			        	 	{
 								//markerBubble 띄우기
@@ -456,7 +468,7 @@
 							    	map: globalMap,
 							        content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
 							        //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
-							        position: new google.maps.LatLng(data[i].show.location_x, data[i].show.location_y),
+							        position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
 							        shadowStyle: 0,	//그림자 off
 							        padding: 0,
 							        minWidth: 20,
@@ -487,15 +499,16 @@
 			                            	// centerMarker.setMap(null);
 			                            	globalMap.setCenter(markerBubble.getPosition());
 				                            document.getElementById("over_info").style.width = '100%';
-				                            document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
-									    +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
-									    +'<div class="content" style="width: 50%; float: left;">'
-									    	+'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].show.title+'</div>'
-									    	+'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
-									    	+'<div class="footer">'
-									      		+'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].show.genre+'</div>'
-									      		+'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
-								      		+'</div></div></div>;'
+				                            document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].genre+"</h1>";
+				                             // document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
+									    // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
+									    // +'<div class="content" style="width: 50%; float: left;">'
+									    	// +'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].title+'</div>'
+									    	// +'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
+									    	// +'<div class="footer">'
+									      		// +'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].genre+'</div>'
+									      		// +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
+								      		// +'</div></div></div>;'
 			                            }
 			                            else
 			                            {
@@ -518,16 +531,18 @@
 			                    
 								if(!isMobile)
 								{
-									document.getElementById("right_list").innerHTML+='<div class="item" style="height: 20%;">'
-									    +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">'
-									    +'<div class="content" style="width: 76%;">'
-									    	+'<div class="header" style="font-weight: bold;">'+data[i].show.title+'</div>'
-									    	+'<div class="body">'+data[i].creator.artist_name+'</div>'
-									    	+'<div class="footer">'
-									      		+'<div id="f_left" style="float: left; width: 66%;">'+data[i].show.genre+'</div>'
-									      		+'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
-								      		+'</div></div></div>;'
-								}	
+									document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
+									// document.getElementById("right_list").innerHTML+='<div class="item" style="height: 20%;">'
+									    // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">'
+									    // +'<div class="content" style="width: 76%;">'
+									    	// +'<div class="header" style="font-weight: bold;">'+data[i].title+'</div>'
+									    	// +'<div class="body">'+data[i].creator.artist_name+'</div>'
+									    	// +'<div class="footer">'
+									      		// +'<div id="f_left" style="float: left; width: 66%;">'+data[i].genre+'</div>'
+									      		// +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
+								      		// +'</div></div></div>;'
+									
+								}
 								
 			        	 	}
 			        	},
@@ -813,9 +828,16 @@
 
 	</head>
 
-	<!--<body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);">-->
-	 <body onload="initialize()"> 
-		<div id="s_all">
+	<!-- <body onload="initialize(); setTimeout('updateMarkerBubbles()', 600);"> -->
+	<body onload="initialize()">
+
+		<div class="ui segment" id="s_all">
+			<!-- loader -->
+			<div class="ui inverted dimmer">
+				<div class="ui huge loader"></div>
+			</div>
+			
+			<!-- google map -->
 			<div id="s_left">
 				<div id="wrapper">
 					<div id="map_canvas"></div>
@@ -825,31 +847,99 @@
 				</div>
 				<!-- <div id="map_canvas"></div> -->
 	
+				<!-- <div id="control">
+					<dl>
+						<dt>
+							<strong>[Control]</strong>
+						</dt>
+						<dd>
+							<input type="button" value="거리순/인기순" onClick="switchOrder();">
+						</dd>
+						<dd>
+							&nbsp;
+						</dd>
+						<dd>
+							맵 주소 : <span id="txtAddress"></span>
+						</dd>
+						<dd>
+							맵X좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerX">
+						</dd>
+						<dd>
+							맵Y좌표:&nbsp;&nbsp;&nbsp;
+							<input type="text" id="centerY">
+						</dd>
 	
-			</div>
+						<dd>
+							<hr/>
+						</dd>
 	
-			<div id="s_right">
-				<div class="ui selection list" id="right_list">
-					
-					<!--<div class="item" style="height: 20%;">-->
-					<!--    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 20%; height: 20%;">-->
-					<!--    <div class="content" style="width: 76%;">-->
-					<!--    	<div class="header" style="font-weight: bold;">Helen</div>-->
-					<!--    	<div class="body">hi</div>-->
-					<!--    	<div class="footer">-->
-					<!--      		<div id="f_left" style="float: left;">장르</div>-->
-					<!--      		<div id="f_right" style="float: right;">32</div>-->
-				 <!--     		</div>-->
-			  <!--    		</div>-->
-			  <!--  	</div>-->
-			    	
-	  			</div>
-	  		</div>
-				
+						<dd>
+							<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
+							<input type="button" value="마크삭제" onClick="removeMark();">
+						</dd>
+						<dd>
+							<input type="button" value="마크좌표 보기" onClick="getMarkPos();">
+							<br>
+							<span style="margin-left: 80px;">마크X좌표:
+								<input type="text" id="markerX">
+							</span>
+							<br>
+							<span style="margin-left: 80px;">마크Y좌표:
+								<input type="text" id="markerY">
+							</span>
+						</dd>
+						<dd>
+							<input type="button" value="정보창 마크 찍기 - 파인드올" onClick="setInfoMark();">
+						</dd>
+						<dd>
+							<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
+							좌표(x,y): 37.5145937754918, 127.10662364959717
+						</dd>
+	
+						<dd>
+							<hr/>
+						</dd>
+	
+						<dd>
+							<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
+							<input type="button" value="GeoCode" onClick="codeAddress()">
+						</dd>
+						
+						<% if user_signed_in? %>
+							<% if current_user.creations.find_by(status: 1).present? %>
+								<dd><input type="button" value="공연종료" onClick="finishShow();"></dd>
+							<% else %>
+								<% @creations = current_user.creations.where(status: 0) %>
+								<dd><input type="button" value="공연시작" onClick="setShowList('<%=@creations.to_json%>');"></dd>
+							<% end %>
+							
+							<div id=showList></div>
+								
+						<% else %>
+							<dt>
+								<strong>[Not Signed In]</strong>
+							</dt>
+						<%end%>
+						
+						<dd><hr/></dd>
+						<input id="autocomplete" type="text" size="50">
+						
+						</td>
+				</div> -->
+			</div>	<!-- s_left -->
+	
+			<!-- 공연 list -->
+			<div id="s_right"></div>
 			
- 
-			
-		</div>
-		
+		</div>	<!-- s_all -->
 	</body>
 </html>

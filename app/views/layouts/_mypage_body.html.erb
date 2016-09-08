@@ -154,7 +154,7 @@
                   </span>
                   <% if current_user.artist_name == @users.artist_name %>
                     <% user = @users.artist_name %>
-                    <%= link_to "수정하기", controller: "dashboard", action:"mypage_edit", artist_name: user %>
+                    <%= link_to "수정하기", controller: "artists", action:"edit", artist_name: user %>
                   <% end %>
                 </div>
               </div>
@@ -353,7 +353,7 @@
                 <div class="ui inverted dimmer">
                   <div class="content">
                     <div class="center">
-                      <%= link_to "더보기", {controller: "home", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
+                      <%= link_to "더보기", {controller: "shows", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
                     </div>
                   </div>
                 </div>
@@ -423,7 +423,7 @@ $(function() {
 </script>
 <script>
 $('.tabular.menu .item').tab();
-<!-- 각 공연 당, 카드 이미지 호버 -->
+// 각 공연 당, 카드 이미지 호버
 $('.special.cards .image').dimmer({
   on: 'hover'
 });

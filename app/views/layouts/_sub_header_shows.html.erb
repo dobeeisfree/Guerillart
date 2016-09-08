@@ -38,7 +38,6 @@ div.ui.button.sub.dropdown {
         <div class="ui item"><%= link_to "모아보기", choose: "모아보기" %></div>
         <% @names.each do |name| %>
           <div class="ui item show-genre-item">
-            <%= link_to "#{name}", controller: "home", action: "shows", choose: "#{name}" %>
           </div>
         <% end %>
       </div>
@@ -53,10 +52,10 @@ div.ui.button.sub.dropdown {
       <i class="dropdown icon"></i>
       <div class="ui simple dropdown menu">
         <div class="ui item">
-          <%= link_to "실시간 공연", controller: "home", action: "shows", select_show: "실시간 공연" %>
+          <%= link_to "실시간 공연", controller: "shows", action: "index", select_show: "실시간 공연" %>
         </div>
         <div class="ui item">
-          <%= link_to "다가오는 공연", controller: "home", action: "shows", select_show: "다가오는 공연" %>
+          <%= link_to "다가오는 공연", controller: "shows", action: "index", select_show: "다가오는 공연" %>
         </div>
       </div>
     </div>

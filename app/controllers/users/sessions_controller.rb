@@ -1,9 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   
-  def failure   
-    warden.custom_failure!
-    render json: { success: false, error: I18n.t("devise.failure.#{env['warden'].message.to_s}") }, status: 401
-  end
+
 
   # protected
   # def auth_options
@@ -30,7 +27,6 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     puts "testing : 0"
-    puts Time.now
     
     self.resource = warden.authenticate!(auth_options)
     puts "testing : 1"
@@ -59,16 +55,15 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  def failure   
-    puts "failure"
-    warden.custom_failure!
-    render json: { success: false, error: I18n.t("devise.failure.#{env['warden'].message.to_s}") }, status: 401
-  end
+  # def failure   
+    # puts "failure"
+    # warden.custom_failure!
+    # render json: { success: false, error: I18n.t("devise.failure.#{env['warden'].message.to_s}") }, status: 401
+  # end
 
   protected
 
   def sign_in_params
-    puts "sign_in_params"
     devise_parameter_sanitizer.sanitize(:sign_in)
   end
 
@@ -80,7 +75,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def auth_options
-    puts "auth"
     { :scope => resource_name, :recall => "#{controller_path}#new" }
   end
 end

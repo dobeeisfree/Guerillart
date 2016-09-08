@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
  # protect_from_forgery with: :exception
 
   
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :store_current_location, :unless => :devise_controller?
 
   protected
@@ -12,14 +11,9 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url)
   end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :avatar])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar])
-  end
-  
-  def user_root_path
-    '/dashboard/home'
-  end
+  # def user_root_path
+    # '/dashboard/home'
+  # end
   
   #로그아웃시 current page에 남고 싶으면 사용
   # private

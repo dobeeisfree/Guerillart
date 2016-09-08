@@ -16,75 +16,79 @@ class DashboardController < ApplicationController
   def profile
   end
 
-  def write
-  end
+  # def write
+  # end
 
-  def write_complete
-    show = Show.new
-    show.title = params[:show_title]
-    show.time = params[:time]
-    show.content = params[:show_content]
-    show.genre = params[:genre]
-    show.location = params[:location]
-    show.playlist = params[:playlist]
-    show.creator_id = current_user.id
-    if show.save
-      flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
-    else
-      flash[:alert] = "post.errors.values.flatten.join(' ')"
-      redirect_to :back
-    end
-  end
+  # def write_complete
+    # show = Show.new
+    # show.title = params[:show_title]
+    # show.time = params[:time]
+    # show.content = params[:show_content]
+    # show.genre = params[:genre]
+    # show.location = params[:location]
+    # show.playlist = params[:playlist]
+    # show.creator_id = current_user.id
+    # if show.save
+      # flash[:alert] = "저장되었습니다"
+      # redirect_to "/dashboard/guerillart"
+    # else
+      # flash[:alert] = "post.errors.values.flatten.join(' ')"
+      # redirect_to :back
+    # end
+  # end
 
-  def edit
-    @one_show = Show.find(params[:show_id])
-  end
+  # def edit
+    # @one_show = Show.find(params[:show_id])
+  # end
 
-  def edit_complete
-    @one_show = Show.find(params[:show_id])
-    @one_show.title = params[:show_title]
-    @one_show.time = params[:time]
-    @one_show.content = params[:show_content]
-    @one_show.genre = params[:genre]
-    @one_show.location = params[:location]
-    @one_show.playlist = params[:playlist]
-    if @one_show.save
-      flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
-    else
-      flash[:alert] = "post.errors.values.flatten.join(' ')"
-      redirect_to :back
-    end
-  end
+  # def edit_complete
+    # @one_show = Show.find(params[:show_id])
+    # @one_show.title = params[:show_title]
+    # @one_show.time = params[:time]
+    # @one_show.content = params[:show_content]
+    # @one_show.genre = params[:genre]
+    # @one_show.location = params[:location]
+    # @one_show.playlist = params[:playlist]
+    # if @one_show.save
+      # flash[:alert] = "저장되었습니다"
+      # redirect_to "/dashboard/guerillart"
+    # else
+      # flash[:alert] = "post.errors.values.flatten.join(' ')"
+      # redirect_to :back
+    # end
+  # end
 
-  def delete_complete
-    @one_show = Show.find(params[:show_id])
-    @one_show.destroy
-    redirect_to "/dashboard/guerillart"
-    flash[:alert] = "삭제되었습니다."
-  end
+  # def delete_complete
+    # @one_show = Show.find(params[:show_id])
+    # @one_show.destroy
+    # redirect_to "/dashboard/guerillart"
+    # flash[:alert] = "삭제되었습니다."
+  # end
 
-  def create
+  # def create
+    # if current_user.artist_name.nil?
+#       
+      # current_user.artist_name = params[:name]
+      # current_user.genre = params[:genre]
+      # current_user.phone_number = params[:phone_number]
+      # current_user.area = params[:area]
+      # current_user.sns = params[:sns]
+      # current_user.introduction = params[:introduction]
+      # current_user.save
+      # redirect_to '/dashboard/home'
+    # else
+      # flash[:alert]= "you already have one"
+      # redirect_to '/dashboard/home'
+    # end
+  # end
 
-    if current_user.artist_name.nil?
-
-      current_user.artist_name = params[:name]
-      current_user.genre = params[:genre]
-      current_user.phone_number = params[:phone_number]
-      current_user.area = params[:area]
-      current_user.sns = params[:sns]
-      current_user.introduction = params[:introduction]
-      current_user.save
-      redirect_to '/dashboard/home'
-    else
-      flash[:alert]= "you already have one"
-      redirect_to '/dashboard/home'
-    end
-  end
-
-  def create_artist
-  end
+  # def create_artist
+    # #이미 아티스트라면 dashboard/home으로 이동
+    # if current_user.artist_name.present?
+      # redirect_to '/dashboard/home'
+    # end
+#     
+  # end
 
   def write_post
     @post = Post.new
@@ -102,25 +106,25 @@ class DashboardController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def mypage_edit
-   a = params[:artist_name]
-   @users = User.find_by(artist_name: a )
-   @posts = Post.all
-  end
+  # def mypage_edit
+   # a = params[:artist_name]
+   # @users = User.find_by(artist_name: a )
+   # @posts = Post.all
+  # end
 
-  def mypage_edit_complete
-    @users = User.find(params[:user_id])
-    @users.introduction = params[:introduction]
-    @users.sns = params[:sns]
-    @users.image = params[:image]
-    @users.avatar = params[:avatar]
-
-    if @users.save
-    redirect_to :back
-    else
-    redirect_to :back
-    end
-  end
+  # def mypage_edit_complete
+    # @users = User.find(params[:user_id])
+    # @users.introduction = params[:introduction]
+    # @users.sns = params[:sns]
+    # @users.image = params[:image]
+    # @users.avatar = params[:avatar]
+# 
+    # if @users.save
+    # redirect_to :back
+    # else
+    # redirect_to :back
+    # end
+  # end
 =begin
   private
 

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  validates :name, length: { in: 2..12 }
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :image, BannerImageUploader
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
   has_many :followings, through: :following_relations, source: :followed
 
 
-  has_many :creations, :class_name => Show , :foreign_key => :creator_id  #아티스트는 여러개의 공연을 등록할 수 있다.
+  has_many :creations, :class_name => Show , :foreign_key => :creator_id  #아티스트는 여러 개의 공연을 등록할 수 있다.
 
 
 

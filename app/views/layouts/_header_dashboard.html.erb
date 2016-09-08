@@ -32,9 +32,9 @@ div.ui.button.sub.dropdown {
      <a class="header item" href="/dashboard/profile" method="get">계정관리</a>
     <% if current_user.artist_name %>
       <% artist_name = current_user.artist_name %>
-        <a class="header item" href="/dashboard/write" method="get">공연등록</a>
+        <a class="header item" href="/shows/new" method="get">공연등록</a>
     <% else %>
-        <a class="header item" href="/dashboard/create_artist" method="get">아티스트 신청서</a>
+        <a class="header item" href="/artists/new" method="get">아티스트 신청서</a>
     <% end %>
   </div>
 </div>

@@ -15,7 +15,6 @@ margin-top: -14px;
 }
 </style>
 
-
 <div class="form-group" style="margin: 0cm 6cm 0cm 6cm;">
     <div class="ui attached message">
       <div class="header">
@@ -24,7 +23,7 @@ margin-top: -14px;
       <p>아래의 양식을 작성하여 공연을 알리세요!</p>
     </div>
     <div class="ui writeshow form attached fluid segment">
-    <%= form_tag "write_complete" do %>
+    <%= form_tag('/shows') do %>
       <div class="required field">
         <label>공연 타이틀</label>
         <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>

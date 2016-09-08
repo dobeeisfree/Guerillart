@@ -1,5 +1,5 @@
 <%= render partial: "/layouts/header" %>
-<%#이 파일은 각 공연의 단독 뷰를 보여주는 파일입니다%>
+<!-- 이 파일은 각 공연의 단독 뷰를 보여주는 파일입니다 -->
 <style>
 .ui.view.container {
   background: white;
@@ -32,7 +32,7 @@ h4:first-child {
   margin-top: 10px;
 }
 </style>
-<% @current_url = "http://localhost:3000/shows/view/#{ @show.id }" %>
+<% @current_url = "http://localhost:3000/#{ @show.id }" %>
 <div class="view-body">
 <div class="ui view container">
   <div class="ui header">
@@ -107,15 +107,21 @@ h4:first-child {
 <!-- Clipboard.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
 <script>
+	// $(document).ready(function() {
+	  // if(window.location.href.indexOf('<%=@show.id %>') != -1) {
+	  	// console.log("hihi");
+	    // $('.ui.view.small.modal.<%=@show.id %>').modal('show');
+	  // }
+	// });
+	
+	// 트위터의 팝업
+	document.getElementById("popup-<%= @show.id %>").onclick = function() {
+	return !window.open(this.href, "pop", "width=600, height=300");
+	}
+	// 클립보드 복사 기능
+	var clipboard = new Clipboard('.btn');
 
-  // 트위터의 팝업
-  document.getElementById("popup-<%= @show.id %>").onclick = function() {
-    return !window.open(this.href, "pop", "width=600, height=300");
-  }
-  // 클립보드 복사 기능
-  var clipboard = new Clipboard('.btn');
-
-  document.getElementById("clipboard-url-<%= @show.id %>").onclick = function() {
-    document.getElementById("msg-copied-<%= @show.id %>").innerHTML = "<i>Copied!</i>";
-  }
+	document.getElementById("clipboard-url-<%= @show.id %>").onclick = function() {
+		document.getElementById("msg-copied-<%= @show.id %>").innerHTML = "<i>Copied!</i>";
+	}
 </script>
