@@ -1,12 +1,13 @@
 class SearchingController < ApplicationController
-
+  
   def index
     @location = params[:location]
     @show_all = Show.all  #쓸모 없음
+    
   end
-
+  
   def getBounds
-
+    
     Show.index
     @search = Show.search do
       all_of do
@@ -15,11 +16,13 @@ class SearchingController < ApplicationController
         with(:status, 1) #진행중인 공연인지 확인
       end
     end
-
+    
     center_lat = params[:ct_lat].to_f
     center_lng = params[:ct_lng].to_f
-
+    
     isDistOrder = params[:isDistOrder]
+    
+    
 
     @results = @search.results
     
