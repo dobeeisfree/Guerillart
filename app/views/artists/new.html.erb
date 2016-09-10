@@ -2,6 +2,9 @@
 <%= render :partial => "/layouts/header_dashboard" %>
 
 <style>
+.ui.fluid.dropdown{
+ width: 450px;
+}
 .ui.form .field>label{
   color: black;
 }
@@ -41,7 +44,7 @@ margin-right: auto !important;
   </div>
 </div>
 
-<%= form_tag 'create' do %>
+<%= form_tag artists_path do %>
 <div class="ui form" style="margin-left :30%; margin-right :auto;">
   <div class="required twelve field">
     <label>아티스트명</label>
@@ -49,7 +52,17 @@ margin-right: auto !important;
   </div>
   <div class="field required">
     <label>장르</label>
-    <input type="text" name="genre" class="" id="artistgenre" placeholder="주로 하는 장르를 입력해주세요"required>
+    <select class="ui fluid dropdown" id="select_genre" name="genre">
+     <option value="">장르를 선택해주세요</option>
+     <option value="힙합/랩">힙합/랩</option>
+     <option value="R&B소울">R&B소울</option>
+     <option value="댄스">댄스</option>
+     <option value="일렉트로닉">일렉트로닉</option>
+     <option value="록">록</option>
+     <option value="재즈">재즈</option>
+     <option value="클래식">클래식</option>
+     <option value="팝">팝</option>
+    </select>
   </div>
   <div class="field required">
     <label>전화번호</label>
