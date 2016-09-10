@@ -4,13 +4,13 @@
 }
 </style>
 <div class="show-body">
-<%= render :partial => "/layouts/header" %>
+<%= render :partial => "/layouts/headers/header" %>
 <!-- <%#이 파일은 공연정보 페이지의 메인입니다.%> -->
 
 <!-- <%#장르별 분류를 볼 수 있는 서브 네비바를 가져온다%> -->
-<%= render partial: "/layouts/sub_header_shows" %>
+<%= render partial: "/layouts/headers/sub_shows" %>
 <!-- <%#사용자가 선택한 장르만 보여주는 파일을 랜더링한다%> -->
-<%= render partial: "/layouts/show_genre", object: @current_genre %>
+<%= render partial: "/layouts/show/genre", object: @current_genre %>
 </div>
 <!-- <%#후의 장르의 로컬검색을 위한 기능%> -->
 <script>

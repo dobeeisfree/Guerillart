@@ -1,4 +1,4 @@
-<%= render :partial => "/layouts/header" %>
+<%= render :partial => "/layouts/headers/header" %>
 
 <!DOCTYPE html>
 <html>
@@ -34,8 +34,8 @@
 			}
 			#over_info{
 				background: rgba(112,112,112, 0.5) !important;
-				position:absolute; 
-				bottom: 0; 
+				position:absolute;
+				bottom: 0;
 				left: 0;
 				width: 0;
 				height: 22%;
@@ -43,7 +43,7 @@
 				border-radius: 3px;
 
 			}
-				
+
 			#control {
 			}
 
@@ -69,7 +69,7 @@
 				float: left;
 			}
 			.gm-style-iw + div {display: none;}	/*infowindow x 버튼 삭제*/
-			
+
 			#styles, #add-tab {
 		    	float: left;
 		        margin-top: 10px;
@@ -81,7 +81,7 @@
 	        	width: 130px;
 	      	}
 	        .phoney {
-	        	overflow: hidden !important; 
+	        	overflow: hidden !important;
   				 /*line-height: 1.4;*/
   				 white-space: nowrap;
 	        	/*line-height: 25px;*/
@@ -93,7 +93,7 @@
 	        	font-weight: bold;
 	        	text-align: center;
 	        	/*text-overflow: ellipsis; */
-	        	white-space: nowrap; 
+	        	white-space: nowrap;
 	        	/*overflow: hidden;*/
 	        	font-size: 16px;
 	        	/*background: rgb(112,112,112) !important;*/
@@ -124,11 +124,11 @@
 	    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
 	    </script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI" async="" defer="defer" type="text/javascript"></script> -->
-		
+
 		<!--infobubble 사용-->
 		<!-- <script type="text/javascript" src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script> -->
 		<!-- <script type="text/javascript" src="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/infobubble/src/infobubble.js"></script> -->
-		
+
 		<!-- <script>
 	    	var script = '<script src="infobubble';
 	    	if (document.location.search.indexOf('compiled') !== -1) {
@@ -137,9 +137,9 @@
 	      	script += '.js"><' + '/script>';
 	      	document.write(script);
 	    </script> -->
-		
+
 		<script type="text/javascript">
-		
+
 			//자동완성
 			// autocomplete = new google.maps.places.Autocomplete(
 		    	// /** @type {!HTMLInputElement} */ (
@@ -148,63 +148,63 @@
 		    	// // componentRestrictions: countryRestrict
 		    // });
 			// places = new google.maps.places.PlacesService(globalMap);
-		
-		
-		
-		
+
+
+
+
 			//loader 띄우기
 			$(document).on({
 				ajaxStart: function() { $('.ui.segment').dimmer('show');},
-			    ajaxStop: function() { $('.ui.segment').dimmer('hide');}    
+			    ajaxStop: function() { $('.ui.segment').dimmer('hide');}
 			});
-			
-			
+
+
 			var globalMap;
 			var globalMarker;
 			var globalGeocoder;
-			
+
 			var markers = [];
 			var infowindow = null;
-			
+
 			var markerBubbleArray = [];
 			var markerBubble;
-			
+
 			var infoBubbleArray = [];
 			var infoBubble;
-			
+
 			var bounds;
 			var ne, sw;
 			var ne_lat, ne_lng, sw_lat, sw_lng;
-			
+
 			var i;
 			var closedMarkerBubble;	//숨은 마커버블
 			var centerMarker;	//센터 표시 마커
-			
+
 			var isMobile;	//모바일이면 true
 			var isDistOrder; //거리순 정렬이면 1, default: 0 (인기순)
 			var mapZoom;    //디바이스에 따른 map의 Zoom 넘버
-			
-			
+
+
 			// 맵 초기화
-			function initialize() 
+			function initialize()
 			{
 				var address = "<%=@location%>";
 				isDistOrder = 0;
 				mapZoom = 17;
-				
+
 				// if (address == '검색할 주소를 입력하십시오.' || address == '') {
 					// alert('검색할 주소를 입력하십시오.');
 					// document.getElementById("address").value = '';
 					// document.getElementById("address").focus();
 					// return;
 				// }
-// 
+//
 				// globalGeocoder.geocode({
 					// 'address' : address
 				// }, function(results, status) {
 					// if (status == google.maps.GeocoderStatus.OK) {
 						// globalMap.setCenter(results[0].geometry.location);
-// 
+//
 						// //var marker = new google.maps.Marker({
 						// globalMarker = new google.maps.Marker({
 							// map : globalMap,
@@ -216,7 +216,7 @@
 					// }
 				// });
 				isMobile = detectBrowser();
-				
+
 				globalGeocoder = new google.maps.Geocoder();
 
 				var myOptions = {
@@ -242,11 +242,11 @@
 				};
 
 				globalMap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-								
+
 				globalGeocoder.geocode({
 					'address' : address
 				}, function(results, status) {
-					if (status == google.maps.GeocoderStatus.OK) 
+					if (status == google.maps.GeocoderStatus.OK)
 					{
 						globalMap.setCenter(results[0].geometry.location);
 
@@ -255,37 +255,37 @@
 							position : results[0].geometry.location,
 							draggable : false
 						});
-					} 
-					else 
+					}
+					else
 					{
 						alert("Geocode was not successful for the following reason: " + status);
 					}
 				});
-				
+
 				//gps버튼 추가
 				addYourLocationButton(globalMap, centerMarker);
-				
+
 				//맵 로딩 완료후 한번만 실행할 함수
 				google.maps.event.addListenerOnce(globalMap, 'idle', function(){
 					updateMarkerBubbles();
     			});
-				
+
 				// 드래그 끝났을 때 이벤트 추가
 				google.maps.event.addListener(globalMap, 'dragend', function() {
 					$(function(){
 						updateMarkerBubbles();
 					});
 				});
-				
+
 				// 줌 변경시 이벤트 추가
 				google.maps.event.addListener(globalMap, 'zoom_changed', function() {
 					$(function(){
 						updateMarkerBubbles();
 					});
 				});
-				
+
 				//지도의 빈 부분 클릭시
-				google.maps.event.addListener(globalMap, 'click', function() 
+				google.maps.event.addListener(globalMap, 'click', function()
 				{
 					if(isMobile)
 					{
@@ -301,13 +301,13 @@
 						{
 							closedMarkerBubble.open();
 							closedMarkerBubble=null;
-							
+
 						}
 					}
 				});
-				
-				
-				
+
+
+
 				//bounds 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'bounds_changed', function() {
 					// var bounds = globalMap.getBounds();
@@ -317,7 +317,7 @@
 					// // clearMarkerBubbles(markers);
 					// // scheduleDelayedCallback();
 				// });
-				
+
 				// 센터 변경시 이벤트 추가 (계속 발생함)
 				// google.maps.event.addListener(globalMap, 'center_changed', function() {
 					// // clearMarkerBubbles();
@@ -326,7 +326,7 @@
 					// // showMapPos();
 					// // showMapAddr();
 				// });
-				
+
 				// 갱신 딜레이
 				// function fireIfLastEvent()
 				// {
@@ -340,41 +340,41 @@
 				    // lastEvent = new Date();
 				    // setTimeout(fireIfLastEvent, 500);
 				// }
-				
+
 			}
-			
-			
+
+
 			//유저 디바이스 확인 함수
-			function detectBrowser() 
+			function detectBrowser()
 			{
 				var useragent = navigator.userAgent;
 				var mapdiv = document.getElementById("map_canvas");
 				// var s_left = document.getElementById("s_left");
-				
+
 				//모바일이라면
-				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) 
+				if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 )
 				{
 				    // mapdiv.style.width = '100%';
 				    // mapdiv.style.height = '100%';
 				    document.getElementById("s_left").style.width = '100%';
 				    mapZoom = 16;
 				    return true;
-				    
+
 				}
-				//모바일이 아니라면 
-				else 
+				//모바일이 아니라면
+				else
 				{
 			    	// mapdiv.style.width = '600px';
 			   		// mapdiv.style.height = '800px';
 			   		return false;
 			  	}
 			}
-			
+
 			//gps버튼 추가 함수
-			function addYourLocationButton (map, marker) 
+			function addYourLocationButton (map, marker)
 			{
 			    var controlDiv = document.createElement('div');
-			
+
 			    var firstChild = document.createElement('button');
 			    firstChild.style.backgroundColor = '#fff';
 			    firstChild.style.border = 'none';
@@ -388,7 +388,7 @@
 			    firstChild.style.padding = '0';
 			    firstChild.title = 'Your Location';
 			    controlDiv.appendChild(firstChild);
-			
+
 			    var secondChild = document.createElement('div');
 			    secondChild.style.margin = '5px';
 			    secondChild.style.width = '18px';
@@ -398,48 +398,48 @@
 			    secondChild.style.backgroundPosition = '0 0';
 			    secondChild.style.backgroundRepeat = 'no-repeat';
 			    firstChild.appendChild(secondChild);
-			
+
 			    google.maps.event.addListener(map, 'center_changed', function () {
 			        secondChild.style['background-position'] = '0 0';
 			    });
-			
+
 			    //gps 클릭시
-			    firstChild.addEventListener('click', function () 
+			    firstChild.addEventListener('click', function ()
 			    {
-			        if (navigator.geolocation) 
+			        if (navigator.geolocation)
 			        {
-				    	navigator.geolocation.getCurrentPosition(function (position) 
+				    	navigator.geolocation.getCurrentPosition(function (position)
 				    	{
 				            globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-				           	
+
 				           	(function(){
 				           		centerMarker.setPosition(globalMap.getCenter());
 								updateMarkerBubbles();
 				            })();
 				    	});
-				    } 
-				    else 
+				    }
+				    else
 				    {
 			            clearInterval(animationInterval);
 			            secondChild.style['background-position'] = '0 0';
 			        }
 			    });
-			
+
 			    controlDiv.index = 1;
 			    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 			}
-			
-			
+
+
 			//마커 버블 업데이트
 			function updateMarkerBubbles()
 			{
-				
+
 				bounds = globalMap.getBounds();
 				center = globalMap.getCenter();
-				
+
 				ne = bounds.getNorthEast();
 				sw = bounds.getSouthWest();
-				
+
 				//bounds와 center 좌표 searching#getBounds controller에 보내기
 			   	$(document).ready(function()
 			   	{
@@ -449,19 +449,19 @@
 			        	data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng(), isDistOrder: isDistOrder },
 			        	dataType: 'json',
 			        	success: function(data){
-			        		 
+
 			        			//모든 infobubble 삭제
 			        		clearMarkerBubbles();
-			        		
+
 			        	 	// alert("^^ "+JSON.stringify(data));
-			        	 
+
 							//센터 마커 이동
 							//centerMarker.setMap(globalMap);
 			        	 	// centerMarker.setPosition(center);
 
 			        	 	document.getElementById("s_right").innerHTML="";
 			        	 	// document.getElementById("right_list").innerHTML="";
-			        	 	for (var i = 0; i < data.length; i++) 
+			        	 	for (var i = 0; i < data.length; i++)
 			        	 	{
 								//markerBubble 띄우기
 								markerBubble = new InfoBubble({
@@ -488,11 +488,11 @@
 						        });
 						        markerBubble.open();
 						        markerBubbleArray.push(markerBubble);
-							
-								//markerBubble 클릭시 infowindow 팝업 
-								(function(markerBubble, i) 
+
+								//markerBubble 클릭시 infowindow 팝업
+								(function(markerBubble, i)
 								{
-			                        google.maps.event.addDomListener(markerBubble.bubble_, 'click', function() 
+			                        google.maps.event.addDomListener(markerBubble.bubble_, 'click', function()
 			                        {
 			                        	if(isMobile)
 			                            {
@@ -512,14 +512,14 @@
 			                            }
 			                            else
 			                            {
-				                        	if (infowindow && closedMarkerBubble) 
+				                        	if (infowindow && closedMarkerBubble)
 				                        	{
 										        infowindow.close();
 										        closedMarkerBubble.open();
 										    }
 										    closedMarkerBubble = markerBubble;
 										    markerBubble.close();
-										    
+
 				                            infowindow = new google.maps.InfoWindow({
 				                            	content: "Hello, World!!" + data[i].creator.artist_name + "<br />"+"hi"
 				                            });
@@ -528,7 +528,7 @@
 			                    		// document.getElementById("over_info").style.height = '20%';
 			                    	});
 			                    })(markerBubble, i);
-			                    
+
 								if(!isMobile)
 								{
 									document.getElementById("s_right").innerHTML += "<h1>"+data[i].creator.fan_count+"</h1> <br />";
@@ -541,9 +541,9 @@
 									      		// +'<div id="f_left" style="float: left; width: 66%;">'+data[i].genre+'</div>'
 									      		// +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
 								      		// +'</div></div></div>;'
-									
+
 								}
-								
+
 			        	 	}
 			        	},
 			        	error: function()
@@ -552,15 +552,15 @@
 			        	}
 			        })
 			   	});
-			   	
-			   	
-				// alert(""+js_results+"<%=Time.now%>");			   	
+
+
+				// alert(""+js_results+"<%=Time.now%>");
 				// alert(""+"<%=@results%>"+"<%=Time.now%>");
 				// alert(""+"<%=@neLat%>");
-				
-				
-// 				
-// 						
+
+
+//
+//
 						// //infoBubble 띄우기
 						// markerBubble = new InfoBubble({
 					    	// map: globalMap,
@@ -580,19 +580,19 @@
 				        // });
 				        // markerBubble.open();
 				        // markerBubbleArray.push(markerBubble);
-// 					
+//
 						// //infoBubble 클릭 리스너
 						// google.maps.event.addDomListener(markerBubble.bubble_, 'click', function() {
 						// });
-// 						
-// 						
-// 						
-// 						
+//
+//
+//
+//
 						// //marker 띄우기
 						// // globalMarker = new google.maps.Marker({
 							// // map : globalMap,
 							// // draggable : false,
-// // 							
+// //
 							// // icon: new google.maps.MarkerImage(
 						    	// // // "http://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=edge_bc|%20"+"안녕"+"|000000|FF0000",
 						    	// // "http://chart.googleapis.com/chart?chst=d_bubble_texts_big&chld=edge_bc|000000|FF0000|",
@@ -600,8 +600,8 @@
 							// // //label : "hi"
 						// // });
 						// // markers.push(globalMarker);
-// // 					
-						// // //marker 클릭시 infowindow 팝업 
+// //
+						// // //marker 클릭시 infowindow 팝업
 						// // (function(globalMarker, i) {
 	                        // // // add click event
 	                        // // google.maps.event.addListener(globalMarker, 'click', function() {
@@ -611,44 +611,44 @@
 	                            // // infowindow = new google.maps.InfoWindow({
 	                            // // });
 	                            // // infowindow.open(globalMap, globalMarker);
-// // 	                            
-// // 	                            
+// //
+// //
 	                        // // });
 	                    // // })(globalMarker, i);
-// 						
-// 						
-// 						
+//
+//
+//
 						// //marker 대신 infowindow 띄우기
 						// // globalinfoWindow = new google.maps.InfoWindow({
 							// // clickable : true,
 							// // map : globalMap,
 					// }//if end
 			}//updateMarkerBubbles end
-			
-			
+
+
 			//markerBubble 모두 지우기
 			function clearMarkerBubbles()
 			{
-				for (var j = 0; j < markerBubbleArray.length; j++) 
+				for (var j = 0; j < markerBubbleArray.length; j++)
 				{
 					// if(markerBubbleArray[j])
 					markerBubbleArray[j].setMap(null);
 				}
 				markerBubbleArray = [];
-				
+
 				// while(markerBubbleArray.length){
 			            // markerBubbleArray.pop().setMap(null);
 		        // }
 			}
-			
 
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			// 맵 드래그할 때 맵 중앙 좌표 보여주기
-			function showMapPos() 
+			function showMapPos()
 			{
 				var pos = globalMap.getCenter();
 
@@ -793,8 +793,8 @@
 				// 지도 중심좌표 이동
 				globalMap.setCenter(loc);
 			}
-			
-			
+
+
 			//정렬방법 바꾸기
 			function switchOrder()
 			{
@@ -802,19 +802,19 @@
 					isDistOrder = 0;
 				else
 					isDistOrder = 1;
-					
+
 				updateMarkerBubbles();
 			}
-			
-			
 
-			
+
+
+
 			//공연 시작 리스트
-			function setShowList(creations) 
+			function setShowList(creations)
 			{
 				var j_creations = JSON.parse(creations);
 				var showList = document.getElementById("showList");
-				
+
 				for(var i = 0; i < j_creations.length; i++)
 					showList.innerHTML += "<h1>" + j_creations[i].genre + "</h1> <br />";
 			}
@@ -822,8 +822,8 @@
 			{
 				alert("Show finished");
 			}
-			
-			
+
+
 		</script>
 
 	</head>
@@ -836,7 +836,7 @@
 			<div class="ui inverted dimmer">
 				<div class="ui huge loader"></div>
 			</div>
-			
+
 			<!-- google map -->
 			<div id="s_left">
 				<div id="wrapper">
@@ -846,7 +846,7 @@
 					</div>
 				</div>
 				<!-- <div id="map_canvas"></div> -->
-	
+
 				<!-- <div id="control">
 					<dl>
 						<dt>
@@ -869,11 +869,11 @@
 							맵Y좌표:&nbsp;&nbsp;&nbsp;
 							<input type="text" id="centerY">
 						</dd>
-	
+
 						<dd>
 							<hr/>
 						</dd>
-	
+
 						<dd>
 							<input type="button" value="맵 중앙에 마크찍기" onClick="setMark();">
 							<input type="button" value="마크삭제" onClick="removeMark();">
@@ -895,25 +895,25 @@
 						<dd>
 							<input type="button" value="지도 위의 마크 모두 삭제" onClick="clearMark();">
 						</dd>
-	
+
 						<dd>
 							<hr/>
 						</dd>
-	
+
 						<dd>
 							<input type="button" value="송파구청" onClick="setMapByCoord(37.5145937754918, 127.10662364959717);">
 							좌표(x,y): 37.5145937754918, 127.10662364959717
 						</dd>
-	
+
 						<dd>
 							<hr/>
 						</dd>
-	
+
 						<dd>
 							<input type="text" id="address" value="검색할 주소를 입력하십시오." style="width:210px;" onClick="this.value='';">
 							<input type="button" value="GeoCode" onClick="codeAddress()">
 						</dd>
-						
+
 						<% if user_signed_in? %>
 							<% if current_user.creations.find_by(status: 1).present? %>
 								<dd><input type="button" value="공연종료" onClick="finishShow();"></dd>
@@ -921,25 +921,25 @@
 								<% @creations = current_user.creations.where(status: 0) %>
 								<dd><input type="button" value="공연시작" onClick="setShowList('<%=@creations.to_json%>');"></dd>
 							<% end %>
-							
+
 							<div id=showList></div>
-								
+
 						<% else %>
 							<dt>
 								<strong>[Not Signed In]</strong>
 							</dt>
 						<%end%>
-						
+
 						<dd><hr/></dd>
 						<input id="autocomplete" type="text" size="50">
-						
+
 						</td>
 				</div> -->
 			</div>	<!-- s_left -->
-	
+
 			<!-- 공연 list -->
 			<div id="s_right"></div>
-			
+
 		</div>	<!-- s_all -->
 	</body>
 </html>
