@@ -1,50 +1,28 @@
 Rails.application.routes.draw do
   root 'home#index'
-  
   resources :follows, only: [:create, :destroy]
-  
+
   get '/dashboard' => redirect('/dashboard/home')
   get '/dashboard/home' => 'dashboard#home'
   get '/dashboard/guerillart' => 'dashboard#guerillart'
   get '/dashboard/profile' => 'dashboard#profile'
-  
-  get '/dashboard/:show_id/like' => 'likes#like_toggle'
-  
-  
-  get '/shows' => 'shows#index'
-  get '/shows/new' => 'shows#new'
-  post '/shows' => 'shows#create'
-  get '/shows/:show_id/edit' => 'shows#edit'
-  get '/shows/:show_id' => 'shows#view'
-  put '/shows/:show_id' => 'shows#update'
-  delete 'shows/:show_id' => 'shows#destroy'
-  
-  get '/shows/:show_id/like' => 'likes#like_toggle'
-  
 
-  resources :artists, only: [:create]
-  get '/artists' => 'artists#index'
-  get '/artists/new' => 'artists#new'
-  get '/artists/search' => 'artists#search'
+  get '/shows/:show_id/like' => 'likes#like_toggle'
+  resources :shows
+
   get '/artists/:artist_name' => 'artists#page'
   get '/artists/:artist_name/edit' => 'artists#edit'
   put '/artists/:artist_name' => 'artists#update'
-  
-  
-  
-  post '/dashboard/write_post' => 'dashboard#write_post'
-  
-  
-  
-  
-  
+ 
+  #매개변수를 기존의 artist_id에서 artist_name으로 변경  
+  resources :artists, only: [:index, :new], param: :name
+
+  resources :posts, only: [:create, :destroy, :update]
   resources :comments, only: [:create, :destroy]
-  post '/comments/create' => 'comments#create'
   
   get '/search' => 'searching#index'
   post '/search' => 'searching#getBounds'
   post '/search/select' => 'searching#select'
-  
   
   get '/login' => redirect('/')
   get '/register/new' => redirect('/')
@@ -61,22 +39,6 @@ Rails.application.routes.draw do
   # end
 
   
-
-
-  # get 'mypage' => 'dashboard#mypage'
-  
-  
-  
-  
-
-  # get '/dashboard/mypage/:post_id' => 'dashboard#mypage'
-
-  
-
-  # get '/mypage_edit' => 'dashboard#mypage_edit'
-  # post '/mypage_edit_complete' => 'dashboard#mypage_edit_complete'
-  
-  # get '/shows/view/:show_id' => 'home#view'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

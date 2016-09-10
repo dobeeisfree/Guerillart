@@ -51,8 +51,8 @@ div.option_buttons {
   <a class="ui item" href="/">GUERILLART</a>
 
   <div class="right menu"> <!-- 오른쪽 Navbar -->
-     <a class="ui item" href="/shows">공연</a>
-     <a class="ui item" href="/artists">아티스트</a>
+     <%= link_to "공연", shows_path, class: "ui item" %>
+     <%= link_to "아티스트", artists_path, class: "ui item" %>  
 
      <%if user_signed_in?%>
        <div class="ui right dropdown item">
@@ -60,16 +60,16 @@ div.option_buttons {
               <div class="text"> <%= current_user.name%>님 </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              <a class="ui item" href="/dashboard/home">대쉬보드</a>
-              <a class="ui item" href="/dashboard/guerillart">나의게릴라트</a>
-              <a class="ui item" href="/dashboard/profile">계정관리</a>
+              <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
+              <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
+              <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
 
               <% if current_user.artist_name? %>
               <% artist_name = current_user.artist_name %>
-              <a class="ui item" href="/shows/new">공연등록</a>
+              <%= link_to "공연등록", new_show_path, class: "ui item" %>
               <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
-              <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
+              <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
             </div>
           </div>
        </div>
