@@ -59,8 +59,8 @@ div.option_buttons {
     	<% end %>
   		
   		<!--현재 공연중이라면-->
-  		<% unless @res_search.results.present? %>
-  			<a class="ui item" style="color: red" href="#">종료하기</a>
+  		<% if @res_search.results.present? %>
+  			<a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
   			
   		<% else %>
 		  	<div class="ui right dropdown item">
@@ -71,7 +71,7 @@ div.option_buttons {
 		            	<div class="ui list">
 		            		<div class="item">
 				        		<div class="right floated content">즉석 공연
-							    	<div class="ui button">바로 시작</div>
+							    	<div class="ui button" id="start_showStart_modal">바로 시작</div>
 							    </div>
 					    	</div>
 					    	<% @res_shows = current_user.creations.search do %>
@@ -149,4 +149,11 @@ document.getElementById('start_signin_modal').onclick = function() {
 document.getElementById('start_signup_modal').onclick = function() {
   $('.ui.basic.modal.signup').modal('show');
 }
+document.getElementById('start_showStart_modal').onclick = function() {
+  $('.ui.basic.modal.signup').modal('show');
+}
+document.getElementById('start_showFinish_modal').onclick = function() {
+  $('.ui.basic.modal.signup').modal('show');
+}
+
 </script>

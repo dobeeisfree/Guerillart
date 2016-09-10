@@ -28,7 +28,7 @@ class ShowsController < ApplicationController
   def create
     show = Show.new
     show.title = params[:show_title]
-    show.time = params[:time]
+    show.start = params[:time].to_time
     show.content = params[:show_content]
     show.genre = params[:genre]
     show.location = params[:location]
@@ -61,7 +61,7 @@ class ShowsController < ApplicationController
     end
     
     @one_show.title = params[:show_title]
-    @one_show.time = params[:time]
+    @one_show.start = params[:time].to_time
     @one_show.content = params[:show_content]
     @one_show.genre = params[:genre]
     @one_show.location = params[:location]
@@ -91,5 +91,15 @@ class ShowsController < ApplicationController
   def view
     @show = Show.find(params[:show_id])
   end
+  
+  def start
+    @show = Show.find(params[:show_id])
+  end
+  
+  def finish
+    @show = Show.find(params[:show_id])
+    
+  end
+  
   
 end

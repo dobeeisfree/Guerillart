@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20160824065551) do
     t.string   "location"
     t.float    "location_x"
     t.float    "location_y"
-    t.string   "time"
     t.integer  "status",       default: 0
     t.integer  "creator_id"
     t.datetime "created_at",               null: false

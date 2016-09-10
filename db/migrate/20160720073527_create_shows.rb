@@ -13,7 +13,6 @@ class CreateShows < ActiveRecord::Migration
       t.string :location
       t.float :location_x
       t.float :location_y
-      t.string :time
       t.integer :status, default: 0 # 0 : 예정 , 1 : 진행중, 2 : 종료
       
       t.integer :creator_id #공연 등록자 id
