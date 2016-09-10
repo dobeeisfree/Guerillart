@@ -47,6 +47,9 @@ div.option_buttons {
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
 
+<%= render :partial => "/shows/start" %>
+<%= render :partial => "/shows/finish" %>
+
 <div class="ui secondary menu "> <!--Navbar start-->
   <a class="ui item" href="/">GUERILLART</a>
 
@@ -54,13 +57,17 @@ div.option_buttons {
   	
   	<!--공연 control-->
   	<% if user_signed_in? and current_user.artist_name.present? %>
-  		<% @res_search = current_user.creations.search do %>
-    		<% with(:status, 1) %>
+  		<% @res_search = Show.search do %>
+  			<% all_of do %>
+  				<% with(:creator_id, current_user.id) %>
+    			<% with(:status, 1) %>
+    		<% end %>	
     	<% end %>
   		
   		<!--현재 공연중이라면-->
   		<% if @res_search.results.present? %>
   			<a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
+  			<% puts "hi : " + @res_search.results.to_s%>
   			
   		<% else %>
 		  	<div class="ui right dropdown item">
@@ -150,10 +157,11 @@ document.getElementById('start_signup_modal').onclick = function() {
   $('.ui.basic.modal.signup').modal('show');
 }
 document.getElementById('start_showStart_modal').onclick = function() {
-  $('.ui.basic.modal.signup').modal('show');
+  $('.ui.basic.modal.showStart').modal('show');
 }
 document.getElementById('start_showFinish_modal').onclick = function() {
-  $('.ui.basic.modal.signup').modal('show');
+  console.log("hi");
+  // $('.ui.basic.modal.showFinish').modal('show');
 }
 
 </script>

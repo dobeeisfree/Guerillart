@@ -3,6 +3,7 @@ class Show < ActiveRecord::Base
     float :location_x
     float :location_y
     integer :status
+    integer :creator_id
   end
   
   belongs_to :creator, :class_name => User  #공연 등록자에 종속

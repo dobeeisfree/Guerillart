@@ -93,11 +93,45 @@ class ShowsController < ApplicationController
   end
   
   def start
+    #if 즉석공연이라면
+    @show = Show.new
+    @show.title = current_user.artist_name + "님의 즉석 공연"
+    @show.start = params[:time].to_time
+    @show.genre = current_user.genre
+    @show.location = params[:location]
+    @show.creator_id = current_user.id
+    @show.status = 1
+    
+    #else 등록된 공연이라면 
     @show = Show.find(params[:show_id])
+    @show.start = Time.now
+    @show.location_x = params[:loc_x]
+    @show.location_y = params[:loc_y]
+    @show.location = params[:location]
+    @show.status = 1 
+    #end
+    
+    if @show.save
+      flash[:alert] = "공연을 시작하였습니다."
+      redirect_to :back
+    else
+      flash[:alert] = "post.errors.values.flatten.join(' ')"
+      redirect_to :back
+    end 
+    
   end
   
   def finish
     @show = Show.find(params[:show_id])
+    @show.status = 2
+    
+    if @show.save
+      flash[:alert] = "공연을 종료하였습니다."
+      redirect_to :back
+    else
+      flash[:alert] = "post.errors.values.flatten.join(' ')"
+      redirect_to :back
+    end 
     
   end
   

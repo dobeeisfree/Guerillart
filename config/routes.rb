@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   delete 'shows/:show_id' => 'shows#destroy'
   
   # get '/shows/:show_id/start' => 'shows#start'
-  # post '/shows/:show_id/start' => 'shows#start'
-  # post '/shows/:show_id/finish' => 'shows#finish' 
+  post '/shows/start' => 'shows#start'
+  post '/shows/finish' => 'shows#finish' 
   
   get '/shows/:show_id/like' => 'likes#like_toggle'
   
