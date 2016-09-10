@@ -2,8 +2,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :name, length: { in: 2..12 }
-  validates :phone_number, presence: true, 
-            :numericality => {:only_integer => true}
+  validates :phone_number, 
+            :numericality => {:only_integer => true},
+            :allow_nil => true
+        
   
 
   mount_uploader :avatar, AvatarUploader
