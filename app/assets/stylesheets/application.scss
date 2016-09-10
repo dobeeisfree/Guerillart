@@ -13,3 +13,63 @@
  *= require_tree .
  *= require_self
  */
+
+/*
+  메인 home을 제외한, 헤더들, 모달들
+*/
+
+
+ /* 모달 조정 */
+ .modal {
+   display: none;
+   overflow: hidden;
+   -webkit-overflow-scrolling: touch;
+   outline: 0;
+
+     /* 모달의 폼 */
+     .ui.form .field>label {
+       color: white;
+       font-weight: bold;
+     }
+     .ui.basic.modal>.header {
+       font-size: 3em;
+     }
+
+    /* 이미 게릴라트 계정이 있나요? */
+    div.option_buttons {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+ }
+
+
+
+ /* 네비바 조정 */
+ .ui.secondary.menu.general-header {
+   margin-top: 0px;
+   background: black;
+
+   /* 네비바 글자들 */
+  a.item, .ui.simple.dropdown {
+     color : white;
+     font-weight: bold;
+   }
+
+   /* 서치바: 검색해보세요 */
+   .ui.input input {
+      color : white;
+      font-weight: bold;
+      text-align: left;
+
+      border : none;
+      background: transparent;
+      outline: 0;
+   }
+   // 서치바의 인풋창
+   .ui[class*="left action"].input>.button,
+   .ui[class*="left action"].input>.buttons>.button,
+   .ui[class*="left action"].input>.dropdown {
+     background: transparent;
+     color:white;
+   }
+ }

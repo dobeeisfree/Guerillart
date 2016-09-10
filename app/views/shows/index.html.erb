@@ -1,41 +1,9 @@
-<style>
-.show-body {
-  padding-bottom: 30px;
-}
-</style>
 <div class="show-body">
-<%= render :partial => "/layouts/headers/header" %>
-<!-- <%#이 파일은 공연정보 페이지의 메인입니다.%> -->
-
-<!-- <%#장르별 분류를 볼 수 있는 서브 네비바를 가져온다%> -->
-<%= render partial: "/layouts/headers/sub_shows" %>
-<!-- <%#사용자가 선택한 장르만 보여주는 파일을 랜더링한다%> -->
-<%= render partial: "/layouts/show/genre", object: @current_genre %>
+  <%= render partial: "/layouts/headers/header" %>
+  <%= render partial: "/layouts/headers/sub_shows" %>
+  <%= render partial: "/layouts/show/genre", object: @current_genre %>
+  <%= render partial: "/layouts/show/modal" %>
 </div>
-<!-- <%#후의 장르의 로컬검색을 위한 기능%> -->
-<script>
-// 하지만 구현이 안되었음
-// 나중에는 인기장르 5가지만 보여주고, 나머지 장르는 알아서 검색
-window.onload = function() {
-  var genre = document.getElementsByClassName('show-genre-item');
-  var g = new Object(); //해쉬
-  var content = []; //배열
 
-  for(var i=0; i<genre.length; i++)
-  {
-  //  console.log(i + ':' + genre[i].innerText);
-    g['title'] = genre[i].innerText;
-    console.log(i + ' : ' + g['title']);
-    content.push(g['title']);
-  }
-
-  $('.ui.search')
-    .search({
-      source: content //검색을 하면 이곳에서 source를 기반으로 자동인식을 한다.
-    })
-  ;
-
-  // 빈공간이 생기기 때문에, 공연정보페이지의 바디태그만 색깔 지정
-  $('body').css("background", "#f4f4f4");
-}
-</script>
+<%# 공연크기를 id="show_cnt"값에 담는다, show.coffee에서 사용%>
+<%= hidden_field_tag "show_cnt", "#{@shows.size}"  %>

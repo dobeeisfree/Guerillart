@@ -1,18 +1,3 @@
-<style>
-/* 전체 장르목록을 감싸는 디브 */
-#show-genres {
-  margin-left: 100px;
-  margin-top: 10px;
-}
-/* 개별 카드 */
-.ui .card {
-  float :left;
-  margin : 20px 20px 20px 20px;
-}
-.ui .view .container {
-  margin-bottom: 30px;
-}
-</style>
 <%#이 파일은 장르 카드를 모두 보여줍니다%>
 <div class="ui view container">
   <div class="ui special cards" id="show-genres">
@@ -107,27 +92,3 @@
 
   </div>
 </div>
-
-
-
-<!-- Clipboard.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
-<!-- 각 공연 당, 카드 이미지 호버 -->
-<script>
-$('.special.cards .image').dimmer({
-  on: 'hover'
-});
-// 모달 셋팅
-$('.ui.view.small.modal').modal('show');
-</script>
-
-<!-- 각 모달마다 엘리멘트 동작-->
-<% @shows.each do |s| %>
-  <script>
-  document.getElementById('view-modal-<%= s.id %>').onclick = function() {
-    $('.ui.small.view.modal.<%= s.id %>').modal('show');
-  };
-  </script>
-<% end %>
-<!-- 모든 모달뷰 가져옴 -->
-<%= render partial: "/layouts/show/modal" %>

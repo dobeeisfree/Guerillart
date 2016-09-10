@@ -1,79 +1,5 @@
-<style>
-/* 모달 조정 */
-.modal {
-    display: none;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    outline: 0;
-}
-/* 모달의 폼 */
-.ui.form .field>label {
-  color: white;
-  font-weight: bold;
-}
-.ui.basic.modal>.header {
-  font-size: 3em;
-}
-input.g-form {
-	font-weight: bold;
-	font-size: 1em;
-}
-.go-sign {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-a.ui.item {
-  color : white;
-  font-weight : bold;
-}
-/* 네비바 글자들 */
-.ui.secondary.menu a.item, .ui.simple.dropdown {
-  color : black;
-}
-/* 네비바 조정 */
-.ui.secondary.menu {
-  margin-top: 0px;
-  /*box-shadow: 3px 1px 5px;*/
-  background: black;
-}
-/* 네비바 글자들 */
-.ui.secondary.menu a.item, .ui.simple.dropdown, .ui.dropdown>.text {
-  color : white;
-  font-weight: bold;
-}
-/* 서치바 */
-.ui.input input {
-  color : white;
-	font-weight: bold;
-	text-align: left;
-
-	border : none;
-  background: transparent;
-  outline: 0;
-}
-.ui.menu .item>.input input {
-  background: black;
-  color:white;
-}
-.ui[class*="left action"].input>.button,
-.ui[class*="left action"].input>.buttons>.button,
-.ui[class*="left action"].input>.dropdown {
-  background: transparent;
-}
-
-/* 이미 게릴라트 계정이 있나요? */
-div.option_buttons {
-  margin-top: 15px;
-}
-</style>
-
-<!-- 로그인, 회원가입, 비번찾기 모달 -->
-<%= render :partial => "/devise/sessions/new" %>
-<%= render :partial => "/devise/registrations/new" %>
-<%= render :partial => "/devise/passwords/new" %>
-
-
-<div class="ui secondary menu "> <!--Navbar start-->
+<%# 메인홈말고 모든 페이지에서 쓰이는 헤더 %>
+<header class="ui secondary menu general-header">
   <a class="ui item" href="/">GUERILLART</a>
   <div class="item">
     <div class="ui icon input">
@@ -124,30 +50,11 @@ div.option_buttons {
      <a class="ui item" id="start_signup_modal">회원가입</a>
      <a class="ui item" id="start_signin_modal">로그인</a>
      <% end %>
-  </div> <!-- 오른쪽 Navbar 끝 -->
-</div>  <!-- Navbar 끝 -->
+  </div>
+</header>
 
 
-
-<script>
-// 검색의 드롭다운
-$("#go-dropdown").dropdown();
-// 모달 셋팅
-$('.ui.basic.modal')
-.modal('attach events', 'show') // 버튼 뻄. 넣는다면 한페이지의 모든 버튼 이벤트 대신 이 모달이 열림
-.modal('setting', {
-    detachable: false,
-    allowMultiple: false,
-    observeChanges: false,
-    blurring: true,
-    transition: 'vertical flip'
-});
-
-// 모달 버튼
-document.getElementById('start_signin_modal').onclick = function() {
-  $('.ui.basic.modal.signin').modal('show');
-}
-document.getElementById('start_signup_modal').onclick = function() {
-  $('.ui.basic.modal.signup').modal('show');
-}
-</script>
+<%# 로그인, 회원가입, 비번찾기 모달 %>
+<%= render :partial => "/devise/sessions/new" %>
+<%= render :partial => "/devise/registrations/new" %>
+<%= render :partial => "/devise/passwords/new" %>
