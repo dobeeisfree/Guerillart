@@ -21,10 +21,10 @@ Rails.application.routes.draw do
   
   get '/shows/:show_id/like' => 'likes#like_toggle'
   
-  
+
+  resources :artists, only: [:create]
   get '/artists' => 'artists#index'
   get '/artists/new' => 'artists#new'
-  post '/artists' => 'artists#create'  
   get '/artists/search' => 'artists#search'
   get '/artists/:artist_name' => 'artists#page'
   get '/artists/:artist_name/edit' => 'artists#edit'
