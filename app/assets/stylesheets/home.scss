@@ -1,3 +1,24 @@
+// 메인홈
+$r : 0;
+$g : 0;
+$b : 0;
+$alpha : 0.05;
+
+  // 네비바 레이아웃
+ .ui.secondary.menu.home {
+   margin-top: 0px;
+   box-shadow: 3px 3px 100px;
+
+   .item {
+     color : rgba(230, 230, 230, 0.6);
+     font-weight: bold;
+   }
+   .item:hover {
+     background: rgba($r, $g, $b, $alpha);
+     color: white !important;
+   }
+ }
+
 // 홈의 uni_body
 #uni_body {
  background-image: asset-url('tower.jpg');
@@ -5,8 +26,8 @@
  height: 100%;
 }
 
-/* 게릴라트 상단 */
-.ui.container.home {
+/* 홈의 내용 */
+.home {
 	margin-top : 10%;
 
 	/* 메인 글귀 */
@@ -36,7 +57,5 @@
 
 			margin-top: 10px;
 		}
-
 	}
-
 }
