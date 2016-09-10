@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   get '/artists/:artist_name/edit' => 'artists#edit'
   put '/artists/:artist_name' => 'artists#update'
  
-  #매개변수를 기존의 artist_id에서 artist_name으로 변경  
-  resources :artists, only: [:index, :new], param: :name
-
+  resources :artists, only: [:index, :new], param: :name   #매개변수를 기존의 artist_id에서 artist_name으로 변경  
   resources :posts, only: [:create, :destroy, :update]
   resources :comments, only: [:create, :destroy]
   
