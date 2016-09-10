@@ -81,7 +81,7 @@
           <div class="active item" data-tab="post">포스트</div>
           <div class="item" data-tab="following">팔로잉</div>
           <div class="item" data-tab="follower">팔로워</div>
-          <div class="item" data-tab="collabo">콜라보</div>
+<!--          <div class="item" data-tab="collabo">콜라보</div>  기능개발 후 열기 -->
           <div class="item" data-tab="show">공연들</div>
         </div>
 
@@ -152,9 +152,11 @@
                     <% end %>
                   <% end %>
                   </span>
-                  <% if current_user.artist_name == @users.artist_name %>
-                    <% user = @users.artist_name %>
-                    <%= link_to "수정하기", controller: "artists", action:"edit", artist_name: user %>
+                  <% unless current_user.nil? %>
+                    <% if current_user.artist_name == @users.artist_name %>
+                      <% user = @users.artist_name %>
+                      <%= link_to "수정하기", controller: "artists", action:"edit", artist_name: user %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
@@ -168,20 +170,21 @@
           <!-- 정중앙에 트위터처럼 위치해야하는 엘리멘트들 -->
           <div class="post-by">
             <!-- 새 글 작성 폼시작 -->
-            <% if @users.artist_name == current_user.artist_name %>
-              <div style="margin-bottom:10px">
-                <%= form_tag '/dashboard/write_post' do %>
-                  <div class="panel panel-default" style="width:450px; height:200px">
-                    <div class="panel-body">
-                      <textarea class="form-control counted" value="content" name="content" placeholder="무슨 생각을 하고 있어요?" rows="5" style="margin-bottom:10px;"></textarea>
-                      <h6 class="pull-right" id="counter">320 characters remaining</h6>
-                      <button class="btn btn-info" type="submit">글쓰기</button>
+            <% unless current_user.nil? %>
+              <% if @users.artist_name == current_user.artist_name %>
+                <div style="margin-bottom:10px">
+                  <%= form_tag '/dashboard/write_post' do %>
+                    <div class="panel panel-default" style="width:450px; height:200px">
+                      <div class="panel-body">
+                        <textarea class="form-control counted" value="content" name="content" placeholder="무슨 생각을 하고 있어요?" rows="5" style="margin-bottom:10px;"></textarea>
+                        <h6 class="pull-right" id="counter">320 characters remaining</h6>
+                        <button class="btn btn-info" type="submit">글쓰기</button>
+                      </div>
                     </div>
-                  </div>
-                <% end %>
-              </div>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-
 
 
               <% @posts.reverse.each do |post| %><!-- 글 보여주기 -->
@@ -336,11 +339,13 @@
          <!-- 팔로워들 정보보여주기 종료 -->
 
 
-
+<!-- 추후에 기능 개발
         <div class="ui tab" data-tab="collabo">
           <h1> 커밍순~!!! </h1>
           <!-- 콜라보는 공연정보가 와야한다Tab Content !-->
         </div>
+
+-->
 
 
         <div class="ui tab" data-tab="show">

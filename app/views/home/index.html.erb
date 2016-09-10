@@ -1,58 +1,16 @@
-<style>
-/* 배경 사진 */
-body {
-	background-image: url("/images/tower1.jpg");
-	background-size: 100%;
-}
-/* 게릴라트 상단 */
-.ui.container.home {
-	margin-top : 140px;
-}
-.ui.massive.icon.input{
-	text-align: center;
-}
-/* 지도 서치바 */
-input#location {
-	color : white;
-	font-weight: bold;
-	font-size: 1em;
-	text-align: center;
-
-
-
-	border :none;
-	border-bottom: 5px solid white;
-	border-radius: 1px;
-
-  background: transparent;
-  outline: 0;
-
-	margin-top: 10px;
-}
-/* 메인 글귀 */
-#brand-text {
-	font-size:7em;
-	text-align:center;
-	color: white;
-}
-/* 스크롤바 없앰 */
-body {
-    overflow:hidden;
-}
-</style>
-
-<%#메인헤더 네비바를 랜더링%>
-<%= render :partial => "/layouts/headers/home" %>
-
-<div class="ui centered grid">
-<div class="ui container home">
-	<form action="/search" method="GET">
-		<h1 id="brand-text">Guerillar Art</h1>
-		<div class="ui massive icon input">
-			<label for="location"></label>
-			<input type="text" id="location" name="location" placeholder="위치를 입력해주세요">
-			<i class="inverted search icon"></i>
+<div id="uni_body">
+	<%#메인헤더 네비바를 랜더링%>
+	<%= render :partial => "/layouts/headers/home" %>
+	<div class="ui centered grid">
+		<div class="ui container home">
+			<form action="/search" method="GET">
+				<h1 id="brand-text">Guerillar Art</h1>
+				<div class="ui massive icon input">
+					<label for="location"></label>
+					<input type="text" id="location" name="location" placeholder="위치를 입력해주세요">
+					<i class="inverted search icon"></i>
+				</div>
+			</form>
 		</div>
-	</form>
-</div>
+	</div>
 </div>
