@@ -1,36 +1,42 @@
+// 홈의 uni_body
 #uni_body {
  background-image: asset-url('tower.jpg');
  background-size: 100%;
  height: 100%;
 }
+
 /* 게릴라트 상단 */
 .ui.container.home {
-	margin-top : 140px;
-}
-.ui.massive.icon.input{
-	text-align: center;
-}
-/* 지도 서치바 */
-input#location {
-	color : white;
-	font-weight: bold;
-	font-size: 1em;
-	text-align: center;
+	margin-top : 10%;
 
+	/* 메인 글귀 */
+	#brand-text {
+		font-size:7em;
+		text-align:center;
+		color: white;
+	}
 
+  /* 지도 인풋 */
+	.ui.massive.icon.input{
+		text-align: center;
 
-	border :none;
-	border-bottom: 5px solid white;
-	border-radius: 1px;
+		/* 지도 서치바 */
+		input#location {
+			color : white;
+			font-weight: bold;
+			font-size: 1em;
+			text-align: center;
 
-  background: transparent;
-  outline: 0;
+			border :none;
+			border-bottom: 5px solid white;
+			border-radius: 1px;
 
-	margin-top: 10px;
-}
-/* 메인 글귀 */
-#brand-text {
-	font-size:7em;
-	text-align:center;
-	color: white;
+		  background: transparent;
+		  outline: 0;
+
+			margin-top: 10px;
+		}
+
+	}
+
 }
