@@ -1,13 +1,13 @@
-<%= render :partial => "/layouts/header"%>
+<%= render :partial => "/layouts/headers/header"%>
 
     <div class="ui view container">
       <div class="ui special cards" id="show-genres">
         <div class="ui cards">
-        
+
           <% if @user.artist_name %>
           <% artist_name = @user.artist_name %>
             <div class="card">
-              <% if @user.avatar.url %>  
+              <% if @user.avatar.url %>
                 <div class="blurring dimmable image">
                   <div class="ui dimmer">
                     <div class="content">
@@ -27,17 +27,17 @@
                       </div>
                     </div>
                   </div>
-                  <img src="http://www.baedalnet.com/data/mw.cheditor/1402/c737496a1e90569ea8e24a8058a1b624_dSkWVsZntgKDtzpQEAG.jpg"> 
+                  <img src="http://www.baedalnet.com/data/mw.cheditor/1402/c737496a1e90569ea8e24a8058a1b624_dSkWVsZntgKDtzpQEAG.jpg">
                 </div>
               <% end %>
 
-              <div class="content"> 
+              <div class="content">
                 <a class="header" href="/artists/name/<%=@user.artist_name%>"><%=@user.artist_name%><input type="hidden" name="artist_name" value="<%=@user.artist_name%>"></a>
                 <div class="meta">
                   <%=@user.genre%>
                 </div>
                 <div class="description">
-                 <%=@user.introduction%> 
+                 <%=@user.introduction%>
                 </div>
               </div>
             </div>
@@ -46,4 +46,3 @@
         </div>
       </div>
     </div>
-

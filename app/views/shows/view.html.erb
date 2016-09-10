@@ -1,4 +1,4 @@
-<%= render partial: "/layouts/header" %>
+<%= render partial: "/layouts/headers/header" %>
 <!-- 이 파일은 각 공연의 단독 뷰를 보여주는 파일입니다 -->
 <style>
 .ui.view.container {
@@ -113,7 +113,7 @@ h4:first-child {
 	    // $('.ui.view.small.modal.<%=@show.id %>').modal('show');
 	  // }
 	// });
-	
+
 	// 트위터의 팝업
 	document.getElementById("popup-<%= @show.id %>").onclick = function() {
 	return !window.open(this.href, "pop", "width=600, height=300");
