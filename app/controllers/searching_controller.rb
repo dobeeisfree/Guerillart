@@ -12,7 +12,7 @@ class SearchingController < ApplicationController
       all_of do
         with(:location_x, params[:sw_lat].to_f..params[:ne_lat].to_f)
         with(:location_y, params[:sw_lng].to_f..params[:ne_lng].to_f)
-        with(:status).equal_to(1) #진행중인 공연인지 확인
+        with(:status, 1) #진행중인 공연인지 확인
       end
     end
 

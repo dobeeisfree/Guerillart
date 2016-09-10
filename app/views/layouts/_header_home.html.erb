@@ -42,7 +42,7 @@ div.option_buttons {
 }
 </style>
 
-<!-- 로그인, 회원가입, 비번찾기 모달 -->
+<!-- 로그인, 회원가입, 비번 초기화 모달 -->
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
@@ -51,6 +51,52 @@ div.option_buttons {
   <a class="ui item" href="/">GUERILLART</a>
 
   <div class="right menu"> <!-- 오른쪽 Navbar -->
+  	
+  	<!--공연 control-->
+  	<% if user_signed_in? and current_user.artist_name.present? %>
+  		<% @res_search = current_user.creations.search do %>
+    		<% with(:status, 1) %>
+    	<% end %>
+  		
+  		<!--현재 공연중이라면-->
+  		<% unless @res_search.results.present? %>
+  			<a class="ui item" style="color: red" href="#">종료하기</a>
+  			
+  		<% else %>
+		  	<div class="ui right dropdown item">
+		    	<div class="ui simple dropdown">
+		            <div class="text" style="color: yellow;"> 시작하기 </div>
+		            <i class="dropdown icon" style="color: yellow;"></i>
+		            <div class="menu">
+		            	<div class="ui list">
+		            		<div class="item">
+				        		<div class="right floated content">즉석 공연
+							    	<div class="ui button">바로 시작</div>
+							    </div>
+					    	</div>
+					    	<% @res_shows = current_user.creations.search do %>
+					    		<% with(:status, 0) %>
+					    	<% end %>
+					    	
+					    	<% @res_shows.results.each do |show| %>
+					    			<!--수정 필요-->
+					    		<% if show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
+				        			<div class="item">
+						        		<div class="right floated content"> <%=show.genre%>
+									    	<div class="ui button">바로 시작</div>
+									    </div>
+							    	</div>
+						    	<% end %>
+					    	<% end %>
+					    </div>
+		        	</div>
+		     	</div>
+		     </div>
+  		<% end %>
+  		<!--현재 공연중이 아니라면 끝-->
+  	<% end %>
+  	<!--공연 control 끝-->
+  	
      <a class="ui item" href="/shows">공연</a>
      <a class="ui item" href="/artists">아티스트</a>
 
@@ -64,10 +110,9 @@ div.option_buttons {
               <a class="ui item" href="/dashboard/guerillart">나의게릴라트</a>
               <a class="ui item" href="/dashboard/profile">계정관리</a>
 
-              <% if current_user.artist_name? %>
-              <% artist_name = current_user.artist_name %>
-              <a class="ui item" href="/shows/new">공연등록</a>
-              <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
+              <% if (artist_name = current_user.artist_name).present? %>
+	              <a class="ui item" href="/shows/new">공연등록</a>
+	              <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%> 페이지<input type="hidden" name="artist_name" value="artist_name"></a>
               <% end %>
               <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
             </div>
