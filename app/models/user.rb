@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :name, length: { in: 2..12 }
   validates :phone_number, 
-            :numericality => {:only_integer => true},
+            :numericality => {:only_integer => true },
             :allow_nil => true
         
   

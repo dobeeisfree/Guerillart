@@ -20,9 +20,6 @@ class ShowsController < ApplicationController
   
   
   def new
-    if current_user.artist_name.nil?
-      edirect_to "/shows"
-    end
   end
   
   def create
@@ -88,8 +85,8 @@ class ShowsController < ApplicationController
     flash[:alert] = "삭제되었습니다."
   end
 
-  def view
-    @show = Show.find(params[:show_id])
+  def show 
+    @show = Show.find(params[:id])
   end
   
   def start

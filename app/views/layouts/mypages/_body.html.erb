@@ -173,7 +173,7 @@
             <% unless current_user.nil? %>
               <% if @users.artist_name == current_user.artist_name %>
                 <div style="margin-bottom:10px">
-                  <%= form_tag '/dashboard/write_post' do %>
+                  <%= form_tag posts_path do %>
                     <div class="panel panel-default" style="width:450px; height:200px">
                       <div class="panel-body">
                         <textarea class="form-control counted" value="content" name="content" placeholder="무슨 생각을 하고 있어요?" rows="5" style="margin-bottom:10px;"></textarea>
@@ -358,7 +358,7 @@
                 <div class="ui inverted dimmer">
                   <div class="content">
                     <div class="center">
-                      <%= link_to "더보기", {controller: "shows", action: "view", show_id: show.id}, class: "ui primary button", target: "_blank" %>
+                      <%= link_to "더보기", {controller: "shows", action: "show", id: show.id}, class: "ui primary button", target: "_blank" %>
                     </div>
                   </div>
                 </div>

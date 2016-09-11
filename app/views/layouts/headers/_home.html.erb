@@ -1,106 +1,91 @@
-<!-- 메인홈만 쓰이는 헤더 -->
+<%# 메인홈만 쓰이는 헤더 %>
 <header class="ui secondary menu home">
-    <a class="ui item" href="/">GUERILLART</a>
+  <a class="ui item" href="/">GUERILLART</a>
 
-    <div class="right menu">
-        <!--공연 control-->
-        <% if user_signed_in? and current_user.artist_name.present? %>
-            <% @res_search = Show.search do %>
-            <% all_of do %>
-                <% with(:creator_id, current_user.id) %>
-                <% with(:status, 0..1) %>
-            <% end %>
+  <div class="right menu"> <!-- 오른쪽 Navbar -->
+    <!--공연 control-->
+    <% if user_signed_in? and current_user.artist_name.present? %>
+      <% @res_search = Show.search do %>
+        <% all_of do %>
+          <% with(:creator_id, current_user.id) %>
+          <% with(:status, 0..1) %>
         <% end %>
+      <% end %>
 
-        <% @res_shows = @res_search.results %>
-        <!--현재 공연중이라면-->
+      <% @res_shows = @res_search.results %>
+      <!--현재 공연중이라면-->
+      <% if @res_shows.find_by(status: 1).present? %>
+        <a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
+        <% puts "hi : " + @res_search.results.to_s%>
 
-        <% if @res_shows.find_by(status: 1).present? %>
-            <a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
-            <% puts "hi : " + @res_search.results.to_s%>
-
-        <% else %>
-            <div class="ui right dropdown item">
-                <div class="ui simple dropdown">
-                    <div class="text" style="color: yellow;">
-                        시작하기
+      <% else %>
+        <div class="ui right dropdown item">
+          <div class="ui simple dropdown">
+            <div class="text" style="color: yellow;">시작하기</div>
+            <i class="dropdown icon" style="color: yellow;"></i>
+              <div class="menu">
+                <div class="ui list">
+                  <div class="item">
+                    <div class="right floated content">즉석 공연
+                      <div class="ui button" id="start_showStart_modal">바로 시작</div>
                     </div>
-                    <i class="dropdown icon" style="color: yellow;"></i>
-                    <div class="menu">
-                        <div class="ui list">
-                            <div class="item">
-                                <div class="right floated content">즉석 공연
-                                    <div class="ui button" id="start_showStart_modal">바로 시작</div>
-                                </div>
-                            </div>
-                            <% @res_search = Show.search do %>
-                                <% all_of do %>
-                                    <% with(:creator_id, current_user.id) %>
-                                    <% with(:status, 1) %>
-                                <% end %>
-                            <% end %>
+                  </div>
+                  <% @res_search = Show.search do %>
+                    <% all_of do %>
+                      <% with(:creator_id, current_user.id) %>
+                      <% with(:status, 1) %>
+                    <% end %>
+                  <% end %>
 
-                            <% @res_search.results.each do |show| %>
-                            <!--수정 필요-->
-                                <% if show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
-                                    <div class="item">
-                                        <div class="right floated content"><%=show.genre%>
-                                            <div class="ui button">바로 시작</div>
-                                        </div>
-                                    </div>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
+                  <% @res_search.results.each do |show| %>
+                      <!--수정 필요-->
+                      <% if show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
+                          <div class="item">
+                              <div class="right floated content"><%=show.genre%>
+                                  <div class="ui button">바로 시작</div>
+                              </div>
+                          </div>
+                      <% end %>
+                  <% end %>
                 </div>
-            </div>
-        <% end %>
-        <!--현재 공연중이 아니라면 끝-->
+              </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-    <!-- 공연 control 끝 -->
 
-    <a class="ui item" href="/shows">공연</a>
-    <a class="ui item" href="/artists">아티스트</a>
+    <%= link_to "공연", shows_path, class: "ui item" %>
+    <%= link_to "아티스트", artists_path, class: "ui item" %>
 
     <%if user_signed_in?%>
-        <div class="ui right dropdown item">
-            <div class="ui simple dropdown">
-                <div class="text"><%= current_user.name%>님</div>
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="ui item" href="/dashboard/home">대쉬보드</a>
-                    <a class="ui item" href="/dashboard/guerillart">나의게릴라트</a>
-                    <a class="ui item" href="/dashboard/profile">계정관리</a>
+      <div class="ui right dropdown item">
+        <div class="ui simple dropdown">
+          <div class="text"> <%= current_user.name%>님 </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
+            <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
+            <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
 
-                    <% if current_user.artist_name? %>
-                        <% artist_name = current_user.artist_name %>
-                        <a class="ui item" href="/shows/new">공연등록</a>
-                        <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
-                    <% end %>
-                    <a class="ui item" href="/logout" data-method="delete">로그아웃</a>
-                </div>
-            </div>
+            <% if current_user.artist_name? %>
+              <% artist_name = current_user.artist_name %>
+              <%= link_to "공연등록", new_show_path, class: "ui item" %>
+              <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
+            <% end %>
+            <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
+          </div>
         </div>
-    <% else %>
+      </div>
 
-        <a class="ui item" id="start_signup_modal">회원가입</a>
-        <a class="ui item" id="start_signin_modal">로그인</a>
+    <% else%>
+      <a class="ui item" id="start_signup_modal">회원가입</a>
+      <a class="ui item" id="start_signin_modal">로그인</a>
     <% end %>
-    </div>
+  </div>
 </header>
 
-<!-- 로그인, 회원가입, 비번 초기화 모달 -->
+
+<%# 로그인, 회원가입, 비번찾기 모달 %>
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
-
-<!--나중에 coffeescript로 수정해야 함-->
-<script>
-    document.getElementById('start_showStart_modal').onclick = function () {
-        $('.ui.basic.modal.showStart').modal('show');
-    }
-    document.getElementById('start_showFinish_modal').onclick = function () {
-        console.log("hi");
-        // $('.ui.basic.modal.showFinish').modal('show');
-    }
-</script>
