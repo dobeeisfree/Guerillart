@@ -1,0 +1,23 @@
+<style>
+	/* 공연종료 */
+	#showStart-modal {
+	  max-width: 450px;
+	}
+	/* 공연종료의 x 버튼 */
+	.ui.basic.modal>.close {
+	  padding-left: 20%;
+	}
+</style>
+
+<!-- Start of showFinish modal -->
+<div class="ui basic modal showStart" id="showStart-modal">
+  <i class="close icon"></i>
+  <div class="header">공연시작</div>
+  <form action="/shows/start" method="put">
+   	<div class="form-group">
+      <input type="submit" class="fluid ui inverted green button" value="확인">
+	</div>
+
+  	<div class="footer" id="login_modal_footer"></div>
+  </form>
+</div>

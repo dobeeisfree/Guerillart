@@ -8,13 +8,13 @@
       <% @res_search = Show.search do %>
         <% all_of do %>
           <% with(:creator_id, current_user.id) %>
-          <% with(:status, 0..1) %>
+          <% with(:status, 1) %>
         <% end %>
       <% end %>
 
-      <% @res_shows = @res_search.results %>
+      <%# @res_shows = @res_search.results %>
       <!--현재 공연중이라면-->
-      <% if @res_shows.find_by(status: 1).present? %>
+      <% if @res_search.results.present? %>
         <a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
         <% puts "hi : " + @res_search.results.to_s%>
 
@@ -33,7 +33,7 @@
                   <% @res_search = Show.search do %>
                     <% all_of do %>
                       <% with(:creator_id, current_user.id) %>
-                      <% with(:status, 1) %>
+                      <% with(:status, 0) %>
                     <% end %>
                   <% end %>
 
@@ -89,3 +89,21 @@
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
+<%= render :partial => "/shows/start" %>
+<%= render :partial => "/shows/finish" %>
+
+<!--나중에 수정 필요-->
+<script>
+  document.getElementById('start_showStart_modal').onclick = function() {
+    console.log("노감사");
+    $('.ui.basic.modal.showStart').modal('show');
+  }
+</script>
+<!--두개로 나누지 않을 경우 위에 있는 modal이 존재 하지 않으면 하단에 위치한 코드가 실행 되지 않게 된다-->
+<script>
+  document.getElementById('start_showFinish_modal').onclick = function() {
+    console.log("감사");
+    $('.ui.basic.modal.showFinish').modal('show');
+  }
+
+</script>
