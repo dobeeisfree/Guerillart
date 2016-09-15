@@ -14,6 +14,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :fan
       t.integer :fan_count
       t.integer :artist_id
+      t.integer :playing_id, default: 0  #진행중인 공연의 id
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20160824065551) do
     t.string   "fan"
     t.integer  "fan_count"
     t.integer  "artist_id"
+    t.integer  "playing_id",             default: 0
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

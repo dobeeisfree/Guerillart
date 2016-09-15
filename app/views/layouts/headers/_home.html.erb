@@ -5,6 +5,7 @@
   <div class="right menu"> <!-- 오른쪽 Navbar -->
     <!--공연 control-->
     <% if user_signed_in? and current_user.artist_name.present? %>
+      <% Show.index %>
       <% @res_search = Show.search do %>
         <% all_of do %>
           <% with(:creator_id, current_user.id) %>
@@ -27,7 +28,7 @@
                 <div class="ui list">
                   <div class="item">
                     <div class="right floated content">즉석 공연
-                      <div class="ui button" id="start_showStart_modal">바로 시작</div>
+                      <div class="ui button st" id="start_showStart_modal0" value="0">바로 시작</div>
                     </div>
                   </div>
                   <% @res_search = Show.search do %>
@@ -36,13 +37,15 @@
                       <% with(:status, 0) %>
                     <% end %>
                   <% end %>
-
+                  <%@num=1%>
                   <% @res_search.results.each do |show| %>
                       <!--수정 필요-->
-                      <% if show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
+                      <% unless show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
                           <div class="item">
                               <div class="right floated content"><%=show.genre%>
-                                  <div class="ui button">바로 시작</div>
+                                  <%@num=1%>
+                                  <div class="ui button st" id="start_showStart_modal"+"<%=@num%>" value="<%=@num%>">바로 시작</div>
+                                  <%@num = @num+1%>
                               </div>
                           </div>
                       <% end %>
@@ -94,8 +97,23 @@
 
 <!--나중에 수정 필요-->
 <script>
+  $('.ui.button.st').click(function(){
+
+    console.log("버튼 : " + $(this).val());
+  });
+
+  for(var i = 0; i <= '<%=@num%>'; i++){
+    document.getElementById('start_showStart_modal'+i).click(function(){
+      console.log('start_showStart_modal'+i);
+      console.log("음");
+      $('.ui.basic.modal.showStart').modal('show');
+    });
+    console.log("num : "+i);
+  }
+</script>
+<script>
   document.getElementById('start_showStart_modal').onclick = function() {
-    console.log("노감사");
+    console.log("호");
     $('.ui.basic.modal.showStart').modal('show');
   }
 </script>
