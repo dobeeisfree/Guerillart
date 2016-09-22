@@ -12,6 +12,8 @@ class ArtistsController < ApplicationController
   def index
     @artist_name = params[:artist_name]
     @users = User.find_by(artist_name: @artist_name)
+    @artists_user = User.paginate(:page => params[:page])
+
   end
   
   def new

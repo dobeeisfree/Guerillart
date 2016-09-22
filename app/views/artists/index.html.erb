@@ -28,8 +28,7 @@
       <div class="ui special cards" id="show-genres">
         <div class="ui cards">
 
-        <% user = User.all %>
-         <% user.each do |user| %>
+         <% @artists_user.each do |user| %>
 
           <% if user.artist_name %> <!-- 아티스트 페이지 클릭시 Default 화면 -->
           <% artist_name = user.artist_name %>
@@ -87,6 +86,8 @@
         </div>
       </div>
     </div>
+  <%= will_paginate @artists_user%>
+
 </div>
 
 <script>
