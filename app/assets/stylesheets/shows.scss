@@ -1,8 +1,8 @@
+// index.html.erb
 /* 공연 바디 */
 .show-body {
   padding-bottom: 30px;
 }
-
 
 /* 서브네비바 */
 .ui.subshow.menu {
@@ -30,14 +30,13 @@
 
 /* 전체 장르목록을 감싸는 디브 */
 #show-genres {
-  margin-left: 100px;
-  margin-top: 10px;
-}
+  margin : 0 auto;
 
-/* 개별 카드 */
-.ui.card {
-  float :left;
-  margin : 20px 20px 20px 20px;
+  /* 개별 카드 */
+  .card {
+    float :left;
+    margin : 10px auto !important;
+  }
 }
 
 .ui.view.container {
@@ -46,7 +45,8 @@
 
 
 
-/* 모달을 클릭했을 때 나오는 뷰 */
+
+// _mpdal.html.erb
 .ui.view.modal {
   margin-top: -300px;
   text-align: center;
@@ -90,7 +90,9 @@
 
 }
 
-/* 공연 페이지 단독 뷰*/
+
+
+// show.html.erb
 .view-body {
   margin-top: -13px;
 }
@@ -106,7 +108,7 @@
 }
 
 
-/* 공연 등록 new */
+// new.html.erb
 @import "datatime.css"; // 캘린더용
 .ui.writeshow.form .field>label {
   color: black;
