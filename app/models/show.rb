@@ -24,5 +24,6 @@ class Show < ActiveRecord::Base
       show.save
     end
   end
-
+  # 한 페이지당 보이는 카드 수
+  self.per_page = 9 
 end

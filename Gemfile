@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'will_paginate', '~> 3.1.0'
 
 # amazon image upload
 gem "fog-aws"

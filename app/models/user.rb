@@ -42,4 +42,6 @@ class User < ActiveRecord::Base
   def is_like?(show)
     Like.find_by(user_id: self.id, show_id: show.id).present?
   end
+  # 한 페이지당 보여지는 카드 수
+  self.per_page = 9
 end
