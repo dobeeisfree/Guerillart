@@ -2,7 +2,6 @@ class SearchingController < ApplicationController
 
   def index
     @location = params[:location]
-    @show_all = Show.all  #쓸모 없음
 
   end
 

@@ -9,10 +9,11 @@ Rails.application.routes.draw do
 
 
   # get '/shows/:show_id/start' => 'shows#start'
+  post '/shows/starting' => 'shows#starting'
   post '/shows/start' => 'shows#start'
   post '/shows/finish' => 'shows#finish'
 
-  
+
   get '/shows/:show_id/like' => 'likes#like_toggle'
   resources :shows
 

@@ -28,7 +28,7 @@
                 <div class="ui list">
                   <div class="item">
                     <div class="right floated content">즉석 공연
-                      <div class="ui button st" id="start_showStart_modal0" value="0">바로 시작</div>
+                      <div class="ui button st" id="0">바로 시작</div>
                     </div>
                   </div>
                   <% @res_search = Show.search do %>
@@ -37,15 +37,14 @@
                       <% with(:status, 0) %>
                     <% end %>
                   <% end %>
-                  <%@num=1%>
+                  <% @num = 1 %>
                   <% @res_search.results.each do |show| %>
                       <!--수정 필요-->
                       <% unless show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
                           <div class="item">
-                              <div class="right floated content"><%=show.genre%>
-                                  <%@num=1%>
-                                  <div class="ui button st" id="start_showStart_modal"+"<%=@num%>" value="<%=@num%>">바로 시작</div>
-                                  <%@num = @num+1%>
+                              <div class="right floated content"><%= show.genre %>
+                                  <div class="ui button st" id='<%= show.id %>'>바로 시작</div>
+                                  <% @num = @num+1 %>
                               </div>
                           </div>
                       <% end %>
@@ -63,7 +62,7 @@
     <%if user_signed_in?%>
       <div class="ui right dropdown item">
         <div class="ui simple dropdown">
-          <div class="text"> <%= current_user.name%>님 </div>
+          <div class="text"> <%= current_user.name %>님 </div>
           <i class="dropdown icon"></i>
           <div class="menu">
             <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
@@ -98,24 +97,30 @@
 <!--나중에 수정 필요-->
 <script>
   $('.ui.button.st').click(function(){
+    var show_id = $(this).attr('id');
+    console.log("버튼 : " + show_id);
+    $.ajax({
+      type: "POST",
+      url: "/shows/starting",
+      data: { show_id: show_id},
+      success: function(result){
+        // results.id
+        $('.ui.basic.modal.showStart').modal('show');
 
-    console.log("버튼 : " + $(this).val());
-  });
-
-  for(var i = 0; i <= '<%=@num%>'; i++){
-    document.getElementById('start_showStart_modal'+i).click(function(){
-      console.log('start_showStart_modal'+i);
-      console.log("음");
-      $('.ui.basic.modal.showStart').modal('show');
+        // if(result == true) {
+        //   // Do something
+        // } else {
+        //   window.location.replace(result);
+        // }
+      }
+      // error: function () {
+      //   alert("Sorry, load failed T^T");
+      // }
     });
-    console.log("num : "+i);
-  }
-</script>
-<script>
-  document.getElementById('start_showStart_modal').onclick = function() {
-    console.log("호");
-    $('.ui.basic.modal.showStart').modal('show');
-  }
+
+    // $('.ui.basic.modal.showStart').modal('show');
+
+  });
 </script>
 <!--두개로 나누지 않을 경우 위에 있는 modal이 존재 하지 않으면 하단에 위치한 코드가 실행 되지 않게 된다-->
 <script>
@@ -123,5 +128,4 @@
     console.log("감사");
     $('.ui.basic.modal.showFinish').modal('show');
   }
-
 </script>
