@@ -69,6 +69,7 @@ class ArtistsController < ApplicationController
     @one_post = Post.find_by_user_id(@users)
     @posts = Post.all
     @followers = User.all
+    @follow = Follow.all
   end
 
   def search
