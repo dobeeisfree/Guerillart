@@ -13,11 +13,19 @@
 <div class="ui basic modal showStart" id="showStart-modal">
   <i class="close icon"></i>
   <div class="header">공연시작</div>
+  <div class="field">
+    <div>
+      <label>이 위치가 맞으신가요?</label>
+    </div>
+    <div class="ui input">
+      <input type="text" name="pos-input" value="hi">
+    </div>
+  </div>
   <form action="/shows/start" method="put">
    	<div class="form-group">
       <input type="submit" class="fluid ui inverted green button" value="확인">
 		</div>
 
-  	<div class="footer" id="login_modal_footer"></div>
+  	<div class="footer" id="start_modal_footer"></div>
   </form>
 </div>

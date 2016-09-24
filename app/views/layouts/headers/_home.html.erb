@@ -106,6 +106,16 @@
       success: function(result){
         // results.id
         $('.ui.basic.modal.showStart').modal('show');
+        document.getElementById('start_modal_footer').innerHTML="hihsdfdsfdsfdsi "+result.id;
+        var pos_input = $('input[name=pos-input]');
+        pos_input.focus();
+        // var tmpStr = $('input[name=myInput]').val();
+        // $('input[name=myInput]').val('');
+        // $('input[name=myInput]').val(tmpStr);
+        // var tmpStr = input.val();
+        pos_input.val('');
+        pos_input.val(result.location);
+
 
         // if(result == true) {
         //   // Do something
