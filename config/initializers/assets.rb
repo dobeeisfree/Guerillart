@@ -14,5 +14,5 @@ Rails.application.config.assets.precompile +=
   'infobubble.js',
   'devise_modal.js',
   'shows.js',
-  'show_modal.js'
+  'dashboard.js'
 ]
