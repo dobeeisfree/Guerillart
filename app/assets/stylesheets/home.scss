@@ -6,33 +6,50 @@ $alpha : 0.05;
 
   // 네비바 레이아웃
  .ui.secondary.menu.home {
-   margin-top: 0px;
-   box-shadow: 3px 3px 100px;
+//   margin-top: 0px;
+//   box-shadow: 3px 3px 100px;
 
    .item {
      color : rgba(230, 230, 230, 0.6);
      font-weight: bold;
    }
-   .item:hover {
-     background: rgba($r, $g, $b, $alpha);
-     color: white !important;
-   }
+//   .item:hover {
+//     background: rgba($r, $g, $b, $alpha);
+//     color: white !important;
+//   }
  }
 
 // 홈의 uni_body
+
 #uni_body {
  background-image: asset-url('tower.jpg');
- background-size: 100%;
+ background-size: cover;
  height: 100%;
 }
 
 /* 홈의 내용 */
 .home {
-	margin-top : 10%;
+    
+  margin-top: 14%;
 
+  /* 모바일 메인 글귀 */
+  @media (max-width: 743px) {
+    #brand-text {
+      margin-top: 25% !important;
+    }
+    .ui.massive.icon.input{
+      text-align: center;
+
+      /* 지도 서치바 */
+      input#location {
+        font-size: 0.7em !important;
+      }
+    }
+  }
 	/* 메인 글귀 */
 	#brand-text {
-		font-size:7em;
+    font-size: 4em;
+    text-transform: uppercase;
 		text-align:center;
 		color: white;
 	}
@@ -49,7 +66,7 @@ $alpha : 0.05;
 			text-align: center;
 
 			border :none;
-			border-bottom: 5px solid white;
+			border-bottom: 3px solid white;
 			border-radius: 1px;
 
 		  background: transparent;
