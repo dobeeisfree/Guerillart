@@ -1,3 +1,99 @@
-// Place all the styles related to the artists controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// index.html.erb
+.ui.artist.cards {
+  margin: 0 auto;
+
+  .card {
+    margin: 10px auto !important;
+  }
+}
+
+// new.html.erb
+
+
+
+// page.html.erb
+.panel-default {
+  margin-top: 25px;
+}
+.comment-style {
+ margin: 15px;
+}
+/* 댓글창 양옆띄우기 */
+.ui.comments .comment:first-child {
+ margin: 15px;
+}
+/* tabulr menu cursor*/
+.ui.tabular.menu .item:hover {
+ cursor: pointer;
+}
+/* ui tabular menu */
+.ui.tabular.menu .active.item {
+ border-top-width: initial;
+}
+.ui.tabular.menu {
+  margin: 0 auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+/* 퐐로워 */
+.artist-info-th {
+  margin-top: -180px;
+  margin-left: 356px;
+}
+
+/* 왼쪽 정보들 : 아티스트들의 정보 */
+.profile.container {
+ margin-top: 30px;
+}
+.artist-profile-info {
+  color: #F5F5F5;
+  width: 350px;
+  margin-left: 100px;
+  float:left;
+}
+/* 정중앙, 아티스트의 글쓰기와 포스트들 */
+.post-by {
+  max-width: 450px;
+  margin-left: 480px;
+  margin-top: -238px ;
+}
+/* 오른쪽 정보들 : 아티스트의 공연 */
+.this-artist-shows {
+  margin-top: 30px;
+}
+
+.ui.cards {
+  margin: 0 auto;
+}
+/* 아티스트의  공연정보들 */
+.ui.artists-show.special.cards {
+  margin-left: 30px;
+}
+
+
+
+// edit.html.erb
+/* 퐐로워 */
+.artist-info-th {
+  margin-top: -180px;
+  margin-left: 356px;
+}
+
+/* 왼쪽 정보들 : 아티스트들의 정보 */
+.artist-profile-info {
+  color: #F5F5F5;
+  width: 355px;
+  margin-left: 100px;
+  float:left;
+}
+/* 정중앙, 아티스트의 글쓰기와 포스트들 */
+.post-by {
+  max-width: 450px;
+  margin-left: 480px;
+  margin-top: 40px;
+}
+/* 오른쪽 정보들 : 아티스트의 공연 */
+.this-artist-shows {
+  margin-top: 30px;
+}
