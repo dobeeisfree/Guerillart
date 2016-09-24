@@ -1,76 +1,45 @@
-<style>
-	/* 회원가입 */
-	#signup-modal {
-	  max-width: 450px;
-	  margin-top: -100px;
-	}
-	
-	/* 회원가입의 x 버튼 */
-	#signup-close {
-	  padding-left: 20%;
-	}
-</style>
-
-<!-- Start of Signup modal -->
 <div class="ui basic modal signup" id="signup-modal">
   <i class="close icon" id="signup-close"></i>
   <div class="header">회원가입</div>
   	<%= form_for(resource, :as => resource_name, :html => {:id => 'register_form'}, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
-          <div class="ui form">
-          	<div class="field">
-              <label>Name</label>
-              <%= f.text_field :name, :placeholder => "이름을 입력해주세요. (2자리 이상 12자리 이하)" , :id => 'signup_name' %>
+      <div class="ui form">
+      	<div class="field">
+          <label>Name</label>
+          <%= f.text_field :name, :placeholder => "이름을 입력해주세요. (2자리 이상 12자리 이하)" , :id => 'signup_name' %>
+        </div>
+        <div class="field">
+          <label>Email</label>
+            <div class="ui left icon input">
+          	<%= f.email_field :email, :placeholder => "이메일을 입력해주세요." , :id => 'signup_email'%>
+              <i class="user icon"></i>
             </div>
-            <div class="field">
-              <label>Email</label>
-                <div class="ui left icon input">
-	            	<%= f.email_field :email, :placeholder => "이메일을 입력해주세요." , :id => 'signup_email'%>
-	                <i class="user icon"></i>
-                </div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+            <div class="ui left icon input">
+            	<%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요. (6자리 이상)", :title => "6+ characters" , :id => 'signup_password'%>
+            	<i class="lock icon"></i>
             </div>
-            <div class="field">
-              <label>Password</label>
-                <div class="ui left icon input">
-                	<%= f.password_field :password, :placeholder => "비밀번호를 입력해주세요. (6자리 이상)", :title => "6+ characters" , :id => 'signup_password'%>
-                	<i class="lock icon"></i>
-                </div>
+        </div>
+        <div class="field">
+          <label>Confirm Password</label>
+            <div class="ui left icon input">
+        		<%= f.password_field :password_confirmation, :placeholder => "비밀번호를 다시 입력해주세요. (6자리 이상)" , :id => 'signup_confirm_password'%>
+            	<i class="lock icon"></i>
             </div>
-            <div class="field">
-              <label>Confirm Password</label>
-                <div class="ui left icon input">
-            		<%= f.password_field :password_confirmation, :placeholder => "비밀번호를 다시 입력해주세요. (6자리 이상)" , :id => 'signup_confirm_password'%>
-                	<i class="lock icon"></i>
-                </div>
-            </div>
-          </div>
+        </div>
+      </div>
 
-          <div class="option_buttons">
+      <div class="option_buttons">
 		    <div class="already_registered">
-		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :id => 'already_registered'%>	
+		    	<%= link_to '이미 게릴라트 계정이 있나요?', '#', :id => 'already_registered'%>
 		    </div>
 		  	<div class="clear"></div>
 		  </div>
 
-          <div class="go-sign">
-            <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
-          </div>
-          <div class="footer" id="signup_modal_footer"></div>
+      <div class="go-sign">
+        <%= f.submit "가입하기", type: "submit", name: "commit", class: "fluid ui inverted blue button go-sign" %>
+      </div>
+    <div class="footer" id="signup_modal_footer"></div>
   <% end %>
 </div>
-
-<script>
-	//회원가입 모달에서 로그인 모달로 이동
-	$('#already_registered').click(function(event){
-		$('.ui.basic.modal.signup').modal('hide');
-		setTimeout(function(){ $('.ui.basic.modal.signin').modal('show'), 100})
-	});
-
-	//회원가입 모달 닫았을 시 모달 초기화
-	$('.ui.basic.modal.signup').modal({
-	    onHide: function(){
-			$('.footer#signup_modal_footer').html("");
-			$('#signup_password').val('');
-			$('#signup_confirm_password').val('');
-	    }
-	});
-</script>
