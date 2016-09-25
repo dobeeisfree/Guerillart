@@ -1,91 +1,69 @@
 <%= render :partial => "/layouts/headers/header" %>
 <%= render :partial => "/layouts/headers/dashboard" %>
 
-<style>
-.ui.fluid.dropdown{
- width: 450px;
-}
-.ui.form .field>label{
-  color: black;
-}
-.ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=file], .ui.form input[type=url], .ui.form input[type=number], .ui.form textarea {
-width: 450px !important;
-margin-left: auto !important;
-margin-right: auto !important;
-}
-</style>
-
-<!-- 아티스트 등록 페이지 -->
-<div class="container">
-<h2 class="ui dividing header">아티스트 신청서</h2>
-<div class="container" style="margin-bottom: 50px;">
-
-<div class="ui four statistics" style="margin-bottom: 20px; margin-top:10px;">
-  <div class="statistic">
-  </div>
-  <div class="statistic">
-    <div class="value">
-      <i class="users icon"></i> <%=current_user.id%>
+<div class="ui container">
+  <h2 class="ui dividing header">아티스트 신청서</h2>
+  <div class="ui four statistics">
+    <div class="statistic">
+      <div class="value">
+        <i class="users icon"></i> <%=current_user.id%>
+      </div>
+      <div class="label">
+        Artist
+      </div>
     </div>
-    <div class="label">
-      Artist
+    <div class="statistic">
+      <div class="value">
+        <img src="/images/iu.jpg" class="ui circular inline image">
+        <%=current_user.id%>
+      </div>
+      <div class="label">
+        Team Members
+      </div>
     </div>
   </div>
-  <div class="statistic">
-    <div class="value">
-      <img src="/images/iu.jpg" class="ui circular inline image">
-      <%=current_user.id%>
-    </div>
-    <div class="label">
-      Team Members
-    </div>
-  </div>
-  <div class="statistic">
-  </div>
-</div>
 
-<%= form_tag artists_path do %>
-<div class="ui form" style="margin-left :30%; margin-right :auto;">
-  <div class="required twelve field">
-    <label>아티스트명</label>
-    <input type="text" name="name" class="" id="artistname" placeholder="아티스트명은 변경할 수 없습니다" required>
-  </div>
-  <div class="field required">
-    <label>장르</label>
-    <select class="ui fluid dropdown" id="select_genre" name="genre">
-     <option value="">장르를 선택해주세요</option>
-     <option value="힙합/랩">힙합/랩</option>
-     <option value="R&B소울">R&B소울</option>
-     <option value="댄스">댄스</option>
-     <option value="일렉트로닉">일렉트로닉</option>
-     <option value="록">록</option>
-     <option value="재즈">재즈</option>
-     <option value="클래식">클래식</option>
-     <option value="팝">팝</option>
-    </select>
-  </div>
-  <div class="field required">
-    <label>전화번호</label>
-    <input type="text" name="phone_number" class="" id="artistgenre" placeholder="전화번호를 입력해주세요"required>
-  </div>
-  <div class="field required">
-    <label>주활동지역</label>
-    <input type="text" name="area" class="" id="artistgenre" placeholder="주로 플레이하는 지역이 어디인가요?" required>
-  </div>
-  <div class="field required">
-    <label>SNS</label>
-    <input type="text" name="sns" class="" id="artistgenre" placeholder="페이스북주소?">
-  </div>
-  <div class="field required">
-    <label>자기소개</label>
-    <textarea class="" rows="5" name="introduction" placeholder="할말"></textarea>
-  </div>
-
-    <div class="form-group">
-      <input type="submit" class="ui grey basic button" value="추가하기">
+  <%= form_tag artists_path do %>
+  <div class="ui form">
+    <div class="required twelve field">
+      <label>아티스트명</label>
+      <input type="text" name="name" class="" id="artistname" placeholder="아티스트명은 변경할 수 없습니다" required>
     </div>
-</div>
-<% end %>
+    <div class="field required">
+      <label>장르</label>
+      <select class="ui fluid dropdown" id="select_genre" name="genre">
+       <option value="">장르를 선택해주세요</option>
+       <option value="힙합/랩">힙합/랩</option>
+       <option value="R&B소울">R&B소울</option>
+       <option value="댄스">댄스</option>
+       <option value="일렉트로닉">일렉트로닉</option>
+       <option value="록">록</option>
+       <option value="재즈">재즈</option>
+       <option value="클래식">클래식</option>
+       <option value="팝">팝</option>
+      </select>
+    </div>
+    <div class="field required">
+      <label>전화번호</label>
+      <input type="text" name="phone_number" class="" id="artistgenre" placeholder="전화번호를 입력해주세요"required>
+    </div>
+    <div class="field required">
+      <label>주활동지역</label>
+      <input type="text" name="area" class="" id="artistgenre" placeholder="주로 플레이하는 지역이 어디인가요?" required>
+    </div>
+    <div class="field required">
+      <label>SNS</label>
+      <input type="text" name="sns" class="" id="artistgenre" placeholder="페이스북주소?">
+    </div>
+    <div class="field required">
+      <label>자기소개</label>
+      <textarea class="" rows="5" name="introduction" placeholder="할말"></textarea>
+    </div>
 
-</div>
+      <div class="form-group">
+        <input type="submit" class="ui grey basic button" value="추가하기">
+      </div>
+  </div>
+  <% end %>
+
 </div>
