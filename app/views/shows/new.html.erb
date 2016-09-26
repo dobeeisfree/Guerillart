@@ -1,135 +1,62 @@
+<%= render :partial => "/layouts/headers/header" %>
+<%= render :partial => "/layouts/headers/dashboard" %>
 <p><%= flash[:alert] %></p>
-<%= render :partial => "/layouts/header" %>
-<%= render :partial => "/layouts/header_dashboard" %>
-<style>
-.ui.writeshow.form .field>label {
-  color: black;
-}
-.ui.secondary.menu {
-background: black !important;
-margin-top: -14px;
-}
-.form-group {
-  padding-top: 30px;
-  padding-bottom: 70px;
-}
-</style>
+<div class="form-group add-show">
+  <div class="ui attached message">
+    <div class="header">게릴라트하기!</div>
+    <p>아래의 양식을 작성하여 공연을 알리세요!</p>
+  </div>
 
-<div class="form-group" style="margin: 0cm 6cm 0cm 6cm;">
-    <div class="ui attached message">
-      <div class="header">
-      게릴라트하기!
-      </div>
-      <p>아래의 양식을 작성하여 공연을 알리세요!</p>
+  <div class="ui writeshow form attached fluid segment">
+  <%= form_tag('/shows') do %>
+    <div class="required field">
+      <label>공연 타이틀</label>
+      <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
     </div>
-    <div class="ui writeshow form attached fluid segment">
-    <%= form_tag('/shows') do %>
-      <div class="required field">
-        <label>공연 타이틀</label>
-        <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
-      </div>
 
-      <div class="required field">
-        <label>날짜/시간</label>
-        <div class="ui calendar" id="date-time">
-        <div class="ui input left icon">
-          <i class="calendar icon"></i>
-        <input type="text" name="time" placeholder="공연 날짜와 시간을 선택주세요" required>
-        </div>
-        </div>
+    <div class="required field">
+      <label>날짜/시간</label>
+      <div class="ui calendar" id="date-time">
+      <div class="ui input left icon">
+        <i class="calendar icon"></i>
+      <input type="text" name="time" placeholder="공연 날짜와 시간을 선택주세요" required>
       </div>
+      </div>
+    </div>
 
-      <div class="required field">
-        <label>Play List</label>
-        <input type="text" name="playlist"class="form-control" id="6inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
-      </div>
-      <div class="required field">
-        <label>공연 소개</label>
-        <textarea class="form-control" name="show_content"rows="5" id="comment" placeholder="공연은 어떤 식으로 진행되나요?"></textarea>
-      </div>
+    <div class="required field">
+      <label>Play List</label>
+      <input type="text" name="playlist"class="form-control" id="6inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
+    </div>
+    <div class="required field">
+      <label>공연 소개</label>
+      <textarea class="form-control" name="show_content"rows="5" id="comment" placeholder="공연은 어떤 식으로 진행되나요?"></textarea>
+    </div>
 
-      <div class="inline fields" id="radio-button">
-        <label>장르</label>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" checked="/" value="팝">
-            <label>팝</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="힙합/랩">
-            <label>힙합/랩</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="알엔비/소울">
-            <label>알엔비/소울</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="댄스">
-            <label>댄스</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="일렉트로닉">
-            <label>일렉트로닉</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="록">
-            <label>록</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="재즈">
-            <label>재즈</label>
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="genre" value="클래식">
-            <label>클래식</label>
-          </div>
+    <div class="inline fields" id="radio-button">
+      <label>장르</label>
+      <% @names.reverse.each do |n| %>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="genre" checkbox="/" value="<%= n %>">
+          <label><%= n %></label>
         </div>
       </div>
+      <% end %>
+    </div>
+    <div class="required field">
+      <label>장소</label>
+      <input type="text" class="form-control" name="location" placeholder="공연장소를 선택주세요" required>
+    </div>
 
-
-      <div class="required field">
-        <label>장소</label>
-        <input type="text" class="form-control" name="location" placeholder="공연장소를 선택주세요" required>
+    <div class="required field">
+      <div class="ui checkbox" >
+        <input type="checkbox" tabindex="0" class="hidden">
+        <label>I agree to the Terms and Conditions</label>
       </div>
+    </div>
 
-      <div class="required field">
-        <div class="ui checkbox" >
-          <input type="checkbox" tabindex="0" class="hidden">
-          <label>I agree to the Terms and Conditions</label>
-        </div>
-      </div>
-
-
-      <input type="submit" class="ui fluid blue submit button" id="go-Guerillart" value="등록하기">
-    <% end %>
+    <input type="submit" class="ui fluid blue submit button" id="go-Guerillart" value="등록하기">
+  <% end %>
   </div>
 </div>
-
-
-
-<!--  데이트 타임 픽커 -->
-<script>
-$('.ui.checkbox').checkbox();
-</script>
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-<script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
-<script>
-$('#date-time').calendar();
-$('body').css("background", "#f2f2f2");
-</script>

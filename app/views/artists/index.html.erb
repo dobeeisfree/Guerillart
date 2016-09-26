@@ -1,96 +1,60 @@
-<style>
-.ui.card>.image>img, .ui.cards>.card>.image>img {
-    display: block;
-    width: 290px !important;
-    height: 290px !important;
-    border-radius: inherit;
+<%= render :partial => "/layouts/headers/header"%>
+<%= render :partial => "/layouts/headers/sub_artists" %>
 
-}
-.show-body {
-  background:#f4f4f4;
-}
-#show-genres {
-  margin-left: 100px;
-  margin-top: 10px;
-}
-/* 개별 카드 */
-.ui .card {
-  float :left;
-  margin : 20px 20px 20px 20px;
-}
-/* 아티스트 이미지 크기 */
-</style>
-<div class="show-body">
-<%= render :partial => "/layouts/header.html.erb"%>
-<%= render :partial => "/layouts/sub_header_artists" %>
-
-    <div class="ui view container">
-      <div class="ui special cards" id="show-genres">
-        <div class="ui cards">
-        
-        <% user = User.all %>
-         <% user.each do |user| %>
-
-          <% if user.artist_name %> <!-- 아티스트 페이지 클릭시 Default 화면 -->
-          <% artist_name = user.artist_name %>
-            <div class="card">
-              <% if user.avatar.url %>  
-                <div class="blurring dimmable image">
-                  <div class="ui dimmer">
-                    <div class="content">
-                      <div class="center">
-                        <div class="ui inverted button">팔로잉</div>
-                      </div>
-                    </div>
-                  </div>
-                  <img src="<%=user.avatar.url%>">
-                </div>
-              <% else %>
-                <div class="blurring dimmable image">
-                  <div class="ui dimmer">
-                    <div class="content">
-                      <div class="center">
-
-                      <% @users = user %>
-                      <% if user_signed_in? && current_user.id != @users.id %>
-                        <% if current_user.followings.include?(@users) %>
-                          <%= form_tag follow_path(@users.id), method: :delete, class: "right" do %>
-                            <button class="ui inverted button">팔로우 취소</button>
-                          <% end %>
-                        <% else %>
-                          <%= form_tag follows_path, class: "right" do %>
-                            <input type="hidden" name="followed_id" value="<%= @users.id %>" />
-                            <button class="ui inverted button">팔로우</button>
-                          <% end %>
-                        <% end %>
-                      <% end %>
-
-                      </div>
-                    </div>
-                  </div>
-                  <img src="http://www.baedalnet.com/data/mw.cheditor/1402/c737496a1e90569ea8e24a8058a1b624_dSkWVsZntgKDtzpQEAG.jpg"> 
-                </div>
-              <% end %>
-              <div class="content"> 
-                <a class="header" href="/artists/<%=artist_name%>"><%=user.artist_name%><input type="hidden" name="artist_name" value="artist_name"></a>
-                <div class="meta">
-                  <a><%=user.genre%></a>
-                </div>
-                <div class="description">
-                 <%=user.introduction%> 
+<div class="ui artist container">
+  <div class="ui special cards" id="artist-cards">
+    <div class="ui artist cards">
+     <% @user.each do |user| %>
+      <% if user.artist_name %>
+        <div class="card">
+          <% if user.avatar.url %>
+          <div class="blurring dimmable image">
+            <div class="ui dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui inverted button">팔로잉</div>
                 </div>
               </div>
             </div>
+            <img src="<%=user.avatar.url%>">
+          </div>
+          <% else %>
+            <div class="blurring dimmable image">
+              <div class="ui dimmer">
+                <div class="content">
+                  <div class="center">
+                  <% if user_signed_in? && current_user.id != user.id %>
+                    <% if current_user.followings.include?(user) %>
+                      <%= form_tag follow_path(user.id), method: :delete, class: "right" do %>
+                        <button class="ui inverted button">팔로우 취소</button>
+                      <% end %>
+                    <% else %>
+                      <%= form_tag follows_path, class: "right" do %>
+                        <input type="hidden" name="followed_id" value="<%= user.id %>" />
+                        <button class="ui inverted button">팔로우</button>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+              <img class="ui image" src="/images/iu.jpg">
+            </div>
           <% end %>
-         <% end %>
-
+          <div class="content">
+            <a class="header" href="/artists/<%=user.artist_name%>">
+              <%=user.artist_name%>
+            </a>
+            <div class="meta">
+              <a><%=user.genre%></a>
+            </div>
+            <div class="description">
+             <%=user.introduction%>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
+     <% end %>
     </div>
+  </div>
 </div>
-
-<script>
-$('.special.cards .image').dimmer({
-  on: 'hover'
-});
-</script>

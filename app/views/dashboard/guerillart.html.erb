@@ -1,25 +1,8 @@
-<%= render :partial => "/layouts/header" %>
-<%= render :partial => "/layouts/header_dashboard" %>
-<style>
-.ui.vertical.menu.guerillart {
-  margin-left: 40px;
-  margin-top: 40px;
-}
-#show-genres {
-  margin-top: 30px;
-}
-.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column {
-  width: 70%;
-}
-#guerillart-menu {
-  width: 300px;
-}
-</style>
-
+<%= render :partial => "/layouts/headers/header" %>
+<%= render :partial => "/layouts/headers/dashboard" %>
 <div class="ui two column grid">
   <div class="column 1" id="guerillart-menu">
     <div class="ui guerillart vertical menu">
-
       <div class="item" id="inbox-show">
           내가 본 공연
         <div class="ui label"><i>커밍쑨</i></div>
@@ -38,23 +21,16 @@
         <div class="ui label"><%= current_user.followings.size %></div>
       <% end %>
       </div>
-
     </div>
   </div>
 
   <div class="column 2" id="selecting-menu-item-view">
-    <!-- 랜더링이 되는 곳-->
     <% if @menu == "liked_show" %>
-        <%= render partial: "layouts/guerillart_liked_show" %>
+        <%= render partial: "layouts/guerillarts/liked_show" %>
     <% elsif @menu == "followed_artist" %>
-        <%= render partial: "layouts/guerillart_followed_artist" %>
+        <%= render partial: "layouts/guerillarts/followed_artist" %>
     <% else %>
-        <%= render partial: "layouts/guerillart_liked_show" %> <%#디폴트로 찜한 공연 보여주기%>
+        <%= render partial: "layouts/guerillarts/liked_show" %> <%#디폴트로 찜한 공연 보여주기%>
     <% end %>
   </div>
-<!-- 각 공연 당, 카드 이미지 호버 -->
-<script>
-$('.special.cards .image').dimmer({
-  on: 'hover'
-});
-</script>
+</div>

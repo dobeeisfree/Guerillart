@@ -1,78 +1,67 @@
-<%= render :partial => "/layouts/header" %>
-<%= render :partial => "/layouts/header_dashboard" %>
+<%= render :partial => "/layouts/headers/header" %>
+<%= render :partial => "/layouts/headers/dashboard" %>
 
-<style>
-.ui.form .field>label{
-  color: black;
-}
-.ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=file], .ui.form input[type=url], .ui.form input[type=number], .ui.form textarea {
-
-width: 450px !important;
-margin-left: auto !important;
-margin-right: auto !important;
-
-}
-</style>
-
-<div class="container">
-  <h2 class="ui dividing header">계정 관리</h2>
-  <div class="container" style="margin-bottom: 50px;">
-  	<%= form_for(resource, :as => resource_name, :html => { multipart: true, method: :put, id: 'register_edit' }, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
-          <div class="ui centered card">
-            <div class="image">
-             <% if current_user.avatar.url %>
-              <img src="<%= current_user.avatar.url %>">
-             <% else %>
-              <img src="/images/iu.jpg">
+<div class="ui profile container">
+	<%= form_for(resource, :as => resource_name, :html => { multipart: true, method: :put, id: 'register_edit' },
+   :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
+   <div class="ui two column grid">
+     <div class="column user">
+       <div class="ui centered card">
+         <div class="image">
+            <% if current_user.avatar.url %>
+             <img src="<%= current_user.avatar.url %>">
+            <% else %>
+             <img src="/images/iu.jpg">
+            <% end %>
+           <div class="input-field">
+             <%= f.file_field :avatar %>
+           </div>
+         </div>
+         <div class="content">
+           <div class="center header">
+           <i class="user icon"></i>
+             <%=current_user.name%>
+           </div><br>
+           <div class="center header">
+           <i class="mail icon"></i>
+             <%=current_user.email%>
+           </div><br>
+           <div class="center header">
+           <i class="calendar icon"></i>
+             <%= current_user.created_at%>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="column info">
+       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+       <% end %>
+       <div class="ui form">
+         <div class="required field">
+           <label>이름</label>
+           <%= f.text_field :name, placeholder: "#{current_user.name}",  autofocus: true %>
+         </div>
+         <div class="field required">
+           <label>현재 비밀번호</label>
+             <%= f.password_field :current_password, autocomplete: "off", required: "true" %>
+         </div>
+         <div class="field">
+           <label>새 비밀번호 </label>
+             <%= f.password_field :password, autocomplete: "off", placeholder: "6자리 이상"%>
+             <% if @minimum_password_length %>
+               <br />
+               <em><%= @minimum_password_length %> characters minimum</em>
              <% end %>
-            <div class="input-field">
-              <%= f.file_field :avatar%>
-            </div>
-            </div>
-            <div class="content">
-              <div class="center header">
-              <i class="user icon"></i>
-                <%=current_user.name%>
-              </div><br>
-              <div class="center header">
-              <i class="mail icon"></i>
-                <%=current_user.email%>
-              </div><br>
-              <div class="center header">
-              <i class="calendar icon"></i>
-                <%= current_user.created_at%>
-              </div>
-            </div>
-          </div>
-
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
-
-          <div class="ui form" style="margin-left :30%; margin-right :auto;">
-              <div class="required twelve field">
-                <label>이름</label>
-                <%= f.text_field :name, placeholder: "#{current_user.name}",  autofocus: true %>
-              </div>
-              <div class="field required">
-                <label>현재 비밀번호</label>
-                  <%= f.password_field :current_password, autocomplete: "off", required: "true" %>
-              </div>
-              <div class="field">
-                <label>새 비밀번호 </label>
-                  <%= f.password_field :password, autocomplete: "off", placeholder: "6자리 이상"%>
-                  <% if @minimum_password_length %>
-                    <br />
-                    <em><%= @minimum_password_length %> characters minimum</em>
-                  <% end %>
-              </div>
-              <div class="field">
-                <label>새 비밀번호 다시 입력</label>
-                 <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "6자리 이상"%>
-              </div>
-            <button class="ui grey basic button" type="submit" name="commit"> 변경
-            </button>
-          </div>
-      <% end %>
-      </div>
+         </div>
+         <div class="field">
+           <label>새 비밀번호 다시 입력</label>
+            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "6자리 이상"%>
+         </div>
+         <button class="ui grey fluid basic button" type="submit" name="commit">변경</button>
+       </div>
+     </div>
+   </div>
+  <% end %>
+  </div>
 </div>

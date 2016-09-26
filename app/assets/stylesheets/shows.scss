@@ -1,3 +1,122 @@
-// Place all the styles related to the shows controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// index.html.erb
+/* 공연 바디 */
+.show-body {
+  padding-bottom: 30px;
+}
+
+/* 서브네비바 */
+.ui.subshow.menu {
+
+  margin-top: -15px;
+  background: #FAFAFA;
+  border-radius: 0;
+  border:none;
+
+  .ui.subshow.container {
+    width: 30%;
+    text-align: center;
+  }
+
+  /* dropdown */
+  .ui.button {
+    background : transparent;
+  }
+
+  /* 전체 가운데 정렬 */
+  .sub.dropdown.genre, .sub.dropdown.show {
+    margin : 0 auto;
+  }
+}
+
+/* 전체 장르목록을 감싸는 디브 */
+#show-genres {
+  margin : 0 auto;
+
+  /* 개별 카드 */
+  .card {
+    float :left;
+    margin : 10px auto !important;
+  }
+}
+
+.ui.view.container {
+  margin-bottom: 30px;
+}
+
+
+
+
+// _mpdal.html.erb
+.ui.view.modal {
+  margin-top: -300px;
+  text-align: center;
+
+  /* title */
+  .header:not(.ui) {
+
+    text-align: left;
+    p.header {
+      font-size: 1.5em;
+      margin-bottom: 1px;
+    }
+  }
+  .image.content {
+    background: #f2f2f2;
+  }
+  img.ui.small.circular.image {
+    width: 60px;
+    height: auto;
+    float:left;
+    margin-right: 10px;
+  }
+  .ui.fluid.image {
+    width: 400px;
+    float: left;
+  }
+  .actions {
+    text-align: center;
+  }
+  .description {
+    text-align: left;
+    float:right;
+    width: 310px;
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  h3:first-child {
+    margin-top : 10px;
+  }
+
+}
+
+
+
+// show.html.erb
+.view-body {
+  margin-top: -13px;
+}
+.shot.container {
+  background-color: white;
+}
+.ui.shot.header {
+  text-align: center;
+  img {
+    margin: 0 auto;
+  }
+
+}
+
+
+// new.html.erb
+@import "datatime.css"; // 캘린더용
+.ui.writeshow.form .field>label {
+  color: black;
+}
+.add-show {
+  margin : 0cm 6cm 0cm 6cm;
+}
+.form-group {
+  padding-top: 30px;
+  padding-bottom: 70px;
+}

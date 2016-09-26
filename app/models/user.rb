@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :name, length: { in: 2..12 }
+  validates :phone_number, 
+            :numericality => {:only_integer => true },
+            :allow_nil => true
+        
+  
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :image, BannerImageUploader
@@ -37,4 +42,6 @@ class User < ActiveRecord::Base
   def is_like?(show)
     Like.find_by(user_id: self.id, show_id: show.id).present?
   end
+  # 한 페이지당 보여지는 카드 수
+  self.per_page = 9
 end

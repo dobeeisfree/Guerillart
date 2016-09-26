@@ -13,3 +13,107 @@
  *= require_tree .
  *= require_self
  */
+
+/*
+  메인 home을 제외한, 헤더들, 모달들
+*/
+
+
+ /* 모달 조정 */
+ .modal {
+   display: none;
+   overflow: hidden;
+   -webkit-overflow-scrolling: touch;
+   outline: 0;
+
+     /* 모달의 폼 */
+     .ui.form .field>label {
+       color: white;
+       font-weight: bold;
+     }
+     .ui.basic.modal>.header {
+       font-size: 3em;
+     }
+
+    /* 이미 게릴라트 계정이 있나요? */
+    div.option_buttons {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+ }
+
+
+
+ /* 네비바 조정 */
+ .ui.secondary.menu.general-header {
+   margin-top: 0px;
+   background: black;
+
+   /* 네비바 글자들 */
+  a.item, .ui.simple.dropdown {
+     color : white;
+     font-weight: bold;
+   }
+
+   /* 서치바: 검색해보세요 */
+   .ui.input input {
+      color : white;
+      font-weight: bold;
+      text-align: left;
+
+      border : none;
+      background: transparent;
+      outline: 0;
+   }
+   // 서치바의 인풋창
+   .ui[class*="left action"].input>.button,
+   .ui[class*="left action"].input>.buttons>.button,
+   .ui[class*="left action"].input>.dropdown {
+     background: transparent;
+     color:white;
+   }
+
+ }
+
+ /* footer */
+ footer {
+   width: 100%;
+   height: 30px;
+   text-align: center;
+   background: rgba(30, 30, 30, 0.8);
+   color: white;
+   margin: 0 auto;
+   padding: 4px 30px 20px 30px;
+
+   position:fixed;
+   right: 0;
+   bottom: 0;
+   left: 0;
+ }
+
+
+// devise
+/* 회원가입 */
+#signup-modal {
+ max-width: 450px;
+ margin-top: -100px;
+}
+
+/* 회원가입의 x 버튼 */
+#signup-close {
+ padding-left: 5%;
+}
+
+/* 비밀번호찾기 */
+#forgot_pswd-modal {
+ max-width: 450px;
+}
+
+/* 로그인 */
+#signin-modal {
+ max-width: 450px;
+}
+/* 로그인의 x 버튼 */
+.ui.basic.modal>.close {
+ padding-left: 5%;
+}

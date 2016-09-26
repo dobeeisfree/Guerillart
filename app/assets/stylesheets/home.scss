@@ -1,3 +1,81 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// 메인홈
+$r : 0;
+$g : 0;
+$b : 0;
+$alpha : 0.05;
+
+  // 네비바 레이아웃
+ .ui.secondary.menu.home {
+//   margin-top: 0px;
+//   box-shadow: 3px 3px 100px;
+
+   .item {
+     color : rgba(230, 230, 230, 0.6);
+     font-weight: bold;
+   }
+   @media (max-width: 500px) {
+     font-size: 0.7em;
+   }
+//   .item:hover {
+//     background: rgba($r, $g, $b, $alpha);
+//     color: white !important;
+//   }
+ }
+
+// 홈의 uni_body
+
+#uni_body {
+ background-image: asset-url('tower.jpg');
+ background-size: cover;
+ height: 100%;
+}
+
+/* 홈의 내용 */
+.home {
+    
+  margin-top: 14%;
+
+  /* 모바일 메인 글귀 */
+  @media (max-width: 743px) {
+    #brand-text {
+      margin-top: 25% !important;
+    }
+    .ui.massive.icon.input{
+      text-align: center;
+
+      /* 지도 서치바 */
+      input#location {
+        font-size: 0.7em !important;
+      }
+    }
+  }
+	/* 메인 글귀 */
+	#brand-text {
+    font-size: 4em;
+    text-transform: uppercase;
+		text-align:center;
+		color: white;
+	}
+
+  /* 지도 인풋 */
+	.ui.massive.icon.input{
+		text-align: center;
+
+		/* 지도 서치바 */
+		input#location {
+			color : white;
+			font-weight: bold;
+			font-size: 1em;
+			text-align: center;
+
+			border :none;
+			border-bottom: 3px solid white;
+			border-radius: 1px;
+
+		  background: transparent;
+		  outline: 0;
+
+			margin-top: 10px;
+		}
+	}
+}
