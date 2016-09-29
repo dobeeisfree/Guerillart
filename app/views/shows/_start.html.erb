@@ -7,25 +7,90 @@
 	.ui.basic.modal>.close {
 	  padding-left: 20%;
 	}
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #map_play {
+    height: 300px;
+    width: 100%;
+  }
 </style>
 
-<!-- Start of showFinish modal -->
-<div class="ui basic modal showStart" id="showStart-modal">
-  <i class="close icon"></i>
-  <div class="header">공연시작</div>
-  <div class="field">
-    <div>
-      <label>이 위치가 맞으신가요?</label>
-    </div>
-    <div class="ui input">
-      <input type="text" name="pos-input" value="hi">
-    </div>
-  </div>
-  <form action="/shows/start" method="put">
-   	<div class="form-group">
-      <input type="submit" class="fluid ui inverted green button" value="확인">
-		</div>
 
-  	<div class="footer" id="start_modal_footer"></div>
-  </form>
-</div>
+
+<script>
+  var playMap;
+  var playMarker;
+
+  function initMap() {
+    playMap = new google.maps.Map(document.getElementById('map_play'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 16
+    });
+    playMarker = new google.maps.Marker({
+      map : playMap,
+      position : {lat: -34.397, lng: 150.644},
+      draggable : true
+    });
+    // var infoWindow = new google.maps.InfoWindow({map: map});
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        playMarker.setPosition(pos);
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent('Location found.');
+        playMap.setCenter(pos);
+      }, function() {
+        // handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      // handleLocationError(false, infoWindow, map.getCenter());
+    }
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+  }
+</script>
+
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
+</script>
+
+<!-- Start of showFinish modal -->
+<!-- <body onload="initMap()"> -->
+  <div class="ui basic modal showStart" id="showStart-modal">
+    <i class="close icon"></i>
+    <div class="header">공연시작</div>
+    <div class="field">
+      <div>
+        <label>이 위치가 맞으신가요?</label>
+      </div>
+      <div class="ui input">
+        <input type="text" name="pos-input" value="hi">
+      </div>
+      <div id="wrapper">
+        <div id="map_play"></div>
+      </div>
+    </div>
+    <form action="/shows/start" method="put">
+     	<div class="form-group">
+        <input type="submit" class="fluid ui inverted green button" value="시작!">
+  		</div>
+
+    	<div class="footer" id="start_modal_footer"></div>
+    </form>
+  </div>
+<!-- </body> -->
