@@ -13,6 +13,9 @@ $alpha : 0.05;
      color : rgba(230, 230, 230, 0.6);
      font-weight: bold;
    }
+   @media (max-width: 500px) {
+     font-size: 0.7em;
+   }
 //   .item:hover {
 //     background: rgba($r, $g, $b, $alpha);
 //     color: white !important;

@@ -1,3 +1,112 @@
-// Place all the styles related to the searching controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+  2016-09-24
+  searching/index.html.erb
+*/
+html {
+  height: 100%
+}
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  /*font-size: 9pt;*/
+}
+
+/*div {
+  float: left;
+}*/
+#map_canvas {
+  width: 100%;
+  height: 100%;
+}
+#wrapper{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#over_info{
+  background: rgba(112,112,112, 0.5) !important;
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 22%;
+  z-index: 99;
+  border-radius: 3px;
+
+}
+
+#control {
+}
+
+input {
+  font-size: 9pt;
+}
+div#s_all{
+  width: 100%;
+  height: 92%;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+div#s_left {
+  width: 66%;
+  height: 100%;
+  float: left;
+}
+#s_right {
+  width: 33%;
+  height: 100%;
+  overflow-y:scroll;
+  float: left;
+}
+.gm-style-iw + div {display: none;}	/*infowindow x 버튼 삭제*/
+
+#styles, #add-tab {
+    float: left;
+      margin-top: 10px;
+      width: 400px;
+  }
+      #styles label,
+    #add-tab label {
+      display: inline-block;
+      width: 130px;
+    }
+    .phoney {
+      overflow: hidden !important;
+     /*line-height: 1.4;*/
+     white-space: nowrap;
+      /*line-height: 25px;*/
+      /*width: auto !important; */
+      min-width: 20;
+      min-height: 23;
+      max-width: 160;
+      max-height: 50;
+      font-weight: bold;
+      text-align: center;
+      /*text-overflow: ellipsis; */
+      white-space: nowrap;
+      /*overflow: hidden;*/
+      font-size: 16px;
+      /*background: rgb(112,112,112) !important;*/
+      margin-top: 2px;
+      /*background: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(112,112,112)),color-stop(0.51, rgb(94,94,94)),color-stop(0.52, rgb(57,57,57)));*/
+      /*background: -moz-linear-gradient(center top,rgb(112,112,112) 0%,rgb(94,94,94) 51%,rgb(57,57,57) 52%);*/
+    }
+  .phoneytext {
+    text-shadow: 0 -1px 0 #000;
+    color: #fff;
+    font-family: Helvetica Neue, Helvetica, arial;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 4px 45px 4px 15px;
+    font-weight: bold;
+    /*background: url(../images/arrow.png) 95% 50% no-repeat;*/
+  }
+  .phoneytab {
+    text-shadow: 0 -1px 0 #000;
+    color: #fff;
+      font-family: Helvetica Neue, Helvetica, arial;
+      font-size: 18px;
+      background: rgb(112,112,112) !important;
+  }
