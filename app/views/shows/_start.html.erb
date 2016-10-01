@@ -1,24 +1,9 @@
 <style>
-	/* 공연종료 */
-	#showStart-modal {
-	  max-width: 450px;
-	}
-	/* 공연종료의 x 버튼 */
-	.ui.basic.modal>.close {
-	  padding-left: 20%;
-	}
-  body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
   #map_play {
     height: 300px;
     width: 100%;
   }
 </style>
-
-
 
 <script>
   var playMap;
@@ -27,14 +12,33 @@
   function initMap() {
     playMap = new google.maps.Map(document.getElementById('map_play'), {
       center: {lat: -34.397, lng: 150.644},
-      zoom: 16
+      zoom: 17,
+
+      scrollwheel : false,
+      navigationControl : false, // 눈금자 형태로 스케일 조절하는 컨트롤 활성화 선택.
+      navigationControlOptions : {
+        position : google.maps.ControlPosition.TOP_RIGHT,
+        style : google.maps.NavigationControlStyle.DEFAULT // ANDROID, DEFAULT, SMALL, ZOOM_PAN
+      },
+
+      streetViewControl : false,
+
+      scaleControl : false, // 지도 축적 보여줄 것인지.
+      //scaleControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT },
+
+      mapTypeControl : false, // 지도,위성,하이브리드 등등 선택 컨트롤 보여줄 것인지
+      mapTypeId : google.maps.MapTypeId.ROADMAP // HYBRID, ROADMAP, SATELLITE, TERRAIN
+
     });
     playMarker = new google.maps.Marker({
       map : playMap,
       position : {lat: -34.397, lng: 150.644},
       draggable : true
+
     });
     // var infoWindow = new google.maps.InfoWindow({map: map});
+
+    addYourLocationButton2(playMap, playMarker);
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -60,9 +64,68 @@
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-                          'Error: Your browser doesn\'t support geolocation.');
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
   }
+
+  //gps버튼 추가 함수
+  function addYourLocationButton2 (map, marker)
+  {
+      var controlDiv = document.createElement('div');
+
+      var firstChild = document.createElement('button');
+      firstChild.style.backgroundColor = '#fff';
+      firstChild.style.border = 'none';
+      firstChild.style.outline = 'none';
+      firstChild.style.width = '28px';
+      firstChild.style.height = '28px';
+      firstChild.style.borderRadius = '2px';
+      firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+      firstChild.style.cursor = 'pointer';
+      firstChild.style.marginRight = '10px';
+      firstChild.style.padding = '0';
+      firstChild.title = 'Your Location';
+      controlDiv.appendChild(firstChild);
+
+      var secondChild = document.createElement('div');
+      secondChild.style.margin = '5px';
+      secondChild.style.width = '18px';
+      secondChild.style.height = '18px';
+      secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-2x.png)';
+      secondChild.style.backgroundSize = '180px 18px';
+      secondChild.style.backgroundPosition = '0 0';
+      secondChild.style.backgroundRepeat = 'no-repeat';
+      firstChild.appendChild(secondChild);
+
+      google.maps.event.addListener(map, 'center_changed', function () {
+          secondChild.style['background-position'] = '0 0';
+      });
+
+      //gps 클릭시
+      firstChild.addEventListener('click', function ()
+      {
+        if (navigator.geolocation)
+        {
+          navigator.geolocation.getCurrentPosition(function (position)
+          {
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+
+            (function(){
+              marker.setPosition(map.getCenter());
+            })();
+          });
+        }
+        else
+        {
+          clearInterval(animationInterval);
+          secondChild.style['background-position'] = '0 0';
+        }
+      });
+
+      controlDiv.index = 1;
+      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+  }
+
 </script>
 
 <script async defer
@@ -71,7 +134,7 @@
 
 <!-- Start of showFinish modal -->
 <!-- <body onload="initMap()"> -->
-  <div class="ui basic modal showStart" id="showStart-modal">
+  <div class="ui basic modal nav" id="showStart">
     <i class="close icon"></i>
     <div class="header">공연시작</div>
     <div class="field">

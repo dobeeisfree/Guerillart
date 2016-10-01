@@ -1,16 +1,18 @@
 <style>
-	/* 공연종료 */
-	#showFinish-modal {
+	/* nav modal */
+	.ui.basic.modal.nav {
 	  max-width: 450px;
+    overflow: hidden;
+    position: fixed;
 	}
-	/* 공연종료의 x 버튼 */
-	.ui.basic.modal>.close {
-	  padding-left: 20%;
-	}
+   /*nav modal x 버튼 */
+  .ui.basic.modal.nav>.close {
+    right: 0px;
+  }
 </style>
 
 <!-- Start of showFinish modal -->
-<div class="ui basic modal showFinish" id="showFinish-modal" value="">
+<div class="ui basic modal nav" id="showFinish" value="">
   <i class="close icon"></i>
   <div class="header">공연종료</div>
   <form action="/shows/finish" method="put">

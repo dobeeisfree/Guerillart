@@ -1,5 +1,5 @@
-<div class="ui basic modal signup" id="signup-modal">
-  <i class="close icon" id="signup-close"></i>
+<div class="ui basic modal nav" id="signup">
+  <i class="close icon"></i>
   <div class="header">회원가입</div>
   	<%= form_for(resource, :as => resource_name, :html => {:id => 'register_form'}, :url => user_registration_path, :remote => :true, :format => :json) do |f| %>
       <div class="ui form">

@@ -271,10 +271,10 @@
         {
           navigator.geolocation.getCurrentPosition(function (position)
           {
-            globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 
             (function(){
-              centerMarker.setPosition(globalMap.getCenter());
+              marker.setPosition(map.getCenter());
               updateMarkerBubbles();
             })();
           });

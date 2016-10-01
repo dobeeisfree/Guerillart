@@ -106,15 +106,9 @@
       url: "/shows/starting",
       data: { show_id: show_id},
       success: function(result){
-        // results.id
-        $('.ui.basic.modal.showStart').modal('show');
-        document.getElementById('start_modal_footer').innerHTML="hihsdfdsfdsfdsi "+result.id;
+        $('.ui.basic.modal.nav#showStart').modal('show');
         var pos_input = $('input[name=pos-input]');
         pos_input.focus();
-        // var tmpStr = $('input[name=myInput]').val();
-        // $('input[name=myInput]').val('');
-        // $('input[name=myInput]').val(tmpStr);
-        // var tmpStr = input.val();
         pos_input.val('');
         pos_input.val(result.location);
         initMap();
@@ -134,6 +128,11 @@
     // $('.ui.basic.modal.showStart').modal('show');
 
   });
+  // $('.ui.basic.modal.showStart').modal({
+	//     onShow: function(){
+  //       // $('body').css({overflow: 'hidden'}); 
+	//     }
+	// });
 </script>
 <!--두개로 나누지 않을 경우 위에 있는 modal이 존재 하지 않으면 하단에 위치한 코드가 실행 되지 않게 된다-->
 <script>
@@ -141,4 +140,7 @@
     console.log("감사");
     $('.ui.basic.modal.showFinish').modal('show');
   }
+
+
+
 </script>
