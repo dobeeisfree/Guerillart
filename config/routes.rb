@@ -6,15 +6,16 @@ Rails.application.routes.draw do
   get '/dashboard/home' => 'dashboard#home'
   get '/dashboard/guerillart' => 'dashboard#guerillart'
   get '/dashboard/profile' => 'dashboard#profile'
+  get '/dashboard/manage' => 'dashboard#manage'
 
   get '/shows/:show_id/like' => 'likes#like_toggle'
   resources :shows
 
-  resources :artists, only: [:index, :new], param: :name   #매개변수를 기존의 artist_id에서 artist_name으로 변경  
+  resources :artists, only: [:index, :new], param: :name   #매개변수를 기존의 artist_id에서 artist_name으로 변경
   get '/artists/:artist_name' => 'artists#page'
   get '/artists/:artist_name/edit' => 'artists#edit'
   put '/artists/:artist_name' => 'artists#update'
- 
+
   resources :posts, only: [:create, :destroy, :update]
   resources :comments, only: [:create, :destroy]
 
