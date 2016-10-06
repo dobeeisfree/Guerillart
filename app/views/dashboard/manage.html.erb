@@ -1,0 +1,48 @@
+<%= render :partial => "/layouts/headers/header" %>
+<%= render :partial => "/layouts/headers/dashboard" %>
+
+<div class="ui manage container">
+  <br>
+  <%= link_to(new_show_path, class: "ui fluid large primary animated button") do%>
+    <div class="visible content">등록하기</div>
+    <div class="hidden content">
+     <i class="write icon"></i>
+    </div>
+  <% end %>
+
+  <div class="ui divided items">
+
+    <% @your_shows.each do |show| %>
+    <div class="item">
+      <div class="image">
+        <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg">
+      </div>
+      <div class="content">
+        <a class="header" href="/shows/<%=show.id%>" target="_blank"><%= show.title %></a>
+        <div class="meta">
+          <span class="cinema"><%= show.content %></span>
+        </div>
+        <div class="description">
+          <p><%= show.playlist %></p>
+        </div>
+        <div class="extra">
+          <div class="ui small right floated animated icon buttons">
+            <button class="ui grey basic button">
+              <i class="edit icon"></i>
+            </button>
+            <button class="ui grey basic button">
+              <i class="remove icon"></i>
+            </button>
+          </div>
+          <div class="ui label"><%= show.time %></div>
+          <div class="ui label">
+            <i class="marker icon"></i>
+             <%= show.location %>
+           </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+</div>

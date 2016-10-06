@@ -1,15 +1,12 @@
 <div class="ui container">
   <div class="ui subshow menu">
-
-          <a class="item" href="/dashboard/home" method="get">대쉬보드</a>
-          <a class="item" href="/dashboard/guerillart" method="get">나의게릴라트</a>
-          <a class="item" href="/dashboard/profile" method="get">계정관리</a>
-          <% if current_user.artist_name %>
-            <% artist_name = current_user.artist_name %>
-              <a class="item" href="/shows/new" method="get">공연등록</a>
-            <% else %>
-              <a class="item" href="/artists/new" method="get">아티스트 신청서</a>
-          <% end %>
-
+    <a class="item" href="/dashboard/home" method="get">대쉬보드</a>
+    <a class="item" href="/dashboard/guerillart" method="get">나의게릴라트</a>
+    <a class="item" href="/dashboard/profile" method="get">계정관리</a>
+    <% if current_user.artist_name %>
+      <a class="item" href="/dashboard/manage" method="get">공연관리</a>
+      <% else %>
+      <a class="item" href="/artists/new" method="get">아티스트 신청서</a>
+    <% end %>
   </div>
 </div>
