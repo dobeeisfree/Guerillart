@@ -90,61 +90,104 @@ class ShowsController < ApplicationController
   end
 
   def starting
-    @id = params[:show_id].to_i
-    # puts "starting id : " + @id.to_s
 
-    if(@id == 0)
+    if current_user.playing_id == 0
+      @id = params[:show_id].to_i
+      # puts "starting id : " + @id.to_s
 
-    elsif @id > 0
-      @st_show = Show.find_by(id: @id)
 
+      if(@id == 0) #즉석 공연
+        @st_show = ""
+      elsif @id > 0 #예정 공연
+        @st_show = Show.find_by(id: @id)
+      end
       render :json => @st_show.to_json
+
+    else
+      flash[:alert] = "이미 진행중인 공연이 존재합니다."
     end
 
-  end
+  end #starting
 
   def start
-    #if 즉석공연이라면
-    @show = Show.new
-    @show.title = current_user.artist_name + "님의 즉석 공연"
-    @show.start = params[:time].to_time
-    @show.genre = current_user.genre
-    @show.location = params[:location]
-    @show.creator_id = current_user.id
-    @show.status = 1
 
-    #else 등록된 공연이라면
-    @show = Show.find(params[:show_id])
-    @show.start = Time.now
-    @show.location_x = params[:loc_x]
-    @show.location_y = params[:loc_y]
-    @show.location = params[:location]
-    @show.status = 1
-    #end
+    if current_user.playing_id == 0
 
-    if @show.save
-      flash[:alert] = "공연을 시작하였습니다."
-      redirect_to :back
+      #if 즉석공연이라면
+      @show = Show.new
+      @show.title = current_user.artist_name + "님의 즉석 공연"
+      @show.start = params[:time].to_time
+      @show.genre = current_user.genre
+      @show.location = params[:location]
+      @show.creator_id = current_user.id
+      @show.status = 1
+
+      #else 등록된 공연이라면
+      @show = Show.find_by(id: params[:show_id])
+      @show.start = Time.now
+      @show.location_x = params[:loc_x]
+      @show.location_y = params[:loc_y]
+      @show.location = params[:location]
+      @show.status = 1
+      #end
+
+      if @show.save
+        flash[:alert] = "공연을 시작하였습니다."
+        current_user.playing_id = @show.id
+        redirect_to :back
+      else
+        flash[:alert] = "post.errors.values.flatten.join(' ')"
+        redirect_to :back
+      end
+
     else
-      flash[:alert] = "post.errors.values.flatten.join(' ')"
-      redirect_to :back
+      flash[:alert] = "이미 진행중인 공연이 존재합니다."
     end
 
-  end
+  end #start
+
+  # def finishing
+  #
+  #   if current_user.playing_id != 0
+  #
+  #     @fin_id = params[:show_id].to_i
+  #
+  #     if(@id == 0)
+  #
+  #     elsif @id > 0
+  #       @fin_show = Show.find_by(id: @fin_id)
+  #
+  #       render :json => @fin_show.to_json
+  #     end
+  #
+  #
+  #
+  #   else
+  #     flash[:alert] = "현재 진행중인 공연이 없습니다."
+  #   end
+  #
+  # end
 
   def finish
-    @show = Show.find(params[:show_id])
-    @show.status = 2
+    if current_user.playing_id != 0
 
-    if @show.save
-      flash[:alert] = "공연을 종료하였습니다."
-      redirect_to :back
+      @fin_show = Show.find_by(id: current_user.playing_id)
+      @fin_show.status = 2
+
+      if @fin_show.save
+        flash[:alert] = "공연을 종료하였습니다."
+        current_user.playing_id = 0
+        redirect_to :back
+      else
+        flash[:alert] = "post.errors.values.flatten.join(' ')"
+        redirect_to :back
+      end
+
     else
-      flash[:alert] = "post.errors.values.flatten.join(' ')"
-      redirect_to :back
+      flash[:alert] = "현재 진행중인 공연이 없습니다."
     end
 
-  end
+  end #finish
 
 
 end

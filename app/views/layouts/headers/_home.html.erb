@@ -6,141 +6,189 @@
     <div class="right menu"> <!-- 오른쪽 Navbar -->
       <!--공연 control-->
       <% if user_signed_in? and current_user.artist_name.present? %>
-        <% Show.index %>
-        <% @res_search = Show.search do %>
-          <% all_of do %>
-            <% with(:creator_id, current_user.id) %>
-            <% with(:status, 1) %>
-          <% end %>
-        <% end %>
 
-        <%# @res_shows = @res_search.results %>
-        <!--현재 공연중이라면-->
-        <% if @res_search.results.present? %>
+        <!-- 현재 공연중이라면 -->
+        <% if current_user.playing_id != 0 %>
+          <%= render :partial => "/shows/finish" %>
           <a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
-          <% puts "hi : " + @res_search.results.to_s%>
 
+        <!-- 공연중이 아니라면 -->
         <% else %>
+          <%= render :partial => "/shows/start" %>
+
           <div class="ui right dropdown item">
             <div class="ui simple dropdown">
               <div class="text" style="color: yellow;">시작하기</div>
               <i class="dropdown icon" style="color: yellow;"></i>
                 <div class="menu">
+                  <div class="item st" value="0">즉석 공연</div>
+                  <div class="divider"></div>
+                  <!-- 예정 공연 검색 -->
+                  <% Show.index %>
+                  <% @res_search = Show.search do %>
+                    <% all_of do %>
+                      <% with(:creator_id, current_user.id) %>
+                      <% with(:status, 0) %>
+                    <% end %>
+                  <% end %>
+
+                  <!-- 시간순 정렬-->
+                  <% @res_search.results.sort! { |a, b| a.start <=> b.start }.each do |show| %>
+                    <% if (show.start - 1.hour <= Time.now) and (Time.now <= show.start + 30.minute) %>
+                        <div class="item st" value='<%= show.id %>'><%= show.start.strftime("%Y.%m.%d %H:%M") %> 공연 </div>
+                    <% else %>
+                        <div class="disabled item st" value='<%= show.id %>'><%= show.start.strftime("%Y.%m.%d %H:%M") %> 공연 </div>
+                    <% end %>
+                  <% end %>
+
+                  <!-- 지우기 시작 -->
                   <div class="ui list">
                     <div class="item">
                       <div class="right floated content">즉석 공연
                         <div class="ui button st" id="0">바로 시작</div>
                       </div>
                     </div>
+                    <!-- 예정 공연 검색 -->
+                    <% Show.index %>
                     <% @res_search = Show.search do %>
                       <% all_of do %>
                         <% with(:creator_id, current_user.id) %>
                         <% with(:status, 0) %>
                       <% end %>
                     <% end %>
-                    <% @num = 1 %>
-                    <% @res_search.results.each do |show| %>
+                    <% @res = @res_search.results.sort! { |a, b| a.start <=> b.start }.reverse! %>
+                    <% @res.each do |show| %>
                         <!--수정 필요-->
                         <% unless show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
                             <div class="item">
                                 <div class="right floated content"><%= show.genre %>
                                     <div class="ui button st" id='<%= show.id %>'>바로 시작</div>
-                                    <% @num = @num+1 %>
                                 </div>
                             </div>
                         <% end %>
                     <% end %>
-                  </div>
+                  </div> <!-- 지우기 끝 -->
+
                 </div>
             </div>
+          <script>
+          // $('.ui.simple.dropdown')
+          //   .dropdown('bind mouse events'){
+          //     console.log("hover");
+          //   }
+
+            // .dropdown({
+            //   action: function(text, value) {
+            //     console.log("hover");
+            //   }
+            // })
+          // ;
+          </script>
+
           </div>
-        <% end %>
-      <% end %>
 
+          <!--각 공연 버튼 클릭 리스너 -->
+          <script>
+            $('.item.st').click(function(){
+              var show_id = $(this).attr('value');
+              console.log("item st : " + show_id);
+              $.ajax({
+                type: "POST",
+                url: "/shows/starting",
+                data: { show_id: show_id},
+                success: function(result){
+                  $('.ui.basic.modal.nav#showStart').modal('show');
+                  var pos_input = $('input[name=pos-input]');
+                  pos_input.focus();
+                  pos_input.val('');
+                  if(show_id != 0)  //예정 공연의 미리 입력된 장소
+                    pos_input.val(result.location);
+                  initMap();
+                }
+              });
+            });
 
-       <%= link_to "공연", shows_path, class: "ui item" %>
-       <%= link_to "아티스트", artists_path, class: "ui item" %>
+          </script>
 
-       <%if user_signed_in?%>
-         <div class="ui right dropdown item">
-            <div class="ui simple dropdown">
-                <div class="text"> <%= current_user.name%>님 </div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
-                <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
-                <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
+          <!-- 지우기 시작 -->
+          <script>
+            $('.ui.button.st').click(function(){
+              var show_id = $(this).attr('id');
+              console.log("버튼 : " + show_id);
+              $.ajax({
+                type: "POST",
+                url: "/shows/starting",
+                data: { show_id: show_id},
+                success: function(result){
+                  $('.ui.basic.modal.nav#showStart').modal('show');
+                  var pos_input = $('input[name=pos-input]');
+                  pos_input.focus();
+                  pos_input.val('');
+                  pos_input.val(result.location);
+                  initMap();
+                }
+              });
+            });
+          </script> <!-- 지우기 끝 -->
 
-                <% if current_user.artist_name? %>
+        <% end %> <!-- 공연중 여부 End -->
+      <% end %> <!-- 공연 controll End-->
+
+      <%= link_to "공연", shows_path, class: "ui item" %>
+      <%= link_to "아티스트", artists_path, class: "ui item" %>
+
+      <!-- 로그인 상태라면 -->
+      <%if user_signed_in?%>
+
+        <div class="ui right dropdown item">
+          <div class="ui simple dropdown">
+            <div class="text"> <%= current_user.name%>님 </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
+              <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
+              <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
+
+              <% if current_user.artist_name? %>
                 <% artist_name = current_user.artist_name %>
                 <%= link_to "공연등록", new_show_path, class: "ui item" %>
                 <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
-                <% end %>
-                <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
-              </div>
+              <% end %>
+              <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
             </div>
-         </div>
-       <% else%>
+          </div>
+        </div>
 
-       <a class="ui item" id="start_signup_modal">회원가입</a>
-       <a class="ui item" id="start_signin_modal">로그인</a>
-       <% end %>
+      <!-- 로그인 상태가 아니라면 -->
+      <% else%>
+        <%# 로그인, 회원가입, 비번찾기 모달 %>
+        <%= render :partial => "/devise/sessions/new" %>
+        <%= render :partial => "/devise/registrations/new" %>
+        <%= render :partial => "/devise/passwords/new" %>
+
+        <a class="ui item" id="start_signup_modal">회원가입</a>
+        <a class="ui item" id="start_signin_modal">로그인</a>
+      <% end %>
     </div>
   </div>
 </div>
 
-<%# 로그인, 회원가입, 비번찾기 모달 %>
-<%= render :partial => "/devise/sessions/new" %>
-<%= render :partial => "/devise/registrations/new" %>
-<%= render :partial => "/devise/passwords/new" %>
-<%= render :partial => "/shows/start" %>
-<%= render :partial => "/shows/finish" %>
+<!-- nav modal 스타일 -->
+<style>
+	.ui.basic.modal.nav {
+	  max-width: 450px;
+    overflow: hidden;
+    position: fixed;
+	}
+   /*nav modal x 버튼 */
+  .ui.basic.modal.nav>.close {
+    right: 0px;
+  }
+</style>
 
-<!--나중에 수정 필요-->
-<script>
-  $('.ui.button.st').click(function(){
-    var show_id = $(this).attr('id');
-    console.log("버튼 : " + show_id);
-    $.ajax({
-      type: "POST",
-      url: "/shows/starting",
-      data: { show_id: show_id},
-      success: function(result){
-        $('.ui.basic.modal.nav#showStart').modal('show');
-        var pos_input = $('input[name=pos-input]');
-        pos_input.focus();
-        pos_input.val('');
-        pos_input.val(result.location);
-        initMap();
-
-
-        // if(result == true) {
-        //   // Do something
-        // } else {
-        //   window.location.replace(result);
-        // }
-      }
-      // error: function () {
-      //   alert("Sorry, load failed T^T");
-      // }
-    });
-
-    // $('.ui.basic.modal.showStart').modal('show');
-
-  });
-  // $('.ui.basic.modal.showStart').modal({
-	//     onShow: function(){
-  //       // $('body').css({overflow: 'hidden'}); 
-	//     }
-	// });
-</script>
-<!--두개로 나누지 않을 경우 위에 있는 modal이 존재 하지 않으면 하단에 위치한 코드가 실행 되지 않게 된다-->
 <script>
   document.getElementById('start_showFinish_modal').onclick = function() {
-    console.log("감사");
+    console.log("ㅎㅇ");
     $('.ui.basic.modal.showFinish').modal('show');
   }
-
-
-
 </script>
