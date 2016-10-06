@@ -16,15 +16,15 @@
       <% end %>
       <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "item" %>
     <% else %>
-       <a class="ui item" id="start_signup_modal">회원가입</a>
-       <a class="ui item" id="start_signin_modal">로그인</a>
+       <a class="ui item start_signup_modal">회원가입</a>
+       <a class="ui item start_signin_modal">로그인</a>
     <% end %>
   </div>
 
 <!-- Site contents-->
   <div class="pusher">
       <div class="ui secondary menu general-header" id="general-header">
-        <a class="item" id="pull"><i class="content icon"></i></a>
+        <a class="item sidebar-icon"><i class="content icon"></i></a>
         <a class="ui item" href="/">GUERILLART</a>
         <div class="right menu"> <!-- 오른쪽 Navbar -->
            <%= link_to "공연", shows_path, class: "ui item" %>
@@ -51,8 +51,8 @@
              </div>
            <% else%>
 
-           <a class="ui item" id="start_signup_modal">회원가입</a>
-           <a class="ui item" id="start_signin_modal">로그인</a>
+           <a class="ui item start_signup_modal">회원가입</a>
+           <a class="ui item start_signin_modal">로그인</a>
            <% end %>
         </div>
       </div>
@@ -64,12 +64,3 @@
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
-
-
-<script>
-$(function(){
-  $('#pull').click(function(){
-    $('.ui.sidebar').sidebar('toggle');
-  });
-});
-</script>

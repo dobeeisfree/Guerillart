@@ -141,3 +141,11 @@ $(document).on('submit', '#register_edit', function(e) {
 
 
 });
+
+
+/* Mobile Side bar toglle */
+$(function(){
+  $('.sidebar-icon').click(function(){
+    $('.ui.sidebar').sidebar('toggle');
+  });
+});
