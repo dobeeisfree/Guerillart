@@ -12,19 +12,19 @@ jQuery(document).ready ->
   });
 
   # 로그인 모달 클릭 시
-  $('#start_signin_modal').click ->
+  $('.start_signin_modal').click ->
     console.log("로그인 하세요");
     $('.ui.basic.modal.signin').modal('show');
 
   # 회원가입 모달 클릭 시
-  $('#start_signup_modal').click ->
+  $('.start_signup_modal').click ->
     console.log("회원가입 하세요");
     $('.ui.basic.modal.signup').modal('show');
 
   delay = 100
   # registrations/new.html.erb
   # 회원가입 모달에서 로그인 모달로 이동
-  $('#already_registered').click ->
+  $('.already_registered').click ->
     $('.ui.basic.modal.signup').modal('hide');
     setTimeout((->
       setTimeout $('.ui.basic.modal.signin').modal('show'), delay

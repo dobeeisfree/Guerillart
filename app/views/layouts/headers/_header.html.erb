@@ -4,7 +4,7 @@
 <div class="ui container">
   <div class="ui sidebar inverted vertical menu">
     <%= link_to "공연", shows_path, class: "ui item" %>
-    <%= link_to "아티스트", artists_path, class: "ui item" %>  
+    <%= link_to "아티스트", artists_path, class: "ui item" %>
     <% if user_signed_in? %>
       <%= link_to "대쉬보드", dashboard_home_path, class: "item" %>
       <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "item" %>
@@ -21,14 +21,14 @@
     <% end %>
   </div>
 
-<!-- Main navbar menu--> 
+<!-- Site contents-->
   <div class="pusher">
       <div class="ui secondary menu general-header" id="general-header">
         <a class="item" id="pull"><i class="content icon"></i></a>
         <a class="ui item" href="/">GUERILLART</a>
         <div class="right menu"> <!-- 오른쪽 Navbar -->
            <%= link_to "공연", shows_path, class: "ui item" %>
-           <%= link_to "아티스트", artists_path, class: "ui item" %>  
+           <%= link_to "아티스트", artists_path, class: "ui item" %>
 
            <%if user_signed_in?%>
              <div class="ui right dropdown item">
@@ -73,4 +73,3 @@ $(function(){
   });
 });
 </script>
-

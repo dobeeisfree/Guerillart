@@ -4,6 +4,25 @@ $g : 0;
 $b : 0;
 $alpha : 0.05;
 
+
+
+/* Mobile view 최적화*/
+a#hamburger {
+  display: none;
+}
+
+@media screen and (max-width: 780px){
+  .ui.secondary.menu .ui.item{
+    width: 100%;
+  }
+   a#hamburger {
+    display: inline-block;
+  }
+}
+
+
+
+
   // 네비바 레이아웃
  .ui.secondary.menu.home {
 //   margin-top: 0px;
@@ -32,7 +51,7 @@ $alpha : 0.05;
 
 /* 홈의 내용 */
 .home {
-    
+
   margin-top: 14%;
 
   /* 모바일 메인 글귀 */
