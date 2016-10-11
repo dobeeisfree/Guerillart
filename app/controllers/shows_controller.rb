@@ -86,7 +86,8 @@ class ShowsController < ApplicationController
   end
 
   def show
-    @show = Show.find(params[:id])
+    # @show = Show.find(params[:id])
+    @show = Show.find_by(id: params[:id])
   end
 
   def starting
@@ -110,34 +111,37 @@ class ShowsController < ApplicationController
   end #starting
 
   def start
-
+    puts "start!"
     if current_user.playing_id == 0
 
-      #if 즉석공연이라면
-      @show = Show.new
-      @show.title = current_user.artist_name + "님의 즉석 공연"
-      @show.start = params[:time].to_time
-      @show.genre = current_user.genre
-      @show.location = params[:location]
-      @show.creator_id = current_user.id
-      @show.status = 1
+      @show = 0
+      if params[:show_id].to_i == 0
+        puts "영이라면"
+        @show = Show.new
+        @show.title = current_user.artist_name + "님의 즉석 공연"
+        @show.genre = current_user.genre
+        @show.creator_id = current_user.id
+      else
+        puts "아니라면"
+        @show = Show.find_by(id: params[:show_id])
+      end
 
-      #else 등록된 공연이라면
-      @show = Show.find_by(id: params[:show_id])
       @show.start = Time.now
-      @show.location_x = params[:loc_x]
-      @show.location_y = params[:loc_y]
+      @show.location_x = params[:loc_x].to_f
+      @show.location_y = params[:loc_y].to_f
       @show.location = params[:location]
       @show.status = 1
-      #end
 
       if @show.save
         flash[:alert] = "공연을 시작하였습니다."
+        puts "플레잉 아이디는 " + @show.id.to_s
         current_user.playing_id = @show.id
-        redirect_to :back
+        current_user.save
+        render :json => @show.to_json
+        # redirect_to :back
       else
         flash[:alert] = "post.errors.values.flatten.join(' ')"
-        redirect_to :back
+        # redirect_to :back
       end
 
     else
@@ -169,7 +173,7 @@ class ShowsController < ApplicationController
   # end
 
   def finish
-    if current_user.playing_id != 0
+    if current_user.playing_id > 0
 
       @fin_show = Show.find_by(id: current_user.playing_id)
       @fin_show.status = 2
@@ -177,13 +181,14 @@ class ShowsController < ApplicationController
       if @fin_show.save
         flash[:alert] = "공연을 종료하였습니다."
         current_user.playing_id = 0
-        redirect_to :back
+        current_user.save
+        render :json => @show.to_json
       else
         flash[:alert] = "post.errors.values.flatten.join(' ')"
-        redirect_to :back
+        render :json => @show.to_json
       end
 
-    else
+    elsif current_user.playing_id == 0
       flash[:alert] = "현재 진행중인 공연이 없습니다."
     end
 

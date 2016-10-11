@@ -2,11 +2,36 @@
 <div class="ui basic modal nav" id="showFinish" value="">
   <i class="close icon"></i>
   <div class="header">공연종료</div>
-  <form action="/shows/finish" method="put">
    	<div class="form-group">
-      <input type="submit" class="fluid ui inverted green button" value="확인">
-		</div>
-
+      <input type="submit" class="fluid ui inverted red button" id="finish" value="확인">
+    </div>
   	<div class="footer" id="login_modal_footer"></div>
   </form>
 </div>
+
+<script>
+  $('.fluid.ui.inverted.red.button#finish').click(function(){
+    $.ajax({
+      type: "POST",
+      url: "/shows/finish",
+      data: {},
+      success: function(result){
+        window.location.reload(true);
+        // console.log("loc wihte or empty");
+    //     // $('.ui.basic.modal.nav#showStart').modal('show');
+    //     // var pos_input = $('input[name=pos-input]');
+    //     // pos_input.focus();
+    //     // pos_input.val('');
+    //     // if(show_id != 0)  //예정 공연의 미리 입력된 장소
+    //     //   pos_input.val(result.location);
+    //     // initMap();
+        console.log("종료 성공");
+      },
+      error: function(){
+        console.log("종료 실패");
+        // window.location.reload();
+      }
+    });
+
+  });
+</script>

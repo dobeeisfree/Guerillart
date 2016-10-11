@@ -5,11 +5,44 @@
   }
 </style>
 
+<!-- Start of showStart modal -->
+<!-- <body onload="initMap()"> -->
+  <div class="ui basic modal nav" id="showStart">
+    <i class="close icon"></i>
+    <div class="header">공연시작</div>
+    <div class="field">
+      <div>
+        <label>이 위치가 맞으신가요?</label>
+      </div>
+      <div class="ui input">
+        <input type="text" name="pos-input" placeholder="장소를 입력해주세요">
+      </div>
+      <div id="wrapper">
+        <div id="map_play"></div>
+      </div>
+    </div>
+    <!-- <form action="/shows/start" method="put"> -->
+     	<div class="form-group">
+        <input type="submit" class="fluid ui inverted green button" id="start" value="시작!">
+  		</div>
+
+    	<div class="footer" id="start_modal_footer"></div>
+    <!-- </form> -->
+  </div>
+<!-- </body> -->
+
+
+
+
 <script>
   var playMap;
   var playMarker;
+  var show_id;
 
-  function initMap() {
+  function initMap (_showId)
+  {
+    show_id = _showId;
+    // console.log("showId : "+ _showId);
     playMap = new google.maps.Map(document.getElementById('map_play'), {
       center: {lat: -34.397, lng: 150.644},
       zoom: 17,
@@ -32,7 +65,7 @@
     });
     playMarker = new google.maps.Marker({
       map : playMap,
-      position : {lat: -34.397, lng: 150.644},
+      // position : { lat: 37.566535, lng: 126.97796919999996 },
       draggable : true
 
     });
@@ -126,34 +159,68 @@
       map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
   }
 
+  $('.fluid.ui.inverted.green.button#start').click(function(){
+    console.log("start 버튼");
+
+    // var loc_x = playMarker.getPosition().lat();
+    // var loc_y = playMarker.getPosition().lng();
+    var location = $('input[name=pos-input]').val();
+
+    var pos = playMarker.getPosition();
+    // console.log("loc x : " + loc_x+ ", "+loc_y);
+    console.log("loc : " + location);
+    // if(location.localeCompare('')==0)
+      // console.log("loc empty");
+
+
+    if(isWhitespaceOrEmpty(location))
+    {
+      console.log("loc wihte or empty");
+      alert("장소를 입력해주세요");
+
+    }
+    else if(!pos)
+    {
+      alert("죄표를 다시 설정해주세요");
+    }
+    // else if(pos.lat() > 38.617236 || pos.lng() < 33.113788 || )
+    else
+    {
+      //post
+      console.log("show id : " + show_id);
+      $.ajax({
+        type: "POST",
+        url: "/shows/start",
+        data: { show_id: show_id, loc_x: pos.lat(), loc_y: pos.lng(), location: location},
+        success: function(result){
+          window.location.reload(true);
+          // console.log("loc wihte or empty");
+      //     // $('.ui.basic.modal.nav#showStart').modal('show');
+      //     // var pos_input = $('input[name=pos-input]');
+      //     // pos_input.focus();
+      //     // pos_input.val('');
+      //     // if(show_id != 0)  //예정 공연의 미리 입력된 장소
+      //     //   pos_input.val(result.location);
+      //     // initMap();
+          console.log("시작 성공");
+        },
+        error: function(){
+          console.log("시작 실패");
+          // window.location.reload();
+        }
+      });
+    }
+  //   // var show_id = $(this).attr('value');
+  //   // console.log("item st : " + show_id);
+  //
+  });
+
+  function isWhitespaceOrEmpty(text) {
+    return !/[^\s]/.test(text);
+  }
+
 </script>
 
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCli_6xyZwvRN-G_8rguiJBm_3xzaq6NGI">
 </script>
-
-<!-- Start of showFinish modal -->
-<!-- <body onload="initMap()"> -->
-  <div class="ui basic modal nav" id="showStart">
-    <i class="close icon"></i>
-    <div class="header">공연시작</div>
-    <div class="field">
-      <div>
-        <label>이 위치가 맞으신가요?</label>
-      </div>
-      <div class="ui input">
-        <input type="text" name="pos-input">
-      </div>
-      <div id="wrapper">
-        <div id="map_play"></div>
-      </div>
-    </div>
-    <form action="/shows/start" method="put">
-     	<div class="form-group">
-        <input type="submit" class="fluid ui inverted green button" value="시작!">
-  		</div>
-
-    	<div class="footer" id="start_modal_footer"></div>
-    </form>
-  </div>
-<!-- </body> -->
