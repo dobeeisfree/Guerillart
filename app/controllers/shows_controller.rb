@@ -53,26 +53,24 @@ class ShowsController < ApplicationController
 
 
   def update
-    @one_show = Show.find(params[:show_id])
+    @show = Show.find(params[:id])
 
-    if @one_show.creator_id != current_user.id
+    if @show.creator_id != current_user.id
       redirect_to "/shows"
     end
 
-    @one_show.title = params[:show_title]
-    @one_show.time = params[:time]
-    @one_show.content = params[:show_content]
-    @one_show.genre = params[:genre]
-    @one_show.location = params[:location]
-    @one_show.playlist = params[:playlist]
-
-    if @one_show.save
+    if @show.update_attributes(show_param)
       flash[:alert] = "저장되었습니다"
       redirect_to "/dashboard/manage"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
     end
+  end
+
+  # 아래의 파람즈 목록만 허용한다.
+  def show_param
+    params.require(:show).permit(:title, :time, :playlist, :location, :content, :genre)
   end
 
   def destroy

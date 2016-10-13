@@ -10,33 +10,33 @@
   </div>
 
   <div class="ui writeshow form attached fluid segment">
-  <%= form_tag (edit_show_path) do %>
+  <%= form_for(@one_show) do |s| %>
     <div class="required field">
-      <label>공연 타이틀</label>
-      <input type="text" name="show_title" class="form-control" id="1inputName" placeholder="<%= @one_show.title %>" required>
+      <%= s.label :제목 %>
+      <%= s.text_field :title %>
     </div>
 
     <div class="required field">
-      <label>날짜/시간</label>
+      <%= s.label :시작시간 %>
       <div class="ui calendar" id="date-time">
         <div class="ui input left icon">
           <i class="calendar icon"></i>
-        <input type="text" name="time" placeholder="<%= @one_show.time %>" required>
+          <%= s.text_field :time %>
         </div>
       </div>
     </div>
 
     <div class="required field">
-      <label>Play List</label>
-      <input type="text" name="playlist"class="form-control" id="6inputName" placeholder="<%= @one_show.playlist %>" required>
+      <%= s.label :playlist %>
+      <%= s.text_field :playlist %>
     </div>
     <div class="required field">
-      <label>공연 소개</label>
-      <textarea class="form-control" name="show_content"rows="5" id="comment" placeholder="<%= @one_show.content %>"></textarea>
+      <%= s.label :내용 %>
+      <%= s.text_area :content %>
     </div>
 
     <div class="inline fields" id="radio-button">
-      <label>장르</label>
+      <%= s.label :장르 %>
       <% @names.reverse.each do |n| %>
       <div class="field">
         <div class="ui radio checkbox">
@@ -52,8 +52,8 @@
       <% end %>
     </div>
     <div class="required field">
-      <label>장소</label>
-      <input type="text" class="form-control" name="location" placeholder="<%= @one_show.location %>" required>
+      <%= s.label :장소 %>
+      <%= s.text_field :location %>
     </div>
 
     <div class="required field">
@@ -62,8 +62,7 @@
         <label>I agree to the Terms and Conditions</label>
       </div>
     </div>
-
-    <input type="submit" class="ui fluid blue submit button" id="go-Guerillart" value="등록하기">
+    <%= s.submit :등록하기, class: "ui fluid blue submit button", id: "go-Guerillart" %>
   <% end %>
   </div>
 </div>
