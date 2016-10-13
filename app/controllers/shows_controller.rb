@@ -34,7 +34,7 @@ class ShowsController < ApplicationController
     show.creator_id = current_user.id
     if show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/dashboard/manage"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -68,7 +68,7 @@ class ShowsController < ApplicationController
 
     if @one_show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/dashboard/manage"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -83,8 +83,8 @@ class ShowsController < ApplicationController
     end
 
     @one_show.destroy
-    redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
+    redirect_to "/dashboard/manage"
   end
 
   def show

@@ -10,6 +10,12 @@
     </div>
   <% end %>
 
+  <% if alert %>
+  <div class="ui positive message">
+    <div class="header"><%= alert %></div>
+  </div>
+  <% end %>
+
   <div class="ui divided items">
 
     <% @your_shows.each do |show| %>
