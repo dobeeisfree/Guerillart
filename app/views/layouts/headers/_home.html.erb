@@ -1,8 +1,35 @@
 <%# 메인홈만 쓰이는 헤더 %>
-<div class="ui container">
-  <div class="ui secondary menu home">
-    <a class="ui item" href="/">GUERILLART</a>
 
+<!-- Side navbar menu -->
+<div class="ui container">
+  <div class="ui sidebar inverted vertical menu">
+    <%= link_to "공연", shows_path, class: "ui item" %>
+    <%= link_to "아티스트", artists_path, class: "ui item" %>
+    <% if user_signed_in? %>
+      <%= link_to "대쉬보드", dashboard_home_path, class: "item" %>
+      <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "item" %>
+      <%= link_to "계정관리", dashboard_profile_path, class: "item" %>
+      <% if current_user.artist_name? %>
+        <%= link_to "공연관리", dashboard_manage_path, class: "item" %>
+        <a class="item" href="/artists/<%=current_user.artist_name%>">
+          <%=current_user.artist_name%>페이지
+        </a>
+      <% end %>
+      <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "item" %>
+      <% else %>
+       <a class="ui item start_signup_modal">회원가입</a>
+       <a class="ui item start_signin_modal">로그인</a>
+    <% end %>
+  </div>
+
+<!-- Navbar menu -->
+<div class="pusher">
+<header class="ui container">
+  <div class="ui secondary menu home" id="home-header">
+  <a class="item" id="hamburger">
+    <i class="content icon"></i>
+  </a>
+    <a class="ui item" href="/">GUERILLART</a>
     <div class="right menu"> <!-- 오른쪽 Navbar -->
       <!--공연 control-->
       <% if user_signed_in? and current_user.artist_name.present? %>
@@ -159,9 +186,10 @@
               <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
 
               <% if current_user.artist_name? %>
-                <% artist_name = current_user.artist_name %>
-                <%= link_to "공연등록", new_show_path, class: "ui item" %>
-                <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
+                <%= link_to "공연관리", dashboard_manage_path, class: "ui item" %>
+                <a class="ui item" href="/artists/<%=current_user.artist_name%>">
+                  <%=current_user.artist_name%>페이지
+                </a>
               <% end %>
               <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
             </div>
@@ -180,6 +208,7 @@
       <% end %>
     </div>
   </div>
+</header>
 </div>
 
 <!-- nav modal 스타일 -->
@@ -194,3 +223,11 @@
     right: 0px;
   }
 </style>
+
+<script>
+$(function(){
+  $('#hamburger').click(function(){
+    $('.ui.sidebar').sidebar('toggle');
+  });
+});
+</script>

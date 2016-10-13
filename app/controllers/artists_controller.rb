@@ -10,7 +10,7 @@ class ArtistsController < ApplicationController
 
 
   def index
-    @user = User.all
+    @user = User.paginate(:page => params[:page])
   end
 
   def new

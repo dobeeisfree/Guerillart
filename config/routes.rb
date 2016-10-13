@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/dashboard/home' => 'dashboard#home'
   get '/dashboard/guerillart' => 'dashboard#guerillart'
   get '/dashboard/profile' => 'dashboard#profile'
+  get '/dashboard/manage' => 'dashboard#manage'
 
 
   # get '/shows/:show_id/start' => 'shows#start'

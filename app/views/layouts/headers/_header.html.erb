@@ -1,60 +1,74 @@
-<!-- 메인홈말고 모든 페이지에서 쓰이는 헤더 -->
-<header class="ui secondary menu general-header">
-  <a class="ui item" href="/">GUERILLART</a>
-  <div class="item">
-    <div class="ui icon input">
-      <%= form_tag("/search/select", method: "post") do %>
-        <div class="ui right icon left action input">
-          <i class="inverted search icon"></i>
+<%# 메인홈말고 모든 페이지에서 쓰이는 헤더 %>
 
-          <div class="ui selection button dropdown" id="go-dropdown">
-          	<input type="hidden" name="a_search">
-            <div class="text hi-dropdown" data-value="0">선택</div>
-            <i class="inverted dropdown icon"></i>
-            <div class="ui simple dropdown menu" id="uidropdown">
-           		<div class="item" data-value="0" id="artist_search">아티스트</div>
-            	<div class="item" data-value="1" id="location_search">위치</div>
-          	</div>
-          </div>
-          <input type="text"  placeholder="를 검색해보세요"name="artist_name" />
-        </div>
-
+<!-- Side navbar menu -->
+<div class="ui container">
+  <div class="ui sidebar inverted vertical menu">
+    <%= link_to "공연", shows_path, class: "ui item" %>
+    <%= link_to "아티스트", artists_path, class: "ui item" %>
+    <% if user_signed_in? %>
+      <%= link_to "대쉬보드", dashboard_home_path, class: "item" %>
+      <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "item" %>
+      <%= link_to "계정관리", dashboard_profile_path, class: "item" %>
+      <% if current_user.artist_name? %>
+      <%= link_to "공연관리", dashboard_manage_path, class: "item" %>
+      <a class="item" href="/artists/<%=current_user.artist_name%>">
+        <%=current_user.artist_name%>페이지
+      </a>
       <% end %>
+      <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "item" %>
+    <% else %>
+       <a class="ui item" id="start_signup_modal">회원가입</a>
+       <a class="ui item" id="start_signin_modal">로그인</a>
+    <% end %>
+  </div>
+
+<!-- Site contents-->
+  <div class="pusher">
+      <div class="ui secondary menu general-header" id="general-header">
+        <a class="item" id="pull"><i class="content icon"></i></a>
+        <a class="ui item" href="/">GUERILLART</a>
+        <div class="right menu"> <!-- 오른쪽 Navbar -->
+           <%= link_to "공연", shows_path, class: "ui item" %>
+           <%= link_to "아티스트", artists_path, class: "ui item" %>
+           <%if user_signed_in?%>
+             <div class="ui right dropdown item">
+              <div class="ui simple dropdown">
+                <div class="text"><%= current_user.name%>님 </div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
+                  <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
+                  <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
+                  <% if current_user.artist_name? %>
+                    <%= link_to "공연관리", dashboard_manage_path, class: "ui item" %>
+                    <a class="ui item" href="/artists/<%=current_user.artist_name%>">
+                      <%=current_user.artist_name%>페이지
+                    </a>
+                  <% end %>
+                  <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
+                </div>
+              </div>
+             </div>
+           <% else%>
+             <a class="ui item" id="start_signup_modal">회원가입</a>
+             <a class="ui item" id="start_signin_modal">로그인</a>
+           <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="right menu"> <!-- 오른쪽 Navbar -->
-     <%= link_to "공연", shows_path, class: "ui item" %>
-     <%= link_to "아티스트", artists_path, class: "ui item" %>  
 
-     <%if user_signed_in?%>
-       <div class="ui right dropdown item">
-          <div class="ui simple dropdown">
-              <div class="text"> <%= current_user.name%>님 </div>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
-              <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
-              <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
+</div>
 
-              <% if current_user.artist_name? %>
-              <% artist_name = current_user.artist_name %>
-              <%= link_to "공연등록", new_show_path, class: "ui item" %>
-              <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
-              <% end %>
-              <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
-            </div>
-          </div>
-       </div>
-     <% else%>
-
-     <a class="ui item" id="start_signup_modal">회원가입</a>
-     <a class="ui item" id="start_signin_modal">로그인</a>
-     <% end %>
-  </div>
-</header>
-
-
-<!--로그인, 회원가입, 비번 초기화 모달 -->
+<%# 로그인, 회원가입, 비번찾기 모달 %>
 <%= render :partial => "/devise/sessions/new" %>
 <%= render :partial => "/devise/registrations/new" %>
 <%= render :partial => "/devise/passwords/new" %>
+
+
+<script>
+$(function(){
+  $('#pull').click(function(){
+    $('.ui.sidebar').sidebar('toggle');
+  });
+});
+</script>

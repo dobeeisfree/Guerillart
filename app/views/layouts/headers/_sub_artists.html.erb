@@ -1,47 +1,15 @@
-<style>
-    .ui.subshow.menu {
-        margin-top: -15px;
-        background: #FAFAFA;
-        border-radius: 0;
-        border: none;
-    }
-    /* dropdown */
-    .ui.button {
-        background: transparent;
-    }
-    .ui.sub.dropdown > .text {
-        font-weight: bold;
-        color: rgba(0, 0, 0, 0.8);
-    }
-    div.ui.button.sub.dropdown {
-        text-align: center;
-    }
-    /* 전체 가운데 정렬 */
-    .ui.button.sub.dropdown.genre,
-    .ui.button.sub.dropdown.show {
-        margin: 0 auto;
-    }
-    .ui.subshow.container {
-        width: 300px;
-    }
 
-</style>
-<div class="ui subshow menu">
-    <div class="ui subshow container">
+<div class="ui container">
+    <div class="ui subshow menu">
+      <div class="ui subshow container">
+
         <div class="ui button sub genre dropdown genre">
-            <div class="text"><%= link_to "인기순", controller: "artists", action:"index", who_is: "인기순" %></div>
-            <div class="ui simple dropdown menu"></div>
+          <%= link_to "인기순", controller: "artists", action:"index", who_is: "인기순", class: "ui item"  %>
         </div>
-        <!-- 공연 -->
         <div class="ui button sub show dropdown show">
-            <div class="text">
-                <%= link_to "나의아티스트", controller: "artists", action:"index", who_is: "나의아티스트"  %>
-            </div>
+           <%= link_to "나의아티스트", controller: "artists", action:"index", who_is: "나의아티스트", class: "ui item" %>
         </div>
 
+      </div>
     </div>
 </div>
-<script>
-    $('.show.dropdown').dropdown();
-    $('.genre.dropdown').dropdown();
-</script>
