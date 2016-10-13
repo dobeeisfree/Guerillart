@@ -8,7 +8,7 @@
   </div>
 
   <div class="ui writeshow form attached fluid segment">
-  <%= form_tag('/shows') do %>
+  <%= form_tag (shows_path) do %>
     <div class="required field">
       <label>공연 타이틀</label>
       <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
