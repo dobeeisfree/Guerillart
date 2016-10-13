@@ -77,34 +77,6 @@
                     <% end %>
                   <% end %>
 
-                  <!-- 지우기 시작 -->
-                  <div class="ui list">
-                    <div class="item">
-                      <div class="right floated content">즉석 공연
-                        <div class="ui button st" id="0">바로 시작</div>
-                      </div>
-                    </div>
-                    <!-- 예정 공연 검색 -->
-                    <% Show.index %>
-                    <% @res_search = Show.search do %>
-                      <% all_of do %>
-                        <% with(:creator_id, current_user.id) %>
-                        <% with(:status, 0) %>
-                      <% end %>
-                    <% end %>
-                    <% @res = @res_search.results.sort! { |a, b| a.start <=> b.start }.reverse! %>
-                    <% @res.each do |show| %>
-                        <!--수정 필요-->
-                        <% unless show.start.nil? || ((Time.now - 1.hour <= show.start) and (show.start <= Time.now + 1.hour)) %>
-                            <div class="item">
-                                <div class="right floated content"><%= show.genre %>
-                                    <div class="ui button st" id='<%= show.id %>'>바로 시작</div>
-                                </div>
-                            </div>
-                        <% end %>
-                    <% end %>
-                  </div> <!-- 지우기 끝 -->
-
                 </div>
             </div>
           <script>
@@ -146,28 +118,7 @@
 
           </script>
 
-          <!-- 지우기 시작 -->
-          <script>
-            $('.ui.button.st').click(function(){
-              var show_id = $(this).attr('id');
-              console.log("버튼 : " + show_id);
-              $.ajax({
-                type: "POST",
-                url: "/shows/starting",
-                data: { show_id: show_id},
-                success: function(result){
-                  $('.ui.basic.modal.nav#showStart').modal('show');
-                  var pos_input = $('input[name=pos-input]');
-                  pos_input.focus();
-                  pos_input.val('');
-                  pos_input.val(result.location);
-                  initMap();
-                }
-              });
-            });
-          </script> <!-- 지우기 끝 -->
-
-        <% end %> <!-- 공연중 여부 End -->
+        <% end %> <!-- 공연진행 여부 End -->
       <% end %> <!-- 공연 controll End-->
 
       <%= link_to "공연", shows_path, class: "ui item" %>
