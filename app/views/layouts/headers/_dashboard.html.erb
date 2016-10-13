@@ -1,15 +1,26 @@
-<div class="ui container">
-  <div class="ui subshow menu">
+<div class="ui container" id="width_container">
+  <div class="ui borderless menu">
+      <a class="item btn" id="only_mobile"href="/<%= controller.controller_name %>/<%=controller.action_name%>"><%=@currentPage%></a>
 
-          <a class="item" href="/dashboard/home" method="get">대쉬보드</a>
-          <a class="item" href="/dashboard/guerillart" method="get">나의게릴라트</a>
-          <a class="item" href="/dashboard/profile" method="get">계정관리</a>
-          <% if current_user.artist_name %>
-            <% artist_name = current_user.artist_name %>
-              <a class="item" href="/shows/new" method="get">공연등록</a>
-            <% else %>
-              <a class="item" href="/artists/new" method="get">아티스트 신청서</a>
-          <% end %>
+      <a class="item dropbtn" id="home" href="/dashboard/home" method="get">대쉬보드</a>
+      <a class="item dropbtn" id="guerillart"href="/dashboard/guerillart" method="get">나의게릴라트</a>
+      <a class="item dropbtn" id="profile"href="/dashboard/profile" method="get">계정관리</a>
+      <% if current_user.artist_name %>
+        <% artist_name = current_user.artist_name %>
+          <a class="item dropbtn" id="new"href="/shows/new" method="get">공연등록</a>
+        <% else %>
+          <a class="item dropbtn" href="/artists/new" method="get">아티스트 신청서</a>
+      <% end %>
 
   </div>
 </div>
+<script>
+if (document.getElementById("width_container").offsetWidth <= 780)
+{
+  var currentPage = '<%=controller.action_name%>';
+  $('#'+currentPage).hide();
+}
+else {
+  $('#only_mobile').hide();
+}
+</script>

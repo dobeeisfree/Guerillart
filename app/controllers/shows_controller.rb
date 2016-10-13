@@ -21,6 +21,7 @@ class ShowsController < ApplicationController
 
   def new
     @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+    @currentPage = '공연등록';
   end
 
   def create
