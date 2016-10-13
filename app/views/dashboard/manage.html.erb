@@ -18,7 +18,7 @@
 
   <div class="ui divided items">
 
-    <% @your_shows.each do |show| %>
+    <% @your_shows.reverse.each do |show| %>
     <div class="item">
       <div class="image">
         <img src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg">

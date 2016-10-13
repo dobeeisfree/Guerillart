@@ -3,7 +3,7 @@ class ShowsController < ApplicationController
 
   def index
     @shows = Show.paginate(:page => params[:page])
-    @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+    show_genre_names
 
     # 분류를 위한 파람즈
     @current_genre = params[:choose]
@@ -20,18 +20,14 @@ class ShowsController < ApplicationController
 
 
   def new
+    @show = Show.new
+    show_genre_names
   end
 
   def create
-    show = Show.new
-    show.title = params[:show_title]
-    show.start = params[:time].to_time
-    show.content = params[:show_content]
-    show.genre = params[:genre]
-    show.location = params[:location]
-    show.playlist = params[:playlist]
-    show.creator_id = current_user.id
-    if show.save
+    @show = Show.new(show_param)
+
+    if @show.save
       flash[:alert] = "저장되었습니다"
       redirect_to "/dashboard/manage"
     else
@@ -42,7 +38,7 @@ class ShowsController < ApplicationController
 
   def edit
     @one_show = Show.find(params[:id])
-    @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+    show_genre_names
 
     if @one_show.creator_id != current_user.id
       redirect_to "/shows"
@@ -66,10 +62,6 @@ class ShowsController < ApplicationController
     end
   end
 
-  # 아래의 파람즈 목록만 허용한다.
-  def show_param
-    params.require(:show).permit(:title, :time, :playlist, :location, :content, :genre)
-  end
 
   def destroy
     #저장된 이미지 파일등도 삭제해야 함
@@ -82,6 +74,17 @@ class ShowsController < ApplicationController
     flash[:alert] = "삭제되었습니다."
     redirect_to "/dashboard/manage"
   end
+
+  private
+    # 아래의 파람즈 목록만 허용한다.
+    def show_param
+      params.require(:show).permit(:title, :start, :playlist, :location, :content, :genre)
+    end
+
+    def show_genre_names
+      @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+      return @names
+    end
 
   def starting
 
