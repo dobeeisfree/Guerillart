@@ -8,30 +8,31 @@
   </div>
 
   <div class="ui writeshow form attached fluid segment">
-  <%= form_tag (shows_path) do %>
+  <%= form_for(@show) do |s| %>
     <div class="required field">
-      <label>공연 타이틀</label>
-      <input type="text" name="show_title"class="form-control" id="1inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
+      <%= s.label :제목 %>
+      <%= s.text_field :title %>
     </div>
 
     <div class="required field">
-      <label>날짜/시간</label>
+      <%= s.label :시작시간 %>
       <div class="ui calendar" id="date-time">
-      <div class="ui input left icon">
-        <i class="calendar icon"></i>
-      <input type="text" name="time" placeholder="공연 날짜와 시간을 선택주세요" required>
-      </div>
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <%= s.text_field :start %>
+        </div>
       </div>
     </div>
 
     <div class="required field">
-      <label>Play List</label>
-      <input type="text" name="playlist"class="form-control" id="6inputName" placeholder="멋진 공연 주제를 입력해주세요" required>
+      <%= s.label :playlist %>
+      <%= s.text_field :playlist %>
     </div>
     <div class="required field">
-      <label>공연 소개</label>
-      <textarea class="form-control" name="show_content"rows="5" id="comment" placeholder="공연은 어떤 식으로 진행되나요?"></textarea>
+      <%= s.label :내용 %>
+      <%= s.text_area :content %>
     </div>
+
 
     <div class="inline fields" id="radio-button">
       <label>장르</label>
@@ -44,9 +45,10 @@
       </div>
       <% end %>
     </div>
+
     <div class="required field">
-      <label>장소</label>
-      <input type="text" class="form-control" name="location" placeholder="공연장소를 선택주세요" required>
+      <%= s.label :장소 %>
+      <%= s.text_field :location %>
     </div>
 
     <div class="required field">
@@ -55,8 +57,7 @@
         <label>I agree to the Terms and Conditions</label>
       </div>
     </div>
-
-    <input type="submit" class="ui fluid blue submit button" id="go-Guerillart" value="등록하기">
+    <%= s.submit :등록하기, class: "ui fluid blue submit button", id: "go-Guerillart" %>
   <% end %>
   </div>
 </div>
