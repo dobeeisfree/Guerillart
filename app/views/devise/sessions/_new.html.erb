@@ -1,4 +1,4 @@
-<div class="ui basic modal signin" id="signin-modal">
+<div class="ui basic modal nav" id="signin">
   <i class="close icon"></i>
   <div class="header">로그인</div>
   <%= form_for(resource, :as => resource_name, :html => {:id => 'login_form'}, :url => user_session_path, :remote => :true, :format => :json) do |f| %>
