@@ -43,7 +43,7 @@ class ShowsController < ApplicationController
 
 
   def edit
-    @one_show = Show.find(params[:show_id])
+    @one_show = Show.find(params[:id])
     @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
 
     if @one_show.creator_id != current_user.id
@@ -77,7 +77,7 @@ class ShowsController < ApplicationController
 
   def destroy
     #저장된 이미지 파일등도 삭제해야 함
-    @one_show = Show.find(params[:show_id])
+    @one_show = Show.find(params[:id])
     if @one_show.creator_id != current_user.id
       redirect_to "/shows"
     end
