@@ -10,6 +10,12 @@
     </div>
   <% end %>
 
+  <% if alert %>
+  <div class="ui positive message">
+    <div class="header"><%= alert %></div>
+  </div>
+  <% end %>
+
   <div class="ui divided items">
 
     <% @your_shows.each do |show| %>
@@ -27,12 +33,8 @@
         </div>
         <div class="extra">
           <div class="ui small right floated animated icon buttons">
-            <button class="ui grey basic button">
-              <i class="edit icon"></i>
-            </button>
-            <button class="ui grey basic button">
-              <i class="remove icon"></i>
-            </button>
+            <%= link_to "수정", edit_show_path(show), class: "ui green basic button" %>
+            <%= link_to "삭제", show, method: :delete, class: "ui red basic button" %>
           </div>
           <div class="ui label"><%= show.time %></div>
           <div class="ui label">

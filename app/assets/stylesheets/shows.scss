@@ -113,8 +113,14 @@
 .ui.writeshow.form .field>label {
   color: black;
 }
+
+@media (max-width: 780px) {
+  .add-show {
+    margin : 0px 10px 0px 10px !important;
+  }
+}
 .add-show {
-  margin : 0cm 6cm 0cm 6cm;
+  margin : 0px 150px 0px 150px;
 }
 .form-group {
   padding-top: 30px;

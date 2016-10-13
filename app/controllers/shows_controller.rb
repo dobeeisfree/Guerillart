@@ -33,16 +33,16 @@ class ShowsController < ApplicationController
     show.creator_id = current_user.id
     if show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/dashboard/manage"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
     end
   end
 
-
   def edit
-    @one_show = Show.find(params[:show_id])
+    @one_show = Show.find(params[:id])
+    @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
 
     if @one_show.creator_id != current_user.id
       redirect_to "/shows"
@@ -66,7 +66,7 @@ class ShowsController < ApplicationController
 
     if @one_show.save
       flash[:alert] = "저장되었습니다"
-      redirect_to "/dashboard/guerillart"
+      redirect_to "/dashboard/manage"
     else
       flash[:alert] = "post.errors.values.flatten.join(' ')"
       redirect_to :back
@@ -75,14 +75,14 @@ class ShowsController < ApplicationController
 
   def destroy
     #저장된 이미지 파일등도 삭제해야 함
-    @one_show = Show.find(params[:show_id])
+    @one_show = Show.find(params[:id])
     if @one_show.creator_id != current_user.id
       redirect_to "/shows"
     end
 
     @one_show.destroy
-    redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
+    redirect_to "/dashboard/manage"
   end
 
   def starting
