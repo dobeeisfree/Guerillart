@@ -2,11 +2,13 @@
 <div class="ui basic modal nav" id="showFinish" value="">
   <i class="close icon"></i>
   <div class="header">공연종료</div>
-   	<div class="form-group">
-      <input type="submit" class="fluid ui inverted red button" id="finish" value="확인">
-    </div>
-  	<div class="footer" id="login_modal_footer"></div>
-  </form>
+  <div>
+    <label><%=current_user.playing_id%></label>
+  </div>
+ 	<div class="form-group">
+    <input type="submit" class="fluid ui inverted red button" id="finish" value="확인">
+  </div>
+	<div class="footer" id="login_modal_footer"></div>
 </div>
 
 <script>

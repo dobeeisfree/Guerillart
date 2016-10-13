@@ -2,7 +2,7 @@ class ShowsController < ApplicationController
   before_action :authenticate_user!, :only => [ :new, :create, :edit, :update, :destroy ]
 
   def index
-    @shows = Show.all
+    @shows = Show.paginate(:page => params[:page])
     @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
 
     # 분류를 위한 파람즈
@@ -83,11 +83,6 @@ class ShowsController < ApplicationController
     @one_show.destroy
     redirect_to "/dashboard/guerillart"
     flash[:alert] = "삭제되었습니다."
-  end
-
-  def show
-    # @show = Show.find(params[:id])
-    @show = Show.find_by(id: params[:id])
   end
 
   def starting
