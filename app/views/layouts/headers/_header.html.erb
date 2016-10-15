@@ -10,9 +10,10 @@
       <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "item" %>
       <%= link_to "계정관리", dashboard_profile_path, class: "item" %>
       <% if current_user.artist_name? %>
-      <% artist_name = current_user.artist_name %>
-      <%= link_to "공연등록", new_show_path, class: "item" %>
-      <a class="item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
+      <%= link_to "공연관리", dashboard_manage_path, class: "item" %>
+      <a class="item" href="/artists/<%=current_user.artist_name%>">
+        <%=current_user.artist_name%>페이지
+      </a>
       <% end %>
       <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "item" %>
     <% else %>
@@ -29,25 +30,24 @@
         <div class="right menu"> <!-- 오른쪽 Navbar -->
            <%= link_to "공연", shows_path, class: "ui item" %>
            <%= link_to "아티스트", artists_path, class: "ui item" %>
-
            <%if user_signed_in?%>
              <div class="ui right dropdown item">
-                <div class="ui simple dropdown">
-                    <div class="text"> <%= current_user.name%>님 </div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
-                    <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
-                    <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
-
-                    <% if current_user.artist_name? %>
-                    <% artist_name = current_user.artist_name %>
-                    <%= link_to "공연등록", new_show_path, class: "ui item" %>
-                    <a class="ui item" href="/artists/<%=artist_name%>"><%=artist_name%>페이지<input type="hidden" name="artist_name" value="artist_name"></a>
-                    <% end %>
-                    <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
-                  </div>
+              <div class="ui simple dropdown">
+                <div class="text"><%= current_user.name%>님 </div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <%= link_to "대쉬보드", dashboard_home_path, class: "ui item" %>
+                  <%= link_to "나의게릴라트", dashboard_guerillart_path, class: "ui item" %>
+                  <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
+                  <% if current_user.artist_name? %>
+                    <%= link_to "공연관리", dashboard_manage_path, class: "ui item" %>
+                    <a class="ui item" href="/artists/<%=current_user.artist_name%>">
+                      <%=current_user.artist_name%>페이지
+                    </a>
+                  <% end %>
+                  <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
                 </div>
+              </div>
              </div>
            <% else%>
 

@@ -19,4 +19,8 @@ class DashboardController < ApplicationController
     @currentPage = '계정관리';
   end
 
+  # 공연관리 페이지
+  def manage
+    @your_shows = Show.where(creator_id: current_user.id)
+  end
 end

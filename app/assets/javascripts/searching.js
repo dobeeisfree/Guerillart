@@ -267,23 +267,23 @@
       //gps 클릭시
       firstChild.addEventListener('click', function ()
       {
-          if (navigator.geolocation)
-          {
+        if (navigator.geolocation)
+        {
           navigator.geolocation.getCurrentPosition(function (position)
           {
-                globalMap.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 
-                (function(){
-                  centerMarker.setPosition(globalMap.getCenter());
-            updateMarkerBubbles();
-                })();
+            (function(){
+              marker.setPosition(map.getCenter());
+              updateMarkerBubbles();
+            })();
           });
         }
         else
         {
-              clearInterval(animationInterval);
-              secondChild.style['background-position'] = '0 0';
-          }
+          clearInterval(animationInterval);
+          secondChild.style['background-position'] = '0 0';
+        }
       });
 
       controlDiv.index = 1;
@@ -302,93 +302,93 @@
     sw = bounds.getSouthWest();
 
     //bounds와 center 좌표 searching#getBounds controller에 보내기
-      $(document).ready(function()
-      {
-          $.ajax({
-            method: "POST",
-            url: "/search?location="+"<%=@location%>",
-            data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng(), isDistOrder: isDistOrder },
-            dataType: 'json',
-            success: function(data){
+    $(document).ready(function()
+    {
+      $.ajax({
+        method: "POST",
+        url: "/search?location="+"<%=@location%>",
+        data: { ne_lat: ne.lat(), ne_lng: ne.lng(), sw_lat:sw.lat(), sw_lng:sw.lng(), ct_lat: center.lat(), ct_lng: center.lng(), isDistOrder: isDistOrder },
+        dataType: 'json',
+        success: function(data){
 
-                //모든 infobubble 삭제
-              clearMarkerBubbles();
+            //모든 infobubble 삭제
+          clearMarkerBubbles();
 
-              // alert("^^ "+JSON.stringify(data));
+          // alert("^^ "+JSON.stringify(data));
 
-          //센터 마커 이동
-          //centerMarker.setMap(globalMap);
-              // centerMarker.setPosition(center);
+      //센터 마커 이동
+      //centerMarker.setMap(globalMap);
+          // centerMarker.setPosition(center);
 
-              document.getElementById("s_right").innerHTML="";
-              // document.getElementById("right_list").innerHTML="";
-              for (var i = 0; i < data.length; i++)
-              {
+          document.getElementById("s_right").innerHTML="";
+          // document.getElementById("right_list").innerHTML="";
+          for (var i = 0; i < data.length; i++)
+          {
             //markerBubble 띄우기
             markerBubble = new InfoBubble({
-                map: globalMap,
-                  content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
-                  //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
-                  position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
-                  shadowStyle: 0,	//그림자 off
-                  padding: 0,
-                  minWidth: 20,
-                  minHeight: 23,
-                  maxWidth: 160,
-                  maxHeight: 50,
-                  backgroundColor: '#FFFF8F',
-                  //backgroundColor: 'transparent',
-                  borderRadius: 4,
-                  arrowSize: 10,
-                  borderWidth: 1,
-                  borderColor: '#000000',
-                  disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
-                  hideCloseButton: true,	//닫기 버튼 숨기기
-                  // backgroundClassName: 'phoney',
-                  arrowStyle: 0	//화살표 모양 (0 : 가운데)
-                });
-                markerBubble.open();
-                markerBubbleArray.push(markerBubble);
+              map: globalMap,
+              content: "<div class='phoney'>&nbsp;"+data[i].creator.artist_name+'&nbsp;&nbsp;</div>',
+              //content: "<div class='phoney'>&nbsp;"+"가나다라마바사아자차카타파하아야어여오여우유으이호호호히히히"+'&nbsp;</div>',
+              position: new google.maps.LatLng(data[i].location_x, data[i].location_y),
+              shadowStyle: 0,	//그림자 off
+              padding: 0,
+              minWidth: 20,
+              minHeight: 23,
+              maxWidth: 160,
+              maxHeight: 50,
+              backgroundColor: '#FFFF8F',
+              //backgroundColor: 'transparent',
+              borderRadius: 4,
+              arrowSize: 10,
+              borderWidth: 1,
+              borderColor: '#000000',
+              disableAutoPan: true,	//한 지점으로 계속 고정시키는 거
+              hideCloseButton: true,	//닫기 버튼 숨기기
+              // backgroundClassName: 'phoney',
+              arrowStyle: 0	//화살표 모양 (0 : 가운데)
+            });
+            markerBubble.open();
+            markerBubbleArray.push(markerBubble);
 
             //markerBubble 클릭시 infowindow 팝업
             (function(markerBubble, i)
             {
-                          google.maps.event.addDomListener(markerBubble.bubble_, 'click', function()
-                          {
-                            if(isMobile)
-                              {
-                                // centerMarker.setMap(null);
-                                globalMap.setCenter(markerBubble.getPosition());
-                                document.getElementById("over_info").style.width = '100%';
-                                document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].genre+"</h1>";
-                                 // document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
-                  // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
-                  // +'<div class="content" style="width: 50%; float: left;">'
-                    // +'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].title+'</div>'
-                    // +'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
-                    // +'<div class="footer">'
-                        // +'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].genre+'</div>'
-                        // +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
-                      // +'</div></div></div>;'
-                              }
-                              else
-                              {
-                              if (infowindow && closedMarkerBubble)
-                              {
-                        infowindow.close();
-                        closedMarkerBubble.open();
-                    }
-                    closedMarkerBubble = markerBubble;
-                    markerBubble.close();
+              google.maps.event.addDomListener(markerBubble.bubble_, 'click', function()
+              {
+                if(isMobile)
+                {
+                  // centerMarker.setMap(null);
+                  globalMap.setCenter(markerBubble.getPosition());
+                  document.getElementById("over_info").style.width = '100%';
+                  document.getElementById("over_artist").innerHTML =  "<h1>"+data[i].genre+"</h1>";
+                   // document.getElementById("over_info").innerHTML = '<div class="item" style="height: 100%;">'
+      // +'<img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/christian.jpg" style="width: 27%; height: 100%; float: left;">'
+      // +'<div class="content" style="width: 50%; float: left;">'
+        // +'<div class="header" style="font-weight: bold;">&nbsp;&nbsp;'+data[i].title+'</div>'
+        // +'<div class="body">&nbsp;&nbsp;'+data[i].creator.artist_name+'</div>'
+        // +'<div class="footer">'
+            // +'<div id="f_left" style="float: left; width: 76%;">&nbsp;&nbsp;'+data[i].genre+'</div>'
+            // +'<div id="f_right" style="float: right">'+ data[i].creator.fan_count +'</div>'
+          // +'</div></div></div>;'
+                }
+                else
+                {
+                  if (infowindow && closedMarkerBubble)
+                  {
+                    infowindow.close();
+                    closedMarkerBubble.open();
+                  }
+                  closedMarkerBubble = markerBubble;
+                  markerBubble.close();
 
-                                infowindow = new google.maps.InfoWindow({
-                                  content: "Hello, World!!" + data[i].creator.artist_name + "<br />"+"hi"
-                                });
-                                infowindow.open(globalMap, markerBubble);
-                              }
-                          // document.getElementById("over_info").style.height = '20%';
-                        });
-                      })(markerBubble, i);
+                  infowindow = new google.maps.InfoWindow({
+                    content: "Hello, World!!" + data[i].creator.artist_name + "<br />"+"hi"
+                  });
+                  infowindow.open(globalMap, markerBubble);
+                }
+            // document.getElementById("over_info").style.height = '20%';
+              });
+            })(markerBubble, i);
 
             if(!isMobile)
             {
@@ -404,15 +404,14 @@
                       // +'</div></div></div>;'
 
             }
-
-              }
-            },
-            error: function()
-            {
-              alert("Sorry, load failed T^T");
-            }
-          })
-      });
+          }
+        },
+        error: function()
+        {
+          alert("Sorry, load failed T^T");
+        }
+      })
+    });
 
 
     // alert(""+js_results+"<%=Time.now%>");
