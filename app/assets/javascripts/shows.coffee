@@ -17,18 +17,22 @@ jQuery(document).ready ->
     on: 'hover'
   });
 
-  # 공연 모달 사이즈를 가져온다
-  s = $('#show_cnt').val();
+
+  # 공연 모달을 할 인덱스를 가져옴
+  selected_modals = $('#selected_modals').val();
+  array = JSON.parse(selected_modals);
+
 
   # 공연 모달 함수 정의
   Show_Modal = (index) ->
     $('#view-modal-' + index ).on 'click', (event) =>
       $('.ui.view.small.modal.'+ index).modal('show');
 
+
   # 공연 모달 함수 쫙
   i = 0
-  while i<= s
-    Show_Modal(i)
+  while i<= array.length
+    Show_Modal(array[i])
     i++
 
 
@@ -54,13 +58,12 @@ jQuery(document).ready ->
       Clip(clip_url);
       $('#msg-copied-' + index).text("Copied!");
 
-  # 공연 모달 사이즈를 가져온다
-  s_func = $('#show_cnt').val();
+
 
   # 공연 모달 함수 부름
   i = 0
-  while i<= s_func
-    Modal_Func(i)
+  while i<= array.length
+    Modal_Func(array[i])
     i++
 
 
