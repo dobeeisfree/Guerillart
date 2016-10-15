@@ -1,7 +1,7 @@
 //index.html.erb
-.ui.subshow.menu {
-
-  border: none;
-  margin : 0 auto;
-
-}
+ .ui.borderless.menu {
+   background: #FAFAFA;
+   text-align: center;
+   border-radius: 0;
+   border: none;
+ }

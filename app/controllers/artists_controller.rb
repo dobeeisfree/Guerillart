@@ -17,6 +17,7 @@ class ArtistsController < ApplicationController
     if current_user.artist_name.present?
       redirect_to '/dashboard/home'
     end
+    @currentPage = '아티스트신청';
   end
 
   def create
