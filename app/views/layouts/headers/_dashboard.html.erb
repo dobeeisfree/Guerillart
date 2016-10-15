@@ -18,6 +18,7 @@ if (document.getElementById("width_container").offsetWidth <= 780)
 {
   var currentPage = '<%=controller.action_name%>';
   $('#'+currentPage).hide();
+  $('#only_mobile').removeAttr("href").css("cursor","pointer");
   console.log("hi")
 }
 else {
