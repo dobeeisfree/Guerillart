@@ -23,15 +23,51 @@
 }
 
  /* Mobile view 최적화*/
- a#pull {
+ a#sidebar-icon-1 {
    display: none;
  }
+ a#sidebar-icon-2 {
+   display: none;
+ }
+/* Galaxy tap view size is 768 px according to http://viewportsizes.com */
 
  @media screen and (max-width: 780px){
    .ui.secondary.menu .ui.item{
      width: 100%;
    }
-    a#pull {
+   .ui.borderless.menu {
+     width: 100%;
+     position: relative;
+    //  float: none;
+     display: inline-block;
+   }
+   /* positoin: absolute;를 넣어야 한다 하지만, 오류 생김..
+   참고: http://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown_hover*/
+   .ui.borderless.menu a.item.dropbtn{
+     display: none;
+     position: relative;
+     background-color: #f9f9f9;
+     width: 100%;
+     text-align: left;
+   }
+   .ui.borderless.menu a{
+     display: block;
+     position: relative;
+   }
+   .ui.borderless.menu a.item.dropbtn:hover {background-color: #f1f1f1}
+   .ui.borderless.menu:hover a.dropbtn {
+     display: block;
+   }
+  //  .ui.borderless.menu a.item{
+  //    width: 100%;
+  //    display: block;
+  //    text-align: left;
+  //  }
+
+    a#sidebar-icon-1 {
+     display: inline-block;
+   }
+    a#sidebar-icon-2 {
      display: inline-block;
    }
  }

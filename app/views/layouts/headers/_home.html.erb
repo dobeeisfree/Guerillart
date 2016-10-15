@@ -26,9 +26,7 @@
 <div class="pusher">
 <header class="ui container">
   <div class="ui secondary menu home" id="home-header">
-  <a class="item" id="hamburger">
-    <i class="content icon"></i>
-  </a>
+  <a class="item sidebar-icon" id="sidebar-icon-1"><i class="content icon"></i></a>
     <a class="ui item" href="/">GUERILLART</a>
     <div class="right menu"> <!-- 오른쪽 Navbar -->
       <!--공연 control-->
@@ -154,8 +152,8 @@
         <%= render :partial => "/devise/registrations/new" %>
         <%= render :partial => "/devise/passwords/new" %>
 
-        <a class="ui item" id="start_signup_modal">회원가입</a>
-        <a class="ui item" id="start_signin_modal">로그인</a>
+        <a class="ui item start_signup_modal">회원가입</a>
+        <a class="ui item start_signin_modal">로그인</a>
       <% end %>
     </div>
   </div>
@@ -174,11 +172,3 @@
     right: 0px;
   }
 </style>
-
-<script>
-$(function(){
-  $('#hamburger').click(function(){
-    $('.ui.sidebar').sidebar('toggle');
-  });
-});
-</script>
