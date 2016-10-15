@@ -21,6 +21,8 @@ class ShowsController < ApplicationController
 
   def show
     @show = Show.find(params[:id])
+    @show.view_count += 1
+    @show.save
   end
 
 
