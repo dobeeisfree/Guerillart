@@ -9,6 +9,7 @@ class ShowsController < ApplicationController
     @current_genre = params[:choose]
     if @current_genre.nil?
       @current_genre = "모아보기" # 디폴트로 모아보기
+
     end
 
     # 시간에 따른 공연 분류
@@ -16,6 +17,10 @@ class ShowsController < ApplicationController
     if @select_show.nil?
       @select_show = "다가오는 공연" # 디폴트로 다가오는 공연
     end
+  end
+
+  def show
+    @show = Show.find(params[:id])
   end
 
 
@@ -26,6 +31,7 @@ class ShowsController < ApplicationController
 
   def create
     @show = Show.new(show_param)
+    @show.creator_id = current_user.id
 
     if @show.save
       flash[:alert] = "저장되었습니다"
