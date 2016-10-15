@@ -81,17 +81,6 @@ class ShowsController < ApplicationController
     redirect_to "/dashboard/manage"
   end
 
-  private
-    # 아래의 파람즈 목록만 허용한다.
-    def show_param
-      params.require(:show).permit(:title, :start, :playlist, :location, :content, :genre)
-    end
-
-    def show_genre_names
-      @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
-      return @names
-    end
-
   def starting
 
     if current_user.playing_id == 0
@@ -196,5 +185,14 @@ class ShowsController < ApplicationController
 
   end #finish
 
+  private
+    # 아래의 파람즈 목록만 허용한다.
+    def show_param
+      params.require(:show).permit(:title, :start, :playlist, :location, :content, :genre)
+    end
 
+    def show_genre_names
+      @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+      return @names
+    end
 end
