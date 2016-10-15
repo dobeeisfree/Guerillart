@@ -19,8 +19,10 @@ if (document.getElementById("width_container").offsetWidth <= 780)
 {
   var currentPage = '<%=controller.action_name%>';
   $('#'+currentPage).hide();
+  console.log("hi")
 }
 else {
   $('#only_mobile').hide();
+  console.log("bye")
 }
 </script>
