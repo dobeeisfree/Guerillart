@@ -6,4 +6,4 @@
 </div>
 
 <%# 공연크기를 id="show_cnt"값에 담는다, show.coffee에서 사용%>
-<%= hidden_field_tag "show_cnt", "#{@shows.size}"  %>
+<%= hidden_field_tag "selected_modals", "#{@shows.all.ids}"  %>

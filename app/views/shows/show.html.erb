@@ -1,40 +1,32 @@
 <%= render partial: "/layouts/headers/header" %>
-<%= hidden_field_tag "show_view_id", "#{ @show.id }"%>
-<% @current_url = "http://localhost:3000/#{params[:controller]}/#{ @show.id }" %>
+<%= hidden_field_tag "show_view_id", "#{@show.id}" %>
+<%= hidden_field_tag "action_name", "#{controller.action_name}" %>
+
 <div class="view-body">
   <div class="ui shot container">
     <div class="ui shot header">
-      <a target="_blank" href="/artists/박효신">
-        <img class="ui small circular shot image"
-        src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
-      </a>
-      <p><%= @show.title %></p>
-      <% if @show.creator.nil? %>
-        <span>by  <a target="_blank" href="/artists/박효신">장범준</a>
-        </span>
-      <% else %>
-        <span>by  <a target="_blank" href="/artists/<%= @show.creator.artist_name %>">
-          <%= @show.creator.artist_name %></a>
-        </span>
+      <%= link_to("/artists/#{@show.creator.name}", target: "_blank" ) do  %>
+      <%# TODO 후에 avatar.url을 가져와야한다. %>
+        <%= image_tag ("https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg"), class: "ui small circular shot image" %>
       <% end %>
-      <small><%= @show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일") %></small>
+      <p><%= @show.title %></p>
+      <span>by  <a target="_blank" href="/artists/<%= @show.creator.name %>">
+        <%= @show.creator.name %></a>
+      </span>
+      <small><%= @show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년 %m월 %d일") %></small>
     </div>
 
-    <%#등록된 공연 포스터의 url을 가져온다%>
+    <%# 등록된 공연 포스터의 url을 가져온다%>
     <img class="ui fluid shot image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg">
-
     <div class="ui shot content">
       <h4>공연정보</h4>
       <i class="marker icon"></i> <%= @show.location %><br>
-      <i class="checked calendar icon"></i> <%= @show.start %>, <%= @show.date %><br>
+      <i class="checked calendar icon"></i> <%= @show.start.in_time_zone("Asia/Seoul").strftime("%Y년 %m월 %d일") %><br>
       <i class="info icon"></i> <%= @show.genre %><br>
-
-      <h4>플레이리스트</h4>
-        <%= @show.playlist %>
+      <h4>플레이리스트</h4> <%= @show.playlist %>
       <br>
 
       <div class="ui fluid basic buttons">
-        <!-- 좋아요 = 꼭 보러갈래요, 로그인 한사람만 가능한 기능 -->
         <% unless current_user.nil? %>
           <% if current_user.is_like?(@show) %>
            <a href="/<%= params[:controller] %>/<%= @show.id %>/like" class="ui button">
@@ -48,27 +40,17 @@
            </a>
           <% end %>
         <% end %>
-        <!--트위터 -->
-        <a
-           id="popup-<%= @show.id %>"
-           target="_blank"
-           class="ui button twitter-share-button"
-           href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= @show.title %>&url=<%= @current_url %>"
-           data-size="large">
+        <%
+          @twt_show = "https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 #{@show.title}&url=#{request.url}"
+          @fb_show = "https://www.facebook.com/sharer/sharer.php?u=#{request.url}"
+        %>
+        <a id="popup-<%=@show.id %>" target="_blank" class="ui button twitter-share-button" href="<%=@twt_show%>">
            <i class="twitter icon"></i>
         </a>
-        <!-- 페이스북 -->
-        <a
-          target="_blank"
-          class="ui button"
-          href="https://www.facebook.com/sharer/sharer.php?u=<%= @current_url %>">
+        <a target="_blank" class="ui button" href="<%=@fb_show%>">
           <i class="facebook f icon"></i>
         </a>
-        <!-- url 복사하기 -->
-        <button class="ui button"
-          data-tooltip="링크를 복사하세요!" data-position="top center"
-          id="clipboard-url-<%= @show.id %>"
-          data-clipboard-text="<%= @current_url %>">
+        <button class="ui button" data-tooltip="링크를 복사하세요!" data-position="top center" id="clipboard-url-<%= @show.id %>" data-clipboard-text="<%=request.url%>">
           <i class="copy icon"></i>
           <small id="msg-copied-<%= @show.id %>"></small>
         </button>

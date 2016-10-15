@@ -2,25 +2,42 @@ class ShowsController < ApplicationController
   before_action :authenticate_user!, :only => [ :new, :create, :edit, :update, :destroy ]
 
   def index
-    @shows = Show.paginate(:page => params[:page])
+
+    if params[:choose].to_s.blank? && params[:select_show].to_s.blank?
+      # 디폴트
+      @shows = Show.where.not(status: 2) # 종료 제외
+    else
+      # 서브바 필터 클릭 시
+      case params[:choose]
+      when "모아보기"
+        puts "모아보기"
+        @shows = Show.where.not(status: 2) # 종료 제외
+      when params[:choose]
+        puts params[:choose]
+        @shows = Show.where(genre: params[:choose])
+      end
+
+      case params[:select_show]
+      when "실시간 공연"
+        @shows = Show.where(status: 1) # 진행 중
+        puts @shows
+      when "다가오는 공연"
+        @shows = Show.where(status: 0) # 예정
+        puts @shows
+      end
+
+    end
+
+    # 페이지네이션 적용한 @shows
+    @shows = @shows.paginate(:page => params[:page])
     show_genre_names
 
-    # 분류를 위한 파람즈
-    @current_genre = params[:choose]
-    if @current_genre.nil?
-      @current_genre = "모아보기" # 디폴트로 모아보기
-
-    end
-
-    # 시간에 따른 공연 분류
-    @select_show = params[:select_show]
-    if @select_show.nil?
-      @select_show = "다가오는 공연" # 디폴트로 다가오는 공연
-    end
   end
 
   def show
     @show = Show.find(params[:id])
+    @show.view_count += 1
+    @show.save
   end
 
 
@@ -80,17 +97,6 @@ class ShowsController < ApplicationController
     flash[:alert] = "삭제되었습니다."
     redirect_to "/dashboard/manage"
   end
-
-  private
-    # 아래의 파람즈 목록만 허용한다.
-    def show_param
-      params.require(:show).permit(:title, :start, :playlist, :location, :content, :genre)
-    end
-
-    def show_genre_names
-      @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
-      return @names
-    end
 
   def starting
 
@@ -196,5 +202,14 @@ class ShowsController < ApplicationController
 
   end #finish
 
+  private
+    # 아래의 파람즈 목록만 허용한다.
+    def show_param
+      params.require(:show).permit(:title, :start, :playlist, :location, :content, :genre)
+    end
 
+    def show_genre_names
+      @names = ["힙합/랩", "R&B/소울", "댄스", "일렉트로닉", "록", "재즈", "클래식", "팝"]
+      return @names
+    end
 end
