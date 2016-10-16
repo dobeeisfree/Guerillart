@@ -44,7 +44,6 @@ class ShowsController < ApplicationController
   def new
     @show = Show.new
     show_genre_names
-    @currentPage = '공연관리'
   end
 
   def create
@@ -63,7 +62,6 @@ class ShowsController < ApplicationController
   def edit
     @one_show = Show.find(params[:id])
     show_genre_names
-    @currentPage = '공연관리'
 
     if @one_show.creator_id != current_user.id
       redirect_to "/shows"

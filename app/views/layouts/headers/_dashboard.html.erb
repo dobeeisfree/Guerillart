@@ -1,5 +1,8 @@
 <div class="ui container" id="width_container">
   <div class="ui borderless menu">
+    <% if controller.controller_name == 'shows' %>
+    <% @currentPage = '공연관리' %>
+    <% end %>
     <a class="item btn" id="only_mobile" href="/<%= controller.controller_name %>/<%=controller.action_name%>">
       <%=@currentPage%>
     </a>
