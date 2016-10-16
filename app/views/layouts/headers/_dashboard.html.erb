@@ -1,28 +1,22 @@
 <div class="ui container" id="width_container">
   <div class="ui borderless menu">
-      <a class="item btn" id="only_mobile"href="/<%= controller.controller_name %>/<%=controller.action_name%>"><%=@currentPage%></a>
+    <% if controller.controller_name == 'shows' %>
+    <% @currentPage = '공연관리' %>
+    <% end %>
+    <a class="item btn" id="only_mobile" href="/<%= controller.controller_name %>/<%=controller.action_name%>">
+      <%=@currentPage%>
+    </a>
+    <a class="item dropbtn" id="mob-home" href="/dashboard/home" method="get">대쉬보드</a>
+    <a class="item dropbtn" id="mob-guerillart" href="/dashboard/guerillart" method="get">나의게릴라트</a>
+    <a class="item dropbtn" id="mob-profile"  href="/dashboard/profile" method="get">계정관리</a>
+    <% if current_user.artist_name %>
+      <a class="item dropbtn" id="mob-manage" href="/dashboard/manage" method="get">공연관리</a>
+    <% else %>
+      <a class="item dropbtn" id="mob-new" href="/artists/new" method="get">아티스트 신청서</a>
+    <% end %>
 
-      <a class="item dropbtn" id="home" href="/dashboard/home" method="get">대쉬보드</a>
-      <a class="item dropbtn" id="guerillart" href="/dashboard/guerillart" method="get">나의게릴라트</a>
-      <a class="item dropbtn" id="profile"  href="/dashboard/profile" method="get">계정관리</a>
-      <% if current_user.artist_name %>
-        <a class="item dropbtn" id="manage" href="/dashboard/manage" method="get">공연관리</a>
-      <% else %>
-        <a class="item dropbtn" href="/artists/new" method="get">아티스트 신청서</a>
-      <% end %>
+    <%= hidden_field_tag "action_name", "#{controller.action_name}"  %>
+    <%= hidden_field_tag "controller_name", "#{controller.controller_name}"  %>
 
   </div>
 </div>
-<script>
-if (document.getElementById("width_container").offsetWidth <= 780)
-{
-  var currentPage = '<%=controller.action_name%>';
-  $('#'+currentPage).hide();
-  $('#only_mobile').removeAttr("href").css("cursor","pointer");
-  console.log("hi")
-}
-else {
-  $('#only_mobile').hide();
-  console.log("bye")
-}
-</script>
