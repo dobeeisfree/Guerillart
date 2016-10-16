@@ -4,7 +4,7 @@ class CreateShows < ActiveRecord::Migration
       t.string :title
       t.string :content
       t.string :genre
-      t.integer :view_count
+      t.integer :view_count, default: 0
       t.integer :attend_count
       t.string :date
       t.datetime :start

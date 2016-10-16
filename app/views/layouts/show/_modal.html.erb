@@ -1,27 +1,21 @@
 <%#개별 뷰와 모달은 분리해서 만들겠습니다 %>
 <%#이 파일은 공연페이지의 모든 모달을 불러옵니다 %>
 <% @shows.each do |show| %>
-<% @current_url = "http://localhost:3000/#{params[:controller]}/#{ show.id }" %>
   <div class="ui view small modal <%= show.id %>">
     <i class="close icon"></i>
 
     <div class="header">
-      <% if show.creator.nil? %>
-      <a href="/artists/박효신" target="_blank"><!-- 공연작성자의 마이페이지로 이동 -->
-        <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
-      </a>
-      <% else %>
-      <a href="/artists/<%= show.creator.artist_name %>" target="_blank"><!-- 공연작성자의 마이페이지로 이동 -->
-        <img class="ui small circular image" src="https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg">
-      </a>
+      <%= link_to("/artists/#{show.creator.name}", target: "_blank" ) do  %>
+      <%# TODO 후에 avatar.url을 가져와야한다. %>
+        <%= image_tag ("https://i1.sndcdn.com/avatars-000138106130-hidund-t500x500.jpg"), class: "ui small circular shot image" %>
       <% end %>
       <p class="header"><%= show.title %></p>
       <% if show.creator.nil? %>
       <small><a target="_blank" href="/artists/박효신">장범준</a></small>
       <% else %>
-      <small><a target="_blank" href="/artists/<%= show.creator.artist_name %>"><%= show.creator.artist_name %></a></small>
+      <small><a target="_blank" href="/artists/<%= show.creator.name %>"><%= show.creator.name %></a></small>
       <% end %>
-      <small><%= show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일") %></small>
+      <small><%= show.updated_at.in_time_zone("Asia/Seoul").strftime("%Y년 %m월 %d일") %></small>
     </div>
 
     <div class="ui fluid image">
@@ -46,7 +40,7 @@
         </div>
         <div class="item">
           <i class="checked calendar icon"></i>
-          <div class="content"><%= show.start %></div>
+          <div class="content"><%= show.start.in_time_zone("Asia/Seoul").strftime("%Y년 %m월 %d일") %></div>
         </div>
         <div class="item">
           <i class="info icon"></i>
@@ -60,44 +54,36 @@
     </div>
 
     <div class="ui fluid basic buttons">
-      <!-- 좋아요 = 꼭 보러갈래요, 로그인 한사람만 가능한 기능 -->
       <% unless current_user.nil? %>
         <% if current_user.is_like?(show) %>
-         <a href="/shows/<%= show.id %>/like" class="ui button">
+         <a href="/<%= params[:controller] %>/<%=show.id%>/like" class="ui button">
            <i class="heart icon"></i>
-           <%= show.likes.size %>
+           <%=show.likes.size %>
          </a>
         <% else %>
-         <a href="/shows/<%= show.id %>/like" class="ui button">
+         <a href="/<%= params[:controller] %>/<%=show.id%>/like" class="ui button">
            <i class="empty heart icon"></i>
-           <%= show.likes.size %>
+           <%=show.likes.size %>
          </a>
         <% end %>
       <% end %>
-      <!--트위터 -->
-      <a
-         id="popup-<%= show.id %>"
-         target="_blank"
-         class="ui button twitter-share-button"
-         href="https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 <%= show.title %>&url=<%= @current_url %>"
-         data-size="large">
+
+      <%
+        share_url = "#{request.protocol}#{request.host_with_port}/#{params[:controller]}/#{show.id}"
+        @twt_show = "https://twitter.com/intent/tweet?text=실시간 공연, %23게릴라트 #{show.title}&url=#{share_url}"
+        @fb_show = "https://www.facebook.com/sharer/sharer.php?u=#{share_url}"
+      %>
+      <a id="popup-<%=show.id %>" target="_blank" class="ui button twitter-share-button" href="<%=@twt_show%>">
          <i class="twitter icon"></i>
       </a>
-      <!-- 페이스북 -->
-      <a
-        target="_blank"
-        class="ui button"
-        href="https://www.facebook.com/sharer/sharer.php?u=<%= @current_url %>">
+      <a target="_blank" class="ui button" href="<%=@fb_show%>">
         <i class="facebook f icon"></i>
       </a>
-      <!-- url 복사하기 -->
-      <button class="ui button"
-        data-tooltip="링크를 복사하세요!" data-position="top center"
-        id="clipboard-url-<%= show.id %>"
-        data-clipboard-text="<%= @current_url %>">
+      <button class="ui button" data-tooltip="링크를 복사하세요!" data-position="top center" id="clipboard-url-<%=show.id %>" data-clipboard-text="<%=share_url%>">
         <i class="copy icon"></i>
-        <small id="msg-copied-<%= show.id %>"></small>
+        <small id="msg-copied-<%=show.id %>"></small>
       </button>
     </div>
   </div>
 <% end %>
+<%= hidden_field_tag "action_name", "#{controller.action_name}" %>

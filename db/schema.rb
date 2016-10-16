@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20160824065551) do
     t.string   "title"
     t.string   "content"
     t.string   "genre"
-    t.integer  "view_count"
+    t.integer  "view_count",   default: 0
     t.integer  "attend_count"
     t.string   "date"
     t.datetime "start"
