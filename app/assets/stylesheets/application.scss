@@ -18,9 +18,9 @@
   메인 home을 제외한, 헤더들, 모달들
 */
  /* Side bar 실행 이후 Background 유지 */
- .dimmable.pushable > .pusher {
-  background: #f4f4f4;
-}
+//  .dimmable.pushable > .pusher {
+//   background: #f4f4f4;
+// }
 
  /* Mobile view 최적화*/
  a#sidebar-icon-1 {
@@ -32,6 +32,9 @@
 /* Galaxy tap view size is 768 px according to http://viewportsizes.com */
 
  @media screen and (max-width: 780px){
+   .right.menu {
+     width: 100%;
+   }
    .ui.secondary.menu .ui.item{
      width: 100%;
    }
