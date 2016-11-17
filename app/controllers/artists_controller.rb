@@ -76,4 +76,7 @@ class ArtistsController < ApplicationController
   def search
     @user = User.find_by(artist_name: params[:artist_name])
   end
+
+  def show
+  end
 end

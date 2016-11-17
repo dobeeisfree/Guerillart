@@ -33,6 +33,30 @@
       <div class="ui secondary menu general-header" id="general-header">
         <a class="item sidebar-icon" id="sidebar-icon-2"><i class="content icon"></i></a>
         <a class="ui item" href="/">GUERILLART</a>
+        <!-- 검색시작 -->
+        <% if controller.controller_name + controller.action_name == "artistsindex" || controller.controller_name + controller.action_name == "showsindex" %>
+          <% if controller.controller_name == "artists" %>
+            <% redirect = "artists/search"
+               params = "artist_name"
+               current_word = "아티스트"
+            %>
+          <% else %>
+            <% redirect = "search"
+               params = "location"
+               current_word = "위치"
+            %>
+          <% end %>
+          <div class="item">
+            <div class="ui transparent icon input">
+              <form action="/<%=redirect-%>" method="get">
+              <input type="text" name="<%=params%>" placeholder="<%=current_word%>를 검색해보세요.">
+              <i class="search link icon"></i>
+              </form>
+            </div>
+          </div>
+        <% end %>
+        <!-- 검색종료 -->
+
         <div class="right menu"> <!-- 오른쪽 Navbar -->
           <!--공연등록 시작-->
           <% if controller.action_name == "index" && controller.controller_name == "home" %>
