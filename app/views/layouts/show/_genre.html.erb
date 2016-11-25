@@ -2,16 +2,16 @@
 <div class="ui view container">
   <div class="ui special cards" id="show-genres">
   <% @shows.reverse.each do |show| %>
-    <div class="card">
+    <div class="card" id="view-modal-<%= show.id %>">
       <div class="blurring dimmable image">
         <div class="ui inverted dimmer">
           <div class="content">
             <div class="center">
-              <div class="ui primary button" id="view-modal-<%= show.id %>">더보기</div>
+              <div class="ui inverted button">더보기</div>
             </div>
           </div>
         </div>
-        <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg" />
+        <img class="ui fluid image" src="/images/portfolio/<%= (1..12).to_a.sample %>.jpg"/>
       </div>
       <div class="content">
         <a class="header"><%= show.title %></a>
