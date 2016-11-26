@@ -4,19 +4,20 @@
       <div class="ui special cards" id="show-genres">
         <div class="ui cards">
 
-          <% if @user.artist_name %>
-          <% artist_name = @user.artist_name %>
+         <% @users.each do |user| %>
+          <% if user.artist_name %>
+          <% artist_name = user.artist_name %>
             <div class="card">
-              <% if @user.avatar.url %>
+              <% if user.avatar.url %>
                 <div class="blurring dimmable image">
-                  <div class="ui dimmer"> 
+                  <div class="ui dimmer">
                     <div class="content">
                       <div class="center">
                         <div class="ui inverted button">팔로잉</div>
                       </div>
                     </div>
                   </div>
-                  <img src="<%=@user.avatar.url%>">
+                  <img src="<%=user.avatar.url%>">
                 </div>
               <% else %>
                 <div class="blurring dimmable image">
@@ -32,16 +33,17 @@
               <% end %>
 
               <div class="content">
-                <a class="header" href="/artists/name/<%=@user.artist_name%>"><%=@user.artist_name%><input type="hidden" name="artist_name" value="<%=@user.artist_name%>"></a>
+                <a class="header" href="/artists/<%=user.artist_name%>"><%=user.artist_name%><input type="hidden" name="artist_name" value="<%=user.artist_name%>"></a>
                 <div class="meta">
-                  <%=@user.genre%>
+                  <%=user.genre%>
                 </div>
                 <div class="description">
-                 <%=@user.introduction%>
+                 <%=user.introduction%>
                 </div>
               </div>
             </div>
           <% end %>
+         <% end %>
 
         </div>
       </div>
