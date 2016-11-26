@@ -11,9 +11,15 @@
       <%= link_to "계정관리", dashboard_profile_path, class: "item" %>
       <% if current_user.artist_name? %>
       <%= link_to "공연관리", dashboard_manage_path, class: "item" %>
+<%
+=begin
+%>
       <a class="item" href="/artists/<%=current_user.artist_name%>">
         <%=current_user.artist_name%>페이지
       </a>
+<%
+=end
+%>
       <% end %>
       <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "item" %>
     <% else %>
@@ -27,7 +33,125 @@
       <div class="ui secondary menu general-header" id="general-header">
         <a class="item sidebar-icon" id="sidebar-icon-2"><i class="content icon"></i></a>
         <a class="ui item" href="/">GUERILLART</a>
+        <!-- 검색시작 -->
+        <% if controller.controller_name + controller.action_name == "artistsindex" || controller.controller_name + controller.action_name == "showsindex" %>
+          <% if controller.controller_name == "artists" %>
+            <% redirect = "artists/search"
+               params = "artist_name"
+               current_word = "아티스트"
+            %>
+          <% else %>
+            <% redirect = "search"
+               params = "location"
+               current_word = "위치"
+            %>
+          <% end %>
+          <div class="item">
+            <div class="ui transparent icon input">
+              <form action="/<%=redirect-%>" method="get">
+              <input type="text" name="<%=params%>" placeholder="<%=current_word%>를 검색해보세요.">
+              <i class="search link icon"></i>
+              </form>
+            </div>
+          </div>
+        <% end %>
+        <!-- 검색종료 -->
+
         <div class="right menu"> <!-- 오른쪽 Navbar -->
+          <!--공연등록 시작-->
+          <% if controller.action_name == "index" && controller.controller_name == "home" %>
+            <!--공연 control-->
+            <% if user_signed_in? and current_user.artist_name.present? %>
+
+              <!-- 현재 공연중이라면 -->
+              <% if current_user.playing_id != 0 %>
+                <%= render :partial => "/shows/finish" %>
+                <a class="ui item" style="color: red;" id="start_showFinish_modal">종료하기</a>
+
+                <script>
+                  document.getElementById('start_showFinish_modal').onclick = function() {
+                    $('.ui.basic.modal.nav#showFinish').modal('show');
+                  }
+                </script>
+              <!-- 공연중이 아니라면 -->
+              <% else %>
+                <%= render :partial => "/shows/start" %>
+
+                <script>
+                console.log('<%=current_user.playing_id%>');
+                </script>
+
+                <div class="ui right dropdown item">
+                  <div class="ui simple dropdown">
+                    <div class="text" style="color: yellow;">시작하기</div>
+                    <i class="dropdown icon" style="color: yellow;"></i>
+                      <div class="menu">
+                        <div class="item st" value="0">즉석 공연</div>
+                        <div class="divider"></div>
+                        <!-- 예정 공연 검색 -->
+                        <% Show.index %>
+                        <% @res_search = Show.search do %>
+                          <% all_of do %>
+                            <% with(:creator_id, current_user.id) %>
+                            <% with(:status, 0) %>
+                          <% end %>
+                        <% end %>
+
+                        <!-- 시간순 정렬-->
+                        <% @res_search.results.sort! { |a, b| a.start <=> b.start }.each do |show| %>
+                          <% if (show.start - 1.hour <= Time.now) and (Time.now <= show.start + 30.minute) %>
+                              <div class="item st" value='<%= show.id %>'><%= show.start.strftime("%Y.%m.%d %H:%M") %> 공연 </div>
+                          <% else %>
+                              <div class="disabled item st" value='<%= show.id %>'><%= show.start.strftime("%Y.%m.%d %H:%M") %> 공연 </div>
+                          <% end %>
+                        <% end %>
+
+                      </div>
+                  </div>
+                <script>
+                // $('.ui.simple.dropdown')
+                //   .dropdown('bind mouse events'){
+                //     console.log("hover");
+                //   }
+
+                  // .dropdown({
+                  //   action: function(text, value) {
+                  //     console.log("hover");
+                  //   }
+                  // })
+                // ;
+                </script>
+
+                </div>
+
+                <!--각 공연 버튼 클릭 리스너 -->
+                <script>
+                  $('.item.st').click(function(){
+                    var show_id = $(this).attr('value');
+                    console.log("item st : " + show_id);
+                    $.ajax({
+                      type: "POST",
+                      url: "/shows/starting",
+                      data: { show_id: show_id},
+                      success: function(result){
+                        $('.ui.basic.modal.nav#showStart').modal('show');
+                        var pos_input = $('input[name=pos-input]');
+                        pos_input.focus();
+                        pos_input.val('');
+                        if(show_id != 0)  //예정 공연의 미리 입력된 장소
+                          pos_input.val(result.location);
+                        initMap(show_id);
+                      }
+                    });
+                  });
+
+                </script>
+
+              <% end %> <!-- 공연진행 여부 End -->
+            <% end %> <!-- 공연 controll End-->
+          <% end %>
+
+          <!-- 공연등록 끝 -->
            <%= link_to "공연", shows_path, class: "ui item" %>
            <%= link_to "아티스트", artists_path, class: "ui item" %>
            <%if user_signed_in?%>
@@ -41,9 +165,15 @@
                   <%= link_to "계정관리", dashboard_profile_path, class: "ui item" %>
                   <% if current_user.artist_name? %>
                     <%= link_to "공연관리", dashboard_manage_path, class: "ui item" %>
+<%
+=begin
+%>
                     <a class="ui item" href="/artists/<%=current_user.artist_name%>">
                       <%=current_user.artist_name%>페이지
                     </a>
+<%
+=end
+%>
                   <% end %>
                   <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
                 </div>

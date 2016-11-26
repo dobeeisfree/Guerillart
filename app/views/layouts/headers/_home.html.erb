@@ -11,6 +11,8 @@
       <%= link_to "계정관리", dashboard_profile_path, class: "item" %>
       <% if current_user.artist_name? %>
         <%= link_to "공연관리", dashboard_manage_path, class: "item" %>
+
+
         <a class="item" href="/artists/<%=current_user.artist_name%>">
           <%=current_user.artist_name%>페이지
         </a>
@@ -136,9 +138,11 @@
 
               <% if current_user.artist_name? %>
                 <%= link_to "공연관리", dashboard_manage_path, class: "ui item" %>
+
                 <a class="ui item" href="/artists/<%=current_user.artist_name%>">
                   <%=current_user.artist_name%>페이지
                 </a>
+
               <% end %>
               <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "ui item" %>
             </div>
@@ -158,7 +162,7 @@
     </div>
   </div>
 </header>
-</div>
+<!-- </div> -->
 
 <!-- nav modal 스타일 -->
 <style>

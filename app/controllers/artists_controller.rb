@@ -74,6 +74,9 @@ class ArtistsController < ApplicationController
   end
 
   def search
-    @user = User.find_by(artist_name: params[:artist_name])
+    @users = User.where("artist_name LIKE ?", "%#{params[:artist_name]}%")
+  end
+
+  def show
   end
 end
