@@ -24,3 +24,6 @@
 /log/*.log.lck
 /solr/development
 /solr/default/data
+
+# Ignore IDE files
+/.idea/*
