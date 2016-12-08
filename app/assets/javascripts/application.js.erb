@@ -156,3 +156,11 @@ $(function(){
     $(".ui.borderless.menu").attr("display","inline-block")
   });
 });
+
+/*Feedback which page you are in*/
+$(function(){
+  var page = $(action_name).val();
+  $('.ui.borderless.menu').ready(function(){
+    $('#' + "mob" + "-" + page ).addClass("active");
+  });
+});
