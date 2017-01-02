@@ -26,3 +26,11 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+Guerillart was one of the project of LIKELION X SSU in 2016. For the project, Guerillart team consisted with Seokho Won, Jihoon Kim and Jubee Hwang.
+
+All of the member contributed to this project. It was develeoped from July, 2016 to January, 2017. 
+
+All the rights deseverd by All the member. If you do want to use any of this, you should ask us. 
+
+THANK YOU ALL! 
