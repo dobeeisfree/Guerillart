@@ -37,7 +37,7 @@ class SearchingController < ApplicationController
 
       @results.sort! { |a, b| a.dist <=> b.dist }
     end
-
+	
     render :json => @results.to_json(:include => :creator)
 
     # render :json => @results.to_json(:include => :creator { :only => :artist_name } )
